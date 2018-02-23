@@ -28,8 +28,19 @@
                     <div *ngIf="modelo.horaInicio && modelo.horaFin" class="row">
                         <div class="col-12">
                             <plex-select [(ngModel)]="modelo.tipoPrestaciones" name="modelo.tipoPrestaciones" label="Tipos de prestación" (getData)="loadTipoPrestaciones($event)"
-                                idField="term" [multiple]="true" [required]="true" (change)="cambioPrestaciones()" labelField="term + preferido">
+                                idField="term" [multiple]="true" [closeAfterSelect]="true" [required]="true" (change)="cambioPrestaciones()"
+                                labelField="term + preferido">
                             </plex-select>
+                            <div *ngIf="modelo.tipoPrestaciones && modelo.tipoPrestaciones.length > 0 && conceptoPreferidoSeleccionado">
+                                <ul>
+                                    <ng-container *ngFor="let preferido of preferidos">
+                                        <li>{{ preferido.term }}
+                                            <button class="btn btn-sm btn-success">☐</button>
+                                        </li>
+                                        <!-- ☑ -->
+                                    </ng-container>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="modelo.horaInicio && modelo.horaFin" class="row">

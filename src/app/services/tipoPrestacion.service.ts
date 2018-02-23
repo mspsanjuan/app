@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { Server } from '@andes/shared';
+import { IPrestacion } from '../interfaces/turnos/IPrestacion';
 
 @Injectable()
 export class TipoPrestacionService {
@@ -11,6 +12,14 @@ export class TipoPrestacionService {
     // private tipoPrestacionUrl = '/core/term/snomed';  // URL to web api
 
     constructor(private server: Server) { }
+
+
+    preferidos(id: any): Observable<ITipoPrestacion[]> {
+        return this.server.get(this.tipoPrestacionUrl, { params: { id: id }, showError: true }).map(conceptos => {
+            console.log(conceptos);
+            return conceptos;
+        });
+    }
 
     /**
      * Metodo get. Trae el objeto tipoPrestacion.
@@ -32,7 +41,7 @@ export class TipoPrestacionService {
                     nombre: element.term,
                     acceptability: element.acceptability,
                     // nombrePreferido: (element.acceptability && element.acceptability.conceptId && element.acceptability.conceptId === '900000000000548007') ? '' : '(' + preferido.term + ')'
-                    preferido: preferido.term !== element.term ? '(' + preferido.term + ' ★)' : '★'
+                    preferido: preferido.term === element.term ? '★' : ''
                 });
             });
 
@@ -112,4 +121,5 @@ export class TipoPrestacionService {
         });
         return data.length > 0 ? data[0] : null;
     }
+
 }

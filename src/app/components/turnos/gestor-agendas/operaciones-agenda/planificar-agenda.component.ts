@@ -21,6 +21,7 @@ import { ITipoPrestacion } from '../../../../interfaces/ITipoPrestacion';
     ]
 })
 export class PlanificarAgendaComponent implements OnInit {
+    conceptoPreferidoSeleccionado: any;
     hideGuardar: boolean;
     subscriptionID: any;
     espaciosList: any[];
@@ -53,6 +54,7 @@ export class PlanificarAgendaComponent implements OnInit {
     showMapaEspacioFisico = false;
     prestacionesPermitidas: ITipoPrestacion[];
     prestacionesAux: ITipoPrestacion[];
+    preferidos: any;
 
     constructor(public plex: Plex, public servicioProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService, public OrganizacionService: OrganizacionService,
         public ServicioAgenda: AgendaService, public servicioTipoPrestacion: TipoPrestacionService, public auth: Auth) { }
@@ -82,6 +84,7 @@ export class PlanificarAgendaComponent implements OnInit {
     }
 
     loadTipoPrestaciones(event) {
+
         this.servicioTipoPrestacion.get({}).subscribe((data) => {
 
             this.prestacionesPermitidas = data.filter(x => {
@@ -299,6 +302,18 @@ export class PlanificarAgendaComponent implements OnInit {
         }
     }
 
+    seleccionarPreferido() {
+        this.conceptoPreferidoSeleccionado = true;
+
+        // let id = this.modelo.tipoPrestaciones.find(x => x.preferido === false).conceptId;
+
+
+        // this.servicioTipoPrestacion.preferidos(id).subscribe(preferidos => {
+        //     this.preferidos = preferidos;
+        // });
+
+    }
+
     cambioPrestaciones() {
 
         // this.modelo.tipoPrestaciones.forEach((item) => {
@@ -315,53 +330,53 @@ export class PlanificarAgendaComponent implements OnInit {
         //     });
         // }
 
-        console.log(this.modelo.tipoPrestaciones);
-        console.log(this.modelo.tipoPrestaciones);
-        console.log(this.modelo.tipoPrestaciones.length === this.prestacionesPermitidas.length);
 
 
-
-
+        this.seleccionarPreferido();
         if (this.modelo.bloques.length === 0) {
             this.addBloque();
             this.bloqueActivo = 0;
             this.elementoActivo.horaInicio = this.modelo.horaInicio;
             this.elementoActivo.horaFin = this.modelo.horaFin;
         } else {
-            this.modelo.bloques.forEach((bloque) => {
-                // Si se elimino una prestación, la saco de los bloques
-                if (bloque.tipoPrestaciones) {
-                    bloque.tipoPrestaciones.forEach((bloquePrestacion, index) => {
-                        if (this.modelo.tipoPrestaciones) {
-                            const tipo = this.modelo.tipoPrestaciones.find(x => x.nombre === bloquePrestacion.nombre);
-                            const i = this.modelo.tipoPrestaciones.indexOf(tipo);
-                            if (i < 0) {
-                                bloque.tipoPrestaciones.splice(index, 1);
-                                if (bloque.tipoPrestaciones.length === 1) {
-                                    bloque.tipoPrestaciones[0].activo = true;
+            console.log('params', this.modelo.tipoPrestaciones.find(x => x.preferido === false));
+
+            if (this.conceptoPreferidoSeleccionado && this.preferidos.length > 0) {
+                this.modelo.bloques.forEach((bloque) => {
+                    // Si se elimino una prestación, la saco de los bloques
+                    if (bloque.tipoPrestaciones) {
+                        bloque.tipoPrestaciones.forEach((bloquePrestacion, index) => {
+                            if (this.modelo.tipoPrestaciones) {
+                                const tipo = this.modelo.tipoPrestaciones.find(x => x.nombre === bloquePrestacion.nombre);
+                                const i = this.modelo.tipoPrestaciones.indexOf(tipo);
+                                if (i < 0) {
+                                    bloque.tipoPrestaciones.splice(index, 1);
+                                    if (bloque.tipoPrestaciones.length === 1) {
+                                        bloque.tipoPrestaciones[0].activo = true;
+                                    }
                                 }
+                            } else {
+                                bloque.tipoPrestaciones = [];
                             }
-                        } else {
-                            bloque.tipoPrestaciones = [];
-                        }
-                    });
-                }
-                // Si se agrego una prestacion, la agrego a los bloques
-                if (this.modelo.tipoPrestaciones) {
-                    this.modelo.tipoPrestaciones.forEach((prestacion) => {
-                        let copiaPrestacion = operaciones.clonarObjeto(prestacion);
-                        copiaPrestacion.activo = false;
-                        const tipo = bloque.tipoPrestaciones.find(x => x.nombre === copiaPrestacion.nombre);
-                        const i = bloque.tipoPrestaciones.indexOf(tipo);
-                        if (i < 0) {
-                            bloque.tipoPrestaciones.push(copiaPrestacion);
-                        }
-                    });
-                }
-                if (bloque.tipoPrestaciones.length === 1) {
-                    bloque.tipoPrestaciones[0].activo = true;
-                }
-            });
+                        });
+                    }
+                    // Si se agrego una prestacion, la agrego a los bloques
+                    if (this.modelo.tipoPrestaciones) {
+                        this.modelo.tipoPrestaciones.forEach((prestacion) => {
+                            let copiaPrestacion = operaciones.clonarObjeto(prestacion);
+                            copiaPrestacion.activo = false;
+                            const tipo = bloque.tipoPrestaciones.find(x => x.nombre === copiaPrestacion.nombre);
+                            const i = bloque.tipoPrestaciones.indexOf(tipo);
+                            if (i < 0) {
+                                bloque.tipoPrestaciones.push(copiaPrestacion);
+                            }
+                        });
+                    }
+                    if (bloque.tipoPrestaciones.length === 1) {
+                        bloque.tipoPrestaciones[0].activo = true;
+                    }
+                });
+            }
         }
     }
 
