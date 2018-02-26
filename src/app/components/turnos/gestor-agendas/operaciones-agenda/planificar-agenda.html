@@ -28,16 +28,24 @@
                     <div *ngIf="modelo.horaInicio && modelo.horaFin" class="row">
                         <div class="col-12">
                             <plex-select [(ngModel)]="modelo.tipoPrestaciones" name="modelo.tipoPrestaciones" label="Tipos de prestación" (getData)="loadTipoPrestaciones($event)"
-                                idField="term" [multiple]="true" [closeAfterSelect]="true" [required]="true" (change)="cambioPrestaciones()"
+                                idField="term" [multiple]="true" [closeAfterSelect]="true" [required]="true" (change)="seleccionarPreferido($event)"
                                 labelField="term + preferido">
+                                <!--  (change)="cambioPrestaciones()" -->
                             </plex-select>
                             <div *ngIf="modelo.tipoPrestaciones && modelo.tipoPrestaciones.length > 0 && conceptoPreferidoSeleccionado">
-                                <ul>
+                                <b>Término preferido:</b>
+                                <ul class="list-group">
                                     <ng-container *ngFor="let preferido of preferidos">
-                                        <li>{{ preferido.term }}
-                                            <button class="btn btn-sm btn-success">☐</button>
+                                        <li class="ml-1">
+                                            <label class="custom-control custom-radio">
+                                                <input class="custom-control-input" name="radioConceptos" value="{{ preferido.conceptId }}" type="radio" checked="{{ preferido.preferido ? 'checked' : ''}}">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description"> {{ preferido.term }}
+                                                    <span *ngIf="preferido.preferido">☆</span>
+                                                </span>
+                                            </label>
+                                            <!-- :trollface: -->
                                         </li>
-                                        <!-- ☑ -->
                                     </ng-container>
                                 </ul>
                             </div>

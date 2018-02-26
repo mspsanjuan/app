@@ -41,7 +41,7 @@ export class TipoPrestacionService {
                     nombre: element.term,
                     acceptability: element.acceptability,
                     // nombrePreferido: (element.acceptability && element.acceptability.conceptId && element.acceptability.conceptId === '900000000000548007') ? '' : '(' + preferido.term + ')'
-                    preferido: preferido.term === element.term ? '★' : ''
+                    preferido: preferido.term === element.term ? '☆' : ''
                 });
             });
 

@@ -182,6 +182,7 @@ export class PlanificarAgendaComponent implements OnInit {
 
     inicializarPrestacionesBloques(bloque) {
         if (this.modelo.tipoPrestaciones) {
+
             this.modelo.tipoPrestaciones.forEach((prestacion, index) => {
                 const copiaPrestacion = operaciones.clonarObjeto(prestacion);
                 if (bloque.tipoPrestaciones) {
@@ -302,15 +303,16 @@ export class PlanificarAgendaComponent implements OnInit {
         }
     }
 
-    seleccionarPreferido() {
+    seleccionarPreferido(concepto) {
         this.conceptoPreferidoSeleccionado = true;
 
-        // let id = this.modelo.tipoPrestaciones.find(x => x.preferido === false).conceptId;
+        this.preferidos = this.prestacionesPermitidas.filter(x => x.conceptId === concepto.value[0].conceptId);
 
+        if (!this.modelo.tipoPrestaciones.find(x => x === concepto)) {
+            this.modelo.tipoPrestaciones.push(this.prestacionesPermitidas.find(y => y.conceptId === concepto.value[0].conceptId && y.acceptability.conceptId === '900000000000548007'));
+        }
 
-        // this.servicioTipoPrestacion.preferidos(id).subscribe(preferidos => {
-        //     this.preferidos = preferidos;
-        // });
+        this.cambioPrestaciones();
 
     }
 
@@ -330,16 +332,19 @@ export class PlanificarAgendaComponent implements OnInit {
         //     });
         // }
 
-
-
-        this.seleccionarPreferido();
+        // No hay bloques?
         if (this.modelo.bloques.length === 0) {
+            // Agrego bloque
             this.addBloque();
+
+            // Lo activo
             this.bloqueActivo = 0;
+
+            // Configuro hora inicio y hora fin del bloque
             this.elementoActivo.horaInicio = this.modelo.horaInicio;
             this.elementoActivo.horaFin = this.modelo.horaFin;
-        } else {
-            console.log('params', this.modelo.tipoPrestaciones.find(x => x.preferido === false));
+
+        } else { // Ya hay bloques?
 
             if (this.conceptoPreferidoSeleccionado && this.preferidos.length > 0) {
                 this.modelo.bloques.forEach((bloque) => {
