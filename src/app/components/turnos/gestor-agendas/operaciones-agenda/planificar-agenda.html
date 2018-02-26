@@ -33,17 +33,15 @@
                                 <!--  (change)="cambioPrestaciones()" -->
                             </plex-select>
                             <div *ngIf="modelo.tipoPrestaciones && modelo.tipoPrestaciones.length > 0 && conceptoPreferidoSeleccionado">
-                                <b>Término preferido:</b>
+                                <b>Sinónimos:</b>
                                 <ul class="list-group">
                                     <ng-container *ngFor="let preferido of preferidos">
-                                        <li class="ml-1">
-                                            <label class="custom-control custom-radio">
-                                                <input class="custom-control-input" name="radioConceptos" value="{{ preferido.conceptId }}" type="radio" checked="{{ preferido.preferido ? 'checked' : ''}}">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description"> {{ preferido.term }}
-                                                    <span *ngIf="preferido.preferido">☆</span>
-                                                </span>
-                                            </label>
+                                        <li>
+                                            <!-- <input class="custom-control-input" name="radioConceptos" value="{{ preferido.conceptId }}" type="radio" checked="{{ preferido.preferido ? 'checked' : ''}}"> -->
+                                            <!-- <span class="custom-control-indicator"></span> -->
+                                            <span class="custom-control-description" [ngClass]="{'font-weight-bold': preferido.preferido}"> {{ preferido.term }}
+                                                <!-- <span *ngIf="preferido.preferido">☆</span> -->
+                                            </span>
                                             <!-- :trollface: -->
                                         </li>
                                     </ng-container>

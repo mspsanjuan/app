@@ -182,6 +182,7 @@ export class PlanificarAgendaComponent implements OnInit {
 
     inicializarPrestacionesBloques(bloque) {
         if (this.modelo.tipoPrestaciones) {
+            this.modelo.tipoPrestaciones = this.modelo.tipoPrestaciones.filter(y => y.acceptability.conceptId === '900000000000548007');
 
             this.modelo.tipoPrestaciones.forEach((prestacion, index) => {
                 const copiaPrestacion = operaciones.clonarObjeto(prestacion);
@@ -345,6 +346,8 @@ export class PlanificarAgendaComponent implements OnInit {
             this.elementoActivo.horaFin = this.modelo.horaFin;
 
         } else { // Ya hay bloques?
+
+            this.modelo.tipoPrestaciones = this.modelo.tipoPrestaciones.filter(y => y.acceptability.conceptId === '900000000000548007');
 
             if (this.conceptoPreferidoSeleccionado && this.preferidos.length > 0) {
                 this.modelo.bloques.forEach((bloque) => {
