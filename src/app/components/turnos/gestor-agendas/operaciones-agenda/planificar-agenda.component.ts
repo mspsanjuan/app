@@ -335,7 +335,7 @@ export class PlanificarAgendaComponent implements OnInit {
             this.elementoActivo.horaInicio = this.modelo.horaInicio;
             this.elementoActivo.horaFin = this.modelo.horaFin;
 
-        } else { // Ya hay bloques? / 
+        } else { // Ya hay bloques?
             if (this.modelo.tipoPrestaciones && this.modelo.tipoPrestaciones.length > 0) {
                 this.modelo.tipoPrestaciones = this.modelo.tipoPrestaciones.filter(y => y.acceptability.conceptId === '900000000000548007');
             }
