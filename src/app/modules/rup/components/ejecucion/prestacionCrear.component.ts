@@ -39,11 +39,12 @@ export class PrestacionCrearComponent implements OnInit {
             this.location.back();
         }
         // Carga tipos de prestaciones permitidas para el usuario
-        this.servicioTipoPrestacion.get({ conceptsIds: this.auth.getPermissions('rup:tipoPrestacion:?') }).subscribe(data => {
+        this.servicioTipoPrestacion.get({ conceptIds: this.auth.getPermissions('rup:tipoPrestacion:?') }, false).subscribe(data => {
 
             if (data && data.length <= 0) {
                 this.location.back();
             }
+
             this.tiposPrestacion = data;
         });
     }

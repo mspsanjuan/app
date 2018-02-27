@@ -85,7 +85,7 @@ export class PlanificarAgendaComponent implements OnInit {
 
     loadTipoPrestaciones(event) {
 
-        this.servicioTipoPrestacion.get({}).subscribe((data) => {
+        this.servicioTipoPrestacion.get({}, true).subscribe((data) => {
 
             this.prestacionesPermitidas = data.filter(x => {
                 return this.auth.check('turnos:planificarAgenda:prestacion:' + x.id);
@@ -305,36 +305,26 @@ export class PlanificarAgendaComponent implements OnInit {
     }
 
     seleccionarPreferido(concepto) {
-        this.conceptoPreferidoSeleccionado = true;
 
-        this.preferidos = this.prestacionesPermitidas.filter(x => x.conceptId === concepto.value[0].conceptId);
+        if (concepto.value && concepto.value.length) {
+            this.conceptoPreferidoSeleccionado = true;
 
-        if (!this.modelo.tipoPrestaciones.find(x => x === concepto)) {
-            this.modelo.tipoPrestaciones.push(this.prestacionesPermitidas.find(y => y.conceptId === concepto.value[0].conceptId && y.acceptability.conceptId === '900000000000548007'));
+            this.preferidos = this.prestacionesPermitidas.filter(x => x.conceptId === concepto.value[0].conceptId);
+
+            if (!this.modelo.tipoPrestaciones.find(x => x === concepto)) {
+                this.modelo.tipoPrestaciones.push(this.prestacionesPermitidas.find(y => y.conceptId === concepto.value[0].conceptId && y.acceptability.conceptId === '900000000000548007'));
+            }
+
         }
-
         this.cambioPrestaciones();
 
     }
 
     cambioPrestaciones() {
 
-        // this.modelo.tipoPrestaciones.forEach((item) => {
-        //     let preferido = this.servicioTipoPrestacion.searchPreferido(item, this.prestacionesPermitidas);
-        //     if (!item.preferido && preferido && preferido.term !== item.term) {
-        //         item.preferido = true;
-        //     }
-        // });
-
-
-        // if (this.modelo && this.modelo.tipoPrestaciones && this.modelo.tipoPrestaciones.length > 0) {
-        //     this.prestacionesPermitidas = this.prestacionesPermitidas.filter(x => {
-        //         return this.modelo.tipoPrestaciones.find(y => y.conceptId !== x.conceptId);
-        //     });
-        // }
-
         // No hay bloques?
         if (this.modelo.bloques.length === 0) {
+
             // Agrego bloque
             this.addBloque();
 
@@ -345,12 +335,14 @@ export class PlanificarAgendaComponent implements OnInit {
             this.elementoActivo.horaInicio = this.modelo.horaInicio;
             this.elementoActivo.horaFin = this.modelo.horaFin;
 
-        } else { // Ya hay bloques?
+        } else { // Ya hay bloques? / 
+            if (this.modelo.tipoPrestaciones && this.modelo.tipoPrestaciones.length > 0) {
+                this.modelo.tipoPrestaciones = this.modelo.tipoPrestaciones.filter(y => y.acceptability.conceptId === '900000000000548007');
+            }
 
-            this.modelo.tipoPrestaciones = this.modelo.tipoPrestaciones.filter(y => y.acceptability.conceptId === '900000000000548007');
-
-            if (this.conceptoPreferidoSeleccionado && this.preferidos.length > 0) {
+            if (this.preferidos.length > 0) {
                 this.modelo.bloques.forEach((bloque) => {
+
                     // Si se elimino una prestación, la saco de los bloques
                     if (bloque.tipoPrestaciones) {
                         bloque.tipoPrestaciones.forEach((bloquePrestacion, index) => {
@@ -368,7 +360,8 @@ export class PlanificarAgendaComponent implements OnInit {
                             }
                         });
                     }
-                    // Si se agrego una prestacion, la agrego a los bloques
+
+                    // Si se agrego una prestación, la agrego a los bloques
                     if (this.modelo.tipoPrestaciones) {
                         this.modelo.tipoPrestaciones.forEach((prestacion) => {
                             let copiaPrestacion = operaciones.clonarObjeto(prestacion);
@@ -380,11 +373,13 @@ export class PlanificarAgendaComponent implements OnInit {
                             }
                         });
                     }
+
                     if (bloque.tipoPrestaciones.length === 1) {
                         bloque.tipoPrestaciones[0].activo = true;
                     }
                 });
             }
+
         }
     }
 
