@@ -63,7 +63,7 @@ export class PuntoInicioComponent implements OnInit {
             if (!this.auth.profesional.id) {
                 this.redirect('inicio');
             } else {
-                this.servicioTipoPrestacion.get({ conceptsIds: this.auth.getPermissions('rup:tipoPrestacion:?') }).subscribe(data => {
+                this.servicioTipoPrestacion.get({ conceptIds: this.auth.getPermissions('rup:tipoPrestacion:?') }).subscribe(data => {
                     if (data && data.length <= 0) {
                         this.redirect('inicio');
                     }

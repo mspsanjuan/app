@@ -155,7 +155,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                                 }
                             }
 
-                            this.servicioTipoPrestacion.get({ conceptsIds: [this.prestacion.solicitud.tipoPrestacion.conceptId] }).subscribe(sinonimos => {
+                            this.servicioTipoPrestacion.get({ conceptIds: [this.prestacion.solicitud.tipoPrestacion.conceptId] }).subscribe(sinonimos => {
                                 this.sinonimos = sinonimos;
                             });
 
