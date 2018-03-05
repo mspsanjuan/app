@@ -60,7 +60,18 @@
                         </div>
                     </fieldset>
                 </header>
+                <div class="row">
+                    <!-- Botón suspender agenda -->
+                    <div class="col">
+                        <plex-button type="danger" label="Suspender"></plex-button>
+                    </div>
+                    <!-- Botón auditar agenda ( cuando está vacia ) -->
+                    <div *ngIf="cantidadTurnosAsignados === 0" class="col">
+                        <plex-button type="info" label="Auditar Todo"></plex-button>
+                    </div>
 
+                </div>
+                <hr>
                 <table *ngFor="let bloque of agenda.bloques" class="table table-striped">
                     <thead *ngIf="bloque.descripcion">
                         <tr>
