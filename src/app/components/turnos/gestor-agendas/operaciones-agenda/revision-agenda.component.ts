@@ -49,6 +49,7 @@ export class RevisionAgendaComponent implements OnInit {
     @Output() selected: EventEmitter<any> = new EventEmitter<any>();
     @Output() escaneado: EventEmitter<any> = new EventEmitter<any>();
 
+    public cantidadTurnosAsignados: number;
     public showReparo = false;
     existeCodificacionProfesional: Boolean;
     showRevisionAgenda: Boolean = true;
@@ -82,8 +83,23 @@ export class RevisionAgendaComponent implements OnInit {
         public servicePaciente: PacienteService) {
     }
 
+
     ngOnInit() {
+        // verificamos la cant. de turnos asignados que tiene la agenda
+        let turnosAsignados = [];
+        for (let i = 0; i < this.agenda.bloques.length; i++) {
+            turnosAsignados = turnosAsignados.concat(this.agenda.bloques[i].turnos);
+        }
+        if (this.agenda.sobreturnos) {
+            turnosAsignados = turnosAsignados.concat(this.agenda.sobreturnos);
+        }
+        turnosAsignados = turnosAsignados.filter(turno => {
+            return (turno.paciente && turno.paciente.id);
+        });
+        this.cantidadTurnosAsignados = turnosAsignados.length;
+        console.log(this.cantidadTurnosAsignados);
     }
+
 
     buscarPaciente() {
         this.showRegistrosTurno = false;
