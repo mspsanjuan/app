@@ -63,11 +63,11 @@
                 <div class="row">
                     <!-- Botón suspender agenda -->
                     <div class="col">
-                        <plex-button type="danger" label="Suspender"></plex-button>
+                        <plex-button type="danger" label="Suspender" (click)="suspenderAgenda()"></plex-button>
                     </div>
                     <!-- Botón auditar agenda ( cuando está vacia ) -->
                     <div *ngIf="cantidadTurnosAsignados === 0" class="col">
-                        <plex-button type="info" label="Auditar Todo"></plex-button>
+                        <plex-button type="info" label="Auditar Todo" (click)=auditarAgendaVacia()></plex-button>
                     </div>
 
                 </div>

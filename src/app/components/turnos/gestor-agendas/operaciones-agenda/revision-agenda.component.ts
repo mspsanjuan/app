@@ -402,5 +402,33 @@ export class RevisionAgendaComponent implements OnInit {
         this.modoCompleto = true;
         this.refresh();
     }
+    /**
+     * SOLO PARA AGENDAS "VACIAS"
+     * Permite setear el estado de agendas vacias a auditada, y redirige al gestor
+     * 
+     * @memberof RevisionAgendaComponent
+     */
+    auditarAgendaVacia() {
+        let patch = {
+            'op': this.estadoCodificado.id,
+            'estado': this.estadoCodificado.id
+        };
+        this.serviceAgenda.patch(this._agenda.id, patch).subscribe(resultado => {
+            this.plex.toast('success', 'El estado de la agenda fue actualizado', 'Auditada');
+            this.volverAlGestor.emit(true);
+        });
+    }
+
+    suspenderAgenda() {
+
+        let patch = {
+            'op': 'suspendida',
+            'estado': 'suspendida'
+        };
+        this.serviceAgenda.patch(this._agenda.id, patch).subscribe(resultado => {
+            this.plex.toast('success', 'El estado de la agenda fue actualizado', 'Suspendida');
+            this.volverAlGestor.emit(true);
+        });
+    }
 
 }
