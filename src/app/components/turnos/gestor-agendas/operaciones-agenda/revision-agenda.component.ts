@@ -233,7 +233,7 @@ export class RevisionAgendaComponent implements OnInit {
     }
 
     borrarDiagnostico(index) {
-        if (this.diagnosticos[index].codificacionProfesional === null) {
+        if (!this.diagnosticos[index].codificacionProfesional.snomed.term) {
             this.diagnosticos.splice(index, 1);
         } else {
             this.diagnosticos[index].codificacionAuditoria = null;
@@ -241,6 +241,7 @@ export class RevisionAgendaComponent implements OnInit {
         if (index === 0) {
             this.plex.toast('warning', 'Información', 'El diagnostico principal fue eliminado');
         }
+        this.onSave();
     }
 
     aprobar(index) {
@@ -405,7 +406,7 @@ export class RevisionAgendaComponent implements OnInit {
     /**
      * SOLO PARA AGENDAS "VACIAS"
      * Permite setear el estado de agendas vacias a auditada, y redirige al gestor
-     * 
+     *
      * @memberof RevisionAgendaComponent
      */
     auditarAgendaVacia() {
