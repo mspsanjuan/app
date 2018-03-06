@@ -307,7 +307,7 @@
                                 </div>
 
                                 <!-- Reparo -->
-                                <div *ngIf="turnoSeleccionado && diagnosticos[indiceReparo]?.codificacionProfesional?.snomed && showReparo">
+                                <div *ngIf="turnoSeleccionado && diagnosticos[indiceReparo]?.codificacionProfesional?.snomed?.term && showReparo">
                                     <div class="row">
                                         <div class="col">
                                             <h3>Codificación del profesional</h3>
@@ -328,7 +328,6 @@
                                         <div class="col-8">
                                             <Label textWrap="true">Seleccionar código reparo Cie10</Label>
                                             <buscador-cie10 (seleccionEmit)="repararDiagnostico($event)"></buscador-cie10>
-
                                         </div>
                                     </div>
                                 </div>
