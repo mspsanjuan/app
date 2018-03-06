@@ -65,9 +65,9 @@
                     <div class="col">
                         <plex-button type="danger" label="Suspender" (click)="suspenderAgenda()"></plex-button>
                     </div>
-                    <!-- Botón auditar agenda ( cuando está vacia ) -->
-                    <div *ngIf="cantidadTurnosAsignados === 0" class="col">
-                        <plex-button type="info" label="Auditar Todo" (click)=auditarAgendaVacia()></plex-button>
+                    <!-- Botón auditar agenda ( disponible cuando está vacía ) -->
+                    <div *ngIf="cantidadTurnosAsignados === 0 && agenda.estado!='auditada'" class="col">
+                        <plex-button type="info" label="Auditar Agenda" (click)=auditarAgendaVacia()></plex-button>
                     </div>
 
                 </div>

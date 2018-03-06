@@ -405,7 +405,7 @@ export class RevisionAgendaComponent implements OnInit {
     /**
      * SOLO PARA AGENDAS "VACIAS"
      * Permite setear el estado de agendas vacias a auditada, y redirige al gestor
-     * 
+     *
      * @memberof RevisionAgendaComponent
      */
     auditarAgendaVacia() {
