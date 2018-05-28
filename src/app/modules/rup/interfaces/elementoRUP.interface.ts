@@ -38,6 +38,7 @@ export interface IElementoRUP {
             columns: Number,
             cssClass: String
         },
+        permisos: String [];
         // Indica parámetros para la instancia del elementoRUP en formato {key: value}
         params: any
     }];

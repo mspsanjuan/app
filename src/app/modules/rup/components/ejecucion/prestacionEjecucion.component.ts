@@ -1002,6 +1002,26 @@ export class PrestacionEjecucionComponent implements OnInit {
         return false;
     }
 
+    /**
+     * Chequea los permisos de modificación de un elemento RUP
+     * @param concepto
+     */
+
+    checkPermisosElementoRUP (concepto) {
+        if (this.elementoRUP.requeridos.length > 0) {
+            let elemento = this.elementoRUP.requeridos.find(x => x.concepto.conceptId === concepto.conceptId);
+            if (elemento && elemento.permisos && elemento.permisos.length > 0) {
+                for (let p of elemento.permisos) {
+                    if (!this.auth.check(p.toString())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
 
 
     /**
