@@ -980,7 +980,7 @@ export class PrestacionEjecucionComponent implements OnInit {
         }
     }
     // recibe el tab que se clikeo y lo saca del array..
-    cerrartab($event) {
+    cerrarTab($event) {
         this.registrosHuds.splice($event, 1);
     }
 
@@ -989,19 +989,15 @@ export class PrestacionEjecucionComponent implements OnInit {
     }
 
     /**
-     *
+     * Determina si un concepto es obligatorio de la prestación. Por ende no se puede borrar.
      * @param concepto
      * recibe un concepto y retorna si existe en los requeridos o no;
      */
-    existe(concepto) {
-        let existe;
+
+    esObligatorio (concepto) {
         if (this.elementoRUP.requeridos.length > 0) {
-            existe = this.elementoRUP.requeridos.find(x => x.concepto.conceptId === concepto.conceptId);
-            if (existe) {
-                return true;
-            } else {
-                return false;
-            }
+            let existe = this.elementoRUP.requeridos.find(x => x.concepto.conceptId === concepto.conceptId);
+            return !!existe;
         }
         return false;
     }

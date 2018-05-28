@@ -41,7 +41,7 @@
 
 
                     <tabs [options]="{dragScroll: false, trim: 30, fixFirstOnScroll: true , canClose: true , tabFixed: true}" [hidden]="showDatosSolicitud"
-                        (_tab)="cerrartab($event)">
+                        (_tab)="cerrarTab($event)">
 
                         <tab [tabTitle]="(prestacion.ejecucion.registros && prestacion.ejecucion.registros.length) ? 'Registros de esta consulta (' + prestacion.ejecucion.registros.length + ')' : 'Registros de esta consulta '">
 
@@ -133,7 +133,7 @@
                                                             [items]="itemsRegistros[registro.id]?.items" title="Vincular registro"></plex-dropdown>
                                                     </ng-container>
 
-                                                    <a *ngIf="!existe(registro.concepto);" href="javascript:void(0);" title="Quitar de la consulta" (click)="confirmarEliminarRegistro(registro, 'card')"
+                                                    <a *ngIf="!esObligatorio(registro.concepto);" href="javascript:void(0);" title="Quitar de la consulta" (click)="confirmarEliminarRegistro(registro, 'card')"
                                                         class="btn btn-sm btn-danger eliminar">
                                                         <i class="mdi mdi-delete"></i>
                                                         <i class="mdi mdi-delete-empty"></i>
