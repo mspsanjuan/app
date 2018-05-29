@@ -1020,7 +1020,7 @@ export class PrestacionEjecucionComponent implements OnInit {
             }
             return true;
         }
-        return false;
+        return true;
     }
 
 
