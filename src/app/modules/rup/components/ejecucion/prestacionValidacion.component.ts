@@ -18,6 +18,7 @@ import { Slug } from 'ng2-slugify';
 import { saveAs } from 'file-saver';
 import * as moment from 'moment';
 import 'rxjs/Rx';
+import { EjecucionService } from './ejecucion.service';
 
 @Component({
     selector: 'rup-prestacionValidacion',
@@ -96,7 +97,9 @@ export class PrestacionValidacionComponent implements OnInit {
 
     public nombreArchivo = '';
 
-    constructor(private servicioPrestacion: PrestacionesService,
+    constructor(
+        private ejecucionService: EjecucionService,
+        private servicioPrestacion: PrestacionesService,
         private frecuentesProfesionalService: FrecuentesProfesionalService,
         public elementosRUPService: ElementosRUPService,
         private servicioPaciente: PacienteService, private SNOMED: SnomedService,
@@ -129,6 +132,11 @@ export class PrestacionValidacionComponent implements OnInit {
         // this.zone.runOutsideAngular(() => {
         //     console.log(22);
         // });
+    }
+
+    irA(id) {
+        this.ejecucionService.prestacionOrigen = null;
+        this.router.navigate(['rup/ejecucion/' + id]);
     }
 
     redirect(pagina: string) {

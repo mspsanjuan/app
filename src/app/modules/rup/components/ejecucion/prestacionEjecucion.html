@@ -43,6 +43,10 @@
                     <tabs [options]="{dragScroll: false, trim: 30, fixFirstOnScroll: true , canClose: true , tabFixed: true}" [hidden]="showDatosSolicitud"
                         (_tab)="cerrarTab($event)">
 
+                        <tab *ngIf="elementoRUP.multiprestacion" [tabTitle]="'Prestaciones hijas'">
+                            <tab-multiprestacion [prestacion]="prestacion" [elementoRUP]="elementoRUP"></tab-multiprestacion>
+                        </tab>
+
                         <tab [tabTitle]="(prestacion.ejecucion.registros && prestacion.ejecucion.registros.length) ? 'Registros de esta consulta (' + prestacion.ejecucion.registros.length + ')' : 'Registros de esta consulta '">
 
                             <div class="row" *ngIf="prestacion.ejecucion && prestacion.ejecucion.registros && prestacion.ejecucion.registros.length">

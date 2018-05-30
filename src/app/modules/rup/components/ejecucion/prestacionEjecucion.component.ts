@@ -15,6 +15,7 @@ import { PrestacionesService } from './../../services/prestaciones.service';
 import { AgendaService } from './../../../../services/turnos/agenda.service';
 import { ConceptObserverService } from './../../services/conceptObserver.service';
 import { IPaciente } from './../../../../interfaces/IPaciente';
+import { EjecucionService } from './ejecucion.service';
 
 @Component({
     selector: 'rup-prestacionEjecucion',
@@ -96,6 +97,7 @@ export class PrestacionEjecucionComponent implements OnInit {
     public collapse = true;
 
     constructor(
+        private ejecucionService: EjecucionService,
         private servicioPrestacion: PrestacionesService,
         public elementosRUPService: ElementosRUPService,
         public plex: Plex, public auth: Auth,
@@ -147,7 +149,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                             // Muestra los registros (y los colapsa)
                             this.mostrarDatosEnEjecucion();
 
-                            if (this.elementoRUP.requeridos.length > 0) {
+                            if (this.elementoRUP.requeridos.length > 0 && !this.elementoRUP.multiprestacion) {
                                 for (let elementoRequerido of this.elementoRUP.requeridos) {
                                     this.elementosRUPService.coleccionRetsetId[String(elementoRequerido.concepto.conceptId)] = elementoRequerido.params;
                                     let registoExiste = this.prestacion.ejecucion.registros.find(registro => registro.concepto.conceptId === elementoRequerido.concepto.conceptId);
@@ -160,10 +162,16 @@ export class PrestacionEjecucionComponent implements OnInit {
                                     }
                                 }
                             }
+                            this.elementosRUPService.guiada(this.prestacion.solicitud.tipoPrestacion.conceptId).subscribe((grupos) => {
+                                this.grupos_guida = grupos;
+                            });
+                            console.log(this.ejecucionService.prestacionOrigen);
+                            // if (this.elementoRUP.multiprestacion) {
+                            //     this.ejecucionService.prestacionOrigen = this.prestacion.id;
+                            // } else {
+                            //     this.ejecucionService.prestacionOrigen = null;
+                            // }
                         }
-                        this.elementosRUPService.guiada(this.prestacion.solicitud.tipoPrestacion.conceptId).subscribe((grupos) => {
-                            this.grupos_guida = grupos;
-                        });
 
                     }, (err) => {
                         if (err) {

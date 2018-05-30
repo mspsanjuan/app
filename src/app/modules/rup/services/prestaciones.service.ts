@@ -550,7 +550,7 @@ export class PrestacionesService {
      * @returns {*} Prestacion
      * @memberof PrestacionesService
      */
-    inicializarPrestacion(paciente: any, snomedConcept: any, momento: String = 'solicitud', ambitoOrigen = 'ambulatorio', fecha: Date = new Date(), turno: any = null): any {
+    inicializarPrestacion(paciente: any, snomedConcept: any, momento: String = 'solicitud', ambitoOrigen = 'ambulatorio', fecha: Date = new Date(), turno: any = null, perteneceA: any = null): any {
         let prestacion = {
             paciente: {
                 id: paciente.id,
@@ -631,7 +631,9 @@ export class PrestacionesService {
                 tipo: 'pendiente'
             };
         }
-
+        if (perteneceA) {
+            prestacion['perteneceA'] = perteneceA;
+        }
         prestacion.paciente['_id'] = paciente.id;
         prestacion['solicitud'].ambitoOrigen = ambitoOrigen;
 
@@ -641,6 +643,16 @@ export class PrestacionesService {
     crearPrestacion(paciente: any, snomedConcept: any, momento: String = 'solicitud', fecha: any = new Date(), turno: any = null): Observable<any> {
         let prestacion = this.inicializarPrestacion(paciente, snomedConcept, momento, 'ambulatorio', fecha, turno);
         return this.post(prestacion);
+    }
+
+    /**
+     * Crea una prestación hija de una prestación multiprestación
+     * @param prestacion
+     * @param snomedConcept
+     */
+    crearPrestacionHija(prestacion: IPrestacion, snomedConcept: any) {
+        let _prestacion = this.inicializarPrestacion(prestacion.paciente, snomedConcept, 'ejecucion', prestacion.solicitud.ambitoOrigen, new Date(), null, prestacion.id);
+        return this.post(_prestacion);
     }
 
     validarPrestacion(prestacion, planes): Observable<any> {

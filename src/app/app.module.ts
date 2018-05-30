@@ -79,6 +79,7 @@ import { SmsService } from './services/turnos/sms.service';
 import { ConfigPrestacionService } from './services/turnos/configPrestacion.service';
 import { TipoPrestacionService } from './services/tipoPrestacion.service';
 import { ObraSocialService } from './services/obraSocial.service';
+import { EjecucionService } from './modules/rup/components/ejecucion/ejecucion.service';
 
 // ... Usuarios
 import { UsuarioService } from './services/usuarios/usuario.service';
@@ -222,6 +223,7 @@ import { SeguimientoDelPesoComponent } from './modules/rup/components/elementos/
 import { InformesComponent } from './modules/rup/components/elementos/informe.component';
 import { TabsComponent } from './modules/rup/components/ejecucion/huds-tabs/tabs/tabs.component';
 import { TabComponent } from './modules/rup/components/ejecucion/huds-tabs/tabs/tab.component';
+import { MultiprestacionTabComponent } from './modules/rup/components/ejecucion/huds-tabs/multiprestacion.component';
 import { IngresoInternacionComponent } from './modules/rup/components/elementos/ingresoInternacion.component';
 import { OtoemisionAcusticaDeOidoDerechoComponent } from './modules/rup/components/elementos/otoemisionAcusticaDeOidoDerecho.component';
 import { OtoemisionAcusticaDeOidoIzquierdoComponent } from './modules/rup/components/elementos/otoemisionAcusticaDeOidoIzquierdo.component';
@@ -378,7 +380,6 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 
-
 registerLocaleData(localeEs, 'es');
 
 
@@ -452,6 +453,7 @@ registerLocaleData(localeEs, 'es');
         ...RUPComponentsArray,
         TabsComponent,
         TabComponent,
+        MultiprestacionTabComponent,
         MapaDeCamasComponent,
         CamaComponent,
         // Solicitudes
@@ -526,7 +528,8 @@ registerLocaleData(localeEs, 'es');
         ProcedimientosQuirurgicosService,
         InternacionService,
         PrestamosService,
-        ProcedimientosQuirurgicosService
+        ProcedimientosQuirurgicosService,
+        EjecucionService
 
 
     ]

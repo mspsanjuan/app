@@ -1,0 +1,76 @@
+<div>
+    <h2>Prestaciones requeridas</h2>
+    <ul class="conceptos list-unstyled">
+        <ng-container *ngFor="let child of elementoRUP.requeridos">
+            <li>
+                <div class="rup-card mini procedimiento">
+                    <div class="rup-header">
+                        <div class="icon-rup p-0 pt-1">
+                            <i class="icon icon-rup-semantic-procedimiento"></i>
+                        </div>
+                        <div class="rup-border p-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{ child.concepto.fsn }}
+                                </div>
+                                <div class="col-3">
+                                    {{ getEstado(child) }}
+                                </div>
+                                <div class="col-3" *ngIf="!loading">
+                                    <plex-button label="Ejecutar" type="info" *ngIf="!isPresent(child)" (click)="iniciarPrestacion(child.concepto)"></plex-button>
+                                    <plex-button label="Ver prestación" type="info" *ngIf="isPresent(child)" (click)="verPrestacion(child)"></plex-button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+
+    <div [hidden]="parent?.children.length === 0">
+        <h2>Otras prestaciones</h2>
+        <ul class="conceptos list-unstyled" #parent>
+            <ng-container *ngFor="let child of presContenidas" >
+                <li *ngIf="!esRequerida(child)">
+                    <div class="rup-card mini procedimiento">
+                        <div class="rup-header">
+                            <div class="icon-rup p-0 pt-1">
+                                <i class="icon icon-rup-semantic-procedimiento"></i>
+                            </div>
+                            <div class="rup-border p-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ child.solicitud.tipoPrestacion.fsn }}
+                                    </div>
+                                    <div class="col-3">
+                                        {{ child.estados[child.estados.length -1].tipo }}
+                                    </div>
+                                    <div class="col-3" *ngIf="!loading">
+                                        <plex-button label="Ver prestación" type="info" (click)="verPrestacion(child.id)"></plex-button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+    <div>
+        <h2>Agregar prestación</h2>
+        <div class="row">
+            <div class="col-6">
+                    <plex-select [(ngModel)]="newPrestacion" name="nombrePrestacion" label="Elegir prestación" [data]="prestacionesDisponibles"
+                    labelField="term">
+                </plex-select>
+            </div>
+            <div class="col-6">
+                <plex-button type="success" label="Ejecutar prestación" (click)="nuevoPrestacion()" [disabled]="!newPrestacion" ></plex-button>
+            </div>
+        </div>
+    </div>
+
+</div>
