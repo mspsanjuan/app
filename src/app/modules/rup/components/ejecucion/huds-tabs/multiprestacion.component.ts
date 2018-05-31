@@ -21,7 +21,7 @@ export class MultiprestacionTabComponent implements OnInit {
     private loading = false;
     private presContenidas: IPrestacion[] = [];
     public prestacionesDisponibles: any = [];
-    public newPrestacion: any = null;
+    public selectedPrestacion: any = null;
 
     constructor(
         private ejecucionService: EjecucionService,
@@ -46,6 +46,10 @@ export class MultiprestacionTabComponent implements OnInit {
         });
     }
 
+    /**
+     * Chequea so una prestación hija es requerida en los elementosRUP
+     * @param presHija
+     */
     esRequerida(presHija) {
         let _conceptID = presHija.solicitud.tipoPrestacion.conceptId;
         for (let elemento of this.elementoRUP.requeridos) {
@@ -57,6 +61,10 @@ export class MultiprestacionTabComponent implements OnInit {
         return false;
     }
 
+    /**
+     * Dado un elementoRUP, busca una prestación de ese tipo
+     * @param conceptId
+     */
     findHijo(conceptId) {
         for (let prestacion of this.presContenidas) {
             let _conceptID = prestacion.solicitud.tipoPrestacion.conceptId;
@@ -67,9 +75,17 @@ export class MultiprestacionTabComponent implements OnInit {
         return null;
     }
 
+    /**
+     * Chequea si un elementoRUP tiene prestación
+     * @param elemento
+     */
     isPresent(elemento) {
         return !!this.findHijo(elemento.concepto.conceptId);
     }
+
+    /**
+     * Devuelve el último estado de un prestación
+     */
 
     getEstado(child) {
         let pres = this.findHijo(child.concepto.conceptId);
@@ -79,6 +95,10 @@ export class MultiprestacionTabComponent implements OnInit {
         return '';
     }
 
+    /**
+     * Ejecuta una prestación hija
+     * @param concept
+     */
     iniciarPrestacion(concept) {
         let msg = `Paciente: <b> ${this.prestacion.paciente.apellido}, ${this.prestacion.paciente.nombre}.
                    </b><br>
@@ -87,7 +107,7 @@ export class MultiprestacionTabComponent implements OnInit {
         this.plex.confirm(msg).then(confirmacion => {
             if (confirmacion) {
                 this.servicioPrestacion.crearPrestacionHija(this.prestacion, concept).subscribe(prestacion => {
-                    this.ejecucionService.prestacionOrigen = prestacion.id;
+                    this.ejecucionService.prestacionPadre = prestacion;
                     this.router.navigate(['rup/ejecucion/' + prestacion.id]);
                 }, (err) => {
                     this.plex.alert('No fue posible crear la prestación', 'ERROR');
@@ -98,6 +118,11 @@ export class MultiprestacionTabComponent implements OnInit {
         });
     }
 
+    /**
+     * Navega hacía un prestación
+     * @param data
+     */
+
     verPrestacion(data: any) {
         let id = '';
         if (typeof data === 'string') {
@@ -107,12 +132,15 @@ export class MultiprestacionTabComponent implements OnInit {
             id = pres ? pres.id : null;
         }
         if (id) {
-            this.ejecucionService.prestacionOrigen = this.prestacion.id;
+            this.ejecucionService.prestacionPadre = this.prestacion;
             this.router.navigate(['rup/ejecucion/' + id]);
         }
     }
 
+    /**
+     * Crea una prestación adicional
+     */
     nuevoPrestacion() {
-        this.iniciarPrestacion(this.newPrestacion);
+        this.iniciarPrestacion(this.selectedPrestacion);
     }
 }

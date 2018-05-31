@@ -165,12 +165,6 @@ export class PrestacionEjecucionComponent implements OnInit {
                             this.elementosRUPService.guiada(this.prestacion.solicitud.tipoPrestacion.conceptId).subscribe((grupos) => {
                                 this.grupos_guida = grupos;
                             });
-                            console.log(this.ejecucionService.prestacionOrigen);
-                            // if (this.elementoRUP.multiprestacion) {
-                            //     this.ejecucionService.prestacionOrigen = this.prestacion.id;
-                            // } else {
-                            //     this.ejecucionService.prestacionOrigen = null;
-                            // }
                         }
 
                     }, (err) => {
@@ -725,19 +719,36 @@ export class PrestacionEjecucionComponent implements OnInit {
         });
     }
 
-    volver(ambito = 'ambulatorio') {
-        let mensaje = ambito === 'ambulatorio' ? 'Punto de Inicio' : 'Mapa de Camas';
-        this.plex.confirm('<i class="mdi mdi-alert"></i> Se van a perder los cambios no guardados', '¿Volver al ' + mensaje + '?').then(confirmado => {
-            if (confirmado) {
-                if (ambito === 'ambulatorio') {
-                    this.router.navigate(['rup']);
+    volver() {
+        if (!this.ejecucionService.prestacionPadre) {
+            let ambito = this.servicioPrestacion.ambito(this.prestacion);
+            let mensaje = ambito === 'ambulatorio' ? 'Punto de Inicio' : 'Mapa de Camas';
+            this.plex.confirm('<i class="mdi mdi-alert"></i> Se van a perder los cambios no guardados', '¿Volver al ' + mensaje + '?').then(confirmado => {
+                if (confirmado) {
+                    if (ambito === 'ambulatorio') {
+                        this.router.navigate(['rup']);
+                    } else {
+                        this.router.navigate(['/internacion/camas']);
+                    }
                 } else {
-                    this.router.navigate(['/internacion/camas']);
+                    return;
                 }
+            });
+        } else {
+            this.ejecucionService.navigateBack();
+        }
+    }
+
+    btnBackLabel () {
+        if (this.ejecucionService.prestacionPadre) {
+            return `Volver a ${this.servicioPrestacion.getTerm(this.ejecucionService.prestacionPadre)}`;
+        } else {
+            if (this.servicioPrestacion.ambito(this.prestacion, 'ambulatorio')) {
+                return 'Punto de Inicio';
             } else {
-                return;
+                return 'Mapa de Camas';
             }
-        });
+        }
     }
 
     onConceptoDrop(e: any) {

@@ -350,12 +350,10 @@
     <!-- Footer -->
     <footer *ngIf="!showCambioPaciente">
         <div class="row">
-            <div class="col-4" *ngIf="!showCambioPaciente && prestacion && prestacion.solicitud.ambitoOrigen != 'internacion'">
-                <plex-button label="Punto de Inicio" (click)="volver(prestacion?.solicitud.ambitoOrigen)" type="info"></plex-button>
+            <div class="col-4">
+                <plex-button [label]="btnBackLabel()" (click)="volver()" type="info"></plex-button>
             </div>
-            <div class="col-4" *ngIf="!showCambioPaciente && prestacion && prestacion.solicitud.ambitoOrigen == 'internacion'">
-                <plex-button label="Mapa de camas" (click)="volver(prestacion?.solicitud.ambitoOrigen)" type="info"></plex-button>
-            </div>
+
             <div class="col-4 text-center">
                 <div droppable [dropScope]="'borrar-registros-rup'" (onDrop)="confirmarEliminarRegistro($event, 'footer')" [dragOverClass]="'drop-posicion-hover'"
                     [hidden]="!isDraggingRegistro" class="p-3">
@@ -363,7 +361,6 @@
                 </div>
                 <div *ngIf="confirmarEliminar && scopeEliminar == 'footer'">
                     ¿Seguro que quiere quitar {{conceptoAEliminar.term}} de la consulta?
-
                     <div>
                         <button class="btn btn-danger p-1" (click)="confirmarEliminar = false;">Cancelar</button> |
                         <button class="btn btn-success p-1" (click)="eliminarRegistro()">Quitar</button>
@@ -372,9 +369,8 @@
                 </div>
             </div>
 
-            <div class="col-4" *ngIf="!showCambioPaciente">
-
-                <plex-button label="Guardar {{prestacion?.solicitud?.tipoPrestacion?.term}}" (click)="guardarPrestacion()" type="success"
+            <div class="col-4">
+                <plex-button label="Guardar {{ servicioPrestacion.getTerm(prestacion) }}" (click)="guardarPrestacion()" type="success"
                     class="float-right"></plex-button>
             </div>
         </div>

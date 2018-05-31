@@ -63,14 +63,12 @@
         <h2>Agregar prestación</h2>
         <div class="row">
             <div class="col-6">
-                    <plex-select [(ngModel)]="newPrestacion" name="nombrePrestacion" label="Elegir prestación" [data]="prestacionesDisponibles"
-                    labelField="term">
+                    <plex-select [(ngModel)]="selectedPrestacion" name="nombrePrestacion" label="Elegir prestación" [data]="prestacionesDisponibles" labelField="term">
                 </plex-select>
             </div>
             <div class="col-6">
-                <plex-button type="success" label="Ejecutar prestación" (click)="nuevoPrestacion()" [disabled]="!newPrestacion" ></plex-button>
+                <plex-button type="success" label="Ejecutar prestación" (click)="nuevoPrestacion()" [disabled]="!selectedPrestacion" ></plex-button>
             </div>
         </div>
     </div>
-
 </div>

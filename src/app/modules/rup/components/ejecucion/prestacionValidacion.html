@@ -275,7 +275,7 @@
             <plex-button *ngIf="prestacion.estados[prestacion.estados.length-1].tipo === 'validada' && prestacion?.solicitud.ambitoOrigen === 'internacion'"
                 label="Mapa de cama" (click)="volverInicio(prestacion?.solicitud.ambitoOrigen)" type="info"></plex-button>
 
-            <plex-button *ngIf="ejecucionService.prestacionOrigen" type="info" label="Volver" (click)="irA(ejecucionService.prestacionOrigen)" >  </plex-button>
+            <plex-button *ngIf="ejecucionService.prestacionPadre" type="info" label="Volver a {{ ejecucionService.prestacionPadre.solicitud.tipoPrestacion.term }}" (click)="ejecucionService.navigateBack()" >  </plex-button>
 
         </div>
         <div class="col text-right ">

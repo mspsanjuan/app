@@ -134,11 +134,6 @@ export class PrestacionValidacionComponent implements OnInit {
         // });
     }
 
-    irA(id) {
-        this.ejecucionService.prestacionOrigen = null;
-        this.router.navigate(['rup/ejecucion/' + id]);
-    }
-
     redirect(pagina: string) {
         this.router.navigate(['./' + pagina]);
         return false;

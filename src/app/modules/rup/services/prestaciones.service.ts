@@ -854,6 +854,28 @@ export class PrestacionesService {
         return icon;
     }
 
+    /**
+     * Devuelve el termino de la prestación (nombre)
+     */
+
+    public getTerm(prestacion) {
+        if (prestacion && prestacion.solicitud) {
+            return prestacion.solicitud.tipoPrestacion.term;
+        }
+        return '';
+    }
+
+
+    ambito(prestacion, ambito = null) {
+        if (prestacion) {
+            if (!ambito) {
+                return prestacion.solicitud.ambitoOrigen;
+            } else {
+                return ambito === prestacion.solicitud.ambitoOrigen;
+            }
+        }
+    }
+
     /*******
      * INTERNACION
      */
