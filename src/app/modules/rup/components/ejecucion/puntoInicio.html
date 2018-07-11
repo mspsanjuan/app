@@ -99,7 +99,7 @@
     </plex-layout-main>
     <plex-layout-sidebar>
         <header>
-            <div class="page-title">Detalle de la agenda</div> 
+            <div class="page-title">Detalle de la agenda</div>
         </header>
 
         <ng-container *ngIf="agendaSeleccionada && agendaSeleccionada !== 'fueraAgenda'">
@@ -136,8 +136,9 @@
 
                                 <div *ngIf="turno.prestacion && turno?.prestacion?.estados">
                                     <br />
-                                    <span class="badge " [ngClass]="{'badge-success': turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'validada',
-                                                    'badge-warning': turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'ejecucion'}">
+                                    <span class="badge" [ngClass]="{'badge-success': turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'validada',
+                                                    'badge-warning': turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'ejecucion',
+                                                    'badge-info': turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'pendiente'}">
                                         {{turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo}}
                                     </span>
                                     <br />
@@ -292,15 +293,15 @@
                                         <plex-button *ngIf="!esFutura(agendaSeleccionada) && agendaSeleccionada.estado !== 'auditada' && sobreturno.estado !== 'suspendido' && sobreturno.paciente && !sobreturno.prestacion && tienePermisos(sobreturno.tipoPrestacion)"
                                             label="INICIAR PRESTACIÓN" type="success btn-sm" (click)="iniciarPrestacion(sobreturno.paciente, sobreturno.tipoPrestacion, sobreturno.id)"></plex-button>
 
-                                        <plex-button *ngIf="esFutura(agendaSeleccionada) && agendaSeleccionada.estado !== 'auditada' && turno.estado !== 'suspendido' && turno.paciente && !turno.prestacion"
+                                        <plex-button *ngIf="esFutura(agendaSeleccionada) && agendaSeleccionada.estado !== 'auditada' && sobreturno.estado !== 'suspendido' && sobreturno.paciente && !sobreturno.prestacion"
                                             label="INICIAR PRESTACIÓN" type="disabled btn-sm" title="Disponible el {{diaAgenda(agendaSeleccionada)}}"
                                             titlePosition="top"></plex-button>
 
                                         <plex-button *ngIf="sobreturno.paciente && sobreturno.estado !== 'suspendido' && sobreturno.prestacion && sobreturno.prestacion.estados[sobreturno.prestacion.estados.length - 1].tipo === 'ejecucion' && tienePermisos(sobreturno.tipoPrestacion)"
-                                            label="Ver Registros" type="primary btn-sm" (click)="routeTo('ejecucion', sobreturno.prestacion.id)"></plex-button>
+                                            label="VER REGISTROS" type="primary btn-sm" (click)="routeTo('ejecucion', sobreturno.prestacion.id)"></plex-button>
 
                                         <plex-button *ngIf="sobreturno.paciente && sobreturno.estado !== 'suspendido' && sobreturno.prestacion && sobreturno.prestacion.estados[sobreturno.prestacion.estados.length - 1].tipo === 'validada' && tienePermisos(sobreturno.tipoPrestacion)"
-                                            label="Ver Resúmen" type="success btn-sm" (click)="routeTo('validacion', sobreturno.prestacion.id)"></plex-button>
+                                            label="VER RESÚMEN" type="success btn-sm" (click)="routeTo('validacion', sobreturno.prestacion.id)"></plex-button>
 
                                     </ng-container>
                                 </td>

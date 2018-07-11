@@ -93,18 +93,32 @@ export class PuntoInicioComponent implements OnInit {
                 tieneTurnosAsignados: true,
                 tipoPrestaciones: this.auth.getPermissions('rup:tipoPrestacion:?')
             }),
-            // Prestaciones
+            // Prestaciones en ejecución
             this.servicioPrestacion.get({
                 fechaDesde: this.fecha ? this.fecha : new Date(),
                 fechaHasta: new Date(),
                 organizacion: this.auth.organizacion.id,
-                sinEstado: 'modificada'
-                // TODO: filtrar por las prestaciones permitidas, pero la API no tiene ningún opción
-                // tiposPrestaciones: this.auth.getPermissions('rup:tipoPrestacion:?')
+                sinEstado: 'modificada',
+                // TODO: filtrar por las prestaciones permitidas
+                tipoPrestaciones: this.tiposPrestacion.map(tp => { return tp.conceptId; })
+            }),
+            // buscamos las prestaciones pendientes que este asociadas a un turno para ejecutarlas
+            this.servicioPrestacion.get({
+                organizacion: this.auth.organizacion.id,
+                estado: 'pendiente',
+                tieneTurno: 'si',
+                // TODO: filtrar por las prestaciones permitidas
+                tipoPrestaciones: this.tiposPrestacion.map(tp => { return tp.conceptId; })
             })
         ).subscribe(data => {
+            debugger;
             this.agendas = data[0];
             this.prestaciones = data[1];
+            console.log(this.prestaciones);
+
+            if (data[2]) {
+                this.prestaciones = [...this.prestaciones, ...data[2]];
+            }
 
             if (this.agendas.length) {
                 // loopeamos agendas y vinculamos el turno si existe con alguna de las prestaciones
@@ -139,11 +153,13 @@ export class PuntoInicioComponent implements OnInit {
 
             this.agendasOriginales = JSON.parse(JSON.stringify(this.agendas));
             // buscamos las que estan fuera de agenda para poder listarlas:
-            // son prestaciones sin turno creadas en la fecha seleccionada en el filtro
+            // son prestaciones sin turno creadas en la fecha seleccionada en el filtro y que estan en ejecucion o validadas
             this.fueraDeAgenda = this.prestaciones.filter(p => (!p.solicitud.turno &&
                 (p.createdAt >= moment(this.fecha).startOf('day').toDate() &&
                     p.createdAt <= moment(this.fecha).endOf('day').toDate())
-                && p.estados[p.estados.length - 1].createdBy.username === this.auth.usuario.username));
+                && p.estados[p.estados.length - 1].createdBy.username === this.auth.usuario.username
+                && (p.estados[p.estados.length - 1].tipo === 'ejecucion' || p.estados[p.estados.length - 1].tipo === 'validada')));
+
 
             // agregamos el original de las prestaciones que estan fuera
             // de agenda para poder reestablecer los filtros
@@ -294,6 +310,36 @@ export class PuntoInicioComponent implements OnInit {
             }
         });
     }
+
+    /**
+    * Ejecutar una prestacion que esta en estado pendiente
+    */
+    ejecutarPrestacionPendiente(idPrestacion, paciente, snomedConcept) {
+
+        let params: any = {
+            op: 'estadoPush',
+            ejecucion: {
+                fecha: new Date(),
+                registros: [],
+                // organizacion desde la que se solicita la prestacion
+                organizacion: { id: this.auth.organizacion.id, nombre: this.auth.organizacion.nombre }
+            },
+            estado: { tipo: 'ejecucion' }
+        };
+
+        this.plex.confirm('Paciente: <b>' + paciente.apellido + ', ' + paciente.nombre + '.</b><br>Prestación: <b>' + snomedConcept.term + '</b>', '¿Iniciar Prestación?').then(confirmacion => {
+            if (confirmacion) {
+                this.servicioPrestacion.patch(idPrestacion, params).subscribe(prestacion => {
+                    this.router.navigate(['/rup/ejecucion', idPrestacion]);
+                }, (err) => {
+                    this.plex.alert('No fue posible iniciar la prestación: ' + err, 'ERROR');
+                });
+            } else {
+                return false;
+            }
+        });
+    }
+
 
     /**
      * Recorremos los bloques y los turnos de una agenda
