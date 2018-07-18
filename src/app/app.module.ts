@@ -290,6 +290,11 @@ import { DevolverHcComponent } from './components/prestamosHC/prestamos/devolver
 import { ImprimirSolicitudesComponent } from './components/prestamosHC/solicitudes/imprimir-solicitudes.component';
 import { SolicitudManualComponent } from './components/prestamosHC/solicitudes/solicitud-manual-hc.component';
 
+// Laboratorio
+import { PuntoInicioLaboratorioComponent  } from './components/laboratorio/puntoInicioLaboratorio.component';
+import { ListarProtocolosComponent } from './components/laboratorio/protocolos/listar-protocolos.component';
+import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
+
 export let RUPRegistry = {
     'SelectPorRefsetComponent': SelectPorRefsetComponent,
     'PesoComponent': PesoComponent,
@@ -369,6 +374,7 @@ import { EstadisticaModule } from './modules/estadisticas/estadistica.module';
 /** moment pipes  - desde agular 5 hay que importar el locale a demanda */
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { ProtocoloService } from './services/laboratorio/protocolo.service';
 
 registerLocaleData(localeEs, 'es');
 
@@ -449,6 +455,9 @@ registerLocaleData(localeEs, 'es');
         // Solicitudes
         SolicitudesComponent,
         PrestamosHcComponent,
+        PuntoInicioLaboratorioComponent,
+        ListarProtocolosComponent,
+        ProtocoloDetalleComponent,
         ListarSolicitudesComponent,
         ListarPrestamosComponent,
         PrestarHcComponent,
@@ -515,7 +524,8 @@ registerLocaleData(localeEs, 'es');
         DocumentosService,
         CamasService,
         PrestamosService,
-        ProcedimientosQuirurgicosService
+        ProcedimientosQuirurgicosService,
+        ProtocoloService
 
     ]
 })

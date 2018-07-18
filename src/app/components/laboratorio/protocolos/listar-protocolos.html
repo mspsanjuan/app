@@ -1,0 +1,68 @@
+<div class="row">
+    <!--Panel de Agendas-->
+    <div class="col">
+        <plex-box>
+            <header>
+                <!--Botones / Acciones-->
+                <!-- <div class="clearfix">
+                    <div class="page-title float-left">Punto de inicio | Laboratorio</div>
+                    <botones-agenda *ngIf="agendasSeleccionadas?.length > 0 && agendas?.length" class="float-right" [agendasSeleccionadas]="agendasSeleccionadas"
+                        (clonarEmit)="clonar()" (agregarNotaAgendaEmit)="agregarNotaAgenda()" (agregarSobreturnoEmit)="agregarSobreturno()"
+                        (editarAgendaEmit)="editarAgenda($event)" (actualizarEstadoEmit)="actualizarEstadoEmit($event)"
+                        (listarTurnosEmit)="listarTurnos($event)" (listarCarpetasEmit)="listarCarpetas($event)" (revisionAgendaEmit)="revisionAgenda($event)"
+                        (reasignarTurnosEmit)="reasignarTurnos($event)" [turnosSuspendidos]="turnosSuspendidos">
+                    </botones-agenda>
+                </div> -->
+
+                <!--Filtros-->
+                <div class="row">
+                    <div class="col-3">
+                        <plex-datetime type="date" [(ngModel)]="fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Desde"
+                            class="fechas">
+                        </plex-datetime>
+                        <!-- <plex-button type="info" icon="chevron-right"></plex-button> -->
+                    </div>
+                    <div class="col-3">
+                        <plex-datetime type="date" [(ngModel)]="fechaHasta" (change)="refreshSelection($event,'fechaHasta')" name="fechaHasta" label="Hasta"
+                            class="fechas">
+                        </plex-datetime>
+                    </div>
+                    <div class="col-3">
+                        <label>
+                            <!--Spacer-->&nbsp;</label>
+                        <plex-button type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
+                    </div>
+                </div>
+                <div class="row" *ngIf="mostrarMasOpciones">
+                    <div class="col-4">
+                    XXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                </div>
+            </header>
+
+            <!--Resultados-->
+            <div *ngIf="!protocolos?.length" class="alert alert-default">
+                <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
+            </div>
+
+            <table *ngIf="protocolos?.length" class="table table-striped table-sm">
+                <thead>
+                    <th></th>
+                    <th>Fecha y Hora</th>
+                    <th>ObjectId</th>
+                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let protocolo of protocolos; let i=index" class="hover" [ngClass]="">
+                        <td (click)="verProtocolo(protocolo, false, $event)">
+                            <span class="float-right">{{protocolo.numero}}</span>
+                        </td>
+                        <td (click)="verProtocolo(protocolo, false, $event)">
+                            <span class="float-right">{{protocolo.prestacion.solicitud.fecha}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </plex-box>
+    </div>
+</div>
