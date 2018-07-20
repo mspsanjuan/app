@@ -378,6 +378,7 @@ let RUPComponentsArray = [
 /** moment pipes  - desde agular 5 hay que importar el locale a demanda */
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { LabsComponent } from './components/labs/labs.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -468,7 +469,8 @@ registerLocaleData(localeEs, 'es');
         SolicitudManualComponent,
         CamaEstadoComponent,
         OcuparCamaComponent,
-        PucoComponent
+        PucoComponent,
+        LabsComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
