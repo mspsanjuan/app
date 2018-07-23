@@ -97,4 +97,16 @@ export class PuntoInicioLaboratorioComponent
             // }
         }
     }
+
+    loadSectores (e) {
+        return {};
+    }
+
+    loadAreasValidacion (e) {
+        return {};
+    }
+
+    loadEfectores (e) {
+        return {};
+    }
 }

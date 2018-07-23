@@ -36,7 +36,7 @@ export class ProtocoloDetalleComponent
 
     @HostBinding('class.plex-layout') layout = true; // Permite el uso de flex-box en el componente
 
-
+    public mostrarMasOpciones = false;
     public protocolos: any = [];
     public protocolo: any = {};
     public fechaDesde: any;
