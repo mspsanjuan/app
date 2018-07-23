@@ -80,10 +80,15 @@ import { CamaCreateUpdateComponent } from './components/mapa-de-camas/cama/cama-
 // Préstamos HC
 import { PrestamosHcComponent } from './components/prestamosHC/prestamos-hc.component';
 
+<<<<<<< HEAD
 // Laboratorio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ListarProtocolosComponent } from './components/laboratorio/protocolos/listar-protocolos.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
+=======
+// Labs
+import {LabsComponent} from './components/labs/labs.component';
+>>>>>>> ui-labs
 
 // Home de Estadisticas
 // import { HomeComponent } from './modules/estadisticas/components/home.component';
@@ -131,24 +136,27 @@ const appRoutes: Routes = [
   { path: 'rup/llavesTipoPrestacion', component: LlavesTipoPrestacionComponent, canActivate: [RoutingGuard] },
   { path: 'rup/vista/:id', component: VistaHudsComponent, canActivate: [RoutingGuard] },
   { path: 'rup/buscaHuds', component: HudsBusquedaPacienteComponent, canActivate: [RoutingGuard] },
-
+  
   // Mapa de camas
   { path: 'mapa-de-camas', component: MapaDeCamasComponent, canActivate: [RoutingGuard] },
-
+  
   // Préstamos HC
   { path: 'prestamosHC', component: PrestamosHcComponent, canActivate: [RoutingGuard] },
-
+  
   // Gestion de usuarios
   { path: 'gestionUsuarios', component: BusquedaUsuarioComponent, canActivate: [RoutingGuard] },
-
+  
   // Reportes
   { path: 'reportes', component: EncabezadoReportesComponent, canActivate: [RoutingGuard] },
   { path: 'consultaDiagnostico', component: ConsultaDiagnosticoComponent, canActivate: [RoutingGuard] },
   { path: 'encabezadoReportes', component: EncabezadoReportesComponent, canActivate: [RoutingGuard] },
   { path: 'cantidadConsultaXPrestacion', component: CantidadConsultaXPrestacionComponent, canActivate: [RoutingGuard] },
-
+  
   // Solicitudes
   { path: 'solicitudes', component: SolicitudesComponent, canActivate: [RoutingGuard] },
+  
+  //Labs 
+  { path: 'app-labs', component: LabsComponent, canActivate: [RoutingGuard] },
 
   // Laboratorio
   { path: 'laboratorio', component: PuntoInicioLaboratorioComponent, canActivate: [RoutingGuard] },
@@ -160,7 +168,7 @@ const appRoutes: Routes = [
   /* ELIMINAR ==> */ { path: 'auditoria', component: AuditoriaComponent, canActivate: [RoutingGuard] },
   /* ELIMINAR ==> */ { path: 'auditoria2', component: Auditoria2Component, canActivate: [RoutingGuard] },
   /* ELIMINAR ==> */ { path: 'dashboard', component: DashboardComponent, canActivate: [RoutingGuard] },
-
+  
   // TODO: Verificar si estas rutas todavía son válidas, y ubicarlas en los módulos correspondientes
   /* VERIFICAR ==> */ { path: 'tipoprestaciones', component: TipoPrestacionComponent, canActivate: [RoutingGuard] },
 
