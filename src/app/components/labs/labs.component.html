@@ -49,7 +49,7 @@
                 <th class="text-right estado">Estado</th>
             </thead>
             <tbody>
-                <tr class="" *ngFor="let protocolo of protocolos; let i = index">
+                <tr class="" *ngFor="let protocolo of protocolos; let i = index" (click)="editProtocolo(i)">
                   <td>{{protocolo.id}}</td>
                   <td>{{protocolo.fecha}}</td>
                   <td>{{protocolo.servicio}}</td>
@@ -57,7 +57,7 @@
                     <a (click)="addProtocolo()" class="btn btn-success">
                       Accion exitosa
                     </a>
-                    <a (click)="editProtocolo(i)" class="btn btn-danger">
+                    <a class="btn btn-danger">
                       Editar
                     </a>
                   </td>

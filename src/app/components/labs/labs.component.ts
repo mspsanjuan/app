@@ -15,8 +15,6 @@ export class LabsComponent implements OnInit {
   // Modelos
   model:any = {};
   model2:any = {};
-  hideUpdate:boolean = true;
-
 
 
   public mostrarMasOpciones = false;
@@ -73,35 +71,14 @@ export class LabsComponent implements OnInit {
     this.msg = 'campo agregado';
   }
 
-  deleteProtocolo(i):void {
-    var answer = confirm('Estas seguro querer eliminarlo?');
-    if(answer) {
-      this.protocolos.splice(i, 1);
-      this.msg = 'campo eliminado';
-    }
-  }
-
+ 
   myValue;
   editProtocolo(i):void {
-    this.hideUpdate = false;
     this.model2.id = this.protocolos[i].id;
     this.model2.fecha = this.protocolos[i].fecha;
     this.model2.origen = this.protocolos[i].origen;
     this.myValue = i;
   }
-
-
-  updateProtocolo():void {
-    let i = this.myValue;
-    for(let j = 0; j < this.protocolos.length; j++){
-      if(i == j) {
-        this.protocolos[i] = this.model2;
-        this.msg = 'campo actualizado';
-        this.model2 = {};
-      }
-    }
-  }
-
 
   loadPrestaciones(event) {
 
