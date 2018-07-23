@@ -80,15 +80,10 @@ import { CamaCreateUpdateComponent } from './components/mapa-de-camas/cama/cama-
 // Préstamos HC
 import { PrestamosHcComponent } from './components/prestamosHC/prestamos-hc.component';
 
-<<<<<<< HEAD
 // Laboratorio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ListarProtocolosComponent } from './components/laboratorio/protocolos/listar-protocolos.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
-=======
-// Labs
-import {LabsComponent} from './components/labs/labs.component';
->>>>>>> ui-labs
 
 // Home de Estadisticas
 // import { HomeComponent } from './modules/estadisticas/components/home.component';
@@ -154,9 +149,6 @@ const appRoutes: Routes = [
   
   // Solicitudes
   { path: 'solicitudes', component: SolicitudesComponent, canActivate: [RoutingGuard] },
-  
-  //Labs 
-  { path: 'app-labs', component: LabsComponent, canActivate: [RoutingGuard] },
 
   // Laboratorio
   { path: 'laboratorio', component: PuntoInicioLaboratorioComponent, canActivate: [RoutingGuard] },
