@@ -55,10 +55,10 @@
                 <tbody>
                     <tr *ngFor="let protocolo of protocolos; let i=index" class="hover" [ngClass]="">
                         <td (click)="verProtocolo(protocolo, false, $event)">
-                            <span class="float-right">{{protocolo.numero}}</span>
+                            <span class="float-right">{{protocolo.solicitud.registros.numeroProtoco}}</span>
                         </td>
                         <td (click)="verProtocolo(protocolo, false, $event)">
-                            <span class="float-right">{{protocolo.prestacion.solicitud.fecha}}</span>
+                            <span class="float-right">{{protocolo.solicitud.fecha}}</span>
                         </td>
                     </tr>
                 </tbody>

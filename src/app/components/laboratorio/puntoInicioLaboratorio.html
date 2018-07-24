@@ -70,8 +70,8 @@
                         </thead>
                         <tbody>
                             <tr class="" *ngFor="let protocolo of protocolos; let i = index" (click)="verProtocolo(protocolo, false, $event)">
-                              <td>{{protocolo.numero}}</td>
-                              <td>{{protocolo.prestacion.solicitud.fecha}}</td>
+                              <td>{{protocolo.numero?.valor}}</td>
+                              <td>{{protocolo.solicitud.fecha}}</td>
                               <td>{{protocolo.servicio}}</td>
                               <td>
                                 <a (click)="addProtocolo()" class="btn btn-success">

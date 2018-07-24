@@ -13,7 +13,7 @@
                         (reasignarTurnosEmit)="reasignarTurnos($event)" [turnosSuspendidos]="turnosSuspendidos">
                     </botones-agenda>
                 </div>
-                {{protocolo.numero}}
+                {{protocolo.numero?.valor}}
                 <!--Filtros-->
                 <div class="row">
                     <div class="{{showEditarAgendaPanel && agendasSeleccionadas?.length === 1 ? 'col-6' : 'col-3'}}">
@@ -57,7 +57,7 @@
 
             <!--Resultados-->
             
-            <table *ngIf="protocolo.prestacion.ejecucion?.registros.length" class="table table-striped table-sm">
+            <table *ngIf="protocolo.ejecucion?.registros.length" class="table table-striped table-sm">
                 <thead>
                     <th></th>
                     <th>Fecha y Hora</th>
@@ -65,29 +65,44 @@
                     
                 </thead>
                 <tbody>
-                    <tr *ngFor="let practica of protocolo.prestacion.ejecucion.registros; let i=index" class="hover" [ngClass]="">
-                        <td (click)="verAgenda(protocolo, true, $event)">
-                            <!-- <i *ngIf="estaSeleccionado(protocolo) >= 0" class="mdi mdi-checkbox-marked"></i>
-                            <i *ngIf="!(estaSeleccionado(protocolo) >= 0)" class="mdi mdi-checkbox-blank-outline"></i> -->
-                        </td>
-                        <td (click)="verAgenda(protocolo, false, $event)">
-                            <span class="float-right">{{practica.concepto.conceptId}}</span>
-                        </td>
-                        <td (click)="verAgenda(protocolo, false, $event)">
-                            <span class="float-right">{{practica.nombre}}</span>
-                        </td>
-                        <td (click)="verAgenda(protocolo, false, $event)" class="text-right align-middle estado">
-                            <!-- <span class="badge-danger float-right" *ngIf="!agenda.nominalizada">No Nominalizada</span>
-                            <span class="badge-{{estadosAgenda[agenda.estado]?.class}} float-right">{{estadosAgenda[agenda.estado]?.nombre}}</span>
-                            <span class="badge-danger bg-danger float-right" *ngIf="turnosSuspendidos && turnosSuspendidos[i].count > 0" title="Hay {{ turnosSuspendidos[i].count | pluralizar:['turno','turnos'] }} a reasignar">
-                                <span class="text-white">
-                                    <strong>{{ turnosSuspendidos[i].count }}</strong>
-                                </span>
-                            </span>
-                            <span class="badge-warning float-right" *ngIf="suspensionAvisada(agenda)">Solicitud de suspensión</span> -->
-                            x
-                        </td>
-                    </tr>
+                    
+                    <ng-container *ngFor="let practica of protocolo.ejecucion.registros; let i=index" >
+                        <ng-container *ngIf="practica.registros.length > 0" >
+                            <tr *ngFor="let practicaSimple of practica.registros; let y=index" class="hover" [ngClass]="" >
+                                <td (click)="verAgenda(protocolo, true, $event)">
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)">
+                                    <span class="float-right">{{practicaSimple.concepto.conceptId}}</span>
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)">
+                                    <span class="float-right">{{practicaSimple.nombre}}</span>
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)" class="text-right align-middle estado">
+                                    
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!practica.registros.length > 0" ></ng-container>
+                            <tr class="hover" [ngClass]="" >
+                                <td (click)="verAgenda(protocolo, true, $event)">
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)">
+                                    <span class="float-right">{{practica.concepto.conceptId}}</span>
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)">
+                                    <span class="float-right">{{practica.nombre}}</span>
+                                </td>
+                                <td (click)="verAgenda(protocolo, false, $event)" class="text-right align-middle estado">
+                                    
+                                </td>
+                            </tr>
+                    </ng-container>
+                    <tr *ngFor="" class="hover" [ngClass]="" >
+
+                    <tr *ngFor="let practica of protocolo.ejecucion.registros; let i=index" class="hover" [ngClass]="" >
+
+
+                    
                 </tbody>
             </table>
         </plex-box>
