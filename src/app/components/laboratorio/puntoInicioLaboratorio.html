@@ -1,120 +1,145 @@
-<form class="plex-layout" #form="ngForm">
-    <section >
-        <!-- <listar-protocolos *ngIf="showListarProtocolos" ></listar-protocolos> -->
-        <div *ngIf="showListarProtocolos" class="row">
-            <!--Panel de Agendas-->
-            <div class="col">
-                <plex-box>
-                    <header>
-                         <!-- Conjunto de filtros -->
-                        <div class="row">
-                                <div class="col-3">
-                                    <plex-select [(ngModel)]="sector" (change)="refreshSelection($event,'sector')" name="sector" label="Sector" (getData)="loadSector($event)"></plex-select>
-                                </div>
-                                <div class="col-3">
-                                    <plex-select [(ngModel)]="areaValidacion" (change)="refreshSelection($event,'areaValidacion')" name="areaValidacion" label="Area Val." (getData)="loadAreasValidacion($event)"></plex-select>
-                                </div>
-                                <div class="col-4">
-                                    <plex-bool [(ngModel)]="prioridad" type="slide" label="Rutina/Urgencia" (change)="refreshSelection($event,'prioridad')" ></plex-bool>
-                                </div>
-                                <div class="col-4">
-                                    <plex-bool [(ngModel)]="estado" type="slide" label="Pendiente/Terminado" (change)="refreshSelection($event,'estado')" ></plex-bool>
-                                </div>
-
-                                <div class="col-3">
-                                    <plex-datetime type="date" [(ngModel)]="fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Desde"
-                                        class="fechas">
-                                    </plex-datetime>
-                                </div>
-                                <div class="col-3">
-                                    <plex-datetime type="date" [(ngModel)]="fechaHasta" (change)="refreshSelection($event,'fechaHasta')" name="fechaHasta" label="Hasta"
-                                        class="fechas">
-                                    </plex-datetime>
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                    <!--Spacer-->&nbsp;
-                                    </label>
-                                    <plex-button type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
-                                </div>
-                            </div>
-                            <!-- Filtros avanzados -->
-                            <div class="row" *ngIf="mostrarMasOpciones">
-                                <div class="col-3">
-                                    <plex-float [(ngModel)]="numero" (change)="refreshSelection($event,'numero')" name="numero" label="Numero" ></plex-float>
-                                </div>
-                                <div class="col-3">
-                                    <plex-select [(ngModel)]="origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" (getData)="loadOrigenes($event)"></plex-select>
-                                </div>
-                                <div class="col-3">
-                                    <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante" label="Efector Solicitante" (getData)="loadEfectores($event)"></plex-select>
-                                </div>
-                                <div class="col-3">
-                                    <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
-                                </div>
-                            </div>
-                    </header>
-        
-                    <!--Resultados-->
-                    <div *ngIf="!protocolos?.length" class="alert alert-default">
-                        <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
+<plex-layout main="9">
+    <plex-layout-main *ngIf="showListarProtocolos">
+        <header>
+            <h3>Punto de inicio | Laboratorio</h3>
+        </header>
+            <!-- Conjunto de filtros -->
+            <div class="row">
+                    <div class="col-2">
+                        <plex-select [(ngModel)]="sector" (change)="refreshSelection($event,'sector')" name="sector" label="Sector" (getData)="loadSector($event)"></plex-select>
                     </div>
-        
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <th>Numero</th>
-                            <th>Fecha</th>
-                            <th>Servicio</th>
-                            <th></th>
-                            <th class="text-right estado">Estado</th>
-                        </thead>
-                        <tbody>
-                            <tr class="" *ngFor="let protocolo of protocolos; let i = index" (click)="verProtocolo(protocolo, false, $event)">
-                              <td>{{protocolo.numero}}</td>
-                              <td>{{protocolo.prestacion.solicitud.fecha}}</td>
-                              <td>{{protocolo.servicio}}</td>
-                              <td>
-                                <a (click)="addProtocolo()" class="btn btn-success">
-                                  Accion exitosa
-                                </a>
-                                <a class="btn btn-danger">
-                                  Editar
-                                </a>
-                              </td>
-                              <td>{{protocolo.origen}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-2">
+                        <plex-select [(ngModel)]="areaValidacion" (change)="refreshSelection($event,'areaValidacion')" name="areaValidacion" label="Area Val." (getData)="loadAreasValidacion($event)"></plex-select>
+                    </div>
+                    <div class="col-2">
+                        <plex-bool [(ngModel)]="prioridad" type="slide" label="Rutina/Urgencia" (change)="refreshSelection($event,'prioridad')" ></plex-bool>
+                        <plex-bool [(ngModel)]="estado" type="slide" label="Pendiente/Terminado" (change)="refreshSelection($event,'estado')" ></plex-bool>
+                    </div>
 
-                </plex-box>
+                    <div class="col-2">
+                        <plex-datetime type="date" [(ngModel)]="fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Desde"
+                            class="fechas">
+                        </plex-datetime>
+                    </div>
+                    <div class="col-2">
+                        <plex-datetime type="date" [(ngModel)]="fechaHasta" (change)="refreshSelection($event,'fechaHasta')" name="fechaHasta" label="Hasta"
+                            class="fechas">
+                        </plex-datetime>
+                    </div>
+                    <div class="col-2 labs-contenedor-secundario">
+                        <div class="contenedor-bloque-texto text-right">
+                            <h5>Filtrado avanzado</h5>
+                            <small class="text-primary">Pacientes y derivaciones</small>
+                        </div>
+                        <plex-button label="" type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
+                    </div>
+                </div>
+                <!-- Filtros avanzados -->
+                <div class="row" *ngIf="mostrarMasOpciones">
+                    <div class="col-3">
+                        <plex-float [(ngModel)]="numero" (change)="refreshSelection($event,'numero')" name="numero" label="Numero" ></plex-float>
+                    </div>
+                    <div class="col-3">
+                        <plex-select [(ngModel)]="origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" (getData)="loadOrigenes($event)"></plex-select>
+                    </div>
+                    <div class="col-3">
+                        <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante" label="Efector Solicitante" (getData)="loadEfectores($event)"></plex-select>
+                    </div>
+                    <div class="col-3">
+                        <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
+                    </div>
+                </div>
+            <hr>
+            <!--Resultados-->
+            <div *ngIf="!protocolos?.length" class="alert alert-default">
+                <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
             </div>
-        </div>
-        
-        <protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo" ></protocolo-detalle>
-    </section>
+            <!-- Listado -->
+            <table class="table table-striped table-sm">
+                <!-- <thead>
+                    <th>Numero</th>
+                    <th>Fecha</th>
+                    <th>Servicio</th>
+                    <th></th>
+                    <th class="text-right estado">Estado</th>
+                </thead> -->
+                <tbody>
+                    <tr class="labs-listado-item" *ngFor="let protocolo of protocolos; let i = index"  (click)="verProtocolo(protocolo, false, $event)">
+                        <div class="listado-contenedor-secundario">
+                            <td class="labs-item-numero">
+                                <h1 class="">♠</h1>
+                                <h2>{{protocolo.numero}}</h2>
+                            </td>
+                            <td class="contenedor-bloque-texto">
+                                <div class="labs-item-texto">
+                                    <p>11/07/2018</p>
+                                    <strong>Origen</strong>
+                                    <p>Ambulatorio</p>
+                                    <strong>Servicio</strong> 
+                                    <p>Clinica</p>
+                                </div>
+                                <div class="labs-item-texto">
+                                    <strong>Usuario: </strong>
+                                    <p>pmarconi</p>
+                                    <strong>Solicitante: </strong>
+                                    <p>lmonteverde</p>
+                                    <strong>Fecha de Registro:</strong>
+                                    <p>09/07/2018</p>
+                                </div>
+                            </td>
+                        </div>
+                        <td class="badge-container">
+                            <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                            <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+                            <plex-button type="success" size="sm" (click)="cargarResultados()" class="ml-2">Cargar Resultados</plex-button>
+                            <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2">Observacion</plex-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <!--Footer-->
-    <footer *ngIf="showListarProtocolos">
-        <plex-button type="primary" label="Crear un nuevo protocolo" (click)="insertarAgenda()"></plex-button>
-        <div class="float-right" *ngIf="showEditarAgendaPanel && agendasSeleccionadas?.length === 1">
-            <plex-button type="danger" label="Cancelar" (click)="guardarAgendaPanel.cancelar()"></plex-button>
-            <plex-button type="success" label="Guardar" (click)="guardarAgendaPanel.guardarAgenda(agendasSeleccionadas[0])"></plex-button>
-        </div>
-    </footer>
+    </plex-layout-main>
 
-    <!-- Operaciones de Agenda -->
-    <!-- <clonar-agenda *ngIf="showClonar" [agenda]="agendasSeleccionadas[0]" (volverAlGestor)="volverAlGestor($event)"></clonar-agenda>
-    <planificar-agenda *ngIf="showEditarAgenda" [editaAgenda]="agendasSeleccionadas[0]" (volverAlGestor)="volverAlGestor($event)"></planificar-agenda>
-    <planificar-agenda *ngIf="showInsertarAgenda" (volverAlGestor)="volverAlGestor($event)"></planificar-agenda>
-    <revision-agenda *ngIf="showRevisionAgenda && agendasSeleccionadas?.length == 1" [agenda]="agendasSeleccionadas[0]" (volverAlGestor)="volverAlGestor($event)"></revision-agenda> -->
+    <!-- Panel lateral -->
+    <plex-layout-sidebar type="invert">
+            <header>
+            <h3>Detalle</h3>
+            </header>
+                <!-- Badges sidebar -->
+                <div class="badge-container start">
+                    <plex-badge type="info" class="mr-2">Clinica</plex-badge>
+                    <plex-badge type="warning" class="mr-2">Ambulatorio</plex-badge>
+                </div>
+                <label class="control-label">Número</label>
+                    <h1 class="text-primary text-xl">{{protocolo.numero}}</h1>
+                <hr>
+                <div class="labs-contenedor-secundario">
+                    <div class="labs-bloque-texto">
+                        <label class="control-label text-info">Usuario</label>
+                        <h5 class="" id="id">pmarconi</h5>
+                    </div>
+                    <div class="labs-bloque-texto">
+                        <label class="control-label text-info">solicitante</label>
+                        <h5 class="" id="id">lmonteverde</h5>
+                    </div>
+                    <div class="labs-bloque-texto">
+                    <label class="control-label text-info">Fecha registro</label>
+                    <h5 class="" id="id">09/07/2018</h5>
+                    </div>
+                </div>    
+                <hr>
+                <label class="control-label">Observacion</label>
+                <textarea class="form-control" rows="12">nsdajdnfjaklsnd;kasbndj</textarea>
 
-    <!-- Operaciones de Turnos -->
-    <!-- <sobreturno *ngIf="showAgregarSobreturno" [agenda]="agendasSeleccionadas[0]" (volverAlGestor)="volverAlGestor($event)"></sobreturno>
-    <dar-turnos *ngIf="showDarTurnos" (volverAlGestor)="volverAlGestor($event)"></dar-turnos>
-    <reasignar-turno *ngIf="showReasignarTurno" [agendaAReasignar]="agendasSeleccionadas[0]" (volverAlGestor)="volverAlGestor($event)"
-        class="plex-layout"></reasignar-turno>
-    <reasignar-turno-agendas *ngIf="showReasignarTurnoAgendas" [agendasSimilares]="agendasSeleccionadas[0]"></reasignar-turno-agendas>
-    <listar-turnos *ngIf="showListadoTurnos" [agendas]="agendasSeleccionadas" (volverAlGestor)="volverAlGestor($event)"></listar-turnos>
-    <listar-carpetas *ngIf="showCarpetas" [agendasSeleccionadas]="agendasSeleccionadas" (volverAlGestor)="volverAlGestor($event)"></listar-carpetas> -->
+        <!-- Switchea a listado practicas -->
+        <protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
+    </plex-layout-sidebar>
 
-</form>
+    <!-- footer -->
+    <plex-layout-footer *ngIf="showListarProtocolos">
+            <plex-button type="primary" position="left" label="Crear un nuevo protocolo" (click)="insertarAgenda()"></plex-button>
+            <plex-button label="Cancelar" type="Cancelar" position="left" (click)="guardarAgendaPanel.cancelar()"></plex-button>
+            <plex-button label="Guardar formulario" type="Guardar" position="right" (click)="guardarAgendaPanel.guardarAgenda(agendasSeleccionadas[0])"></plex-button>
+    </plex-layout-footer>
+</plex-layout>
+

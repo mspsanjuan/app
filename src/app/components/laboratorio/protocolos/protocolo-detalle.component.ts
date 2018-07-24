@@ -1,29 +1,9 @@
-import {
-    Input,
-    Component,
-    OnInit,
-    HostBinding,
-    NgModule,
-    ViewContainerRef,
-    ViewChild
-} from '@angular/core';
-import {
-    FormBuilder,
-    FormGroup,
-    FormsModule
-} from '@angular/forms';
-import {
-    ProtocoloService
-} from './../../../services/laboratorio/protocolo.service';
-// import {
-//     Router
-// } from '@angular/router';
-import {
-    Auth
-} from '@andes/auth';
-import {
-    Plex
-} from '@andes/plex';
+import { Input, Component, OnInit, HostBinding, NgModule, ViewContainerRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { ProtocoloService } from './../../../services/laboratorio/protocolo.service';
+import { Router } from '@angular/router';
+import { Auth } from '@andes/auth';
+import { Plex } from '@andes/plex';
 
 @Component({
     selector: 'protocolo-detalle',
@@ -56,11 +36,15 @@ export class ProtocoloDetalleComponent
 
     constructor(public plex: Plex, private formBuilder: FormBuilder, 
         public servicioProtocolo: ProtocoloService,
+        private router: Router,
         public auth: Auth) { }
+        
 
     ngOnInit() {
     }
 
+
+    // Funciones
     refreshSelection(value, tipo) {
         if (tipo === 'fechaDesde') {
             let fechaDesde = moment(this.fechaDesde).startOf('day');
@@ -94,5 +78,19 @@ export class ProtocoloDetalleComponent
 
     estaSeleccionado(protocolo) {
         return false;
+    }
+
+    cargarResultado() {
+        console.log('cargarResultado')
+    }
+
+    redirect(pagina: string) {
+        this.router.navigate(['./' + pagina]);
+        return false;
+    }
+
+    volverProtocolos() {
+        console.log('volver')
+        this.redirect('/gestor-protocolos');
     }
 }
