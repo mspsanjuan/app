@@ -303,7 +303,6 @@ import { SolicitudManualComponent } from './components/prestamosHC/solicitudes/s
 
 // Laboratorio
 import { PuntoInicioLaboratorioComponent  } from './components/laboratorio/puntoInicioLaboratorio.component';
-import { ListarProtocolosComponent } from './components/laboratorio/protocolos/listar-protocolos.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 
 export let RUPRegistry = {
@@ -466,7 +465,6 @@ registerLocaleData(localeEs, 'es');
         SolicitudesComponent,
         PrestamosHcComponent,
         PuntoInicioLaboratorioComponent,
-        ListarProtocolosComponent,
         ProtocoloDetalleComponent,
         ListarSolicitudesComponent,
         ListarPrestamosComponent,

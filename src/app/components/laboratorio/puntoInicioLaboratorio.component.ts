@@ -1,6 +1,11 @@
+// import {
+//     ProtocoloService
+// } from './../../services/laboratorio/protocolo.service';
+import {
+        PrestacionesService
+    } from './../../modules/rup/services/prestaciones.service';
 import { Component, OnInit, HostBinding, NgModule, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { ProtocoloService } from './../../services/laboratorio/protocolo.service';
 // import {
 //     Router
 // } from '@angular/router';
@@ -27,22 +32,17 @@ export class PuntoInicioLaboratorioComponent
     public parametros = [];
 
 
-    // Detalle protocolo
-    model:any = {};
-    model2:any = {};
-    msg:string = '';
-
     constructor(public plex: Plex, private formBuilder: FormBuilder, 
-        public servicioProtocolo: ProtocoloService,
+        // public servicioProtocolo: ProtocoloService,
+        public servicioPrestaciones: PrestacionesService,
         public auth: Auth) { }
 
     ngOnInit() {
     }
-
     
-
     // funciones
     refreshSelection(value, tipo) {
+        this.parametros['tipoPrestacionSolicititud'] = '15220000';
         if (tipo === 'fechaDesde') {
             let fechaDesde = moment(this.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
@@ -62,9 +62,16 @@ export class PuntoInicioLaboratorioComponent
     };
 
     getProtocolos(params: any) {
-        console.log('getProtocolos')
-        this.servicioProtocolo.get(params).subscribe(protocolos => {
-            // this.servicioPrestaciones.get(params).subscribe(protocolos => {
+        // this.servicioProtocolo.get(params).subscribe(protocolos => {
+        this.servicioPrestaciones.get(params).subscribe(protocolos => {
+            protocolos.forEach( (protocolo: any) => {
+                console.log(protocolo.solicitud);
+                protocolo.numero = protocolo.solicitud.registros.find((reg) => {
+                    console.log(reg);
+                    return reg.nombre == "numeroProtocolo";
+                });
+            });
+           
             this.protocolos = protocolos;
         }, err => {
             if (err) {
@@ -82,12 +89,17 @@ export class PuntoInicioLaboratorioComponent
         
             if (protocolo && protocolo.id) {
                 // this.serviceAgenda.getById(agenda.id).subscribe(ag => {
-                    
                     this.protocolo = protocolo;
                     this.showListarProtocolos = false;
                     this.showProtocoloDetalle = true;
             // }
         }
+    }
+
+    volverLista () {
+        this.protocolo = null;
+        this.showListarProtocolos = true;
+        this.showProtocoloDetalle = false;
     }
 
     loadSectores (e) {
@@ -103,11 +115,15 @@ export class PuntoInicioLaboratorioComponent
     }
 
     loadProtocolo(e) {
-
+        return [];
+    }
+    
+    loadSector(e) {
+        return [];
     }
 
-    loadSector(e) {
-
+    loadOrigenes(e) {
+        return [];
     }
 
 

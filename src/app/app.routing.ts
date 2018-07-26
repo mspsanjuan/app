@@ -82,7 +82,6 @@ import { PrestamosHcComponent } from './components/prestamosHC/prestamos-hc.comp
 
 // Laboratorio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
-import { ListarProtocolosComponent } from './components/laboratorio/protocolos/listar-protocolos.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 
 // Home de Estadisticas
@@ -152,7 +151,6 @@ const appRoutes: Routes = [
 
   // Laboratorio
   { path: 'laboratorio', component: PuntoInicioLaboratorioComponent, canActivate: [RoutingGuard] },
-  { path: 'laboratorio', component: ListarProtocolosComponent, canActivate: [RoutingGuard] },
   { path: 'laboratorio', component: ProtocoloDetalleComponent, canActivate: [RoutingGuard] },
   
   // RUTAS LEGACY --- Deshabilitar una vez migradas al nuevo esquema rup/xxx , citas/xxx

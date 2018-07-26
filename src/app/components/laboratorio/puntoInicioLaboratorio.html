@@ -14,16 +14,15 @@
             <!-- Conjunto de filtros -->
             <div class="row contenedor-filtros">
                     <div class="col-2">
+                        <plex-select [(ngModel)]="origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" (getData)="loadOrigenes($event)"></plex-select>
+                    </div>
+
+                    <div class="col-2">
                         <plex-select [(ngModel)]="sector" (change)="refreshSelection($event,'sector')" name="sector" label="Sector" (getData)="loadSector($event)"></plex-select>
                     </div>
                     <div class="col-2">
                         <plex-select [(ngModel)]="areaValidacion" (change)="refreshSelection($event,'areaValidacion')" name="areaValidacion" label="Area Val." (getData)="loadAreasValidacion($event)"></plex-select>
                     </div>
-                    <div class="col-2">
-                        <plex-bool [(ngModel)]="prioridad" type="slide" label="Rutina/Urgencia" (change)="refreshSelection($event,'prioridad')" ></plex-bool>
-                        <plex-bool [(ngModel)]="estado" type="slide" label="Pendiente/Terminado" (change)="refreshSelection($event,'estado')" ></plex-bool>
-                    </div>
-
                     <div class="col-2">
                         <plex-datetime type="date" [(ngModel)]="fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Desde"
                             class="fechas">
@@ -42,26 +41,24 @@
                         <plex-button label="" type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
                     </div>
                 </div>
-                <!-- Filtros avanzados -->
-                <div class="row" *ngIf="mostrarMasOpciones">
-                    <div class="col-3">
-                        <plex-float [(ngModel)]="numero" (change)="refreshSelection($event,'numero')" name="numero" label="Numero" ></plex-float>
+                    <!-- Filtros avanzados -->
+                    <div class="row" *ngIf="mostrarMasOpciones">
+                        <div class="col-3">
+                            <plex-float [(ngModel)]="numero" (change)="refreshSelection($event,'numero')" name="numero" label="Numero" ></plex-float>
+                        </div>
+                        <div class="col-3">
+                            <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante" label="Efector Solicitante" (getData)="loadEfectores($event)"></plex-select>
+                        </div>
+                        <div class="col-3">
+                            <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <plex-select [(ngModel)]="origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" (getData)="loadOrigenes($event)"></plex-select>
-                    </div>
-                    <div class="col-3">
-                        <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante" label="Efector Solicitante" (getData)="loadEfectores($event)"></plex-select>
-                    </div>
-                    <div class="col-3">
-                        <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
-                    </div>
+                <hr>
+                <!--Resultados-->
+                <div *ngIf="!protocolos?.length" class="alert alert-default">
+                    <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
                 </div>
             <hr>
-            <!--Resultados-->
-            <div *ngIf="!protocolos?.length" class="alert alert-default">
-                <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
-            </div>
             <!-- Listado -->
             <table class="table table-striped table-sm">
                 <tbody>
@@ -102,50 +99,11 @@
                             <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
                         </td>
                     </tr>
-                    <!-- Protocolos hardcodeados -->
-                    <tr class="labs-listado-item" *ngFor="let protocol of protocols; let i = index"  (click)="verProtocolo(protocolo, false, $event)">
-                        <div class="listado-contenedor-secundario">
-                            <td class="labs-item-numero">
-                                <i class="mdi mdi-gender-male mdi-36px  azul"></i>
-                                <hr>
-                                <h2>{{ protocol.id }}</h2>
-                                <hr>
-                            </td>
-                            <td class="contenedor-bloque-texto">
-                                <div class="labs-item-texto">
-                                    <p>{{ protocol.fecha }}</p>
-                                    <hr>
-                                    <strong>Origen: </strong>
-                                    <p>{{ protocol.origen }}</p>
-                                    <hr>
-                                    <strong>Servicio: </strong> 
-                                    <p>{{ protocol.servicio }}</p>
-                                </div>
-                                <div class="labs-item-texto">
-                                    <strong>Usuario: </strong>
-                                    <p>{{ protocol.usuario }}</p>
-                                    <hr>
-                                    <strong>Solicitante: </strong>
-                                    <p>{{ protocol.solicitante }}</p>
-                                    <hr>
-                                    <strong>Fecha de Registro:</strong>
-                                    <p>{{ protocol.fechaRegistro }}</p>
-                                </div>
-                            </td>
-                        </div>
-                        <td class="badge-container">
-                            <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
-                            <plex-badge type="warning" class="ml-2"> estado </plex-badge>
-                            <plex-button type="success" size="sm" (click)="cargarResultados()" class="ml-2">Cargar Resultados</plex-button>
-                            <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
-                        </td>
-                    </tr>
-                    <!-- /Protocolos hardcodeados -->
                 </tbody>
             </table>
             
     </plex-layout-main>
-
+    
     <!-- Panel lateral -->
     <plex-layout-sidebar type="invert">
         <header>
