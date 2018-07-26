@@ -18,3 +18,109 @@ span.badge,
 span.badge-default {
     font-size: 0.6rem;
 }
+
+
+// Extensiones
+// Filtros avanzados
+%bloque-texto {
+    display: flex;
+    flex-direction: column;
+}
+    .contenedor-bloque-texto {
+        
+        @extend %bloque-texto;
+    
+            >h5 {
+                font-weight: 500;
+            }
+        
+            .align-right {
+                text-align: right;
+            }
+        
+            small {
+                font-style: italic;
+            }
+    }
+
+// Resultados protocolos
+
+tr.labs-listado-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.5rem 1rem;
+    background-color: white!important;
+    border:solid 1px black;
+
+    &:hover{ 
+        background-color: lightgrey;
+        border: solid 2px #00A8E0;   
+    }
+    
+    .listado-contenedor-secundario {
+        display: flex;
+        justify-content: flex-start;
+        width: 60%;
+    }
+    
+    td {
+        border: none!important;
+    }
+
+    .labs-item-numero {
+        display: flex;
+        flex-direction: row;
+        font-weight: bolder; 
+        
+        &h2 {
+            display: flex;
+            align-self: center;
+        }
+
+        width: 15%;
+    }
+
+    .contenedor-bloque-texto {
+        @extend %bloque-texto;
+        height: 3rem;
+
+        .labs-item-texto {
+            display: flex;
+            flex-direction: row;
+            font-weight: normal; 
+        }
+    }
+}
+
+// Globales
+.badge-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    // width: 40%;
+
+    &.start {
+        justify-content: flex-start;
+    }
+ }
+
+ .labs-contenedor-secundario {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+ }
+
+// Sidebar
+plex-layout-sidebar[type="invert"]
+    plex-box > div:last-child {
+        background-color: #072837!important;
+        &h1,h2,h3,h4,h5,h6,p {
+            color: white;
+        }
+    }
