@@ -1,10 +1,18 @@
-<plex-layout main="9">
+<plex-layout>
     <plex-layout-main *ngIf="showListarProtocolos">
         <header>
-            <h3>Punto de inicio | Laboratorio</h3>
+            <h4>Punto de inicio | Laboratorio</h4>
+            <section class="contenedor-tabs">
+                <plex-tabs>
+                    <plex-tab label="Laboratorio general"></plex-tab>
+                    <plex-tab label="Microbiologia"></plex-tab>
+                    <plex-tab label="Pesquisa neonatal"></plex-tab>
+                </plex-tabs>
+                <div class="dropdown-secundario"><i class="mdi mdi-dots-horizontal"></i></div>
+            </section>
         </header>
             <!-- Conjunto de filtros -->
-            <div class="row">
+            <div class="row contenedor-filtros">
                     <div class="col-2">
                         <plex-select [(ngModel)]="sector" (change)="refreshSelection($event,'sector')" name="sector" label="Sector" (getData)="loadSector($event)"></plex-select>
                     </div>
@@ -27,8 +35,8 @@
                         </plex-datetime>
                     </div>
                     <div class="col-2 labs-contenedor-secundario">
-                        <div class="contenedor-bloque-texto text-right">
-                            <h5>Filtrado avanzado</h5>
+                        <div class="contenedor-bloque-texto line-height mr-2">
+                            <h6>Filtrado avanzado</h6>
                             <small class="text-primary">Pacientes y derivaciones</small>
                         </div>
                         <plex-button label="" type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
@@ -67,22 +75,28 @@
                     <tr class="labs-listado-item" *ngFor="let protocolo of protocolos; let i = index"  (click)="verProtocolo(protocolo, false, $event)">
                         <div class="listado-contenedor-secundario">
                             <td class="labs-item-numero">
-                                <h1 class="">♠</h1>
+                                <i class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+                                <hr>
                                 <h2>{{protocolo.numero}}</h2>
+                                <hr>
                             </td>
                             <td class="contenedor-bloque-texto">
                                 <div class="labs-item-texto">
                                     <p>11/07/2018</p>
-                                    <strong>Origen</strong>
+                                    <hr>
+                                    <strong>Origen: </strong>
                                     <p>Ambulatorio</p>
-                                    <strong>Servicio</strong> 
+                                    <hr>
+                                    <strong>Servicio: </strong> 
                                     <p>Clinica</p>
                                 </div>
                                 <div class="labs-item-texto">
                                     <strong>Usuario: </strong>
                                     <p>pmarconi</p>
+                                    <hr>
                                     <strong>Solicitante: </strong>
                                     <p>lmonteverde</p>
+                                    <hr>
                                     <strong>Fecha de Registro:</strong>
                                     <p>09/07/2018</p>
                                 </div>
@@ -92,7 +106,7 @@
                             <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
                             <plex-badge type="warning" class="ml-2"> estado </plex-badge>
                             <plex-button type="success" size="sm" (click)="cargarResultados()" class="ml-2">Cargar Resultados</plex-button>
-                            <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2">Observacion</plex-button>
+                            <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
                         </td>
                     </tr>
                 </tbody>
