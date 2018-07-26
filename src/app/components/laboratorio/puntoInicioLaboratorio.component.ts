@@ -102,7 +102,15 @@ export class PuntoInicioLaboratorioComponent
         return {};
     }
 
-    // Detalle protocolo
+    loadProtocolo(e) {
+
+    }
+
+    loadSector(e) {
+
+    }
+
+
     // Hardcodeo
     protocols = [
         {
@@ -133,32 +141,6 @@ export class PuntoInicioLaboratorioComponent
         fechaRegistro:'11/07/2018',
         }
     ];
-
-  // Funciones
-  addProtocols():void{
-    this.protocolos.push(this.model);
-    this.msg = 'campo agregado';
-  }
-
-
-    myValue;
-    editProtocolo(i):void {
-      this.model2.id = this.protocols[i].id;
-      this.model2.fecha = this.protocols[i].fecha;
-      this.model2.origen = this.protocols[i].origen;
-      this.myValue = i;
-    }
-
-
-    // Agragadas para que no pinche
-    addProtocolo(event){
-
-    }
-
-    loadSector(event){
-
-    }
-
     
 }
 

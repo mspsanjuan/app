@@ -64,13 +64,6 @@
             </div>
             <!-- Listado -->
             <table class="table table-striped table-sm">
-                <!-- <thead>
-                    <th>Numero</th>
-                    <th>Fecha</th>
-                    <th>Servicio</th>
-                    <th></th>
-                    <th class="text-right estado">Estado</th>
-                </thead> -->
                 <tbody>
                     <tr class="labs-listado-item" *ngFor="let protocolo of protocolos; let i = index"  (click)="verProtocolo(protocolo, false, $event)">
                         <div class="listado-contenedor-secundario">
@@ -109,44 +102,80 @@
                             <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
                         </td>
                     </tr>
+                    <!-- Protocolos hardcodeados -->
+                    <tr class="labs-listado-item" *ngFor="let protocol of protocols; let i = index"  (click)="verProtocolo(protocolo, false, $event)">
+                        <div class="listado-contenedor-secundario">
+                            <td class="labs-item-numero">
+                                <i class="mdi mdi-gender-male mdi-36px  azul"></i>
+                                <hr>
+                                <h2>{{ protocol.id }}</h2>
+                                <hr>
+                            </td>
+                            <td class="contenedor-bloque-texto">
+                                <div class="labs-item-texto">
+                                    <p>{{ protocol.fecha }}</p>
+                                    <hr>
+                                    <strong>Origen: </strong>
+                                    <p>{{ protocol.origen }}</p>
+                                    <hr>
+                                    <strong>Servicio: </strong> 
+                                    <p>{{ protocol.servicio }}</p>
+                                </div>
+                                <div class="labs-item-texto">
+                                    <strong>Usuario: </strong>
+                                    <p>{{ protocol.usuario }}</p>
+                                    <hr>
+                                    <strong>Solicitante: </strong>
+                                    <p>{{ protocol.solicitante }}</p>
+                                    <hr>
+                                    <strong>Fecha de Registro:</strong>
+                                    <p>{{ protocol.fechaRegistro }}</p>
+                                </div>
+                            </td>
+                        </div>
+                        <td class="badge-container">
+                            <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                            <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+                            <plex-button type="success" size="sm" (click)="cargarResultados()" class="ml-2">Cargar Resultados</plex-button>
+                            <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
+                        </td>
+                    </tr>
+                    <!-- /Protocolos hardcodeados -->
                 </tbody>
             </table>
-
+            
     </plex-layout-main>
 
     <!-- Panel lateral -->
     <plex-layout-sidebar type="invert">
-            <header>
-            <h3>Detalle</h3>
-            </header>
-                <!-- Badges sidebar -->
-                <div class="badge-container start">
-                    <plex-badge type="info" class="mr-2">Clinica</plex-badge>
-                    <plex-badge type="warning" class="mr-2">Ambulatorio</plex-badge>
+        <header>
+        <h3>Detalle</h3>
+        </header>
+            <!-- Badges sidebar -->
+            <div class="badge-container start">
+                <plex-badge type="info" class="mr-2">Clinica</plex-badge>
+                <plex-badge type="warning" class="mr-2">Ambulatorio</plex-badge>
+            </div>
+            <label class="control-label">Número</label>
+                <h1 class="text-primary text-xl">{{protocolo.numero}}</h1>
+            <hr>
+            <div class="labs-contenedor-secundario">
+                <div class="labs-bloque-texto">
+                    <label class="control-label text-info">Usuario</label>
+                    <h5 class="" id="id">pmarconi</h5>
                 </div>
-                <label class="control-label">Número</label>
-                    <h1 class="text-primary text-xl">{{protocolo.numero}}</h1>
-                <hr>
-                <div class="labs-contenedor-secundario">
-                    <div class="labs-bloque-texto">
-                        <label class="control-label text-info">Usuario</label>
-                        <h5 class="" id="id">pmarconi</h5>
-                    </div>
-                    <div class="labs-bloque-texto">
-                        <label class="control-label text-info">solicitante</label>
-                        <h5 class="" id="id">lmonteverde</h5>
-                    </div>
-                    <div class="labs-bloque-texto">
-                    <label class="control-label text-info">Fecha registro</label>
-                    <h5 class="" id="id">09/07/2018</h5>
-                    </div>
-                </div>    
-                <hr>
-                <label class="control-label">Observacion</label>
-                <textarea class="form-control" rows="12">nsdajdnfjaklsnd;kasbndj</textarea>
-
-        <!-- Switchea a listado practicas -->
-        <protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
+                <div class="labs-bloque-texto">
+                    <label class="control-label text-info">solicitante</label>
+                    <h5 class="" id="id">lmonteverde</h5>
+                </div>
+                <div class="labs-bloque-texto">
+                <label class="control-label text-info">Fecha registro</label>
+                <h5 class="" id="id">09/07/2018</h5>
+                </div>
+            </div>    
+            <hr>
+            <label class="control-label">Observacion</label>
+            <textarea class="form-control" rows="12">nsdajdnfjaklsnd;kasbndj</textarea>
     </plex-layout-sidebar>
 
     <!-- footer -->
@@ -155,5 +184,10 @@
             <plex-button label="Cancelar" type="Cancelar" position="left" (click)="guardarAgendaPanel.cancelar()"></plex-button>
             <plex-button label="Guardar formulario" type="Guardar" position="right" (click)="guardarAgendaPanel.guardarAgenda(agendasSeleccionadas[0])"></plex-button>
     </plex-layout-footer>
+
+    <!-- Switchea a listado practicas -->
+    <plex-layout-main>
+        <protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
+    </plex-layout-main>
 </plex-layout>
 
