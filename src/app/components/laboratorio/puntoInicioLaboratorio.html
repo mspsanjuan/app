@@ -80,40 +80,8 @@
                                         <strong>&nbsp;|&nbsp;Solicitante:&nbsp;</strong>
                                         <p>lmonteverde</p>
                                         <strong>&nbsp;|&nbsp;Fecha de Registro:&nbsp;</strong>
-                                        <p>09/07/2018</p>
+                                        <p>{{protocolo.createdAt | date: 'dd/MM/yyyy'}}</p>
                                     </div>
-                                <!-- </div> -->
-            
-                        <!--Resultados-->
-                        <!-- <div *ngIf="!protocolos?.length" class="alert alert-default">
-                            <i class="mdi mdi-emoticon-sad"></i> No hay protocolos que coincidan con los filtros de búsqueda
-                        </div>
-            
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <th>Numero</th>
-                                <th>Fecha</th>
-                                <th>Servicio</th>
-                                <th></th>
-                                <th class="text-right estado">Estado</th>
-                            </thead>
-                            <tbody>
-                                <tr class="" *ngFor="let protocolo of protocolos; let i = index" (click)="verProtocolo(protocolo, false, $event)">
-                                <td>{{protocolo.numero?.valor}}</td>
-                                <td>{{protocolo.solicitud.fecha}}</td>
-                                <td>{{protocolo.servicio}}</td>
-                                <td>
-                                    <a (click)="addProtocolo()" class="btn btn-success">
-                                    Accion exitosa
-                                    </a>
-                                    <a class="btn btn-danger">
-                                    Editar
-                                    </a>
-                                </td>
-                                <td>{{protocolo.origen}}</td>
-                                </tr>
-                            </tbody>
-                        </table> -->
                                 </td>
                             </div>
                             <td class="badge-container">

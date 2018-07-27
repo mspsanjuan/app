@@ -5,40 +5,67 @@
         <div class="page-title float-left">Control de Protocolo</div>
         <!-- <botones-protocolo >
         </botones-protocolo> -->
-    </div>
-    {{protocolo.numero?.valor}}
-    <!--Navegacion entre protocolos-->
-    <!--Datos de cabecera-->
-    
+    </div>    
 </header>
+<table class="table table-striped table-sm">
+        <tbody>
+            <tr class="labs-listado-item" >
+                <div class="listado-contenedor-secundario">
+                    <td class="labs-item-numero">
+                        <h1 class="">♠</h1>
+                        <h2>{{protocolo.numero?.valor}}</h2>
+                    </td>
+                    <td class="contenedor-bloque-texto">
+                        <div class="labs-item-texto">
+                            <p>{{protocolo.solicitud.fecha | date: 'dd/MM/yyyy'}}</p>
+                            <strong>&nbsp;|&nbsp;Origen&nbsp;</strong>
+                            <p>{{protocolo.solicitud.ambitoOrigen}}</p>
+                            <strong>&nbsp;|&nbsp;Servicio&nbsp;</strong> 
+                            <p>Clinica </p>
+                        </div>
+                        <div class="labs-item-texto">
+                            <strong>Usuario:&nbsp;</strong>
+                            <p>{{protocolo.createdBy.nombreCompleto}}</p>
+                            <strong>&nbsp;|&nbsp;Solicitante:&nbsp;</strong>
+                            <p>lmonteverde</p>
+                            <strong>&nbsp;|&nbsp;Fecha de Registro:&nbsp;</strong>
+                            <p>{{protocolo.createdAt | date: 'dd/MM/yyyy'}}</p>
+                        </div>
+                    </td>
+                </div>
+                <td class="badge-container">
+                    <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                    <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+                    <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2">Observacion</plex-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 <!--Resultados-->
     <table *ngIf="protocolo.ejecucion?.registros.length" class="table table-striped table-sm">
         <thead>
-            <th></th>
-            <th>Fecha y Hora</th>
-            <th>ObjectId</th>
+            <th>Cod.</th>
+            <th>Análisis</th>
+            <th>Valor</th>
         </thead>
         <tbody>
             <ng-container *ngFor="let practica of getPracticas(); let i=index">
                 <tr *ngIf="!practica.registros.length > 0" class="hover" [ngClass]="">
-                    <td (click)="verAgenda(protocolo, true, $event)">
-                    </td>
                     <td (click)="void(0)">
-                        <span class="float-right">{{practica.concepto.conceptId}}</span>
+                        <span class="float-right">{{getCodigoPractica(practica.registros)}}</span>
                     </td>
                     <td (click)="void(0)">
                         <span class="float-right">{{practica.nombre}}</span>
                     </td>
                     <td (click)="void(0)" class="text-right align-middle estado">
+                        <plex-text [(ngModel)]="practica.nombre" label="Nombre:" placeholder="Ingrese nombre..."></plex-text>
                     </td>
                 </tr>
                 <ng-container *ngIf="practica.registros.length > 0">
                     <tr  class="hover" [ngClass]="">
-                        <td (click)="verAgenda(protocolo, true, $event)">
-                        </td>
                         <td (click)="void(0)">
-                            <span class="float-right">{{practica.concepto.conceptId}}</span>
+                            <span class="float-right">{{getCodigoPractica(practica.registros)}}</span>
                         </td>
                         <td (click)="void(0)">
                             <span class="float-right"><strong>{{practica.nombre}}</strong></span>
@@ -47,15 +74,14 @@
                         </td>
                     </tr>
                     <tr *ngFor="let subpractica of findPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
-                        <td (click)="verAgenda(protocolo, true, $event)">
-                        </td>
                         <td (click)="void(0)">
-                            <span class="float-right">{{subpractica.concepto.conceptId}}</span>
+                            <span class="float-right">{{getCodigoPractica(subpractica.registros)}}</span>
                         </td>
                         <td (click)="void(0)">
                             <span class="float-right">{{subpractica.nombre}}</span>
                         </td>
                         <td (click)="void(0)" class="text-right align-middle estado">
+                                <plex-text [(ngModel)]="subpractica.nombre" label="Nombre:" placeholder="Ingrese nombre..."></plex-text>
                         </td>
                     </tr>
                 </ng-container>    
