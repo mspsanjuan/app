@@ -1,17 +1,12 @@
 // import {
 //     ProtocoloService
 // } from './../../services/laboratorio/protocolo.service';
-import {
-        PrestacionesService
-    } from './../../modules/rup/services/prestaciones.service';
+import { PrestacionesService } from './../../modules/rup/services/prestaciones.service';
 import { Component, OnInit, HostBinding, NgModule, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-// import {
-//     Router
-// } from '@angular/router';
+// import { Router } from '@angular/router';
 import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
-
 
 @Component({
     selector: 'gestor-protocolos',

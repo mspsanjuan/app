@@ -39,11 +39,38 @@ span.badge-default {
     }
  }
 
+ .botonera-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    // width: 100%;
+    padding: 0.25rem;
+    margin: .5rem 0;
+
+    plex-button {
+        &.left {
+
+        }
+        
+        &.right {
+
+        }
+
+        &.center {
+
+        }
+    }
+ }
+
  .labs-contenedor-secundario {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    margin-top: 30px;
+
  }
 
 //  Tabs
@@ -51,6 +78,14 @@ header {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+
+    >h4 {
+        text-transform: uppercase;
+        &::after {
+            color: blue;
+        }
+
+    }
 }
 section.contenedor-tabs {
     display: flex;
@@ -75,7 +110,11 @@ section.contenedor-tabs {
 // Filtros avanzados
 .contenedor-filtros {
     display: flex;
-    align-items: flex-end; 
+    align-items: flex-start; 
+
+    [class^="label"] {
+        margin-top: 0!important;
+    }
 }
 
 %bloque-texto {
@@ -104,12 +143,14 @@ section.contenedor-tabs {
     }
 
 // Resultados protocolos
-tr.labs-listado-item {
+.labs-listado-item {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
+    min-height: 60px;
+    max-height: 60px;
     padding: 0.25rem 0.5rem;
     background-color: white!important;
     border:solid 1px black;

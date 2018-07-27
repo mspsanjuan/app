@@ -38,7 +38,7 @@
                             <h6>Filtrado avanzado</h6>
                             <small class="text-primary">Pacientes y derivaciones</small>
                         </div>
-                        <plex-button label="" type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
+                        <plex-button label="" type="info" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
                     </div>
                 </div>
                     <!-- Filtros avanzados -->
@@ -99,6 +99,7 @@
                             <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
                         </td>
                     </tr>
+                    <!-- /Protocolos hardcodeados -->
                 </tbody>
             </table>
             
