@@ -1,7 +1,7 @@
-        <header>
-            <!--Panel de Agendas-->
-            <h4>Laboratorio general | Practicas y resultados</h4>
-        </header>
+    <header>
+        <!--Panel de Agendas-->
+        <h4>Laboratorio general | Practicas y resultados</h4>
+    </header>
         <!--Navegacion entre protocolos-->
         <section class="labs-listado-item" *ngFor="let protocol of protocols; let i = index">
             <plex-button type="info" icon="chevron-left"></plex-button>
@@ -50,57 +50,59 @@
         <!--Listado de practicas-->
         <table *ngIf="protocolo.ejecucion?.registros.length" class="table table-striped table-sm">
             <thead>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>VR|Metodo</th>
-                <th>Estado</th>
-                <th>Valor</th>
-                <th>Unidad de Medida</th>
+                <th>Cod.</th>
+                <th>Análisis</th>
+                <th class="float-center">Valor</th>
                 <th></th>
                 <th>Acciones</th>
             </thead>
             <tbody>
-                <!-- Harcodeo test -->
-                <ng-container *ngFor="let practica of getPracticas(); let i=index">
-                    <tr *ngIf="!practica.registros.length > 0" [ngClass]="">
+                <ng-container *ngFor="let practica of getPracticas(protocolo.ejecucion.registros); let i=index">
+                    <tr *ngIf="!getPracticas(practica.registros).length > 0" [ngClass]="">
                         <td>
-                            <p>{{ practica.concepto.conceptId }}</p>
+                            <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
                         </td>
                         <td>
-                            <p>{{ practica.nombre }}</p>
+                            <span class="float-left">{{practica.nombre}}</span>
+                        </td>
+                        <td class="text-left align-middle estado">
+                                <p><input type='number'/></p>
+                        </td>
+                        <td>
+                            <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
+                            <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
+                        </td>
+                        <td>
+                            <plex-button type="info" size="sm" class="ml-2"><i class="mdi mdi-eye"></i></plex-button>
+                            <plex-button type="success" size="sm" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
+                            <plex-button type="warning" size="sm" class="ml-2"><i class="mdi mdi-message-alert"></i></plex-button>
                         </td>
                     </tr>
 
-                    <ng-container>
-                        <tr *ngIf="!practica.registros.length > 0" [ngClass]="" >
+                    <ng-container *ngIf="getPracticas(practica.registros).length > 0">
+                        <tr >
                             <td>
-                                <p>{{ practica.concepto.conceptId }}</p>
+                                <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
                             </td>
                             <td>
-                                <p>{{ practica.nombre }}</p>
+                                <span class="float-left"><strong>{{practica.nombre}}</strong></span>
+                            </td>
+                            <td class="text-right align-middle estado">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
                             </td>
                         </tr>
-                        <tr *ngFor="let subpractica of findPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
+                        <tr *ngFor="let subpractica of getPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
                             <td>
-                                <!-- Esta en esquema? Se va a mostrar? -->
-                                <p>{{ subpractica.concepto.conceptId }}</p>
+                                <span class="float-left">{{getCodigoPractica(subpractica.registros)}}</span>
                             </td>
                             <td>
-                                <!-- Esta en esquema? Se va a mostrar? -->
-                                <p>{{ subpractica.nombre }}</p>
+                                <span class="float-left">{{subpractica.nombre}}</span>
                             </td>
                             <td>
-                                <!-- Esta en esquema? Se va a mostrar? -->
-                                <p>{{ subpractica.metodo }}</p>
-                            </td>
-                            <td>
-                                <!-- <p>{{ subpractica.estado }}</p> -->
-                            </td>
-                            <td>
-                                <input type="number">
-                            </td>
-                            <td>
-                                <p>{{ subpractica.unidad }}</p>
+                                <p><input type='number'/></p>
                             </td>
                             <td>
                                 <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
@@ -118,46 +120,3 @@
         </table>
 
         <plex-button type="success" (click)="volverProtocolos()">Volver</plex-button>
-
-                    <!-- <ng-container *ngFor="let practica of getPracticas(); let i=index">
-                        <tr [ngClass]="" *ngIf="!practica.registros.length > 0">
-                            <td (click)="verAgenda(protocolo, true, $event)">
-                            </td>
-                            <td (click)="void(0)">
-                                <span class="float-right">{{ practica.concepto.conceptId }}</span>
-                            </td>
-                            <td (click)="void(0)">
-                                <span class="float-right">{{practica.nombre}}</span>
-                            </td>
-                            <td (click)="void(0)" class="text-right align-middle estado">
-                            </td>
-                        </tr>
-                        <ng-container>
-                            <tr  class="hover" [ngClass]="" *ngIf="practica.registros.length > 0">
-                                <td (click)="verAgenda(protocolo, true, $event)">
-                                </td>
-                                <td (click)="void(0)">
-                                    <span class="float-right">{{practica.concepto.conceptId}}</span>
-                                </td>
-                                <td (click)="void(0)">
-                                    <span class="float-right"><strong>{{practica.nombre}}</strong></span>
-                                </td>
-                                <td (click)="void(0)" class="text-right align-middle estado">
-                                </td>
-                            </tr>
-                            <tr *ngFor="let subpractica of findPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
-                                <td (click)="verAgenda(protocolo, true, $event)">
-                                </td>
-                                <td (click)="void(0)">
-                                    <span class="float-right">{{subpractica.concepto.conceptId}}</span>
-                                </td>
-                                <td (click)="void(0)">
-                                    <span class="float-right">{{subpractica.nombre}}</span>
-                                </td>
-                                <td (click)="void(0)" class="text-right align-middle estado">
-                                </td>
-                            </tr>
-                        </ng-container>    
-                    </ng-container> -->
-
-            

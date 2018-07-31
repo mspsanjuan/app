@@ -64,16 +64,22 @@ export class ProtocoloDetalleComponent
         this.volverAListaControEmit.emit(true);
     }
  
-    getPracticas() {
-        return this.findPracticas(this.protocolo.ejecucion.registros);
+    getPracticas(registros) {
+       let registro : any = this.getRegistrosByConceptId(registros, '122869004');
+       
+       return registro ? registro.registros : [];
     }
 
-    findPracticas(registros) {
-        let registro = registros.find((reg) => {
-            return reg.concepto.conceptId == "122869004";
+     getCodigoPractica(registros) {
+        let registro : any = this.getRegistrosByConceptId(registros, '260299005')
+        return (registro) ? registro.valor : '';
+    }
+
+    getRegistrosByConceptId(registros, conceptId) {
+        return registros.find((reg) => {
+            return reg.concepto.conceptId == conceptId;
         });
-            
-        return registro ? registro.registros : [];
+    
     }
 
 

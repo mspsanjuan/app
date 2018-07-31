@@ -1,6 +1,3 @@
-// import {
-//     ProtocoloService
-// } from './../../services/laboratorio/protocolo.service';
 import { PrestacionesService } from './../../modules/rup/services/prestaciones.service';
 import { Component, OnInit, HostBinding, NgModule, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
@@ -28,7 +25,6 @@ export class PuntoInicioLaboratorioComponent
 
 
     constructor(public plex: Plex, private formBuilder: FormBuilder, 
-        // public servicioProtocolo: ProtocoloService,
         public servicioPrestaciones: PrestacionesService,
         public auth: Auth) { }
 
@@ -56,23 +52,24 @@ export class PuntoInicioLaboratorioComponent
         this.getProtocolos(this.parametros);
     };
 
+    getNumeroProtocolo(registros) {
+        let registro : any = registros.find((reg) => {
+            console.log(reg);
+            return reg.nombre == "numeroProtocolo";
+        });
+        return registro.valor;
+    }
+
     getProtocolos(params: any) {
-        // this.servicioProtocolo.get(params).subscribe(protocolos => {
         this.servicioPrestaciones.get(params).subscribe(protocolos => {
-            protocolos.forEach( (protocolo: any) => {
-                console.log(protocolo.solicitud);
-                protocolo.numero = protocolo.solicitud.registros.find((reg) => {
-                    console.log(reg);
-                    return reg.nombre == "numeroProtocolo";
-                });
-            });
-           
             this.protocolos = protocolos;
         }, err => {
             if (err) {
                 console.log(err);
             }
         });
+
+        
     }
 
     estaSeleccionado(protocolo) {
