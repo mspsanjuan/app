@@ -1,91 +1,122 @@
+    <header>
         <!--Panel de Agendas-->
-<header>
-    <!--Botones / Acciones-->
-    <div class="clearfix">
-        <div class="page-title float-left">Control de Protocolo</div>
-        <!-- <botones-protocolo >
-        </botones-protocolo> -->
-    </div>    
-</header>
-<table class="table table-striped table-sm">
-        <tbody>
-            <tr class="labs-listado-item" >
-                <div class="listado-contenedor-secundario">
-                    <td class="labs-item-numero">
-                        <h1 class="">♠</h1>
-                        <h2>{{protocolo.numero?.valor}}</h2>
-                    </td>
-                    <td class="contenedor-bloque-texto">
-                        <div class="labs-item-texto">
-                            <p>{{protocolo.solicitud.fecha | date: 'dd/MM/yyyy'}}</p>
-                            <strong>&nbsp;|&nbsp;Origen&nbsp;</strong>
-                            <p>{{protocolo.solicitud.ambitoOrigen}}</p>
-                            <strong>&nbsp;|&nbsp;Servicio&nbsp;</strong> 
-                            <p>Clinica </p>
-                        </div>
-                        <div class="labs-item-texto">
-                            <strong>Usuario:&nbsp;</strong>
-                            <p>{{protocolo.createdBy.nombreCompleto}}</p>
-                            <strong>&nbsp;|&nbsp;Solicitante:&nbsp;</strong>
-                            <p>lmonteverde</p>
-                            <strong>&nbsp;|&nbsp;Fecha de Registro:&nbsp;</strong>
-                            <p>{{protocolo.createdAt | date: 'dd/MM/yyyy'}}</p>
-                        </div>
-                    </td>
-                </div>
-                <td class="badge-container">
-                    <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
-                    <plex-badge type="warning" class="ml-2"> estado </plex-badge>
-                    <plex-button type="success" size="sm" (click)="editProtocolo($event)" class="ml-2">Observacion</plex-button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <h4>Laboratorio general | Practicas y resultados</h4>
+    </header>
+        <!--Navegacion entre protocolos-->
+        <section class="labs-listado-item" *ngFor="let protocol of protocols; let i = index">
+            <plex-button type="info" icon="chevron-left"></plex-button>
+            <div class="listado-contenedor-secundario">
+                <article class="labs-item-numero">
+                    <i class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+                    <hr>
+                    <h2>{{ protocolo.numero?.valor }}</h2>
+                    <hr>
+                </article>
+                <article class="contenedor-bloque-texto">
+                    <div class="labs-item-texto">
+                        <p>{{ protocol.fecha }}</p>
+                        <hr>
+                        <strong>Origen: </strong>
+                        <p>{{ protocol.origen }}</p>
+                        <hr>
+                        <strong>Servicio: </strong> 
+                        <p>{{ protocol.servicio }}</p>
+                    </div>
+                    <div class="labs-item-texto">
+                        <strong>Usuario: </strong>
+                        <p>{{ protocol.usuario }}</p>
+                        <hr>
+                        <strong>Solicitante: </strong>
+                        <p>{{ protocol.solicitante }}</p>
+                        <hr>
+                        <strong>Fecha de Registro:</strong>
+                        <p>{{ protocol.fechaRegistro }}</p>
+                    </div>
+                </article>
+            </div>
+            <div class="badge-container">
+                <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+            </div>
+            <plex-button type="info" icon='chevron-right'></plex-button>
+        </section>
+        <!-- Botonera -->
+        <div class="botonera-container">
+            <plex-button class="left ml-2" type="info" icon='chevron-up' label="boton clave 1"></plex-button>
+            <plex-button class="center ml-2" type="success" icon='chevron-up' label="boton clave 2"></plex-button>
+            <plex-button class="right ml-2" type="warning" icon='chevron-up' label="boton clave 3"></plex-button>
+        </div>
+        <hr>
+        <!--Listado de practicas-->
+        <table *ngIf="protocolo.ejecucion?.registros.length" class="table table-striped table-sm">
+            <thead>
+                <th>Cod.</th>
+                <th>Análisis</th>
+                <th class="float-center">Valor</th>
+                <th></th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let practica of getPracticas(protocolo.ejecucion.registros); let i=index">
+                    <tr *ngIf="!getPracticas(practica.registros).length > 0" [ngClass]="">
+                        <td>
+                            <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
+                        </td>
+                        <td>
+                            <span class="float-left">{{practica.nombre}}</span>
+                        </td>
+                        <td class="text-left align-middle estado">
+                                <p><input type='number'/></p>
+                        </td>
+                        <td>
+                            <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
+                            <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
+                        </td>
+                        <td>
+                            <plex-button type="info" size="sm" class="ml-2"><i class="mdi mdi-eye"></i></plex-button>
+                            <plex-button type="success" size="sm" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
+                            <plex-button type="warning" size="sm" class="ml-2"><i class="mdi mdi-message-alert"></i></plex-button>
+                        </td>
+                    </tr>
 
-<!--Resultados-->
-    <table *ngIf="protocolo.ejecucion?.registros.length" class="table table-striped table-sm">
-        <thead>
-            <th>Cod.</th>
-            <th>Análisis</th>
-            <th>Valor</th>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let practica of getPracticas(); let i=index">
-                <tr *ngIf="!practica.registros.length > 0" class="hover" [ngClass]="">
-                    <td (click)="void(0)">
-                        <span class="float-right">{{getCodigoPractica(practica.registros)}}</span>
-                    </td>
-                    <td (click)="void(0)">
-                        <span class="float-right">{{practica.nombre}}</span>
-                    </td>
-                    <td (click)="void(0)" class="text-right align-middle estado">
-                        <plex-text [(ngModel)]="practica.nombre" label="Nombre:" placeholder="Ingrese nombre..."></plex-text>
-                    </td>
-                </tr>
-                <ng-container *ngIf="practica.registros.length > 0">
-                    <tr  class="hover" [ngClass]="">
-                        <td (click)="void(0)">
-                            <span class="float-right">{{getCodigoPractica(practica.registros)}}</span>
-                        </td>
-                        <td (click)="void(0)">
-                            <span class="float-right"><strong>{{practica.nombre}}</strong></span>
-                        </td>
-                        <td (click)="void(0)" class="text-right align-middle estado">
-                        </td>
-                    </tr>
-                    <tr *ngFor="let subpractica of findPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
-                        <td (click)="void(0)">
-                            <span class="float-right">{{getCodigoPractica(subpractica.registros)}}</span>
-                        </td>
-                        <td (click)="void(0)">
-                            <span class="float-right">{{subpractica.nombre}}</span>
-                        </td>
-                        <td (click)="void(0)" class="text-right align-middle estado">
-                                <plex-text [(ngModel)]="subpractica.nombre" label="Nombre:" placeholder="Ingrese nombre..."></plex-text>
-                        </td>
-                    </tr>
-                </ng-container>    
-            </ng-container>
-        </tbody>
-    </table>
-    <plex-button type="success" (click)="volverProtocolos()">Volver</plex-button>
+                    <ng-container *ngIf="getPracticas(practica.registros).length > 0">
+                        <tr >
+                            <td>
+                                <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
+                            </td>
+                            <td>
+                                <span class="float-left"><strong>{{practica.nombre}}</strong></span>
+                            </td>
+                            <td class="text-right align-middle estado">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let subpractica of getPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
+                            <td>
+                                <span class="float-left">{{getCodigoPractica(subpractica.registros)}}</span>
+                            </td>
+                            <td>
+                                <span class="float-left">{{subpractica.nombre}}</span>
+                            </td>
+                            <td>
+                                <p><input type='number'/></p>
+                            </td>
+                            <td>
+                                <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
+                                <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
+                            </td>
+                            <td>
+                                <plex-button type="info" size="sm" class="ml-2"><i class="mdi mdi-eye"></i></plex-button>
+                                <plex-button type="success" size="sm" class="ml-2"><i class="mdi mdi-file-document"></i></plex-button>
+                                <plex-button type="warning" size="sm" class="ml-2"><i class="mdi mdi-message-alert"></i></plex-button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+
+        <plex-button type="success" (click)="volverProtocolos()">Volver</plex-button>
