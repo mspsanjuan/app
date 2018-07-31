@@ -1,5 +1,5 @@
-<plex-layout main="9">
-    <plex-layout-main *ngIf="showListarProtocolos">
+<plex-layout main="9" *ngIf="showListarProtocolos">
+    <plex-layout-main>
         <header>
             <h4>Punto de inicio | Laboratorio</h4>
             <section class="contenedor-tabs">
@@ -129,20 +129,17 @@
             </div>    
             <hr>
             <label class="control-label">Observacion</label>
-            <textarea class="form-control" rows="12">nsdajdnfjaklsnd;kasbndj</textarea> -->
+            <textarea class="form-control" rows="12">nsdajdnfjaklsnd;kasbndj</textarea>
     </plex-layout-sidebar>
     <!-- Panel lateral -->
     
     <!-- footer -->
     <plex-layout-footer *ngIf="showListarProtocolos">
-            <plex-button type="primary" position="left" label="Crear un nuevo protocolo" (click)="insertarAgenda()"></plex-button>
+            <plex-button label="accion clave" type="primary" position="left" label="Crear un nuevo protocolo" (click)="insertarAgenda()"></plex-button>
             <plex-button label="Cancelar" type="Cancelar" position="left" (click)="guardarAgendaPanel.cancelar()"></plex-button>
-            <plex-button label="Guardar formulario" type="Guardar" position="right" (click)="guardarAgendaPanel.guardarAgenda(agendasSeleccionadas[0])"></plex-button>
+            <plex-button label="Otra accion clave" type="Guardar" position="right" (click)="guardarAgendaPanel.guardarAgenda(agendasSeleccionadas[0])"></plex-button>
     </plex-layout-footer>
-
-    <!-- Switchea a listado practicas -->
-    <plex-layout-main>
-        <protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
-    </plex-layout-main>
 </plex-layout>
 
+<!-- Switchea a listado practicas -->
+<protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
