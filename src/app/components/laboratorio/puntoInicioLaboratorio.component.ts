@@ -29,6 +29,7 @@ export class PuntoInicioLaboratorioComponent
     public origenEnum: any;
     public prioridadesEnum;
     public laboratorioInternoEnum: any;
+    public dniPaciente: any;
 
     constructor(public plex: Plex, private formBuilder: FormBuilder,
         public servicioPrestaciones: PrestacionesService,
@@ -60,6 +61,11 @@ export class PuntoInicioLaboratorioComponent
                 this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
                 this.parametros['organizacion'] = this.auth.organizacion._id;
             }
+        }
+
+        if (tipo === 'dniPaciente'){
+
+            this.parametros['pacienteDocumento'] =  this.dniPaciente;
         }
 
         this.getProtocolos(this.parametros);
