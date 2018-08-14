@@ -94,16 +94,16 @@ export class PuntoInicioLaboratorioComponent
             this.parametros['apellidoPaciente'] = this.busqueda.apellidoPaciente;
         }
         if (tipo === 'origen') {
-            if (this.busqueda.origen.id === 'todos'){
+            if (this.busqueda.origen.id === 'todos') {
                 this.busqueda.origen.id = null;
             }
             this.parametros['origen'] = this.busqueda.origen.id;
 
         }
-        if (tipo === 'numProtocoloDesde'){
+        if (tipo === 'numProtocoloDesde') {
             this.parametros['numProtocoloDesde'] = this.busqueda.numProtocoloDesde;
         }
-        if (tipo === 'numProtocoloHasta'){
+        if (tipo === 'numProtocoloHasta') {
             this.parametros['numProtocoloHasta'] = this.busqueda.numProtocoloHasta;
         }
         console.log(this.parametros);
@@ -176,28 +176,13 @@ export class PuntoInicioLaboratorioComponent
         this.showProtocoloDetalle = false;
     }
 
-    loadSectores(e) {
-        return {};
-    }
+    loadServicios($event) {
+        this.servicioOrganizacion.getById(this.auth.organizacion.id).subscribe((organizacion: any) => {
+            console.log(organizacion);
+            let servicioEnum = organizacion.unidadesOrganizativas;
+            $event.callback(servicioEnum);
+        });
 
-    loadAreasValidacion(e) {
-        return {};
-    }
-
-    loadEfectores(e) {
-        return {};
-    }
-
-    loadProtocolo(e) {
-        return [];
-    }
-
-    loadSector(e) {
-        return [];
-    }
-
-    loadOrigenes(e) {
-        return [];
     }
 
     loadOrganizacion(event) {
