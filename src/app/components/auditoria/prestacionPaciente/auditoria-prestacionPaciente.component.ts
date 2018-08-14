@@ -39,79 +39,79 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
 
         this.auditoriaPP = {
             paciente: {
-                'createdBy': {
-                    'organizacion': {
-                        'id': '57e9670e52df311059bc8964',
-                        'nombre': 'HOSPITAL PROVINCIAL NEUQUEN - DR. EDUARDO CASTRO RENDON',
-                        '_id': '57e9670e52df311059bc8964'
+                createdBy: {
+                    organizacion: {
+                        id: '57e9670e52df311059bc8964',
+                        nombre: 'HOSPITAL PROVINCIAL NEUQUEN - DR. EDUARDO CASTRO RENDON',
+                        _id: '57e9670e52df311059bc8964'
                     },
-                    'documento': 31965283,
-                    'username': 31965283,
-                    'apellido': '31965283',
-                    'nombre': '31965283',
-                    'nombreCompleto': '31965283 31965283'
+                    documento: 31965283,
+                    username: 31965283,
+                    apellido: '31965283',
+                    nombre: '31965283',
+                    nombreCompleto: '31965283 31965283'
                 },
-                'createdAt': new Date('2017-05-10T11:10:38.666Z'),
-                'estado': 'validado',
-                'documento': '45883853',
-                'nombre': 'PABLO EXEQUIEL',
-                'fechaNacimiento': new Date('2004-09-12T03:00:00.000Z'),
-                'genero': 'masculino',
-                'apellido': 'PEREZ',
-                'estadoCivil': null,
-                '__v': 0,
-                'sexo': 'masculino',
-                'scan': 'perez',
-                '_id': '5912f52e7b41c2429c958c59',
-                'entidadesValidadoras': [
+                createdAt: new Date('2017-05-10T11:10:38.666Z'),
+                estado: 'validado',
+                documento: '45883853',
+                nombre: 'PABLO EXEQUIEL',
+                fechaNacimiento: new Date('2004-09-12T03:00:00.000Z'),
+                genero: 'masculino',
+                apellido: 'PEREZ',
+                estadoCivil: null,
+                __v: 0,
+                sexo: 'masculino',
+                scan: 'perez',
+                _id: '5912f52e7b41c2429c958c59',
+                entidadesValidadoras: [
                     'Sisa'
                 ],
-                'claveBlocking': [
+                claveBlocking: [
                     'PRSPVL',
                     'PRS',
                     'PVLXKL',
                     '094015475',
                     '094'
                 ],
-                'financiador': [],
-                'relaciones': [],
-                'direccion': [
+                financiador: [],
+                relaciones: [],
+                direccion: [
                     {
-                        'codigoPostal': '8300',
-                        '_id': '58cf323bd816ea2b7cfd6661',
-                        'ranking': 1,
-                        'ubicacion': {
-                            'pais': {
-                                'nombre': 'Argentina',
-                                '_id': '582074dcde27c98959a5e351'
+                        codigoPostal: '8300',
+                        _id: '58cf323bd816ea2b7cfd6661',
+                        ranking: 1,
+                        ubicacion: {
+                            pais: {
+                                nombre: 'Argentina',
+                                _id: '582074dcde27c98959a5e351'
                             },
-                            'provincia': {
-                                'nombre': 'Neuquén',
-                                '_id': '582074b2de27c98959a5e350'
+                            provincia: {
+                                nombre: 'Neuquén',
+                                _id: '582074b2de27c98959a5e350'
                             },
-                            'localidad': {
-                                'nombre': 'Neuquén',
-                                '_id': '57f538a472325875a199a82d'
+                            localidad: {
+                                nombre: 'Neuquén',
+                                _id: '57f538a472325875a199a82d'
                             },
-                            '_id': '58cf323bd816ea2b7cfd6662'
+                            _id: '58cf323bd816ea2b7cfd6662'
                         },
-                        'valor': 'MZA  22 LOTE G-CRNE PISO: 0 MZ: 22 LT: G',
-                        'activo': true
+                        valor: 'MZA  22 LOTE G-CRNE PISO: 0 MZ: 22 LT: G',
+                        activo: true
                     }
                 ],
-                'contacto': [
+                contacto: [
                     {
-                        'tipo': 'celular',
-                        'ranking': 1,
-                        'valor': '155745468',
-                        '_id': '58cf323bd816ea2b7cfd6666',
-                        'activo': true
+                        tipo: 'celular',
+                        ranking: 1,
+                        valor: '155745468',
+                        _id: '58cf323bd816ea2b7cfd6666',
+                        activo: true
                     }
                 ],
-                'identificadores': [
+                identificadores: [
                     {
-                        'entidad': 'SIPS',
-                        'valor': '322580'
+                        entidad: 'SIPS',
+                        valor: '322580'
                     }
                 ]
             },
@@ -320,79 +320,79 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
 
         this.auditoriaPP = {
             paciente: {
-                'createdBy': {
-                    'organizacion': {
-                        'id': '57e9670e52df311059bc8964',
-                        'nombre': 'HOSPITAL PROVINCIAL NEUQUEN - DR. EDUARDO CASTRO RENDON',
-                        '_id': '57e9670e52df311059bc8964'
+                createdBy: {
+                    organizacion: {
+                        id: '57e9670e52df311059bc8964',
+                        nombre: 'HOSPITAL PROVINCIAL NEUQUEN - DR. EDUARDO CASTRO RENDON',
+                        _id: '57e9670e52df311059bc8964'
                     },
-                    'documento': 31965283,
-                    'username': 31965283,
-                    'apellido': '31965283',
-                    'nombre': '31965283',
-                    'nombreCompleto': '31965283 31965283'
+                    documento: 31965283,
+                    username: 31965283,
+                    apellido: '31965283',
+                    nombre: '31965283',
+                    nombreCompleto: '31965283 31965283'
                 },
-                'createdAt': new Date('2017-05-10T11:10:38.666Z'),
-                'estado': 'validado',
-                'documento': '45883853',
-                'nombre': 'PABLO EXEQUIEL',
-                'fechaNacimiento': new Date('2004-09-12T03:00:00.000Z'),
-                'genero': 'masculino',
-                'apellido': 'PEREZ',
-                'estadoCivil': null,
-                '__v': 0,
-                'sexo': 'masculino',
-                'scan': 'perez',
-                '_id': '5912f52e7b41c2429c958c59',
-                'entidadesValidadoras': [
+                createdAt: new Date('2017-05-10T11:10:38.666Z'),
+                estado: 'validado',
+                documento: '45883853',
+                nombre: 'PABLO EXEQUIEL',
+                fechaNacimiento: new Date('2004-09-12T03:00:00.000Z'),
+                genero: 'masculino',
+                apellido: 'PEREZ',
+                estadoCivil: null,
+                __v: 0,
+                sexo: 'masculino',
+                scan: 'perez',
+                _id: '5912f52e7b41c2429c958c59',
+                entidadesValidadoras: [
                     'Sisa'
                 ],
-                'claveBlocking': [
+                claveBlocking: [
                     'PRSPVL',
                     'PRS',
                     'PVLXKL',
                     '094015475',
                     '094'
                 ],
-                'financiador': [],
-                'relaciones': [],
-                'direccion': [
+                financiador: [],
+                relaciones: [],
+                direccion: [
                     {
-                        'codigoPostal': '8300',
-                        '_id': '58cf323bd816ea2b7cfd6661',
-                        'ranking': 1,
-                        'ubicacion': {
-                            'pais': {
-                                'nombre': 'Argentina',
-                                '_id': '582074dcde27c98959a5e351'
+                        codigoPostal: '8300',
+                        _id: '58cf323bd816ea2b7cfd6661',
+                        ranking: 1,
+                        ubicacion: {
+                            pais: {
+                                nombre: 'Argentina',
+                                _id: '582074dcde27c98959a5e351'
                             },
-                            'provincia': {
-                                'nombre': 'Neuquén',
-                                '_id': '582074b2de27c98959a5e350'
+                            provincia: {
+                                nombre: 'Neuquén',
+                                _id: '582074b2de27c98959a5e350'
                             },
-                            'localidad': {
-                                'nombre': 'Neuquén',
-                                '_id': '57f538a472325875a199a82d'
+                            localidad: {
+                                nombre: 'Neuquén',
+                                _id: '57f538a472325875a199a82d'
                             },
-                            '_id': '58cf323bd816ea2b7cfd6662'
+                            _id: '58cf323bd816ea2b7cfd6662'
                         },
-                        'valor': 'MZA  22 LOTE G-CRNE PISO: 0 MZ: 22 LT: G',
-                        'activo': true
+                        valor: 'MZA  22 LOTE G-CRNE PISO: 0 MZ: 22 LT: G',
+                        activo: true
                     }
                 ],
-                'contacto': [
+                contacto: [
                     {
-                        'tipo': 'celular',
-                        'ranking': 1,
-                        'valor': '155745468',
-                        '_id': '58cf323bd816ea2b7cfd6666',
-                        'activo': true
+                        tipo: 'celular',
+                        ranking: 1,
+                        valor: '155745468',
+                        _id: '58cf323bd816ea2b7cfd6666',
+                        activo: true
                     }
                 ],
-                'identificadores': [
+                identificadores: [
                     {
-                        'entidad': 'SIPS',
-                        'valor': '322580'
+                        entidad: 'SIPS',
+                        valor: '322580'
                     }
                 ]
             },

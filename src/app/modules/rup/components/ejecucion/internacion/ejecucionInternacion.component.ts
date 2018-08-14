@@ -75,18 +75,18 @@ export class EjecucionInternacionComponent implements OnInit {
     };
 
     public snomedPases = {
-        'fsn': 'estadía de internación (hallazgo)',
-        'semanticTag': 'procedimiento',
-        'conceptId': '308540004',
-        'term': 'estadía de internación',
-        'refsetIds': []
+        fsn: 'estadía de internación (hallazgo)',
+        semanticTag: 'procedimiento',
+        conceptId: '308540004',
+        term: 'estadía de internación',
+        refsetIds: []
     };
 
     public epicrisis = {
-        'conceptId': '721919000',
-        'term': 'epicrisis de enfermería',
-        'fsn': 'epicrisis de enfermería (elemento de registro)',
-        'semanticTag': 'elemento de registro'
+        conceptId: '721919000',
+        term: 'epicrisis de enfermería',
+        fsn: 'epicrisis de enfermería (elemento de registro)',
+        semanticTag: 'elemento de registro'
     };
 
     constructor(private router: Router, private route: ActivatedRoute,

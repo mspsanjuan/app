@@ -224,11 +224,11 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
     }
 
     loadProvincias(event, pais) {
-        this.provinciaService.get({ 'pais': pais.value.id }).subscribe(event.callback);
+        this.provinciaService.get({ pais: pais.value.id }).subscribe(event.callback);
     }
 
     loadLocalidades(event, provincia) {
-        this.localidadService.get({ 'provincia': provincia.value.id }).subscribe(event.callback);
+        this.localidadService.get({ provincia: provincia.value.id }).subscribe(event.callback);
     }
 
     /*Código de contactos*/

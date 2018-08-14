@@ -46,9 +46,9 @@ export class OrganizacionComponent implements OnInit {
 
     loadDatos(concatenar: boolean = false) {
         let parametros = {
-            'activo': this.value && this.value.activo, 'nombre':
+            activo: this.value && this.value.activo, nombre:
                 this.value && this.value.nombre
-            , 'skip': this.skip, 'limit': limit
+            , skip: this.skip, limit: limit
         };
         this.organizacionService.get(parametros)
             .subscribe(

@@ -108,11 +108,11 @@ export class ActivarAppComponent implements OnInit, OnChanges {
             return this.paciente.contacto[index].valor = value;
         } else {
             let nuevo = {
-                'tipo': key,
-                'valor': value,
-                'ranking': 1,
-                'activo': true,
-                'ultimaActualizacion': new Date()
+                tipo: key,
+                valor: value,
+                ranking: 1,
+                activo: true,
+                ultimaActualizacion: new Date()
             };
             this.paciente.contacto.push(nuevo);
             // this.paciente.contacto.sort((a,b) => a.tipo == b.tipo ? 0 :  );
@@ -126,8 +126,8 @@ export class ActivarAppComponent implements OnInit, OnChanges {
             this.addContacto('celular', this.celular);
             this.addContacto('email', this.email);
             let cambios = {
-                'op': 'updateContactos',
-                'contacto': this.paciente.contacto
+                op: 'updateContactos',
+                contacto: this.paciente.contacto
             };
 
 

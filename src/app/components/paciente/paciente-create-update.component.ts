@@ -427,7 +427,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     loadBarrios(localidad) {
         if (localidad && localidad.id) {
             this.barrioService.get({
-                'localidad': localidad.id,
+                localidad: localidad.id,
             }).subscribe(result => {
                 this.barriosNeuquen = [...result];
             });
@@ -583,8 +583,8 @@ export class PacienteCreateUpdateComponent implements OnInit {
                             };
                             if (rel.referencia) {
                                 this.pacienteService.patch(rel.referencia, {
-                                    'op': 'deleteRelacion',
-                                    'dto': dto
+                                    op: 'deleteRelacion',
+                                    dto: dto
                                 }).subscribe(result2 => { });
                             }
                         });
@@ -606,8 +606,8 @@ export class PacienteCreateUpdateComponent implements OnInit {
                             };
                             if (rel.referencia) {
                                 this.pacienteService.patch(rel.referencia, {
-                                    'op': 'updateRelacion',
-                                    'dto': dto
+                                    op: 'updateRelacion',
+                                    dto: dto
                                 }).subscribe(result2 => { });
                             }
                         });
@@ -1107,9 +1107,9 @@ export class PacienteCreateUpdateComponent implements OnInit {
 
     addNota() {
         let nuevaNota = {
-            'fecha': new Date(),
-            'nota': '',
-            'destacada': false
+            fecha: new Date(),
+            nota: '',
+            destacada: false
         };
         if (this.nuevaNota) {
             nuevaNota.nota = this.nuevaNota;

@@ -76,7 +76,7 @@ export class PacienteDetalleActualizarComponent implements OnInit {
     loadProvincias(event, pais) {
         if (pais && pais.id) {
             this.provinciaService.get({
-                'pais': pais.id
+                pais: pais.id
             }).subscribe(event.callback);
         }
     }
@@ -92,7 +92,7 @@ export class PacienteDetalleActualizarComponent implements OnInit {
     loadBarrios(localidad) {
         if (localidad && localidad.id) {
             this.barrioService.get({
-                'localidad': localidad.id,
+                localidad: localidad.id,
             }).subscribe(result => {
                 this.barriosNeuquen = [...result];
             });

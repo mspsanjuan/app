@@ -78,8 +78,8 @@ export function titleCase(str) {
 
 export function getObjeto(elemento) {
     return {
-        'id': elemento,
-        'nombre': titleCase(elemento)
+        id: elemento,
+        nombre: titleCase(elemento)
     };
 }
 
@@ -94,8 +94,8 @@ export function getObjSexos() {
     arrSexo = arrSexo.slice(arrSexo.length / 2);
     let salida = arrSexo.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -125,8 +125,8 @@ export function getObjTipoComunicacion() {
     let salida = arrTC.map(elem => {
         let idEnumerado = elem.split(' ')[1] ? elem.split(' ')[1] : elem.split(' ')[0];
         return {
-            'id': idEnumerado.toLowerCase(),
-            'nombre': titleCase(elem)
+            id: idEnumerado.toLowerCase(),
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -143,8 +143,8 @@ export function getObjGeneros() {
     arrGenero = arrGenero.slice(arrGenero.length / 2);
     let salida = arrGenero.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -161,8 +161,8 @@ export function getObjEstadoCivil() {
     arrEstadoC = arrEstadoC.slice(arrEstadoC.length / 2);
     let salida = arrEstadoC.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -185,8 +185,8 @@ export function getEstadosAuditorias() {
     arrEstados = arrEstados.slice(arrEstados.length / 2);
     let salida = arrEstados.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -197,8 +197,8 @@ export function getEstadosEspacios() {
     arrEstados = arrEstados.slice(arrEstados.length / 2);
     let salida = arrEstados.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;
@@ -215,8 +215,8 @@ export function getObjRelacionTutor() {
     arrRT = arrRT.slice(arrRT.length / 2);
     let salida = arrRT.map(elem => {
         return {
-            'id': elem,
-            'nombre': titleCase(elem)
+            id: elem,
+            nombre: titleCase(elem)
         };
     });
     return salida;

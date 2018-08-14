@@ -206,11 +206,11 @@ export class AgregarSobreturnoComponent implements OnInit {
             // Si cambió el teléfono lo actualizo en el MPI
             if (this.cambioTelefono) {
                 let nuevoCel = {
-                    'tipo': 'celular',
-                    'valor': this.telefono,
-                    'ranking': 1,
-                    'activo': true,
-                    'ultimaActualizacion': new Date()
+                    tipo: 'celular',
+                    valor: this.telefono,
+                    ranking: 1,
+                    activo: true,
+                    ultimaActualizacion: new Date()
                 };
                 let mpi: Observable<any>;
                 let flagTelefono = false;
@@ -230,8 +230,8 @@ export class AgregarSobreturnoComponent implements OnInit {
                     this.paciente.contacto = [nuevoCel];
                 }
                 let cambios = {
-                    'op': 'updateContactos',
-                    'contacto': this.paciente.contacto
+                    op: 'updateContactos',
+                    contacto: this.paciente.contacto
                 };
                 mpi = this.servicePaciente.patch(pacienteSave.id, cambios);
                 mpi.subscribe(resultado => {
@@ -243,8 +243,8 @@ export class AgregarSobreturnoComponent implements OnInit {
             }
 
             let patch = {
-                'op': 'agregarSobreturno',
-                'sobreturno': {
+                op: 'agregarSobreturno',
+                sobreturno: {
                     horaInicio: this.combinarFechas(this.agenda.horaInicio, this.horaTurno),
                     estado: 'asignado',
                     tipoPrestacion: this.tipoPrestacion,

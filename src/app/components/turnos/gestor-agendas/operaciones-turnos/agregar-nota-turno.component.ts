@@ -49,10 +49,10 @@ export class AgregarNotaTurnoComponent implements OnInit {
         this.turnosSeleccionados.forEach((turno, index) => {
 
             let patch = {
-                'op': 'guardarNotaTurno',
-                'idAgenda': this.agenda.id,
-                'idTurno': turno.id,
-                'textoNota': this.nota
+                op: 'guardarNotaTurno',
+                idAgenda: this.agenda.id,
+                idTurno: turno.id,
+                textoNota: this.nota
             };
 
             this.serviceAgenda.patch(this.agenda.id, patch).subscribe(resultado => {

@@ -92,7 +92,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
     public busquedaActual: any;
 
     // objeto de resultados
-    public results = { 'misFrecuentes': [], 'sugeridos': [], 'busquedaGuiada': [], 'buscadorBasico': [] };
+    public results = { misFrecuentes: [], sugeridos: [], busquedaGuiada: [], buscadorBasico: [] };
     public resultsAux: any;
 
     // public totalesTodos: Number = 0;
@@ -139,9 +139,9 @@ export class BuscadorComponent implements OnInit, OnChanges {
             }
 
             const query = {
-                'idProfesional': this.auth.profesional.id,
-                'tipoPrestacion': this.conceptoFrecuente.conceptId,
-                'idOrganizacion': this.auth.organizacion.id,
+                idProfesional: this.auth.profesional.id,
+                tipoPrestacion: this.conceptoFrecuente.conceptId,
+                idOrganizacion: this.auth.organizacion.id,
             };
 
             this.frecuentesProfesionalService.get(query).subscribe((resultados: any) => {

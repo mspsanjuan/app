@@ -66,8 +66,8 @@ export class BotonesAgendaComponent implements OnInit {
         let alertCount = 0;
         this.agendasSeleccionadas.forEach((agenda, index) => {
             let patch = {
-                'op': estado,
-                'estado': estado
+                op: estado,
+                estado: estado
             };
 
             this.serviceAgenda.patch(agenda.id, patch).subscribe((resultado: any) => {

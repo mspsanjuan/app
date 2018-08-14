@@ -48,9 +48,9 @@ export class AgregarNotaAgendaComponent implements OnInit {
         let alertCount = 0;
         this.agendasSeleccionadas.forEach((agenda, index) => {
             let patch = {
-                'op': 'notaAgenda',
+                op: 'notaAgenda',
                 // 'nota': agenda.nota
-                'nota': this.nota
+                nota: this.nota
             };
 
             this.serviceAgenda.patch(agenda.id, patch).subscribe(resultado => {

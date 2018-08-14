@@ -23,7 +23,7 @@ export class DocumentosService {
         let htmlPdf = { html: Buffer.from(html).toString('base64') };
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': window.sessionStorage.getItem('jwt') ? 'JWT ' + window.sessionStorage.getItem('jwt') : null
+            Authorization: window.sessionStorage.getItem('jwt') ? 'JWT ' + window.sessionStorage.getItem('jwt') : null
         });
 
         let options = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob, method: RequestMethod.Post });

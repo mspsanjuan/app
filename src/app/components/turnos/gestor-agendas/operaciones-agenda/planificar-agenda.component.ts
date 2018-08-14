@@ -273,17 +273,17 @@ export class PlanificarAgendaComponent implements OnInit {
         this.modelo.bloques.push({
             indice: longitud,
             // 'descripcion': `Bloque {longitud + 1}°`,
-            'cantidadTurnos': 0,
-            'horaInicio': null,
-            'horaFin': null,
-            'duracionTurno': 0,
-            'cantidadSimultaneos': null,
-            'cantidadBloque': null,
-            'accesoDirectoDelDia': 0, 'accesoDirectoDelDiaPorc': 0,
-            'accesoDirectoProgramado': 0, 'accesoDirectoProgramadoPorc': 0,
-            'reservadoGestion': 0, 'reservadoGestionPorc': 0,
-            'reservadoProfesional': 0, 'reservadoProfesionalPorc': 0,
-            'tipoPrestaciones': []
+            cantidadTurnos: 0,
+            horaInicio: null,
+            horaFin: null,
+            duracionTurno: 0,
+            cantidadSimultaneos: null,
+            cantidadBloque: null,
+            accesoDirectoDelDia: 0, accesoDirectoDelDiaPorc: 0,
+            accesoDirectoProgramado: 0, accesoDirectoProgramadoPorc: 0,
+            reservadoGestion: 0, reservadoGestionPorc: 0,
+            reservadoProfesional: 0, reservadoProfesionalPorc: 0,
+            tipoPrestaciones: []
         });
         this.activarBloque(longitud);
         this.inicializarPrestacionesBloques(this.elementoActivo);
@@ -554,7 +554,7 @@ export class PlanificarAgendaComponent implements OnInit {
         // Verifica que ningún profesional de la agenda esté asignado a otra agenda en ese horario
         if (iniAgenda && finAgenda && this.modelo.profesionales) {
             this.modelo.profesionales.forEach((profesional, index) => {
-                this.serviceAgenda.get({ 'organizacion': this.auth.organizacion.id, idProfesional: profesional.id, rango: true, desde: iniAgenda, hasta: finAgenda, estados: ['planificacion', 'disponible', 'publicada', 'pausada'] }).
+                this.serviceAgenda.get({ organizacion: this.auth.organizacion.id, idProfesional: profesional.id, rango: true, desde: iniAgenda, hasta: finAgenda, estados: ['planificacion', 'disponible', 'publicada', 'pausada'] }).
                     subscribe(agendas => {
                         let agds = agendas.filter(agenda => {
                             return agenda.id !== this.modelo.id || !this.modelo.id;

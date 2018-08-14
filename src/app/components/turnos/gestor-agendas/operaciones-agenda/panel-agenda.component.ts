@@ -86,9 +86,9 @@ export class PanelAgendaComponent implements OnInit {
             }
 
             let patch = {
-                'op': 'editarAgenda',
-                'profesional': profesional,
-                'espacioFisico': espacioFisico
+                op: 'editarAgenda',
+                profesional: profesional,
+                espacioFisico: espacioFisico
             };
 
             this.serviceAgenda.patch(agenda.id, patch).subscribe(resultado => {
@@ -221,7 +221,7 @@ export class PanelAgendaComponent implements OnInit {
             // Loop profesionales
             if (this.agenda.profesionales) {
                 this.agenda.profesionales.forEach((profesional, index) => {
-                    this.serviceAgenda.get({ 'organizacion': this.auth.organizacion.id, 'idProfesional': profesional.id, 'rango': true, 'desde': this.agenda.horaInicio, 'hasta': this.agenda.horaFin }).subscribe(agendas => {
+                    this.serviceAgenda.get({ organizacion: this.auth.organizacion.id, idProfesional: profesional.id, rango: true, desde: this.agenda.horaInicio, hasta: this.agenda.horaFin }).subscribe(agendas => {
                         // Hay problemas de solapamiento?
                         let agendasConSolapamiento = agendas.filter(agenda => {
                             return agenda.id !== this.agenda.id || !this.agenda.id; // Ignorar agenda actual
@@ -237,7 +237,7 @@ export class PanelAgendaComponent implements OnInit {
         } else if (tipo === 'espacioFisico') {
             // Loop Espacios Físicos
             if (this.agenda.espacioFisico) {
-                this.serviceAgenda.get({ 'espacioFisico': this.agenda.espacioFisico._id, 'rango': true, 'desde': this.agenda.horaInicio, 'hasta': this.agenda.horaFin }).subscribe(agendas => {
+                this.serviceAgenda.get({ espacioFisico: this.agenda.espacioFisico._id, rango: true, desde: this.agenda.horaInicio, hasta: this.agenda.horaFin }).subscribe(agendas => {
                     // Hay problemas de solapamiento?
                     let agendasConSolapamiento = agendas.filter(agenda => {
                         return agenda.id !== this.agenda.id || !this.agenda.id; // Ignorar agenda actual

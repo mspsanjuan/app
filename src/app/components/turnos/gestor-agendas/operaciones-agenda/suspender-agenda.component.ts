@@ -77,8 +77,8 @@ export class SuspenderAgendaComponent implements OnInit {
         }
 
         let patch = {
-            'op': 'suspendida',
-            'estado': 'suspendida'
+            op: 'suspendida',
+            estado: 'suspendida'
         };
 
         this.serviceAgenda.patch(this.agenda.id, patch).subscribe((resultado: any) => {

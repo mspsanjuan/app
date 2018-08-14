@@ -245,8 +245,8 @@ export class RevisionAgendaComponent implements OnInit {
         if (!turnoSinVerificar) { // Si todos los turnos están verificados..
             // Se cambia de estado la agenda a pendienteAuditoria
             let patch = {
-                'op': 'pendienteAuditoria',
-                'estado': 'pendienteAuditoria'
+                op: 'pendienteAuditoria',
+                estado: 'pendienteAuditoria'
             };
             this.serviceAgenda.patch(this._agenda.id, patch).subscribe(resultado => {
                 this.plex.toast('success', 'El estado de la agenda fue actualizado', 'Pendiente Auditoria');
@@ -257,8 +257,8 @@ export class RevisionAgendaComponent implements OnInit {
             if (this.agenda.estado !== 'pendienteAsistencia') {
                 // Se cambia de estado la agenda a pendienteAuditoria
                 let patch = {
-                    'op': 'pendienteAsistencia',
-                    'estado': 'pendienteAsistencia'
+                    op: 'pendienteAsistencia',
+                    estado: 'pendienteAsistencia'
                 };
                 this.serviceAgenda.patch(this._agenda.id, patch).subscribe(resultado => {
                     this.plex.toast('success', 'El estado de la agenda fue actualizado', 'Pendiente Asistencia');
@@ -291,8 +291,8 @@ export class RevisionAgendaComponent implements OnInit {
         if (!turnoSinCodificar) {
             // Se cambia de estado la agenda a Auditada
             let patch = {
-                'op': this.estadoCodificado.id,
-                'estado': this.estadoCodificado.id
+                op: this.estadoCodificado.id,
+                estado: this.estadoCodificado.id
             };
             this.serviceAgenda.patch(this._agenda.id, patch).subscribe(resultado => {
                 this.plex.toast('success', 'El estado de la agenda fue actualizado', 'Auditada');

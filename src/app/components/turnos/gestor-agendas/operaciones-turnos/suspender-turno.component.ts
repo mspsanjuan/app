@@ -157,9 +157,9 @@ export class SuspenderTurnoComponent implements OnInit {
 
         for (let x = 0; x < this.turnos.length; x++) {
             let patch = {
-                'op': 'listaEsperaSuspensionAgenda',
-                'idAgenda': this.agenda.id,
-                'pacientes': this.turnos[x]
+                op: 'listaEsperaSuspensionAgenda',
+                idAgenda: this.agenda.id,
+                pacientes: this.turnos[x]
             };
 
             this.suspenderTurno();
@@ -180,7 +180,7 @@ export class SuspenderTurnoComponent implements OnInit {
     }
 
     reasignarTurno(paciente: any) {
-        this.reasignar = { 'paciente': paciente.paciente, 'idTurno': paciente.id, 'idAgenda': this.agenda.id };
+        this.reasignar = { paciente: paciente.paciente, idTurno: paciente.id, idAgenda: this.agenda.id };
 
         this.suspenderTurno();
 

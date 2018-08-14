@@ -256,9 +256,9 @@ export class DarTurnosComponent implements OnInit {
 
     filtrar() {
         let search = {
-            'tipoPrestacion': this.opciones.tipoPrestacion ? this.opciones.tipoPrestacion : null,
-            'profesional': this.opciones.profesional ? this.opciones.profesional : null,
-            'usuario': this.auth.usuario
+            tipoPrestacion: this.opciones.tipoPrestacion ? this.opciones.tipoPrestacion : null,
+            profesional: this.opciones.profesional ? this.opciones.profesional : null,
+            usuario: this.auth.usuario
         };
         if (this.busquedas.length === 10) {
             this.busquedas.shift();
@@ -724,8 +724,8 @@ export class DarTurnosComponent implements OnInit {
             }
             // Actualizo teléfono del paciente en MPI
             let cambios = {
-                'op': 'updateContactos',
-                'contacto': this.paciente.contacto
+                op: 'updateContactos',
+                contacto: this.paciente.contacto
             };
             this.servicePaciente.patch(this.paciente.id, cambios).subscribe(resultado => {
                 if (resultado) {

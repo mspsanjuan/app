@@ -328,17 +328,17 @@ export class TurnosComponent implements OnInit {
     }
 
     reasignarTurno(paciente: any, idTurno: any, idAgenda: any) {
-        this.reasignar = { 'paciente': paciente, 'idTurno': idTurno, 'idAgenda': idAgenda };
+        this.reasignar = { paciente: paciente, idTurno: idTurno, idAgenda: idAgenda };
         this.reasignaTurno.emit(this.reasignar);
     }
 
     reasignarTurnoLiberado(turnoLiberado) {
-        this.reasignar = { 'paciente': turnoLiberado.paciente, 'idTurno': turnoLiberado.idTurno, 'idAgenda': turnoLiberado.idAgenda };
+        this.reasignar = { paciente: turnoLiberado.paciente, idTurno: turnoLiberado.idTurno, idAgenda: turnoLiberado.idAgenda };
         this.reasignaTurno.emit(this.reasignar);
     }
 
     reasignarTurnoSuspendido(turnoSuspendido) {
-        this.reasignar = { 'paciente': turnoSuspendido.paciente, 'idTurno': turnoSuspendido.idTurno, 'idAgenda': turnoSuspendido.idAgenda };
+        this.reasignar = { paciente: turnoSuspendido.paciente, idTurno: turnoSuspendido.idTurno, idAgenda: turnoSuspendido.idAgenda };
         this.reasignaTurno.emit(this.reasignar);
     }
 
@@ -387,9 +387,9 @@ export class TurnosComponent implements OnInit {
         pacienteListaEspera = this.turnosSeleccionados;
 
         patch = {
-            'op': 'listaEsperaSuspensionAgenda',
-            'idAgenda': agenda.id,
-            'pacientes': pacienteListaEspera
+            op: 'listaEsperaSuspensionAgenda',
+            idAgenda: agenda.id,
+            pacientes: pacienteListaEspera
         };
 
         // Bag of cats

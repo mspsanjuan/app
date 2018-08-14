@@ -105,26 +105,26 @@ export class MapaDeCamasComponent implements OnInit {
         // asignamos los sectores para los filtros
         camas.forEach(cama => {
             if (cama.sector && this.filtros.opciones.sectores.indexOf(cama.sector) === -1) {
-                this.filtros.opciones.sectores.push({ 'id': cama.sector, 'nombre': cama.sector });
+                this.filtros.opciones.sectores.push({ id: cama.sector, nombre: cama.sector });
             }
 
             existe = this.filtros.opciones.habitaciones.find(habitacion => cama.habitacion === habitacion.id);
             if (cama.habitacion && !existe) {
-                this.filtros.opciones.habitaciones.push({ 'id': cama.habitacion, 'nombre': cama.habitacion });
+                this.filtros.opciones.habitaciones.push({ id: cama.habitacion, nombre: cama.habitacion });
             }
 
             existe = this.filtros.opciones.estados.find(estado => estado.id === cama.ultimoEstado.estado);
             if (cama.ultimoEstado && !existe) {
-                this.filtros.opciones.estados.push({ 'id': cama.ultimoEstado.estado, 'nombre': cama.ultimoEstado.estado });
+                this.filtros.opciones.estados.push({ id: cama.ultimoEstado.estado, nombre: cama.ultimoEstado.estado });
             }
             existe = this.filtros.opciones.servicios.find(servicio => servicio.id === cama.ultimoEstado.unidadOrganizativa.conceptId);
             if (cama.ultimoEstado.unidadOrganizativa && !existe) {
-                this.filtros.opciones.servicios.push({ 'id': cama.ultimoEstado.unidadOrganizativa.conceptId, 'nombre': cama.ultimoEstado.unidadOrganizativa.term });
+                this.filtros.opciones.servicios.push({ id: cama.ultimoEstado.unidadOrganizativa.conceptId, nombre: cama.ultimoEstado.unidadOrganizativa.term });
             }
 
             existe = this.filtros.opciones.tiposCamas.find(tipoCama => tipoCama.id === cama.tipoCama.conceptId);
             if (cama.tipoCama && !existe) {
-                this.filtros.opciones.tiposCamas.push({ 'id': cama.tipoCama.conceptId, 'nombre': cama.tipoCama.term });
+                this.filtros.opciones.tiposCamas.push({ id: cama.tipoCama.conceptId, nombre: cama.tipoCama.term });
             }
 
             // TODO: Definir filtros para , oxigeno, etc.

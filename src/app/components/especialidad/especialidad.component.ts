@@ -46,8 +46,8 @@ export class EspecialidadComponent implements OnInit {
 
     loadDatos(concatenar: boolean = false) {
         let parametros = {
-            'codigoSisa': this.value && this.value.codigoSisa,
-            'nombre': this.value && this.value.nombre, 'skip': this.skip, 'limit': limit
+            codigoSisa: this.value && this.value.codigoSisa,
+            nombre: this.value && this.value.nombre, skip: this.skip, limit: limit
         };
 
         this.especialidadService.get(parametros).subscribe(

@@ -258,7 +258,7 @@ export class PrestacionValidacionComponent implements OnInit {
                         result => {
                             let filtroRegistros = this.prestacion.ejecucion.registros.filter(x => result.find(y => y.conceptId === x.concepto.conceptId));
                             if (this.prestacion.solicitud.turno && !(filtroRegistros && filtroRegistros.length > 0)) {
-                                this.servicioAgenda.patchCodificarTurno({ 'op': 'codificarTurno', 'turnos': [this.prestacion.solicitud.turno] }).subscribe(salida => { });
+                                this.servicioAgenda.patchCodificarTurno({ op: 'codificarTurno', turnos: [this.prestacion.solicitud.turno] }).subscribe(salida => { });
                             }
                         });
                     this.plex.toast('success', 'La prestación se validó correctamente', 'Información', 300);

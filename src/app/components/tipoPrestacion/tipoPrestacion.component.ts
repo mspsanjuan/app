@@ -50,10 +50,10 @@ export class TipoPrestacionComponent implements OnInit {
     loadDatos() {
             let parametros = {
             // Filtros
-            'nombre': this.nombre && this.nombre,
-            'granularidad': this.granularidad && this.granularidad.id,
-            'skip': this.skip,
-            'limit': limit,
+            nombre: this.nombre && this.nombre,
+            granularidad: this.granularidad && this.granularidad.id,
+            skip: this.skip,
+            limit: limit,
         };
 
         this.tipoPrestacionService.get(parametros).subscribe(

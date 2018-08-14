@@ -100,13 +100,13 @@ export class CamasService {
             });
 
             const estado = {
-                'total': camas.length,
-                'ocupadas': ocupadas.length,
-                'desocupadas': desocupadas.length,
-                'descontaminacion': descontaminacion.length,
-                'reparacion': reparacion.length,
-                'bloqueadas': bloqueadas.length,
-                'desocupadasOxigeno': desocupadasOxigeno.length
+                total: camas.length,
+                ocupadas: ocupadas.length,
+                desocupadas: desocupadas.length,
+                descontaminacion: descontaminacion.length,
+                reparacion: reparacion.length,
+                bloqueadas: bloqueadas.length,
+                desocupadasOxigeno: desocupadasOxigeno.length
             };
 
             observer.next(estado);

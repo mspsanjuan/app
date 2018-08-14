@@ -274,7 +274,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     loadLocalidades(provincia) {
         if (provincia && provincia.id) {
             this.localidadService.get({
-                'provincia': provincia.id
+                provincia: provincia.id
             }).subscribe(result => {
                 this.localidadesNeuquen = [...result];
             });

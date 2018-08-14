@@ -77,9 +77,9 @@ export class LiberarTurnoComponent implements OnInit {
 
         for (let x = 0; x < this.turnos.length; x++) {
             let patch = {
-                'op': 'listaEsperaSuspensionAgenda',
-                'idAgenda': this.agenda.id,
-                'pacientes': this.turnos[x]
+                op: 'listaEsperaSuspensionAgenda',
+                idAgenda: this.agenda.id,
+                pacientes: this.turnos[x]
             };
 
             this.liberarTurno();

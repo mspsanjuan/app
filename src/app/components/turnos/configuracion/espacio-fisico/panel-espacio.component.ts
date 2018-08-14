@@ -238,8 +238,8 @@ export class PanelEspacioComponent implements OnInit {
             let espacio = this.agendasModificar[i].espacioFisico ?
                 { _id: this.agendasModificar[i].espacioFisico.id, nombre: this.agendasModificar[i].espacioFisico.nombre } : null;
             let patch = {
-                'op': 'editarAgenda',
-                'espacioFisico': espacio
+                op: 'editarAgenda',
+                espacioFisico: espacio
             };
             this.serviceAgenda.patch(this.agendasModificar[i].id, patch).subscribe(resultado => {
                 band = true;

@@ -43,11 +43,11 @@ export class ListaEsperaComponent implements OnInit {
 
     loadDatos(concatenar: boolean = false) {
         let parametros = {
-            'apellido': this.value && this.value.apellido,
-            'nombre': this.value && this.value.nombre,
-            'documento': this.value && this.value.documento,
-            'skip': this.skip,
-            'limit': limit
+            apellido: this.value && this.value.apellido,
+            nombre: this.value && this.value.nombre,
+            documento: this.value && this.value.documento,
+            skip: this.skip,
+            limit: limit
         };
         this.listaEsperaService.get(parametros)
             .subscribe(

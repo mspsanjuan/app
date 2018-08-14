@@ -79,9 +79,9 @@ export class PrestacionesService {
             let opt;
             opt = {
                 params: {
-                    'idPaciente': idPaciente,
-                    'ordenFecha': true,
-                    'sinEstado': 'modificada'
+                    idPaciente: idPaciente,
+                    ordenFecha: true,
+                    sinEstado: 'modificada'
                 },
                 options: {
                     showError: true
@@ -528,7 +528,7 @@ export class PrestacionesService {
     getRegistrosHuds(idPaciente: string, expresion) {
         let opt = {
             params: {
-                'expresion': expresion
+                expresion: expresion
             },
             options: {
                 showError: true

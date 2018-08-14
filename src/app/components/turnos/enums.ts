@@ -1,35 +1,35 @@
 import { IEnum } from './../../utils/enums';
 
 export let EstadosAgenda: IEnum = {
-    'planificacion': {
+    planificacion: {
         nombre: 'En planificación',
         class: 'default'
     },
-    'disponible': {
+    disponible: {
         nombre: 'Disponible',
         class: 'success'
     },
-    'publicada': {
+    publicada: {
         nombre: 'Publicada',
         class: 'success'
     },
-    'suspendida': {
+    suspendida: {
         nombre: 'Suspendida',
         class: 'danger'
     },
-    'pausada': {
+    pausada: {
         nombre: 'Pausada',
         class: 'warning'
     },
-    'pendienteAsistencia': {
+    pendienteAsistencia: {
         nombre: 'Pendiente Asistencia',
         class: 'warning'
     },
-    'pendienteAuditoria': {
+    pendienteAuditoria: {
         nombre: 'Pendiente Auditoria',
         class: 'warning'
     },
-    'auditada': {
+    auditada: {
         nombre: 'Auditada',
         class: 'info'
     }
@@ -37,15 +37,15 @@ export let EstadosAgenda: IEnum = {
 
 
 export let EstadosAsistencia: IEnum = {
-    'asistio': {
+    asistio: {
         nombre: 'Asistio',
         class: 'success'
     },
-    'noAsistio': {
+    noAsistio: {
         nombre: 'No Asistio',
         class: 'danger'
     },
-    'sinDatos': {
+    sinDatos: {
         nombre: 'Sin Datos',
         class: 'warning'
     }
@@ -56,11 +56,11 @@ export let PrioridadesPrestacion: IEnum = {
         nombre: 'No Prioritario',
         class: 'success'
     },
-    'urgencia': {
+    urgencia: {
         nombre: 'Urgencia',
         class: 'danger'
     },
-    'emergencia': {
+    emergencia: {
         nombre: 'Emergencia',
         class: 'warning'
     }
@@ -68,19 +68,19 @@ export let PrioridadesPrestacion: IEnum = {
 };
 
 export let TiposDeTurnos: IEnum = {
-    'delDia': {
+    delDia: {
         nombre: 'Del día',
         class: 'info'
     },
-    'programado': {
+    programado: {
         nombre: 'Programado',
         class: 'info'
     },
-    'gestion': {
+    gestion: {
         nombre: 'De gestión',
         class: 'info'
     },
-    'profesional': {
+    profesional: {
         nombre: 'Del profesional',
         class: 'info'
     }

@@ -215,14 +215,14 @@ export class Auditoria2Component implements OnInit {
             valor: pac.paciente.id
         };
         this.pacienteService.patch(this.pacienteSelected.id, {
-            'op': 'linkIdentificadores',
-            'dto': dataLink
+            op: 'linkIdentificadores',
+            dto: dataLink
         }).subscribe(resultado => {
             if (resultado) {
                 let activo = false;
                 this.pacienteService.patch(pac.paciente.id, {
-                    'op': 'updateActivo',
-                    'dto': activo
+                    op: 'updateActivo',
+                    dto: activo
                 }).subscribe(resultado2 => {
                     if (resultado2) {
                         this.plex.toast('success', 'La vinculación ha sido realizada correctamente', 'Información', 3000);
@@ -245,15 +245,15 @@ export class Auditoria2Component implements OnInit {
                 this.pacientesVinculados.splice(this.pacientesVinculados.indexOf(pac), 1);
                 this.pacientesDesvinculados.push(pac);
                 this.pacienteService.patch(this.pacienteSelected.id, {
-                    'op': 'unlinkIdentificadores',
-                    'dto': pac.paciente.id
+                    op: 'unlinkIdentificadores',
+                    dto: pac.paciente.id
                 }).subscribe(resultado1 => {
                     if (resultado1) {
                         // Activa el paciente
                         let activo = true;
                         this.pacienteService.patch(pac.paciente.id, {
-                            'op': 'updateActivo',
-                            'dto': activo
+                            op: 'updateActivo',
+                            dto: activo
                         }).subscribe(resultado2 => {
                             if (resultado2) {
                                 this.plex.toast('success', 'La desvinculación ha sido realizada correctamente', 'Información', 3000);

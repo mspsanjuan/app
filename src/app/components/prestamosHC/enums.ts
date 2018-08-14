@@ -1,30 +1,30 @@
 import { IEnum } from './../../utils/enums';
 
 export let EstadosCarpetas: IEnum = {
-    'enArchivo': {
+    enArchivo: {
         nombre: 'En Archivo',
         class: 'success'
     },
-    'prestada': {
+    prestada: {
         nombre: 'Prestada',
         class: 'warning'
     }
 };
 
 export let EstadosDevolucionCarpetas: IEnum = {
-    'normal': {
+    normal: {
         nombre: 'Normal',
         class: 'success'
     },
-    'enMalEstado': {
+    enMalEstado: {
         nombre: 'En mal estado',
         class: 'warning'
     },
-    'fueraDeTermino': {
+    fueraDeTermino: {
         nombre: 'Fuera de término',
         class: 'warning'
     },
-    'documentacionFaltante': {
+    documentacionFaltante: {
         nombre: 'Hojas o documentación faltante',
         class: 'warning'
     }

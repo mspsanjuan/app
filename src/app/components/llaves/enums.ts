@@ -1,11 +1,11 @@
 import { IEnum } from './../../utils/enums';
 
 export let TiposSexos: IEnum = {
-    'masculino': {
+    masculino: {
         nombre: 'masculino',
         class: ''
     },
-    'femenino': {
+    femenino: {
         nombre: 'femenino',
         class: ''
     }
@@ -16,7 +16,7 @@ export let TiposEdades: IEnum = {
         nombre: 'años',
         class: ''
     },
-    'meses': {
+    meses: {
         nombre: 'meses',
         class: ''
     },

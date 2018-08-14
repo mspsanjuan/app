@@ -47,14 +47,14 @@ export class EspacioFisicoComponent implements OnInit {
 
     loadEspaciosFisicos(concatenar: boolean = false) {
         let parametros = {
-            'descripcion': this.value && this.value.descripcion,
-            'nombre': this.value && this.value.nombre,
-            'edificio': this.value && this.value.edificio,
-            'servicio': this.value && this.value.servicio,
-            'sector': this.value && this.value.sector,
-            'activo': this.value && this.value.activo,
-            'organizacion': this.auth.organizacion._id,
-            'skip': this.skip
+            descripcion: this.value && this.value.descripcion,
+            nombre: this.value && this.value.nombre,
+            edificio: this.value && this.value.edificio,
+            servicio: this.value && this.value.servicio,
+            sector: this.value && this.value.sector,
+            activo: this.value && this.value.activo,
+            organizacion: this.auth.organizacion._id,
+            skip: this.skip
         };
 
         this.espacioFisicoService.get(parametros).subscribe(
