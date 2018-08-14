@@ -12,7 +12,7 @@ export let TiposSexos: IEnum = {
 };
 
 export let TiposEdades: IEnum = {
-    'años': {
+    años: {
         nombre: 'años',
         class: ''
     },
@@ -20,7 +20,7 @@ export let TiposEdades: IEnum = {
         nombre: 'meses',
         class: ''
     },
-    'días': {
+    días: {
         nombre: 'días',
         class: ''
     }

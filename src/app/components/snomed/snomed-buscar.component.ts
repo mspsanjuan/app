@@ -118,9 +118,11 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
         this.searchTerm = this.searchTermInput;
 
         // falso easter egg :D
+        /*
         if (this.searchTerm === 'ssssss') {
             console.log('sssssss 🐍 busssscando');
         }
+        */
 
         // ejecutamos busqueda por la serpiendte de snomed ... sssss &#128013;
         this.buscar();
@@ -151,7 +153,7 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
             if (this.searchTerm.match(/^\s{1,}/)) {
                 this.searchTerm = '';
                 return;
-            };
+            }
 
             if (this.tipoBusqueda !== 'equipamientos') {
                 this._tengoResultado.emit(true);

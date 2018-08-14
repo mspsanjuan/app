@@ -101,4 +101,4 @@ export class EspecialidadComponent implements OnInit {
         }
     }
 
-};
+}

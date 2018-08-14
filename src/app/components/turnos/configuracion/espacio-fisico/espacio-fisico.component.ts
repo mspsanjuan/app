@@ -86,7 +86,7 @@ export class EspacioFisicoComponent implements OnInit {
             .subscribe(dato => this.loadEspaciosFisicos(), // Bind to view
             err => {
                 if (err) {
-                    console.log(err);
+                    // console.log(err);
                 }
             });
     }
@@ -96,7 +96,7 @@ export class EspacioFisicoComponent implements OnInit {
             .subscribe(dato => this.loadEspaciosFisicos(), // Bind to view
             err => {
                 if (err) {
-                    console.log(err);
+                    // console.log(err);
                 }
             });
     }

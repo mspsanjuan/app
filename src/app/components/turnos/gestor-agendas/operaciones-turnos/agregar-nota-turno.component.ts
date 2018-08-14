@@ -73,7 +73,7 @@ export class AgregarNotaTurnoComponent implements OnInit {
             },
                 err => {
                     if (err) {
-                        console.log(err);
+                        // console.log(err);
                     }
                 });
 

@@ -57,7 +57,7 @@ export class PlanificarAgendaComponent implements OnInit {
     // ultima request de profesionales que se almacena con el subscribe
     private lastRequest: ISubscription;
 
-    constructor(public plex: Plex, public servicioProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService, public OrganizacionService: OrganizacionService,
+    constructor(public plex: Plex, public servicioProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService, public organizacionService: OrganizacionService,
         public serviceAgenda: AgendaService, public servicioTipoPrestacion: TipoPrestacionService, public auth: Auth) { }
 
     ngOnInit() {
@@ -130,7 +130,7 @@ export class PlanificarAgendaComponent implements OnInit {
     // }
 
     loadEdificios(event) {
-        this.OrganizacionService.getById(this.auth.organizacion._id).subscribe(respuesta => {
+        this.organizacionService.getById(this.auth.organizacion._id).subscribe(respuesta => {
             event.callback(respuesta.edificio);
         });
     }
@@ -705,12 +705,12 @@ export class PlanificarAgendaComponent implements OnInit {
             let efector = this.auth.organizacion; // Para que realice el filtro por organización donde estoy logueado
             query.nombre = nombre;
             query.organizacion = efector.id;
-        };
+        }
 
         if (agenda.equipamiento && agenda.equipamiento.length > 0) {
             let equipamiento = agenda.equipamiento.map((item) => item.term);
             query.equipamiento = equipamiento;
-        };
+        }
 
         if (!agenda.espacioFisico && !agenda.equipamiento) {
             this.espaciosList = [];
@@ -730,7 +730,7 @@ export class PlanificarAgendaComponent implements OnInit {
         this.validarTodo();
         if (this.modelo.id === '0') {
             delete this.modelo.id;
-        };
+        }
         this.showMapaEspacioFisico = false;
         this.showBloque = true;
     }

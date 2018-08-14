@@ -29,14 +29,14 @@ export class SugerenciasService {
                                     type: 'success',
                                     title: 'Se envió con éxito!',
                                     html: 'Muchas gracias.'
-                                }).then(() => resolve());
+                                }).then(resolve);
                             } else {
                                 swal({
                                     type: 'error',
                                     title: 'Hubo un error y el mensaje no pudo ser enviado.',
                                     html: 'Error: ' + result.mensaje
                                 });
-                            };
+                            }
                         },
                         err => {
                             if (err) {

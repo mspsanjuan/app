@@ -182,7 +182,7 @@ export class PucoComponent implements OnInit, OnDestroy {
                 // this.searchTerm = this.searchTerm.substr(0, this.searchTerm.length - 1);
             }
         }
-    };
+    }
 
     // Boton reporte de errores/sugerencias
     sugerencias() {

@@ -142,7 +142,7 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
             },
             err => {
                 if (err) {
-                    console.log(err);
+                    // console.log(err);
                 }
             });
     }
