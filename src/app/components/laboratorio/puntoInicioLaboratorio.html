@@ -180,4 +180,4 @@
 </plex-layout>
 
 <!-- Switchea a listado practicas -->
-<protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo"></protocolo-detalle>
+<protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo" [protocolos]="protocolos" (volverAListaControEmit)='showProtocoloDetalle = false;showListarProtocolos = true'></protocolo-detalle>

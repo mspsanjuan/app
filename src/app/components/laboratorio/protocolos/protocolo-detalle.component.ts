@@ -24,35 +24,36 @@ export class ProtocoloDetalleComponent
     public parametros = [];
 
     @Output() volverAListaControEmit: EventEmitter<Boolean> = new EventEmitter<Boolean>();
-
+    @Input() protocolos: any;
     @Input('cargarProtocolo')
     set cargarProtocolo(value: any) {
-        console.log('cargarProtocolo set', value)
+        console.log('cargarProtocolo set', value);
         if (value) {
             this.protocolo = value;
         }
     }
 
     get cargarProtocolo() {
-        console.log('cargarProtocolo get')
+        console.log('cargarProtocolo get');
         return this.protocolo;
     }
 
-    constructor(public plex: Plex, private formBuilder: FormBuilder, 
+    constructor(public plex: Plex, private formBuilder: FormBuilder,
         public servicioProtocolo: ProtocoloService,
         private router: Router,
         public auth: Auth) { }
-        
+
 
     ngOnInit() {
+        console.log(this.protocolos);
     }
-    
+
     estaSeleccionado(protocolo) {
         return false;
     }
 
     cargarResultado() {
-        console.log('cargarResultado')
+        console.log('cargarResultado');
     }
 
     redirect(pagina: string) {
@@ -63,36 +64,42 @@ export class ProtocoloDetalleComponent
     volverProtocolos() {
         this.volverAListaControEmit.emit(true);
     }
- 
+
     getPracticas(registros) {
        let registro : any = this.getRegistrosByConceptId(registros, '122869004');
-       
+
        return registro ? registro.registros : [];
     }
 
      getCodigoPractica(registros) {
-        let registro : any = this.getRegistrosByConceptId(registros, '260299005')
+        let registro : any = this.getRegistrosByConceptId(registros, '260299005');
         return (registro) ? registro.valor : '';
     }
 
     getRegistrosByConceptId(registros, conceptId) {
         return registros.find((reg) => {
-            return reg.concepto.conceptId == conceptId;
+            return reg.concepto.conceptId === conceptId;
         });
-    
+
     }
 
+    getNumeroProtocolo(registros) {
+        let registro: any = registros.find((reg) => {
+            return reg.nombre === 'numeroProtocolo';
+        });
+        return registro.valor;
+    }
 
     // Hardcoding para estilizar en HPN
     protocols = [
         {
         id: '716852',
         fecha: '11/07/2018',
-        origen:'ambulatorio',
-        servicio:'clinica',
-        usuario:'lmonteverde',
-        solicitante:'wmolini',
-        fechaRegistro:'05/07/2018',
+        origen: 'ambulatorio',
+        servicio: 'clinica',
+        usuario: 'lmonteverde',
+        solicitante: 'wmolini',
+        fechaRegistro: '05/07/2018',
         }
     ];
 
@@ -102,7 +109,7 @@ export class ProtocoloDetalleComponent
         estado: 'En proceso',
         concepto: {
             conceptId: '415432',
-        }    
+        }
         }
     ];
 
@@ -187,7 +194,7 @@ export class ProtocoloDetalleComponent
             conceptId: '456353',
         }
         }
-    ]
+    ];
 }
 
 
