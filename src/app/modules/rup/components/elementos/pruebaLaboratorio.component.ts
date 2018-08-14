@@ -70,7 +70,7 @@ export class PruebaLaboratorioComponent extends RUPComponent implements OnInit {
     }
 
     loadPracticas($event) {
-        this.snomedService.getQuery({ expression: '<<122869004' }).subscribe(result => {
+        this.snomedService.getQuery({ expression: '<<88308000' }).subscribe(result => {
             $event.callback(result);
         });
 
