@@ -18,25 +18,25 @@
 
             <div class="col-12">
                     <h4>Modo</h4>
-                <plex-bool type="checkbox" [(ngModel)]="activo" label="Control" name="activo"></plex-bool>
-                <plex-bool type="checkbox" [(ngModel)]="activo" label="Carga" name="activo"></plex-bool>
-                <plex-bool type="checkbox" [(ngModel)]="activo" label="Validacion" name="activo"></plex-bool>
+                <plex-bool type="checkbox" [(ngModel)]="modo.control" label="Control" name="Control"></plex-bool>
+                <plex-bool type="checkbox" [(ngModel)]="modo.carga" label="Carga" name="Carga"></plex-bool>
+                <plex-bool type="checkbox" [(ngModel)]="modo.validacion" label="Validacion" name="Validacion"></plex-bool>
 
             </div>
         </div>
         <div class="row contenedor-filtros">
             <div class="col-2">
-                <plex-datetime type="date" [(ngModel)]="fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Fecha desde"
+                <plex-datetime type="date" [(ngModel)]="busqueda.fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde" label="Fecha desde"
                     class="fechas" [required]="true">
                 </plex-datetime>
             </div>
             <div class="col-2">
-                <plex-datetime type="date" [(ngModel)]="fechaHasta" (change)="refreshSelection($event,'fechaHasta')" name="fechaHasta" label="Fecha hasta"
+                <plex-datetime type="date" [(ngModel)]="busqueda.fechaHasta" (change)="refreshSelection($event,'fechaHasta')" name="fechaHasta" label="Fecha hasta"
                     class="fechas" [required]="true">
                 </plex-datetime>
             </div>
             <div class="col-2">
-                <plex-select [(ngModel)]="origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" [data]="origenEnum"
+                <plex-select [(ngModel)]="busqueda.origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" [data]="origenEnum"
                     [required]="true"></plex-select>
             </div>
 
@@ -59,10 +59,10 @@
         <!-- Filtros avanzados -->
         <div class="row" *ngIf="mostrarMasOpciones">
             <div class="col-3">
-                <plex-float [(ngModel)]="numeroDesde" (change)="refreshSelection($event,'numeroDesde')" name="numeroDesde" label="N° protocolo desde"></plex-float>
+                <plex-float [(ngModel)]="busqueda.numProtocoloDesde" (change)="refreshSelection($event,'numProtocoloDesde')" name="numeroDesde" label="N° protocolo desde"></plex-float>
             </div>
             <div class="col-3">
-                <plex-float [(ngModel)]="numeroHasta" (change)="refreshSelection($event,'numeroHasta')" name="numeroHasta" label="N° protocolo hasta"></plex-float>
+                <plex-float [(ngModel)]="busqueda.numProtocoloHasta" (change)="refreshSelection($event,'numProtocoloHasta')" name="numeroHasta" label="N° protocolo hasta"></plex-float>
             </div>
             <div class="col-3">
                 <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante"
@@ -72,13 +72,13 @@
                             <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
                         </div> -->
             <div class="col-3">
-                <plex-float [(ngModel)]="dniPaciente" (change)="refreshSelection($event,'dniPaciente')" name="dniPaciente" label="Documento del paciente"></plex-float>
+                <plex-float [(ngModel)]="busqueda.dniPaciente" (change)="refreshSelection($event,'dniPaciente')" name="dniPaciente" label="Documento del paciente"></plex-float>
             </div>
             <div class="col-3">
-                <plex-text [(ngModel)]="apellido" (change)="refreshSelection($event,'apellido')" name="apellido" label="Apellido del paciente"></plex-text>
+                <plex-text [(ngModel)]="busqueda.apellidoPaciente" (change)="refreshSelection($event,'apellidoPaciente')" name="apellido" label="Apellido del paciente"></plex-text>
             </div>
             <div class="col-3">
-                <plex-text [(ngModel)]="nombre" name="nombre" label="Nombre del paciente"></plex-text>
+                <plex-text [(ngModel)]="busqueda.nombrePaciente" (change)="refreshSelection($event,'nombrePaciente')" name="nombre" label="Nombre del paciente"></plex-text>
             </div>
         </div>
         <hr>

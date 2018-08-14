@@ -30,6 +30,21 @@ export class PuntoInicioLaboratorioComponent
     public prioridadesEnum;
     public laboratorioInternoEnum: any;
     public dniPaciente: any;
+    public modo = {
+        control: false,
+        carga: false,
+        validacion: false
+    };
+    public busqueda = {
+        fechaDesde: new Date(),
+        fechaHasta: new Date(),
+        dniPaciente: null,
+        nombrePaciente: null,
+        apellidoPaciente: null,
+        origen: null,
+        numProtocoloDesde: null,
+        numProtocoloHasta: null
+    };
 
     constructor(public plex: Plex, private formBuilder: FormBuilder,
         public servicioPrestaciones: PrestacionesService,
@@ -38,42 +53,90 @@ export class PuntoInicioLaboratorioComponent
     ) { }
 
     ngOnInit() {
-        console.log(enumerados.getPrioridadesLab());
-
         this.prioridadesEnum = enumerados.getPrioridadesLab();
         this.origenEnum = enumerados.getOrigenLab();
         this.laboratorioInternoEnum = enumerados.getLaboratorioInterno();
+        this.refreshSelection();
     }
 
     // funciones
-    refreshSelection(value, tipo) {
+    refreshSelection(value?, tipo?) {
+        let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
+        if (fechaDesde.isValid()) {
+            this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
+        }
+
+        let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
+        if (fechaHasta.isValid()) {
+            this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
+        }
         this.parametros['tipoPrestacionSolicititud'] = '15220000';
+        this.parametros['organizacion'] = this.auth.organizacion._id;
         if (tipo === 'fechaDesde') {
-            let fechaDesde = moment(this.fechaDesde).startOf('day');
+            let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
                 this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
-                this.parametros['organizacion'] = this.auth.organizacion._id;
             }
         }
         if (tipo === 'fechaHasta') {
-            let fechaHasta = moment(this.fechaHasta).endOf('day');
+            let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
             if (fechaHasta.isValid()) {
                 this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
-                this.parametros['organizacion'] = this.auth.organizacion._id;
             }
         }
-
-        if (tipo === 'dniPaciente'){
-
-            this.parametros['pacienteDocumento'] =  this.dniPaciente;
+        if (tipo === 'dniPaciente') {
+            this.parametros['pacienteDocumento'] = this.busqueda.dniPaciente;
         }
+        if (tipo === 'nombrePaciente') {
+            this.parametros['nombrePaciente'] = this.busqueda.nombrePaciente;
+        }
+        if (tipo === 'apellidoPaciente') {
+            this.parametros['apellidoPaciente'] = this.busqueda.apellidoPaciente;
+        }
+        if (tipo === 'origen') {
+            if (this.busqueda.origen.id === 'todos'){
+                this.busqueda.origen.id = null;
+            }
+            this.parametros['origen'] = this.busqueda.origen.id;
 
+        }
+        if (tipo === 'numProtocoloDesde'){
+            this.parametros['numProtocoloDesde'] = this.busqueda.numProtocoloDesde;
+        }
+        if (tipo === 'numProtocoloHasta'){
+            this.parametros['numProtocoloHasta'] = this.busqueda.numProtocoloHasta;
+        }
+        console.log(this.parametros);
         this.getProtocolos(this.parametros);
     };
 
+    // refreshSelection(value?, tipo?) {
+    //     this.parametros['tipoPrestacionSolicititud'] = '15220000';
+    //     this.parametros['organizacion'] = this.auth.organizacion._id;
+    //     if (tipo === 'fechaDesde') {
+    //         let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
+    //         if (fechaDesde.isValid()) {
+    //             this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
+    //         }
+    //     }
+    //     if (tipo === 'fechaHasta') {
+    //         let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
+    //         if (fechaHasta.isValid()) {
+    //             this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
+    //         }
+    //     }
+    //     if (tipo === 'dniPaciente') {
+    //         this.parametros['pacienteDocumento'] = this.dniPaciente;
+    //     }
+    //     if (tipo === 'dniPaciente') {
+    //         this.parametros['pacienteDocumento'] = this.dniPaciente;
+    //     }
+
+    //     this.getProtocolos(this.parametros);
+    // };
+
     getNumeroProtocolo(registros) {
         let registro: any = registros.find((reg) => {
-            console.log(reg);
             return reg.nombre === 'numeroProtocolo';
         });
         return registro.valor;
@@ -82,7 +145,6 @@ export class PuntoInicioLaboratorioComponent
     getProtocolos(params: any) {
         this.servicioPrestaciones.get(params).subscribe(protocolos => {
             this.protocolos = protocolos;
-            console.log(this.protocolos);
         }, err => {
             if (err) {
                 console.log(err);
