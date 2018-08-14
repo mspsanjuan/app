@@ -312,11 +312,6 @@ export class TallaComponent extends RUPComponent implements OnInit {
 }
 
 
-
-
-
-
-
  // NO BORRAR.
             // Funciones para calcular percentilo.. Falta calcular el percentilo VER EL EXCEL DE EJEMPLO (Tablas de crecimiento)
             // var tablasExcel = [
@@ -353,7 +348,6 @@ export class TallaComponent extends RUPComponent implements OnInit {
             //         1.000
             //     ]
             // ];
-
 
 
             // var $tablaGarrahan = 0; //Valor que viene desde un array o la base de datos

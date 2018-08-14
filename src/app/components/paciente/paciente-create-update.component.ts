@@ -1036,7 +1036,6 @@ export class PacienteCreateUpdateComponent implements OnInit {
                                     });
 
 
-
                                 }
                             });
 

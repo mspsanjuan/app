@@ -111,7 +111,6 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
     }
 
 
-
     private initShiro() {
         this.shiro.reset();
         this.shiro.add(this.userPermissions);

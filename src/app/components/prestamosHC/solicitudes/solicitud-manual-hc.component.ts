@@ -9,7 +9,6 @@ import { IPaciente } from './../../../interfaces/IPaciente';
 import { PacienteService } from '../../../services/paciente.service';
 
 
-
 @Component({
     selector: 'solicitud-manual-hc',
     templateUrl: './solicitud-manual-hc.component.html'

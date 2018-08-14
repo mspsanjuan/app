@@ -99,6 +99,4 @@ export class ReporteC2Component implements OnInit {
     }
 
 
-
-
 }

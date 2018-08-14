@@ -84,8 +84,6 @@ export class EncabezadoReportesComponent implements OnInit {
         }];
 
 
-
-
     }
 
     loadOrganizacion(event) {
@@ -122,8 +120,6 @@ export class EncabezadoReportesComponent implements OnInit {
             }
         }
     }
-
-
 
 
     public imprimir() {
@@ -170,11 +166,6 @@ export class EncabezadoReportesComponent implements OnInit {
     add(a, b) {
         return a + b;
     }
-
-
-
-
-
 
 
 }

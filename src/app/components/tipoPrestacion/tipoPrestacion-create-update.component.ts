@@ -75,7 +75,6 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
         }
 
 
-
     } // ngOnInit
 
     // ****************************************** //
@@ -151,8 +150,6 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
         // this.modelo.ejecucion[0].reglas = this.arrayReglas;
 
 
-
-
         this.modelo.granularidad = this.granularidad.id;
         this.modelo.tipo = this.tipo.id;
         // Modo Update
@@ -186,7 +183,6 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
     } // onCancel()
 
 
-
     // Ejecucion() {
     //     this.showRegla = true;
     //     this.modelo.ejecucion[0].idTipoPrestacion = this.seleccionado.id;
@@ -211,7 +207,6 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
     // QuitaReglas(id) {
     //     this.arrayReglas.splice(id,1);
     // }
-
 
 
 } // export class TipoPrestacionCreateUpdateComponent

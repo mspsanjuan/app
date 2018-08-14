@@ -438,7 +438,6 @@ export class PrestacionValidacionComponent implements OnInit {
     }
 
 
-
     reordenarRelaciones() {
         let rel: any;
         let relIdx: any;

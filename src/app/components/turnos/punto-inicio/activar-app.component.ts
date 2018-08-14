@@ -120,7 +120,6 @@ export class ActivarAppComponent implements OnInit, OnChanges {
     }
 
 
-
     activarApp() {
         if (this.celular && this.email) {
             this.addContacto('celular', this.celular);

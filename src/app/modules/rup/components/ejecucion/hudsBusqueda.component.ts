@@ -625,7 +625,6 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
 
-
     getCantidadResultados(a: any) {
         // TODO: Implementar :joy:
     }

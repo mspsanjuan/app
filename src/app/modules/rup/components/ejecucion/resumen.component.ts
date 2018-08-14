@@ -71,7 +71,6 @@ export class ResumenComponent implements OnInit {
             });
 
 
-
         // Indicador de Talla
         this.servicioPrestacionPaciente.getByKey({ key: 'talla', idPaciente: this.prestacion.paciente.id })
             .subscribe(prestacion => {

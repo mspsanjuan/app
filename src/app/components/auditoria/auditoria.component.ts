@@ -169,7 +169,6 @@ export class AuditoriaComponent implements OnInit {
   }
 
 
-
   validarPaciente(fa) {
     // No corregir el nombre con sintys ni anses porque
     // no tiene separado el nombre y el apellido

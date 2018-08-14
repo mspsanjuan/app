@@ -172,6 +172,4 @@ export class ElementosRUPService {
     }
 
 
-
-
 }

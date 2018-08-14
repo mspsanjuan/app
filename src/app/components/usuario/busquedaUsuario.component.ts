@@ -50,7 +50,6 @@ export class BusquedaUsuarioComponent implements OnInit {
     }
 
 
-
     /**
      * Selecciona un usuario y emite el evento 'selected'
      *

@@ -20,7 +20,6 @@ export class AuditoriaPorBloqueService {
     }
 
 
-
     /* Esto era lo viejo que hay que revisar*/
 
     // public getPacientesBloque(tipoClave: Number, clave: String): Observable<IListaMatcheo[]> {

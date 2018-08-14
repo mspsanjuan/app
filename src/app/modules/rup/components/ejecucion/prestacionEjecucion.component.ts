@@ -1020,7 +1020,6 @@ export class PrestacionEjecucionComponent implements OnInit {
     }
 
 
-
     /**
      * Devuelve si un concepto es turneable o no.
      * Se fija en la variable conceptosTurneables inicializada en OnInit

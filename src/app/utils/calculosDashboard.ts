@@ -67,13 +67,3 @@ export function cantidadDeContactosActualizados() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-

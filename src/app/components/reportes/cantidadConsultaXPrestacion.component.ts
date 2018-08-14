@@ -7,8 +7,6 @@ import { Auth } from '@andes/auth';
 import * as moment from 'moment';
 
 
-
-
 @Component({
     selector: 'cantidadConsultaXPrestacion',
     templateUrl: 'cantidadConsultaXPrestacion.html',
@@ -47,8 +45,6 @@ export class CantidadConsultaXPrestacionComponent implements OnInit {
     public ngOnInit() {
 
     }
-
-
 
 
 }

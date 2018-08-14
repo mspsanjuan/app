@@ -64,7 +64,6 @@ export class TipoPrestacionComponent implements OnInit {
     }// loadDatos
 
 
-
     onReturn(objTipoPrestacion: ITipoPrestacion): void {
         this.showcreate = false;
         this.showupdate = false;
@@ -72,14 +71,11 @@ export class TipoPrestacionComponent implements OnInit {
     }// onReturn
 
 
-
     onEdit(objTipoPrestacion: ITipoPrestacion) {
         this.showcreate = false;
         this.showupdate = true;
         this.seleccion = objTipoPrestacion;
     }// onEdit
-
-
 
 
     activate(objTipoPrestacion: ITipoPrestacion) {

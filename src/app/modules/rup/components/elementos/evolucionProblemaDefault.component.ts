@@ -133,7 +133,6 @@ export class EvolucionProblemaDefaultComponent extends RUPComponent implements O
     }
 
 
-
     friendlyDate(fecha) {
         if (this.registro.valor.fechaInicio) {
             let oldDateMoment = moment(fecha, 'YYYY/MM/DD');
