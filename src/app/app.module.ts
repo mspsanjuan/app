@@ -221,6 +221,7 @@ import { NuevaEvolucionProblemaComponent } from './modules/rup/components/elemen
 import { IndiceDeMasaCorporalComponent } from './modules/rup/components/elementos/indiceDeMasaCorporal.component';
 import { EvolucionProblemaDefaultComponent } from './modules/rup/components/elementos/evolucionProblemaDefault.component';
 import { AutocitadoComponent } from './modules/rup/components/elementos/autocitado.component';
+import { PruebaLaboratorioComponent } from './modules/rup/components/elementos/pruebaLaboratorio.component';
 import { ObesidadComponent } from './modules/rup/components/elementos/obesidad.component';
 import { HipertensionArterialComponent } from './modules/rup/components/elementos/hipertensionArterial.component';
 import { FiltradoGlomerularComponent } from './modules/rup/components/elementos/filtradoGlomerular.component';
@@ -302,7 +303,7 @@ import { ImprimirSolicitudesComponent } from './components/prestamosHC/solicitud
 import { SolicitudManualComponent } from './components/prestamosHC/solicitudes/solicitud-manual-hc.component';
 
 // Laboratorio
-import { PuntoInicioLaboratorioComponent  } from './components/laboratorio/puntoInicioLaboratorio.component';
+import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 
 export let RUPRegistry = {
@@ -324,6 +325,7 @@ export let RUPRegistry = {
     'FrecuenciaCardiacaComponent': FrecuenciaCardiacaComponent,
     'FrecuenciaRespiratoriaComponent': FrecuenciaRespiratoriaComponent,
     'AutocitadoComponent': AutocitadoComponent,
+    'PruebaLaboratorioComponent': PruebaLaboratorioComponent,
     'ObesidadComponent': ObesidadComponent,
     'HipertensionArterialComponent': HipertensionArterialComponent,
     'FiltradoGlomerularComponent': FiltradoGlomerularComponent,
@@ -344,6 +346,7 @@ export let RUPRegistry = {
 let RUPComponentsArray = [
     SelectPorRefsetComponent,
     AutocitadoComponent,
+    PruebaLaboratorioComponent,
     EvolucionProblemaDefaultComponent,
     FiltradoGlomerularComponent,
     FrecuenciaCardiacaComponent,
