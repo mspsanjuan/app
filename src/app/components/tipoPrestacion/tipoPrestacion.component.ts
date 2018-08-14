@@ -56,7 +56,7 @@ export class TipoPrestacionComponent implements OnInit {
             limit: limit,
         };
 
-        this.tipoPrestacionService.get(parametros).subscribe(
+            this.tipoPrestacionService.get(parametros).subscribe(
                     datos => {
                     this.datos = datos;
                     this.finScroll = false;

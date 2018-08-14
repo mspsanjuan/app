@@ -33,9 +33,9 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
     public espacioNombre = '';
 
     constructor(public plex: Plex, private formBuilder: FormBuilder, public servicioPrestacion: TipoPrestacionService,
-        public servicioProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
-        public serviceAgenda: AgendaService, private router: Router,
-        public auth: Auth) { }
+                public servicioProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
+                public serviceAgenda: AgendaService, private router: Router,
+                public auth: Auth) { }
 
     ngOnInit() {
         this.autorizado = this.auth.getPermissions('turnos:planificarAgenda:?').length > 0;

@@ -49,12 +49,12 @@ export class PuntoInicioComponent implements OnInit {
     public paciente: any;
 
     constructor(private router: Router,
-        private plex: Plex, public auth: Auth,
-        public servicioAgenda: AgendaService,
-        public servicioPrestacion: PrestacionesService,
-        public servicePaciente: PacienteService,
-        public serviceTurno: TurnoService,
-        public servicioTipoPrestacion: TipoPrestacionService) { }
+                private plex: Plex, public auth: Auth,
+                public servicioAgenda: AgendaService,
+                public servicioPrestacion: PrestacionesService,
+                public servicePaciente: PacienteService,
+                public serviceTurno: TurnoService,
+                public servicioTipoPrestacion: TipoPrestacionService) { }
 
     ngOnInit() {
         // Verificamos permisos globales para rup, si no posee realiza redirect al home

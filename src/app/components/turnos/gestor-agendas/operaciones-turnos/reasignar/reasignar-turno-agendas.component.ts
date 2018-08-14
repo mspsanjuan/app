@@ -66,7 +66,7 @@ export class ReasignarTurnoAgendasComponent implements OnInit {
     countBloques = [];
 
     constructor(public plex: Plex, public auth: Auth, public serviceAgenda: AgendaService,
-        public serviceTurno: TurnoService, public smsService: SmsService) { }
+                public serviceTurno: TurnoService, public smsService: SmsService) { }
 
     ngOnInit() {
         this.hoy = new Date();

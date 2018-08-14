@@ -27,8 +27,8 @@ export class OrganizacionComponent implements OnInit {
     checked = true;
 
     constructor(private formBuilder: FormBuilder,
-        private organizacionService: OrganizacionService,
-        private router: Router) { }
+                private organizacionService: OrganizacionService,
+                private router: Router) { }
 
     ngOnInit() {
         this.searchForm = this.formBuilder.group({
@@ -46,9 +46,10 @@ export class OrganizacionComponent implements OnInit {
 
     loadDatos(concatenar: boolean = false) {
         let parametros = {
-            activo: this.value && this.value.activo, nombre:
-                this.value && this.value.nombre
-            , skip: this.skip, limit: limit
+            activo: this.value && this.value.activo,
+            nombre: this.value && this.value.nombre,
+            skip: this.skip,
+            limit: limit
         };
         this.organizacionService.get(parametros)
             .subscribe(

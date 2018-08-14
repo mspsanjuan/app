@@ -114,6 +114,12 @@
         "no-consecutive-blank-lines": [
             true,
             2
+        ],
+        "align": [
+            true,
+            "parameters",
+            "statements",
+            "members"
         ]
     }
 }

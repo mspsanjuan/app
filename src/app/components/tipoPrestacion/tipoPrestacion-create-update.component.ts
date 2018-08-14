@@ -49,7 +49,7 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
                 autonoma: false,
                 activo: true,
                 granularidad: String,
-                 ejecucion: [// {
+                ejecucion: [// {
                 //     idTipoPrestacion: String,
                 //     reglas: [{
                 //         nombre: String,

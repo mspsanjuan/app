@@ -107,7 +107,7 @@ export class HudsBusquedaComponent implements OnInit {
     };
 
     constructor(private servicioPrestacion: PrestacionesService,
-        public plex: Plex, public auth: Auth) {
+                public plex: Plex, public auth: Auth) {
     }
 
     /**
@@ -526,7 +526,8 @@ export class HudsBusquedaComponent implements OnInit {
         this.hallazgosNoActivos = this.hallazgosNoActivosAux = this.hallazgosNoActivos.map(element => {
             if (element.evoluciones[0].idRegistroGenerado) {
                 element['transformado'] = this.hallazgos.find(h => h.evoluciones[0].idRegistro === element.evoluciones[0].idRegistroGenerado);
-            } return element;
+            }
+            return element;
         });
     }
 

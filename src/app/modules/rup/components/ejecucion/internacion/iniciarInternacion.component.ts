@@ -83,14 +83,14 @@ export class IniciarInternacionComponent implements OnInit {
     };
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private plex: Plex, public auth: Auth,
-        public camasService: CamasService,
-        private servicioPrestacion: PrestacionesService,
-        private organizacionService: OrganizacionService,
-        public financiadorService: FinanciadorService,
-        public ocupacionService: OcupacionService,
-        public snomedService: SnomedService,
-        private location: Location) { }
+                private plex: Plex, public auth: Auth,
+                public camasService: CamasService,
+                private servicioPrestacion: PrestacionesService,
+                private organizacionService: OrganizacionService,
+                public financiadorService: FinanciadorService,
+                public ocupacionService: OcupacionService,
+                public snomedService: SnomedService,
+                private location: Location) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {

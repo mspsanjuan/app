@@ -34,7 +34,7 @@ export class EditEspacioFisicoComponent implements OnInit {
     public edif: any = {};
     public autorizado: boolean;
     constructor(public plex: Plex, public espacioFisicoService: EspacioFisicoService, public organizacionService: OrganizacionService,
-        public auth: Auth) { }
+                public auth: Auth) { }
 
     ngOnInit() {
         this.autorizado = this.auth.check('turnos:editarEspacio');

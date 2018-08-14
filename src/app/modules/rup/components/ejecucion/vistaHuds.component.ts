@@ -30,12 +30,12 @@ export class VistaHudsComponent implements OnInit {
     public registrosHuds: any[] = [];
 
     constructor(public elementosRUPService: ElementosRUPService,
-        public plex: Plex, public auth: Auth,
-        private router: Router, private route: ActivatedRoute,
-        private servicioPaciente: PacienteService,
-        private logService: LogService,
-        private servicioPrestacion: PrestacionesService,
-        private conceptObserverService: ConceptObserverService) { }
+                public plex: Plex, public auth: Auth,
+                private router: Router, private route: ActivatedRoute,
+                private servicioPaciente: PacienteService,
+                private logService: LogService,
+                private servicioPrestacion: PrestacionesService,
+                private conceptObserverService: ConceptObserverService) { }
 
     /**
     *Inicializamos con el id del paciente

@@ -107,14 +107,14 @@ export class PrestacionValidacionComponent implements OnInit {
     ];
 
     constructor(private servicioPrestacion: PrestacionesService,
-        private frecuentesProfesionalService: FrecuentesProfesionalService,
-        public elementosRUPService: ElementosRUPService,
-        private servicioPaciente: PacienteService, private SNOMED: SnomedService,
-        public plex: Plex, public auth: Auth, private router: Router,
-        public servicioAgenda: AgendaService,
-        private route: ActivatedRoute, private servicioTipoPrestacion: TipoPrestacionService,
-        private servicioDocumentos: DocumentosService,
-        private sanitizer: DomSanitizer) {
+                private frecuentesProfesionalService: FrecuentesProfesionalService,
+                public elementosRUPService: ElementosRUPService,
+                private servicioPaciente: PacienteService, private SNOMED: SnomedService,
+                public plex: Plex, public auth: Auth, private router: Router,
+                public servicioAgenda: AgendaService,
+                private route: ActivatedRoute, private servicioTipoPrestacion: TipoPrestacionService,
+                private servicioDocumentos: DocumentosService,
+                private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {

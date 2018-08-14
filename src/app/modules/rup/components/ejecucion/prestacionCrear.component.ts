@@ -45,12 +45,12 @@ export class PrestacionCrearComponent implements OnInit {
     public showDarTurnos = false;
 
     constructor(private router: Router,
-        private route: ActivatedRoute,
-        private plex: Plex, public auth: Auth,
-        public servicioAgenda: AgendaService,
-        public servicioPrestacion: PrestacionesService,
-        public servicioTipoPrestacion: TipoPrestacionService,
-        private location: Location) { }
+                private route: ActivatedRoute,
+                private plex: Plex, public auth: Auth,
+                public servicioAgenda: AgendaService,
+                public servicioPrestacion: PrestacionesService,
+                public servicioTipoPrestacion: TipoPrestacionService,
+                private location: Location) { }
 
     ngOnInit() {
         // Carga tipos de prestaciones permitidas para el usuario

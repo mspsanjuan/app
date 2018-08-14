@@ -30,9 +30,9 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
     loader = false;
 
     constructor(private formBuilder: FormBuilder,
-        private auditoriaPrestacionPacienteService: AuditoriaPrestacionPacienteService,
-        private prestacionPacienteService: PrestacionesService,
-        public auth: Auth) { }
+                private auditoriaPrestacionPacienteService: AuditoriaPrestacionPacienteService,
+                private prestacionPacienteService: PrestacionesService,
+                public auth: Auth) { }
 
     ngOnInit() {
         // this.loadAuditoriasPP();

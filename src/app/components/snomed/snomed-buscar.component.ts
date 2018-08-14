@@ -60,10 +60,10 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
     private lastRequest: ISubscription;
 
     constructor(private SNOMED: SnomedService,
-        private auth: Auth,
-        private plex: Plex,
-        public servicioTipoPrestacion: TipoPrestacionService,
-        public servicioPrestacion: PrestacionesService) {
+                private auth: Auth,
+                private plex: Plex,
+                public servicioTipoPrestacion: TipoPrestacionService,
+                public servicioPrestacion: PrestacionesService) {
     }
 
     /* limpiamos la request que se haya ejecutado */

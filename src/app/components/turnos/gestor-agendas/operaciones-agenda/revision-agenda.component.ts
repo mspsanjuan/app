@@ -72,12 +72,12 @@ export class RevisionAgendaComponent implements OnInit {
     idOrganizacion = this.auth.organizacion.id;
 
     constructor(public plex: Plex,
-        public router: Router,
-        public auth: Auth,
-        private serviceCie10: Cie10Service,
-        public serviceTurno: TurnoService,
-        public serviceAgenda: AgendaService,
-        public servicePaciente: PacienteService) {
+                public router: Router,
+                public auth: Auth,
+                private serviceCie10: Cie10Service,
+                public serviceTurno: TurnoService,
+                public serviceAgenda: AgendaService,
+                public servicePaciente: PacienteService) {
     }
 
     ngOnInit() {

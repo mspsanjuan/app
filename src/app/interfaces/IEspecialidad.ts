@@ -8,7 +8,7 @@ export interface IEspecialidad {
     codigo: {
        sisa: String,
     };
-   activo: Boolean;
-   fechaAlta: Date;
-   fechaBaja: Date;
+    activo: Boolean;
+    fechaAlta: Date;
+    fechaBaja: Date;
 }

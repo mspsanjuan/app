@@ -23,8 +23,8 @@ export class ResumenComponent implements OnInit {
     // public prestacionTalla: IPrestacionPaciente = null;
 
     constructor( private servicioPrestacionPaciente: PrestacionesService,
-        private router: Router, private route: ActivatedRoute,
-        public auth: Auth, private plex: Plex) { }
+                 private router: Router, private route: ActivatedRoute,
+                 public auth: Auth, private plex: Plex) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {

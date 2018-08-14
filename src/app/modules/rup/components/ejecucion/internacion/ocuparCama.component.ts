@@ -32,16 +32,16 @@ export class OcuparCamaComponent implements OnInit {
     public fecha = new Date();
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private plex: Plex, public auth: Auth,
-        public camasService: CamasService,
-        private servicioPrestacion: PrestacionesService,
-        private organizacionService: OrganizacionService,
-        public financiadorService: FinanciadorService,
-        public ocupacionService: OcupacionService,
-        public snomedService: SnomedService,
-        public elementosRUPService: ElementosRUPService,
-        private servicioPaciente: PacienteService,
-        private location: Location) { }
+                private plex: Plex, public auth: Auth,
+                public camasService: CamasService,
+                private servicioPrestacion: PrestacionesService,
+                private organizacionService: OrganizacionService,
+                public financiadorService: FinanciadorService,
+                public ocupacionService: OcupacionService,
+                public snomedService: SnomedService,
+                public elementosRUPService: ElementosRUPService,
+                private servicioPaciente: PacienteService,
+                private location: Location) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {

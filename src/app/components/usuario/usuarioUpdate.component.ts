@@ -52,7 +52,7 @@ export class UsuarioUpdateComponent implements OnInit {
     };
 
     constructor(private plex: Plex, private server: Server, private usuarioService: UsuarioService, private router: Router,
-        private auth: Auth, private provinciaService: ProvinciaService, private organizacionService: OrganizacionService, private permisosService: PermisosService) { }
+                private auth: Auth, private provinciaService: ProvinciaService, private organizacionService: OrganizacionService, private permisosService: PermisosService) { }
 
     public ngOnInit() {
         this.permisos$ = this.permisosService.get();

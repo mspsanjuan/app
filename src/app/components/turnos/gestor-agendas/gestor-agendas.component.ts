@@ -114,9 +114,9 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     items: any[];
 
     constructor(public plex: Plex, private formBuilder: FormBuilder, public servicioPrestacion: TipoPrestacionService,
-        public serviceProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
-        public serviceAgenda: AgendaService, private router: Router,
-        public auth: Auth) { }
+                public serviceProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
+                public serviceAgenda: AgendaService, private router: Router,
+                public auth: Auth) { }
 
     /* limpiamos la request que se haya ejecutado */
     ngOnDestroy() {

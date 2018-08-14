@@ -45,8 +45,8 @@ export class MapaDeCamasComponent implements OnInit {
     };
 
     constructor(private auth: Auth, private plex: Plex,
-        private router: Router,
-        private camasService: CamasService) { }
+                private router: Router,
+                private camasService: CamasService) { }
 
     ngOnInit() {
         // verificar permisos

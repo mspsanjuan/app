@@ -18,7 +18,7 @@ export class SolicitudesComponent implements OnInit {
     public Auditar = [];
     public visualizar = [];
     constructor(private auth: Auth, private plex: Plex,
-        private router: Router, public servicioPrestacion: PrestacionesService) { }
+                private router: Router, public servicioPrestacion: PrestacionesService) { }
 
     ngOnInit() {
         // this.cargarSolicitudes();

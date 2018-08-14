@@ -90,15 +90,15 @@ export class EjecucionInternacionComponent implements OnInit {
     };
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private plex: Plex, public auth: Auth,
-        public camasService: CamasService,
-        private servicioPrestacion: PrestacionesService,
-        public financiadorService: FinanciadorService,
-        public ocupacionService: OcupacionService,
-        public snomedService: SnomedService,
-        private servicioPaciente: PacienteService,
-        public elementosRUPService: ElementosRUPService,
-        private location: Location) { }
+                private plex: Plex, public auth: Auth,
+                public camasService: CamasService,
+                private servicioPrestacion: PrestacionesService,
+                public financiadorService: FinanciadorService,
+                public ocupacionService: OcupacionService,
+                public snomedService: SnomedService,
+                private servicioPaciente: PacienteService,
+                public elementosRUPService: ElementosRUPService,
+                private location: Location) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {

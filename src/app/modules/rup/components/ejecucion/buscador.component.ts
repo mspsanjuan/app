@@ -104,9 +104,9 @@ export class BuscadorComponent implements OnInit, OnChanges {
     public search; // buscador de sugeridos y mis frecuentes
 
     constructor(public servicioTipoPrestacion: TipoPrestacionService,
-        private frecuentesProfesionalService: FrecuentesProfesionalService,
-        private auth: Auth, private elementoRUP: ElementosRUPService,
-        public servicioPrestacion: PrestacionesService) {
+                private frecuentesProfesionalService: FrecuentesProfesionalService,
+                private auth: Auth, private elementoRUP: ElementosRUPService,
+                public servicioPrestacion: PrestacionesService) {
     }
 
     ngOnInit() {

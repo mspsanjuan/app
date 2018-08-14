@@ -46,11 +46,11 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
     todasEspecialidades: IEspecialidad[] = [];
 
     constructor(private formBuilder: FormBuilder,
-        private profesionalService: ProfesionalService,
-        private paisService: PaisService,
-        private provinciaService: ProvinciaService,
-        private localidadService: LocalidadService,
-        private especialidadService: EspecialidadService) { }
+                private profesionalService: ProfesionalService,
+                private paisService: PaisService,
+                private provinciaService: ProvinciaService,
+                private localidadService: LocalidadService,
+                private especialidadService: EspecialidadService) { }
 
     ngOnInit() {
         this.sexos = enumerados.getObjSexos();
