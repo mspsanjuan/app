@@ -296,7 +296,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                                 resultado.sexo = this.seleccion.sexo;
                                 resultado.documento = this.seleccion.documento;
                             }
-                            this.seleccion = Object.assign({}, resultado);
+                            this.seleccion = {...resultado};
                         }
                         this.actualizarDatosPaciente();
 
@@ -379,7 +379,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
             this.seleccion.direccion = [this.direccion];
         }
 
-        this.pacienteModel = Object.assign({}, this.seleccion);
+        this.pacienteModel = {...this.seleccion};
         this.pacienteModel.genero = this.pacienteModel.genero ? this.pacienteModel.genero : this.pacienteModel.sexo;
 
         // Se verifican los datos de la app mobile
@@ -518,7 +518,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
         const repetidos = this.verificarContactosRepetidos();
         if (valid.formValid && repetidos) {
 
-            let pacienteGuardar = Object.assign({}, this.pacienteModel);
+            let pacienteGuardar = {...this.pacienteModel};
 
             pacienteGuardar.sexo = ((typeof this.pacienteModel.sexo === 'string')) ? this.pacienteModel.sexo : (Object(this.pacienteModel.sexo).id);
             pacienteGuardar.estadoCivil = this.pacienteModel.estadoCivil ? ((typeof this.pacienteModel.estadoCivil === 'string')) ? this.pacienteModel.estadoCivil : (Object(this.pacienteModel.estadoCivil).id) : null;
@@ -711,7 +711,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
         this.data.emit(null);
     }
     onSelect(paciente: IPaciente) {
-        this.seleccion = Object.assign({}, paciente);
+        this.seleccion = {...paciente};
         this.actualizarDatosPaciente();
         this.disableGuardar = false;
         this.enableIgnorarGuardar = false;
@@ -825,13 +825,12 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     addContacto(key, valor) {
-        let nuevoContacto = Object.assign({}, {
+        let nuevoContacto = {
             tipo: key,
             valor: valor,
             ranking: 0,
             activo: true,
-            ultimaActualizacion: new Date()
-        });
+            ultimaActualizacion: new Date()};
         this.pacienteModel.contacto.push(nuevoContacto);
     }
 
@@ -1067,13 +1066,12 @@ export class PacienteCreateUpdateComponent implements OnInit {
 
     seleccionarPacienteRelacionado(pacienteEncontrado, esReferencia) {
         this.buscarPacRel = '';
-        let unaRelacion = Object.assign({}, {
+        let unaRelacion = {
             relacion: null,
             referencia: null,
             nombre: '',
             apellido: '',
-            documento: ''
-        });
+            documento: ''};
         if (pacienteEncontrado) {
             if (esReferencia) {
                 unaRelacion.referencia = pacienteEncontrado.id;

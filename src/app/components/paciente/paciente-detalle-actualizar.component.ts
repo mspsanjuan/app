@@ -131,13 +131,12 @@ export class PacienteDetalleActualizarComponent implements OnInit {
     }
 
     addContacto() {
-        let nuevoContacto = Object.assign({}, {
+        let nuevoContacto = {
             tipo: 'celular',
             valor: '',
             ranking: 0,
             activo: true,
-            ultimaActualizacion: new Date()
-        });
+            ultimaActualizacion: new Date()};
         this.paciente.contacto.push(nuevoContacto);
     }
 

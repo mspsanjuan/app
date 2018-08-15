@@ -164,7 +164,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     onSave(valid) {
-        let organizacionGuardar = Object.assign({}, this.organizacionModel);
+        let organizacionGuardar = {...this.organizacionModel};
         // Mapeamos solo los conceptos que es lo que nos interesa guardar
         organizacionGuardar.servicios = this.serviciosSeleccionados.map(elem => {
             return elem.concepto;
@@ -203,13 +203,12 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     addContacto() {
-        let nuevoContacto = Object.assign({}, {
+        let nuevoContacto = {
             tipo: 'celular',
             valor: '',
             ranking: 0,
             activo: true,
-            ultimaActualizacion: new Date()
-        });
+            ultimaActualizacion: new Date()};
         this.organizacionModel.contacto.push(nuevoContacto);
     }
 
@@ -220,7 +219,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     addEdificio() {
-        let nuevoEdificio = Object.assign({}, {
+        let nuevoEdificio = {
             id: null,
             descripcion: '',
             contacto: {
@@ -255,8 +254,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
                 geoReferencia: null,
                 ultimaActualizacion: new Date(),
                 activo: true
-            },
-        });
+            }};
         if (this.organizacionModel.edificio) {
             this.organizacionModel.edificio.push(nuevoEdificio);
         } else {

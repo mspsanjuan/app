@@ -54,7 +54,7 @@ export class CamaCreateUpdateComponent implements OnInit {
                 let idCama = params['idCama'];
                 this.CamaService.getCama(idCama).subscribe(cama => {
                     this.cama = cama;
-                    this.estado = Object.assign({}, this.cama.ultimoEstado);
+                    this.estado = {...this.cama.ultimoEstado};
                     this.organizacionService.getById(this.cama.organizacion.id).subscribe(organizacion => {
                         this.organizacion = organizacion;
                     });

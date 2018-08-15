@@ -81,12 +81,11 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
     }
 
     addNacimiento() {
-        let nuevoNacimiento = Object.assign({}, {
+        let nuevoNacimiento = {
             pesoAlNacer: null,
             condicionAlNacer: null,
             terminacion: null,
-            sexo: null
-        });
+            sexo: null};
         this.registro.valor.InformeEgreso.nacimientos.push(nuevoNacimiento);
     }
 
@@ -98,10 +97,9 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
 
 
     addProcedimientoQuirurgico() {
-        let nuevoProcedimiento = Object.assign({}, {
+        let nuevoProcedimiento = {
             procedimiento: null,
-            fecha: null
-        });
+            fecha: null};
         this.registro.valor.InformeEgreso.procedimientosQuirurgicos.push(nuevoProcedimiento);
     }
 

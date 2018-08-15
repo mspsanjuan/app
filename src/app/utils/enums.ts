@@ -6,5 +6,5 @@ export interface IEnum {
 }
 
 export function enumToArray(object: IEnum): Array<any> {
-    return Object.keys(object).map(key => Object.assign(object[key], { id: key }));
+    return Object.keys(object).map(key => ({...object[key],  id: key}));
 }

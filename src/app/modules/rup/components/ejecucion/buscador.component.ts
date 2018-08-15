@@ -111,7 +111,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         // inicializamos variable resultsAux con la misma estructura que results
-        this.resultsAux = Object.assign({}, this.results);
+        this.resultsAux = {...this.results};
         // Se traen los Conceptos Turneables para poder quitarlos de la lista de
         // Procedimientos
         this.elementoRUP.guiada(this.prestacion.solicitud.tipoPrestacion.conceptId).subscribe((grupos) => {
@@ -131,7 +131,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
                 });
                 // filtramos los resultados
                 this.filtrarResultados('sugeridos');
-                this.resultsAux.sugeridos = Object.assign({}, this.results.sugeridos);
+                this.resultsAux.sugeridos = {...this.results.sugeridos};
                 // seteamos el tipo de búsqueda actual como sugeridos
                 this.busquedaActual = 'sugeridos';
             } else {
@@ -154,7 +154,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
                     });
                     this.results['misFrecuentes']['todos'] = frecuentesProfesional;
                     this.filtrarResultados('misFrecuentes');
-                    this.resultsAux.misFrecuentes = Object.assign({}, this.results.misFrecuentes);
+                    this.resultsAux.misFrecuentes = {...this.results.misFrecuentes};
                 }
             });
             // inicializamos el filtro actual para los hallazgos
