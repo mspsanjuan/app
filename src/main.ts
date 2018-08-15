@@ -14,8 +14,8 @@ if (!(bowser as any).check({ chrome: '54' }) || !(bowser as any).check({ firefox
 } else {
   // Enabled production mode
     if (environment.production) {
-      enableProdMode();
-  }
+        enableProdMode();
+    }
   // Start application
     platformBrowserDynamic().bootstrapModule(AppModule);
 }

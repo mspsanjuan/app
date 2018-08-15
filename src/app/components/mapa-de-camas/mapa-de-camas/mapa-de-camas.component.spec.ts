@@ -8,7 +8,7 @@ describe('MapaDeCamasComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ MapaDeCamasComponent ]
+            declarations: [MapaDeCamasComponent]
         })
     .compileComponents();
     }));

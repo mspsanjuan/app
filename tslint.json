@@ -140,6 +140,14 @@
             {
                 "SwitchCase": 1
             }
+        ],
+        "array-bracket-spacing": [
+            true,
+            {
+                "singleValue": false,
+                "objectsInArrays": false,
+                "arraysInArrays": false
+            }
         ]
     }
 }
