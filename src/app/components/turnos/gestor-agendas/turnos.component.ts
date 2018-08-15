@@ -404,7 +404,7 @@ export class TurnosComponent implements OnInit {
         let turno;
         for (let x = 0; x < this.turnosSeleccionados.length; x++) {
             const idTurno = this.turnosSeleccionados[x].id;
-            this.turnos.filter(function (el, index, arr) {
+            this.turnos.filter((el, index, arr) => {
                 if (el.id === idTurno) {
                     turno = el;
                 }

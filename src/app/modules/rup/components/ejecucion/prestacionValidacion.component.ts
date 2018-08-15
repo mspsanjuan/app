@@ -503,7 +503,7 @@ export class PrestacionValidacionComponent implements OnInit {
     ordenarPorFecha(direccion: any) {
         if (direccion) {
             this.ordenRegistros = direccion;
-            this.prestacion.ejecucion.registros = this.prestacion.ejecucion.registros.sort(function (a, b) {
+            this.prestacion.ejecucion.registros = this.prestacion.ejecucion.registros.sort((a, b) => {
                 a = new Date(a.createdAt);
                 b = new Date(b.createdAt);
                 if (direccion === 'down') {

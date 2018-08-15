@@ -70,32 +70,32 @@ export class CamasService {
                 camas = camas.filter(cama => cama.servicio.id === servicioHospitalario);
             }
 
-            const ocupadas = camas.filter(function (i) {
+            const ocupadas = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'ocupada');
             });
 
             // ocupacion
-            const bloqueadas = camas.filter(function (i) {
+            const bloqueadas = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'bloqueada');
             });
 
             // descontaminadas
-            const descontaminacion = camas.filter(function (i) {
+            const descontaminacion = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'desocupada' && !i.desinfectada);
             });
 
             // reparación
-            const reparacion = camas.filter(function (i) {
+            const reparacion = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'reparacion');
             });
 
             // disponibles
-            const desocupadas = camas.filter(function (i) {
+            const desocupadas = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'desocupada');
             });
 
             // desocupadas y con oxígeno - TODO: modificar filtro una vez que se defina
-            const desocupadasOxigeno = camas.filter(function (i) {
+            const desocupadasOxigeno = camas.filter((i) => {
                 return (i.ultimoEstado.estado === 'desocupada' && i.oxigeno);
             });
 

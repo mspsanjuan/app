@@ -600,12 +600,11 @@ export class HudsBusquedaComponent implements OnInit {
             this.prestaciones = [...this.prestaciones, ...filtro];
 
             // vamos a ordenar la prestaciones por fecha
-            this.prestaciones = this.prestaciones.sort(
-                function (a, b) {
-                    a = a.fecha;
-                    b = b.fecha;
-                    return b - a;
-                });
+            this.prestaciones = this.prestaciones.sort((a, b) => {
+                a = a.fecha;
+                b = b.fecha;
+                return b - a;
+            });
         });
     }
 

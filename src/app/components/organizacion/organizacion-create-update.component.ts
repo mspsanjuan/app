@@ -140,7 +140,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
                 if (resultado.servicios) {
                     Object.assign(this.organizacionModel, resultado);
                     // Lo mapeamos para que los tome el plex-select
-                    this.serviciosSeleccionados = this.organizacionModel.servicios.map(function (obj) {
+                    this.serviciosSeleccionados = this.organizacionModel.servicios.map((obj) => {
                         return { id: obj.conceptId, nombre: obj.term, concepto: obj };
                     });
                 }
@@ -280,7 +280,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
 
     getServicios($event) {
         this.snomed.getQuery({ expression: this.expression }).subscribe(result => {
-            this.servicios = result.map(function (obj) {
+            this.servicios = result.map((obj) => {
                 return { id: obj.conceptId, nombre: obj.term, concepto: obj };
             });
             $event.callback(this.servicios);

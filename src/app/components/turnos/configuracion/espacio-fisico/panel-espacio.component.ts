@@ -37,7 +37,7 @@ export class PanelEspacioComponent implements OnInit {
 
     loadEspacios() {
         this.serviceEspacio.get({}).subscribe(espacios => {
-            this.espacios = espacios.map(function (obj) {
+            this.espacios = espacios.map((obj) => {
                 return { id: obj.id, nombre: obj.nombre };
             });
             this.ancho = String(this.espacios.length + 1) + '%';
@@ -51,10 +51,10 @@ export class PanelEspacioComponent implements OnInit {
         };
         this.serviceAgenda.get(params).subscribe(
             agendas => {
-                this.agendas = agendas.filter(function (value) {
+                this.agendas = agendas.filter((value) => {
                     return (value.espacioFisico);
                 });
-                this.sinConsultorio = agendas.filter(function (value) {
+                this.sinConsultorio = agendas.filter((value) => {
                     return (!value.espacioFisico);
                 });
                 this.llenarConsultorios();
@@ -112,11 +112,7 @@ export class PanelEspacioComponent implements OnInit {
             }
             const elemento = {
                 hora: inicioM.format('HH:mm'),
-                lista: lista.sort(
-                    function (a, b) {
-                        return a.espacio.nombre - b.espacio.nombre;
-                    }
-                )
+                lista: lista.sort((a, b) => a.espacio.nombre - b.espacio.nombre)
             };
             this.horarios.push(elemento);
             inicioM.add(this.unidad, 'm');
@@ -152,7 +148,7 @@ export class PanelEspacioComponent implements OnInit {
                 i1Horarios = arrayTemp.indexOf(moment(this.agendaSel.horaInicio).format('HH:mm'));
                 i2Horarios = arrayTemp.indexOf(moment(this.agendaSel.horaFin).format('HH:mm'));
                 for (let i = i1Horarios; i < i2Horarios; i++) {
-                    const ind = this.horarios[i].lista.map(function (obj) {
+                    const ind = this.horarios[i].lista.map((obj) => {
                         return obj.espacio.id;
                     }).indexOf(espacio.id);
                     bandera = bandera && (this.horarios[i].lista[ind].agenda === '');
@@ -164,11 +160,7 @@ export class PanelEspacioComponent implements OnInit {
                     this.agendaSel.rows = rows;
                     // espacio.seleccionado = false;
                     this.agendaSel.espacioFisico = espacio;
-                    const indice = this.agendasModificar.map(
-                        function (obj) {
-                            return obj.id;
-                        }
-                    ).indexOf(this.agendaSel.id);
+                    const indice = this.agendasModificar.map((obj) => obj.id).indexOf(this.agendaSel.id);
                     if (indice >= 0) {
                         this.agendasModificar[indice].espacioFisico = espacio;
                     } else {
@@ -176,9 +168,7 @@ export class PanelEspacioComponent implements OnInit {
                     }
                     // this.agendasModificar.push({ id: this.agendaSel.id, espacioFisico: espacio });
                     for (let i = i1Horarios; i < i2Horarios; i++) {
-                        const ind = this.horarios[i].lista.map(function (obj) {
-                            return obj.espacio.id;
-                        }).indexOf(espacio.id);
+                        const ind = this.horarios[i].lista.map((obj) => obj.espacio.id).indexOf(espacio.id);
                         if (this.agendaSel.rows > 1 && !this.agendaSel.saltear) {
                             this.horarios[i].lista[ind].agenda = this.agendaSel;
                             this.agendaSel.saltear = true;
@@ -205,20 +195,14 @@ export class PanelEspacioComponent implements OnInit {
         agenda.rows = 0;
         agenda.seleccionada = null;
         this.sinConsultorio.push(agenda);
-        const indice = this.agendasModificar.map(
-            function (obj) {
-                return obj.id;
-            }
-        ).indexOf(agenda.id);
+        const indice = this.agendasModificar.map((obj) => obj.id).indexOf(agenda.id);
         if (indice >= 0) {
             this.agendasModificar[indice].espacioFisico = null;
         } else {
             this.agendasModificar.push({ id: agenda.id, espacioFisico: null });
         }
         const indiceHorarios = this.horarios.indexOf(horario);
-        const ii = this.horarios[indiceHorarios].lista.map(function (obj) {
-            return obj.espacio.id;
-        }).indexOf(ef.id);
+        const ii = this.horarios[indiceHorarios].lista.map((obj) => obj.espacio.id).indexOf(ef.id);
         ef.seleccionado = false;
         this.horarios[indiceHorarios].lista[ii].agenda = '';
         for (let i = 1; i < filas; i++) { //
@@ -226,7 +210,7 @@ export class PanelEspacioComponent implements OnInit {
                 agenda: '',
                 espacio: ef
             });
-            this.horarios[indiceHorarios + i].lista = this.horarios[indiceHorarios + i].lista.sort(function (a, b) {
+            this.horarios[indiceHorarios + i].lista = this.horarios[indiceHorarios + i].lista.sort((a, b) => {
                 { return (a.espacio.nombre > b.espacio.nombre) ? 1 : ((b.espacio.nombre > a.espacio.nombre) ? -1 : 0); }
             });
         }

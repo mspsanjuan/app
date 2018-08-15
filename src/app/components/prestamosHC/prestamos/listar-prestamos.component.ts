@@ -179,7 +179,7 @@ export class ListarPrestamosComponent implements OnInit {
     switchMarcarTodas() {
         this.marcarTodas = !this.marcarTodas;
         this.carpetasSeleccionadas = this.marcarTodas ?
-            this.carpetas.filter(function (el) {
+            this.carpetas.filter((el) => {
                 return el.estado === 'Prestada';
             }) : [];
         this.verDevolver = false;

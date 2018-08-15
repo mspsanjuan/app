@@ -83,13 +83,13 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
         if (this.modelo.nombre) {
             const nombre = this.modelo.nombre.toLowerCase()
 
-                .replace(/\s(.)/g, function ($1) { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
-                .replace(/^(.)/, function ($1) { return $1.toUpperCase(); });  // Mayúscula en la primer letra
+                .replace(/\s(.)/g, ($1) => { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
+                .replace(/^(.)/, ($1) => { return $1.toUpperCase(); });  // Mayúscula en la primer letra
 
             const key = this.modelo.nombre
-                .replace(/\s(.)/g, function ($1) { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
+                .replace(/\s(.)/g, ($1) => { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
                 .replace(/\s/g, '') // Quita espacios en blanco
-                .replace(/^(.)/, function ($1) { return $1.toLowerCase(); }) // Minúscula en la primer letra
+                .replace(/^(.)/, ($1) => { return $1.toLowerCase(); }) // Minúscula en la primer letra
                 .replace(/(á|Á)/gi, 'a') // Quito asentos
                 .replace(/(é|É)/gi, 'e')
                 .replace(/(í|Í)/gi, 'i')
@@ -123,8 +123,8 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
             this.modelo.ejecucion = []; // Limpio el Select
         } else {
             const nombreCarpeta = this.modelo.nombre
-                .replace(/\s(.)/g, function ($1) { return $1.toLowerCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
-                .replace(/^(.)/, function ($1) { return $1.toLowerCase(); }) // Minúscula en la primer letra
+                .replace(/\s(.)/g, ($1) => { return $1.toLowerCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
+                .replace(/^(.)/, ($1) => { return $1.toLowerCase(); }) // Minúscula en la primer letra
                 .replace(/\s/g, '-');
             this.modelo.componente.ruta = 'rup/' + granularidadString + '/' + nombreCarpeta + '/' + this.modelo.key + '.component.ts';
         } // else

@@ -154,6 +154,13 @@
                 "checkLoops": false
             }
         ],
-        "prefer-const": true
+        "prefer-const": true,
+        "only-arrow-functions": [
+            true,
+            "allow-declarations",
+            "allow-named-functions"
+        ],
+
+        "contextual-life-cycle": true
     }
 }

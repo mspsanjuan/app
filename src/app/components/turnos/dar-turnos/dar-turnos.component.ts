@@ -417,10 +417,8 @@ export class DarTurnosComponent implements OnInit {
 
                 // Se filtran los bloques segun el filtro tipoPrestacion
                 this.bloques = this.agenda.bloques.filter(
-                    function (value) {
-                        const prestacionesBlq = value.tipoPrestaciones.map(function (obj) {
-                            return obj.id;
-                        });
+                    (value) => {
+                        const prestacionesBlq = value.tipoPrestaciones.map((obj) => obj.id);
                         if (tipoPrestacion) {
                             return (prestacionesBlq.indexOf(tipoPrestacion) >= 0);
                         } else {
@@ -431,7 +429,7 @@ export class DarTurnosComponent implements OnInit {
 
                 // Se muestran solo los bloques que tengan turnos para el tipo correspondiente
                 this.bloques = this.bloques.filter(
-                    function (value) {
+                    (value) => {
                         if (agendaDeHoy) {
                             return (value.restantesDelDia) + (value.restantesProgramados) > 0;
                         } else {

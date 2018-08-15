@@ -60,9 +60,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     actualizar() {
 
         // Función callback para usar con array.sort()
-        const sortCandidatas = function (a, b) {
-            return a.turno.horaInicio - b.turno.horaInicio;
-        };
+        const sortCandidatas = (a, b) => a.turno.horaInicio - b.turno.horaInicio;
 
         this.agendasReasignar = [];
 

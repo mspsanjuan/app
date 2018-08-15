@@ -198,12 +198,11 @@ export class PrestacionesService {
             });
             const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
-            registros = registros.sort(
-                function (a, b) {
-                    a = a.createdAt;
-                    b = b.createdAt;
-                    return a - b;
-                });
+            registros = registros.sort((a, b) => {
+                a = a.createdAt;
+                b = b.createdAt;
+                return a - b;
+            });
             registros.forEach(registro => {
                 const registroEncontrado = registroSalida.find(reg => {
                     if (reg.concepto.conceptId === registro.concepto.conceptId) {
@@ -249,12 +248,11 @@ export class PrestacionesService {
                     registroEncontrado.prestaciones.push(registro.idPrestacion);
                     registroEncontrado.evoluciones.push(nuevaEvolucion);
                     // ordenamos las evoluciones para que la primero del array sea la ultima registrada
-                    registroEncontrado.evoluciones = registroEncontrado.evoluciones.sort(
-                        function (a, b) {
-                            a = a.fechaCarga;
-                            b = b.fechaCarga;
-                            return b - a;
-                        });
+                    registroEncontrado.evoluciones = registroEncontrado.evoluciones.sort((a, b) => {
+                        a = a.fechaCarga;
+                        b = b.fechaCarga;
+                        return b - a;
+                    });
                 }
 
             });
@@ -288,12 +286,11 @@ export class PrestacionesService {
             });
             const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
-            registros = registros.sort(
-                function (a, b) {
-                    a = a.createdAt;
-                    b = b.createdAt;
-                    return a - b;
-                });
+            registros = registros.sort((a, b) => {
+                a = a.createdAt;
+                b = b.createdAt;
+                return a - b;
+            });
 
             this.cacheRegistros[idPaciente] = registros;
             return registros;
@@ -323,12 +320,11 @@ export class PrestacionesService {
             });
             const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
-            registros = registros.sort(
-                function (a, b) {
-                    a = a.createdAt;
-                    b = b.createdAt;
-                    return a - b;
-                });
+            registros = registros.sort((a, b) => {
+                a = a.createdAt;
+                b = b.createdAt;
+                return a - b;
+            });
 
             this.cacheRegistros[idPaciente] = registros;
             return registros;
@@ -357,12 +353,11 @@ export class PrestacionesService {
             });
             const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
-            registros = registros.sort(
-                function (a, b) {
-                    a = a.createdAt;
-                    b = b.createdAt;
-                    return a - b;
-                });
+            registros = registros.sort((a, b) => {
+                a = a.createdAt;
+                b = b.createdAt;
+                return a - b;
+            });
             registros.forEach(registro => {
                 const registroEncontrado = registroSalida.find(reg => {
                     if (reg.concepto.conceptId === registro.concepto.conceptId) {
@@ -406,12 +401,11 @@ export class PrestacionesService {
                     registroEncontrado.prestaciones.push(registro.idPrestacion);
                     registroEncontrado.evoluciones.push(nuevaEvolucion);
                     // ordenamos las evoluciones para que la primero del array sea la ultima registrada
-                    registroEncontrado.evoluciones = registroEncontrado.evoluciones.sort(
-                        function (a, b) {
-                            a = a.fechaCarga;
-                            b = b.fechaCarga;
-                            return b - a;
-                        });
+                    registroEncontrado.evoluciones = registroEncontrado.evoluciones.sort((a, b) => {
+                        a = a.fechaCarga;
+                        b = b.fechaCarga;
+                        return b - a;
+                    });
                 }
 
             });

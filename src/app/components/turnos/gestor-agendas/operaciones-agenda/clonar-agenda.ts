@@ -147,16 +147,14 @@ export class ClonarAgendaComponent implements OnInit {
             const originalIni = moment(original.horaInicio).format('HH:mm');
             const originalFin = moment(original.horaFin).format('HH:mm');
             // Filtramos las agendas del mes que coinciden con el dia y horario en el que se intenta clonar
-            const filtro = this.agendas.filter(
-                function (actual) {
-                    const actualIni = moment(actual.horaInicio).format('HH:mm');
-                    const actualFin = moment(actual.horaFin).format('HH:mm');
-                    band = actual.estado !== 'suspendida';
-                    band = band && moment(dia.fecha).isSame(moment(actual.horaInicio), 'day');
-                    band = band && ((originalIni <= actualIni && actualIni <= originalFin) || (originalIni <= actualFin && actualFin <= originalFin));
-                    return band;
-                }
-            );
+            const filtro = this.agendas.filter((actual) => {
+                const actualIni = moment(actual.horaInicio).format('HH:mm');
+                const actualFin = moment(actual.horaFin).format('HH:mm');
+                band = actual.estado !== 'suspendida';
+                band = band && moment(dia.fecha).isSame(moment(actual.horaInicio), 'day');
+                band = band && ((originalIni <= actualIni && actualIni <= originalFin) || (originalIni <= actualFin && actualFin <= originalFin));
+                return band;
+            });
             if (dia.estado === 'noSeleccionado' && this.original !== true) {
                 dia.estado = 'seleccionado';
                 if (filtro.length === 0) {

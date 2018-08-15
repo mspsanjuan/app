@@ -197,8 +197,7 @@ export class PlanificarAgendaComponent implements OnInit {
             this.modelo.tipoPrestaciones.forEach((prestacion, index) => {
                 const copiaPrestacion = operaciones.clonarObjeto(prestacion);
                 if (bloque.tipoPrestaciones) {
-                    const i = bloque.tipoPrestaciones.map(function (e) { return e.nombre; }).
-                        indexOf(copiaPrestacion.nombre);
+                    const i = bloque.tipoPrestaciones.map((e) => e.nombre).indexOf(copiaPrestacion.nombre);
                     if (i >= 0) {
                         bloque.tipoPrestaciones[i].activo = true;
                     } else {
@@ -612,7 +611,7 @@ export class PlanificarAgendaComponent implements OnInit {
                 }
                 if (this.compararFechas(iniAgenda, inicio) > 0 || this.compararFechas(finAgenda, fin) < 0) {
                     alerta = 'Bloque ' + (bloque.indice + 1) + ': Está fuera de los límites de la agenda';
-                    indice = this.alertas.indexOf(alerta);
+                    // indice = this.alertas.indexOf(alerta);
                     this.alertas.push(alerta);
                 }
 
@@ -639,7 +638,7 @@ export class PlanificarAgendaComponent implements OnInit {
                 }
 
                 // Verifica que no se solape con ningún otro
-                const mapeo = bloques.map(function (obj) {
+                const mapeo = bloques.map((obj) => {
                     if (obj.indice !== bloque.indice) {
                         const robj = {};
                         robj['horaInicio'] = obj.horaInicio;
@@ -758,12 +757,12 @@ export class PlanificarAgendaComponent implements OnInit {
             this.modelo.horaFin = this.combinarFechas(this.fecha, this.modelo.horaFin);
             // Limpiar de bug selectize "$order", horrible todo esto :'(
             if (this.modelo.tipoPrestaciones) {
-                this.modelo.tipoPrestaciones.forEach(function (prestacion, key) {
+                this.modelo.tipoPrestaciones.forEach((prestacion, key) => {
                     delete prestacion.$order;
                 });
             }
             if (this.modelo.profesionales) {
-                this.modelo.profesionales.forEach(function (prestacion, key) {
+                this.modelo.profesionales.forEach((prestacion, key) => {
                     delete prestacion.$order;
                 });
             }
@@ -834,7 +833,7 @@ export class PlanificarAgendaComponent implements OnInit {
                         }
                     }
                 }
-                bloque.tipoPrestaciones = bloque.tipoPrestaciones.filter(function (el) {
+                bloque.tipoPrestaciones = bloque.tipoPrestaciones.filter((el) => {
                     return el.activo === true && delete el.$order;
                 });
             });
