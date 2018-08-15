@@ -36,7 +36,7 @@ export class FrecuentesProfesionalService {
             options.showError = true;
         }
 
-        let opt = { params: params, options };
+        let opt = { params, options };
 
         return this.server.get(url, opt);
     }

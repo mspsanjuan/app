@@ -240,7 +240,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
                     });
                 });
                 this.turnosSuspendidos = [...this.turnosSuspendidos, {
-                    count: count
+                    count
                 }];
             });
 

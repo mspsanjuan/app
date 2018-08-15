@@ -16,7 +16,7 @@ export class CamasService {
     }
 
     getCamas(params): Observable<ICama[]> {
-        return this.server.get(this.camasUrl, { params: params, showError: true });
+        return this.server.get(this.camasUrl, { params, showError: true });
     }
 
 
@@ -47,7 +47,7 @@ export class CamasService {
     NewEstado(idcama, estado): Observable<any> {
         let dto: any = {
             op: 'estado',
-            estado: estado
+            estado
         };
 
         return this.server.patch(this.camasUrl + '/' + idcama, dto);

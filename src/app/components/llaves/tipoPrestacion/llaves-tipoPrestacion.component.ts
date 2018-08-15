@@ -135,8 +135,8 @@ export class LlavesTipoPrestacionComponent implements OnInit {
 
     cambiarEstado(llaveTP: ILlavesTipoPrestacion, key: String, value: any) {
         let patch = {
-            key: key,
-            value: value
+            key,
+            value
         };
 
         this.showVistaLlavesTP = false;

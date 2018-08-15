@@ -12,7 +12,7 @@ export class RenaperService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<any> {
-        return this.server.get(this.url + '/renaper', { params: params, showError: false });
+        return this.server.get(this.url + '/renaper', { params, showError: false });
     }
 
 }

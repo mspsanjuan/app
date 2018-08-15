@@ -16,7 +16,7 @@ export class ListaEsperaService {
        * @param {any} params Opciones de busqueda
        */
     get(params: any): Observable<IListaEspera[]> {
-        return this.server.get(this.listaEsperaUrl, { params: params, showError: true });
+        return this.server.get(this.listaEsperaUrl, { params, showError: true });
     }
 
     post(listaEspera: IListaEspera): Observable<IListaEspera> {

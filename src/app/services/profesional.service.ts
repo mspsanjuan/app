@@ -16,7 +16,7 @@ export class ProfesionalService {
      * @param {any} params Opciones de busqueda
      */
     get(params: any): Observable<IProfesional[]> {
-        return this.server.get(this.profesionalUrl, {params: params, showError: true});
+        return this.server.get(this.profesionalUrl, {params, showError: true});
     }
     /**
      * Metodo post. Inserta un objeto organizacion nuevo.

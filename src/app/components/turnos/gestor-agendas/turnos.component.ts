@@ -328,7 +328,7 @@ export class TurnosComponent implements OnInit {
     }
 
     reasignarTurno(paciente: any, idTurno: any, idAgenda: any) {
-        this.reasignar = { paciente: paciente, idTurno: idTurno, idAgenda: idAgenda };
+        this.reasignar = { paciente, idTurno, idAgenda };
         this.reasignaTurno.emit(this.reasignar);
     }
 

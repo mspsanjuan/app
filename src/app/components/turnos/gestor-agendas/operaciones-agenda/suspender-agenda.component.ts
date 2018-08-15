@@ -117,7 +117,7 @@ export class SuspenderAgendaComponent implements OnInit {
     send(turno: any, mensaje) {
         let smsParams = {
             telefono: turno.paciente.telefono,
-            mensaje: mensaje,
+            mensaje,
         };
         let idBloque;
         this.agenda.bloques.forEach(element => {
@@ -143,7 +143,7 @@ export class SuspenderAgendaComponent implements OnInit {
                     this.plex.toast('danger', 'ERROR: Servicio caído');
                     let data = {
                         idAgenda: this.agenda.id,
-                        idBloque: idBloque,
+                        idBloque,
                         idTurno: turno.id,
                         avisoSuspension: 'fallido'
                     };

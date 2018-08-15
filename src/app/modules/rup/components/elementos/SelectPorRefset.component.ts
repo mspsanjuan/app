@@ -31,7 +31,7 @@ export class SelectPorRefsetComponent extends RUPComponent implements OnInit {
         $event.callback(conceptosSelect);
     }
     selectRadio(concepto) {
-        this.registro.valor = { concepto: concepto };
+        this.registro.valor = { concepto };
     }
 
 }

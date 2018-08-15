@@ -183,7 +183,7 @@ export class EjecucionInternacionComponent implements OnInit {
 
         let params: any = {
             op: 'registros',
-            registros: registros
+            registros
         };
 
         this.servicioPrestacion.patch(this.prestacion.id, params).subscribe(prestacionEjecutada => {

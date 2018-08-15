@@ -8,7 +8,7 @@ export class PrestacionLegacyService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<any> {
-        return this.server.get(this.prestacionLegacyUrl, { params: params, showError: true });
+        return this.server.get(this.prestacionLegacyUrl, { params, showError: true });
     }
 
     getById(id: String): Observable<any> {

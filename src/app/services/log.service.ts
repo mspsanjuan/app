@@ -12,7 +12,7 @@ export class LogService {
     constructor(private server: Server) { }
 
     get(modulo: any, params: any): Observable<any> {
-        return this.server.get(this.logUrl + '/' + modulo, { params: params, showError: true });
+        return this.server.get(this.logUrl + '/' + modulo, { params, showError: true });
     }
 
     post(modulo: any, operacion: any, data: any): Observable<any> {

@@ -192,7 +192,7 @@ export class SuspenderTurnoComponent implements OnInit {
     enviarSMS(paciente: any, mensaje) {
         let smsParams = {
             telefono: paciente.telefono,
-            mensaje: mensaje,
+            mensaje,
         };
         this.smsService.enviarSms(smsParams).subscribe(
             sms => {

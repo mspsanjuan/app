@@ -560,7 +560,7 @@ export class PrestacionEjecucionComponent implements OnInit {
             });
 
             if (!existeEjecucion) {
-                let valor = { idRegistroOrigen: idRegistroOrigen };
+                let valor = { idRegistroOrigen };
                 window.setTimeout(() => {
                     let resultado = this.cargarNuevoRegistro(resultadoHuds.data.concepto, valor);
                 });
@@ -693,7 +693,7 @@ export class PrestacionEjecucionComponent implements OnInit {
         let params: any = {
             op: 'registros',
             solicitud: this.prestacion.solicitud,
-            registros: registros
+            registros
         };
 
         this.servicioPrestacion.patch(this.prestacion.id, params).subscribe(prestacionEjecutada => {

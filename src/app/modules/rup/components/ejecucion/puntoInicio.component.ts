@@ -442,7 +442,7 @@ export class PuntoInicioComponent implements OnInit {
                     nota: '',
                     motivoConsulta: '',
                     tipoPrestacion: this.agendaSeleccionada.tipoPrestaciones[0],
-                    paciente: paciente,
+                    paciente,
                     idAgenda: this.agendaSeleccionada.id
                 };
                 this.serviceTurno.saveDinamica(datosTurno).subscribe(

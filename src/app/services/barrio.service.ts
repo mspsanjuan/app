@@ -12,7 +12,7 @@ export class BarrioService {
      constructor(private server: Server) { }
 
      get(params: any): Observable<IBarrio[]> {
-        return this.server.get(this.barrioUrl, { params: params, showError: true });
+        return this.server.get(this.barrioUrl, { params, showError: true });
     }
 
      getXLocalidad(localidad: String): Observable<IBarrio[]> {

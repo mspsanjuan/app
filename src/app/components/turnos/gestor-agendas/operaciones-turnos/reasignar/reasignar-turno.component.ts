@@ -107,8 +107,8 @@ export class ReasignarTurnoComponent implements OnInit {
     cargarAgendasSimilares(idAgendaAReasignar, idBloque, idTurno) {
         let params = {
             idAgenda: idAgendaAReasignar,
-            idBloque: idBloque,
-            idTurno: idTurno
+            idBloque,
+            idTurno
         };
 
         // Datos de referencia de la agenda origen para pasar al componente hijo (reasignar-turno-agendas)

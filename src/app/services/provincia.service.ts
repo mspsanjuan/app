@@ -12,6 +12,6 @@ export class ProvinciaService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<IProvincia[]> {
-        return this.server.get(this.provinciaUrl, { params: params, showError: true });
+        return this.server.get(this.provinciaUrl, { params, showError: true });
     }
 }

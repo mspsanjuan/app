@@ -124,7 +124,7 @@ export class RevisionAgendaComponent implements OnInit {
             nombre: this.paciente.nombre,
             fechaNacimiento: this.paciente.fechaNacimiento,
             sexo: this.paciente.sexo,
-            telefono: telefono,
+            telefono,
             carpetaEfectores: this.paciente.carpetaEfectores
         };
         if (this.turnoSeleccionado) {

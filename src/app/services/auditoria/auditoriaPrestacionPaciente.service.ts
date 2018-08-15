@@ -10,7 +10,7 @@ export class AuditoriaPrestacionPacienteService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<IAuditoriaPrestacionPaciente[]> {
-        return this.server.get(this.auditoriaURL, {params: params, showError: true});
+        return this.server.get(this.auditoriaURL, {params, showError: true});
     }
 
     /**

@@ -110,7 +110,7 @@ export class SeguimientoDelPesoComponent extends RUPComponent implements OnInit 
             tooltips: {
                 callbacks: {
                     // Use the footer callback to display the sum of the items showing in the tooltip
-                    footer: function (tooltipItems, _data) {
+                    footer (tooltipItems, _data) {
                         let text = [];
                         tooltipItems.forEach(function (tooltipItem) {
                             text.push('Profesional: ' + data[tooltipItem.index].profesional.nombreCompleto);

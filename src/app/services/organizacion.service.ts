@@ -14,7 +14,7 @@ export class OrganizacionService {
      * @param {any} params Opciones de busqueda
      */
     get(params: any): Observable<IOrganizacion[]> {
-        return this.server.get(this.organizacionUrl, { params: params, showError: true });
+        return this.server.get(this.organizacionUrl, { params, showError: true });
     }
 
     /**

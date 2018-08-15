@@ -28,7 +28,7 @@ export class PacienteService {
     }
 
     get(params: PacienteSearch): Observable<IPaciente[]> {
-        return this.server.get(this.pacienteUrl, { params: params, showError: true });
+        return this.server.get(this.pacienteUrl, { params, showError: true });
     }
 
     getDashboard(): Observable<IPaciente[]> {
@@ -40,7 +40,7 @@ export class PacienteService {
     }
 
     getNroCarpeta(params: any): Observable<any> {
-        return this.server.get(this.carpetaUrl + '/carpetasPacientes', { params: params, showError: true });
+        return this.server.get(this.carpetaUrl + '/carpetasPacientes', { params, showError: true });
     }
 
     getByIdNroCarpeta(id: String): Observable<ICarpetaPaciente> {

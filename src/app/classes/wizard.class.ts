@@ -15,7 +15,7 @@ export class Wizard {
      */
     public addStep(title: string, text: string) {
         this.steps.push({
-            title: title,
+            title,
             html: text,
             // Empty gif
             imageUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',

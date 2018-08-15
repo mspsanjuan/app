@@ -248,7 +248,7 @@ export class HudsBusquedaComponent implements OnInit {
         }
 
         let elemento = {
-            tipo: tipo,
+            tipo,
             data: registro
         };
 

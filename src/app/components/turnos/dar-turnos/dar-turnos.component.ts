@@ -944,7 +944,7 @@ export class DarTurnosComponent implements OnInit {
             }
             let smsParams = {
                 telefono: paciente.telefono,
-                mensaje: mensaje,
+                mensaje,
             };
             this.smsService.enviarSms(smsParams).subscribe(
                 sms => {

@@ -583,7 +583,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                             if (rel.referencia) {
                                 this.pacienteService.patch(rel.referencia, {
                                     op: 'deleteRelacion',
-                                    dto: dto
+                                    dto
                                 }).subscribe(result2 => { });
                             }
                         });
@@ -606,7 +606,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                             if (rel.referencia) {
                                 this.pacienteService.patch(rel.referencia, {
                                     op: 'updateRelacion',
-                                    dto: dto
+                                    dto
                                 }).subscribe(result2 => { });
                             }
                         });
@@ -827,7 +827,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     addContacto(key, valor) {
         let nuevoContacto = {
             tipo: key,
-            valor: valor,
+            valor,
             ranking: 0,
             activo: true,
             ultimaActualizacion: new Date()};
@@ -901,8 +901,8 @@ export class PacienteCreateUpdateComponent implements OnInit {
             documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
             apellido: datos[documento.grupoApellido],
             nombre: datos[documento.grupoNombre],
-            sexo: sexo,
-            fechaNacimiento: fechaNacimiento
+            sexo,
+            fechaNacimiento
         };
     }
     public buscar() {

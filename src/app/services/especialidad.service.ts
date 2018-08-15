@@ -16,7 +16,7 @@ export class EspecialidadService {
      * @param {any} params Opciones de busqueda
      */
     get(params: any): Observable<IEspecialidad[]> {
-        return this.server.get(this.especialidadUrl, {params: params, showError: true});
+        return this.server.get(this.especialidadUrl, {params, showError: true});
     }
 
     /**

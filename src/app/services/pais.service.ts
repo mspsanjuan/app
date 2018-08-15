@@ -12,7 +12,7 @@ export class PaisService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<IPais[]> {
-        return this.server.get(this.paisUrl, { params: params, showError: true });
+        return this.server.get(this.paisUrl, { params, showError: true });
     }
 
 }

@@ -49,7 +49,7 @@ export class OrganizacionComponent implements OnInit {
             activo: this.value && this.value.activo,
             nombre: this.value && this.value.nombre,
             skip: this.skip,
-            limit: limit
+            limit
         };
         this.organizacionService.get(parametros)
             .subscribe(

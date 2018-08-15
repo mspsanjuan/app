@@ -164,7 +164,7 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
 
             // armamos query para enviar al servicio
             let query = {
-                search: search
+                search
                 // tipo: this.tipoBusqueda
             };
 
@@ -178,37 +178,37 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
                 switch (this.tipoBusqueda) {
                     case 'problemas':
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['hallazgo', 'trastorno', 'situación']
                         });
                         break;
                     case 'procedimientos':
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['procedimiento', 'entidad observable', 'régimen/tratamiento']
                         });
                         break;
                     case 'planes':
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['procedimiento', 'régimen/tratamiento']
                         });
                         break;
                     case 'productos':
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['producto']
                         });
                         break;
                     case 'equipamientos':
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['objeto físico']
                         });
                         break;
                     default:
                         apiMethod = this.SNOMED.get({
-                            search: search,
+                            search,
                             semanticTag: ['hallazgo', 'trastorno', 'procedimiento', 'entidad observable', 'producto', 'situación', 'régimen/tratamiento', 'elemento de registro']
                         });
                         break;

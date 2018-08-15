@@ -11,7 +11,7 @@ export class LogPacienteService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<any> {
-        return this.server.get(this.logUrl, { params: params, showError: true });
+        return this.server.get(this.logUrl, { params, showError: true });
     }
 
 }

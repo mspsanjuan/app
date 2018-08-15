@@ -107,7 +107,7 @@ export class ReasignarTurnoAgendasComponent implements OnInit {
             idTurno: turno._id,
             paciente: this.turnoSeleccionado.paciente,
             tipoPrestacion: this.turnoSeleccionado.tipoPrestacion,
-            tipoTurno: tipoTurno,
+            tipoTurno,
             reasignado: {
                 anterior: {
                     idAgenda: this.datosAgenda.idAgenda,
@@ -139,7 +139,7 @@ export class ReasignarTurnoAgendasComponent implements OnInit {
                     turnoReasignado.reasignado.siguiente = siguiente;
                 } else {
                     turnoReasignado.reasignado = {
-                        siguiente: siguiente
+                        siguiente
                     };
                 }
 
@@ -199,7 +199,7 @@ export class ReasignarTurnoAgendasComponent implements OnInit {
     enviarSMS(paciente: any, mensaje) {
         let smsParams = {
             telefono: paciente.telefono,
-            mensaje: mensaje,
+            mensaje,
         };
         this.smsService.enviarSms(smsParams).subscribe(sms => {
             let resultado = sms;

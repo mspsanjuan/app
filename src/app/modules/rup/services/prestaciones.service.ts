@@ -50,7 +50,7 @@ export class PrestacionesService {
             options.showError = true;
         }
 
-        let opt = { params: params, options };
+        let opt = { params, options };
 
         return this.server.get(this.prestacionesUrl, opt);
     }
@@ -79,7 +79,7 @@ export class PrestacionesService {
             let opt;
             opt = {
                 params: {
-                    idPaciente: idPaciente,
+                    idPaciente,
                     ordenFecha: true,
                     sinEstado: 'modificada'
                 },
@@ -508,7 +508,7 @@ export class PrestacionesService {
 
         let opt;
         opt = {
-            params: params,
+            params,
             options
         };
 
@@ -527,7 +527,7 @@ export class PrestacionesService {
     getRegistrosHuds(idPaciente: string, expresion) {
         let opt = {
             params: {
-                expresion: expresion
+                expresion
             },
             options: {
                 showError: true
@@ -582,8 +582,8 @@ export class PrestacionesService {
 
         if (momento === 'solicitud') {
             prestacion['solicitud'] = {
-                fecha: fecha,
-                turno: turno,
+                fecha,
+                turno,
                 tipoPrestacion: snomedConcept,
                 // profesional logueado
                 profesional:
@@ -597,14 +597,14 @@ export class PrestacionesService {
             };
 
             prestacion['estados'] = {
-                fecha: fecha,
+                fecha,
                 tipo: 'ejecucion'
             };
 
         } else if (momento === 'ejecucion') {
             prestacion['solicitud'] = {
-                fecha: fecha,
-                turno: turno,
+                fecha,
+                turno,
                 tipoPrestacion: snomedConcept,
                 // profesional logueado
                 profesional:
@@ -618,20 +618,20 @@ export class PrestacionesService {
             };
 
             prestacion['ejecucion'] = {
-                fecha: fecha,
+                fecha,
                 registros: [],
                 // organizacion desde la que se solicita la prestacion
                 organizacion: { id: this.auth.organizacion.id, nombre: this.auth.organizacion.nombre }
             };
 
             prestacion['estados'] = {
-                fecha: fecha,
+                fecha,
                 tipo: 'ejecucion'
             };
         } else if (momento === 'validacion') {
             prestacion['solicitud'] = {
-                fecha: fecha,
-                turno: turno,
+                fecha,
+                turno,
                 tipoPrestacion: snomedConcept,
                 // profesional logueado
                 profesional:
@@ -645,7 +645,7 @@ export class PrestacionesService {
             };
 
             prestacion['estados'] = {
-                fecha: fecha,
+                fecha,
                 tipo: 'pendiente'
             };
         }
@@ -865,7 +865,7 @@ export class PrestacionesService {
     * @memberof PrestacionesService
     */
     public internacionesXPaciente(paciente, estado) {
-        let opt = { params: { estado: estado, ambitoOrigen: 'internacion' }, options: {} };
+        let opt = { params: { estado, ambitoOrigen: 'internacion' }, options: {} };
         return this.server.get('/modules/rup/internaciones/ultima/' + paciente.id, opt);
     }
 

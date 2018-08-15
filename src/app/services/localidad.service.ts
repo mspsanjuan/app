@@ -12,7 +12,7 @@ export class LocalidadService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<ILocalidad[]> {
-        return this.server.get(this.localidadUrl, { params: params, showError: true });
+        return this.server.get(this.localidadUrl, { params, showError: true });
     }
 
     getXProvincia(provincia: String): Observable<ILocalidad[]> {

@@ -91,7 +91,7 @@ export class CamaComponent implements OnInit {
     public cambiarEstado(cama, estado) {
         let dto = {
             fecha: this.fecha,
-            estado: estado,
+            estado,
             unidadOrganizativa: cama.ultimoEstado.unidadOrganizativa ? cama.ultimoEstado.unidadOrganizativa : null,
             especialidades: cama.ultimoEstado.especialidades ? cama.ultimoEstado.especialidades : null,
             esCensable: cama.ultimoEstado.esCensable,

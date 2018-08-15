@@ -53,7 +53,7 @@ export class TipoPrestacionComponent implements OnInit {
             nombre: this.nombre && this.nombre,
             granularidad: this.granularidad && this.granularidad.id,
             skip: this.skip,
-            limit: limit,
+            limit,
         };
 
             this.tipoPrestacionService.get(parametros).subscribe(

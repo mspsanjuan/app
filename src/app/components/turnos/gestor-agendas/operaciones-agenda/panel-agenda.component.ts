@@ -87,8 +87,8 @@ export class PanelAgendaComponent implements OnInit {
 
             let patch = {
                 op: 'editarAgenda',
-                profesional: profesional,
-                espacioFisico: espacioFisico
+                profesional,
+                espacioFisico
             };
 
             this.serviceAgenda.patch(agenda.id, patch).subscribe(resultado => {

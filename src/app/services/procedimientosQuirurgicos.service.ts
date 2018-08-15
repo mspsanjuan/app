@@ -11,7 +11,7 @@ export class ProcedimientosQuirurgicosService {
     constructor(private server: Server) { }
 
     get(params): Observable<any[]> {
-        return this.server.get(this.camasUrl, { params: params, showError: true });
+        return this.server.get(this.camasUrl, { params, showError: true });
     }
 
 

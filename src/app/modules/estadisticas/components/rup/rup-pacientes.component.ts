@@ -84,7 +84,7 @@ export class RupPacientesComponent implements AfterViewInit {
 
 
                 let table = {
-                    prestacion: prestacion,
+                    prestacion,
                     data: info
                 };
 

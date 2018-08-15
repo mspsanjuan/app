@@ -75,7 +75,7 @@ export class ElementosRUPService {
      * @param {any} params Opciones de busqueda
      */
     get(params: any): Observable<IElementoRUP[]> {
-        return this.server.get(url, { params: params, showError: true });
+        return this.server.get(url, { params, showError: true });
     }
 
     /**

@@ -10,7 +10,7 @@ export class LlavesTipoPrestacionService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<ILlavesTipoPrestacion[]> {
-        return this.server.get(this.llaveTPURL, {params: params, showError: true});
+        return this.server.get(this.llaveTPURL, {params, showError: true});
     }
 
     /**

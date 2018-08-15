@@ -10,7 +10,7 @@ export class EspacioFisicoService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<IEspacioFisico[]> {
-        return this.server.get(this.espacioFisicoUrl, { params: params, showError: true });
+        return this.server.get(this.espacioFisicoUrl, { params, showError: true });
     }
 
     /**

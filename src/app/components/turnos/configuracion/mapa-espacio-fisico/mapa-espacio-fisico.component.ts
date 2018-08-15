@@ -248,7 +248,7 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
         let end_time = moment(agenda.horaFin);
         let item = {
             id: agenda.id,
-            espacioID: espacioID,
+            espacioID,
             horaInicio: agenda.horaInicio,
             horaFin: agenda.horaFin,
             prestaciones: agenda.tipoPrestaciones,

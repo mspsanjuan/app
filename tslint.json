@@ -132,6 +132,7 @@
         "no-implicit-dependencies": [
             true, "dev", ["moment", "sweetalert2", "shiro-trie"]
         ],
-        "prefer-object-spread": true
+        "prefer-object-spread": true,
+        "object-literal-shorthand": true
     }
 }

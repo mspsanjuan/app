@@ -11,6 +11,6 @@ export class SmsService {
     constructor(private server: Server) { }
 
     enviarSms(params): Observable<String> {
-        return this.server.get(this.smsUrl, { params: params, showError: true });
+        return this.server.get(this.smsUrl, { params, showError: true });
     }
 }

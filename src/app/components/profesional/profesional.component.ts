@@ -50,7 +50,7 @@ export class ProfesionalComponent implements OnInit {
             nombre: this.value && this.value.nombre,
             documento: this.value && this.value.documento,
             skip: this.skip,
-            limit: limit
+            limit
         };
         this.profesionalService.get(parametros)
             .subscribe(

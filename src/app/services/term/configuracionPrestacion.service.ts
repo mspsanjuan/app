@@ -8,7 +8,7 @@ export class ConfiguracionPrestacionService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<any[]> {
-        return this.server.get(this.configPres, { params: params, showError: true });
+        return this.server.get(this.configPres, { params, showError: true });
     }
 
     put(params: any): Observable<any> {

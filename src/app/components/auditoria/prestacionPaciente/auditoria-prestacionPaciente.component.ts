@@ -300,8 +300,8 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
 
     cambiarEstado(auditoriaPP: IAuditoriaPrestacionPaciente, key: String, value: any) {
         let patch = {
-            key: key,
-            value: value
+            key,
+            value
         };
 
         this.showVistaAuditoriasPP = false;

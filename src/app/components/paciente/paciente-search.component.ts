@@ -176,8 +176,8 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
             documento: datos[documento.grupoNumeroDocumento].replace(/\D/g, ''),
             apellido: datos[documento.grupoApellido],
             nombre: datos[documento.grupoNombre],
-            sexo: sexo,
-            fechaNacimiento: fechaNacimiento
+            sexo,
+            fechaNacimiento
         };
     }
 

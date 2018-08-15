@@ -11,14 +11,14 @@ export class TurnoService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<any[]> {
-        return this.server.get(this.turnoUrl + '/turno/', { params: params, showError: true });
+        return this.server.get(this.turnoUrl + '/turno/', { params, showError: true });
     }
 
     getTurnos(params: any): Observable<any[]> {
-        return this.server.get(this.turnoUrl + '/turno', { params: params, showError: true });
+        return this.server.get(this.turnoUrl + '/turno', { params, showError: true });
     }
     getHistorial(params: any): Observable<any[]> {
-        return this.server.get(this.turnoUrl + '/historial', { params: params, showError: true });
+        return this.server.get(this.turnoUrl + '/historial', { params, showError: true });
     }
 
     save(turno: any, options: any = {}): Observable<IAgenda> {

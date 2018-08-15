@@ -85,13 +85,13 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                         // 1. Ya reasignado: Trae agenda a la que re reasignó
                         if (turno.reasignado && turno.reasignado.siguiente) {
                             this.serviceAgenda.getById(turno.reasignado.siguiente.idAgenda).subscribe(agenda => {
-                                this.agendasReasignar = [... this.agendasReasignar, { turno: turno, bloque: bloque, agendas: [agenda] }];
+                                this.agendasReasignar = [... this.agendasReasignar, { turno, bloque, agendas: [agenda] }];
                                 this.agendasReasignar.sort(sortCandidatas);
                             });
                         } else {
                             // 2. No reasignado: Trae agendas candidatas
                             this.serviceAgenda.findCandidatas(params).subscribe((agendas) => {
-                                this.agendasReasignar = [... this.agendasReasignar, { turno: turno, bloque: bloque, agendas: agendas }];
+                                this.agendasReasignar = [... this.agendasReasignar, { turno, bloque, agendas }];
                                 this.agendasReasignar.sort(sortCandidatas);
                                 this.calculosSimilitud(turno, agendas);
                             });
@@ -180,7 +180,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
             idBloque: agendaSeleccionada.bloques[indiceBloque]._id,
             paciente: turno.paciente,
             tipoPrestacion: turno.tipoPrestacion,
-            tipoTurno: tipoTurno,
+            tipoTurno,
             reasignado: {
                 anterior: {
                     idAgenda: this.agendaAReasignar.id,
@@ -210,7 +210,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                     turnoReasignado.reasignado.siguiente = siguiente;
                 } else {
                     turnoReasignado.reasignado = {
-                        siguiente: siguiente
+                        siguiente
                     };
                 }
 
@@ -243,7 +243,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     enviarSMS(paciente: any, mensaje) {
         let smsParams = {
             telefono: paciente.telefono,
-            mensaje: mensaje,
+            mensaje,
         };
         this.smsService.enviarSms(smsParams).subscribe(
             sms => {

@@ -19,30 +19,30 @@ export class SnomedService {
     }
 
     get(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURL, { params: params, showError: true });
+        return this.server.get(this.snomedURL, { params, showError: true });
     }
 
     getProblemas(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURLProblema, { params: params, showError: true });
+        return this.server.get(this.snomedURLProblema, { params, showError: true });
     }
 
     getProcedimientos(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURLProcedimiento, { params: params, showError: true });
+        return this.server.get(this.snomedURLProcedimiento, { params, showError: true });
     }
 
     getEquipamientos(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURLEquipamiento, { params: params, showError: true });
+        return this.server.get(this.snomedURLEquipamiento, { params, showError: true });
     }
 
     getProductos(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURL + '/producto', { params: params, showError: true });
+        return this.server.get(this.snomedURL + '/producto', { params, showError: true });
     }
 
     getCie10(params: any): Observable<any> {
-        return this.server.get(this.snomedURL + '/map', { params: params, showError: true });
+        return this.server.get(this.snomedURL + '/map', { params, showError: true });
     }
 
     getQuery(params: any): Observable<any[]> {
-        return this.server.get(this.snomedURLexpression, { params: params, showError: true });
+        return this.server.get(this.snomedURLexpression, { params, showError: true });
     }
 }
