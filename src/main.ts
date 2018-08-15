@@ -9,14 +9,14 @@ import * as bowser from 'bowser';
 
 // Check browser version
 if (!(bowser as any).check({ chrome: '54' }) || !(bowser as any).check({ firefox: '54' })) {
-  window.document.getElementById('incompatible-browser').style.display = 'block';
-  window.document.getElementById('preloader').style.display = 'none';
+    window.document.getElementById('incompatible-browser').style.display = 'block';
+    window.document.getElementById('preloader').style.display = 'none';
 } else {
   // Enabled production mode
-  if (environment.production) {
-    enableProdMode();
+    if (environment.production) {
+      enableProdMode();
   }
   // Start application
-  platformBrowserDynamic().bootstrapModule(AppModule);
+    platformBrowserDynamic().bootstrapModule(AppModule);
 }
 

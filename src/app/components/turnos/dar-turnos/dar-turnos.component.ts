@@ -783,9 +783,9 @@ export class DarTurnosComponent implements OnInit {
                             resultadoCarpeta => {
                                 this.guardarTurno(agd);
                             }, error => {
-                                this.plex.toast('danger', 'El número de carpeta ya existe');
-                                this.hideDarTurno = false;
-                            }
+                            this.plex.toast('danger', 'El número de carpeta ya existe');
+                            this.hideDarTurno = false;
+                        }
                         );
 
                     } else {

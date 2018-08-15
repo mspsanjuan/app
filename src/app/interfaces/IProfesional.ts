@@ -1,8 +1,8 @@
- import { IUbicacion} from './IUbicacion';
- import { IMatricula} from './IMatricula';
- import { Sexo, Genero, EstadoCivil, tipoComunicacion } from './../utils/enumerados';
+import { IUbicacion} from './IUbicacion';
+import { IMatricula} from './IMatricula';
+import { Sexo, Genero, EstadoCivil, tipoComunicacion } from './../utils/enumerados';
 
- export interface IProfesional {
+export interface IProfesional {
     id: String;
     documento: String;
     activo: Boolean;
@@ -46,4 +46,4 @@
         activo: Boolean
 
     }];
- }
+}

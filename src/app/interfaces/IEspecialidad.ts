@@ -6,7 +6,7 @@ export interface IEspecialidad {
     disciplina: String;
     complejidad: Number;
     codigo: {
-       sisa: String,
+        sisa: String,
     };
     activo: Boolean;
     fechaAlta: Date;

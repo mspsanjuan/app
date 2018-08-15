@@ -26,9 +26,9 @@ export class TipoPrestacionComponent implements OnInit {
     tengoDatos = true;
     nombre: String = '';
     granularidad:  {
-                    id: '',
-                    nombre: ''
-                };
+        id: '',
+        nombre: ''
+    };
 
     public graanularidad_Filtro: Array<Object> = [{ id: 'atomos', nombre: 'Atomos' },
     { id: 'moleculas', nombre: 'Moleculas' },
@@ -48,7 +48,7 @@ export class TipoPrestacionComponent implements OnInit {
 
 
     loadDatos() {
-            let parametros = {
+        let parametros = {
             // Filtros
             nombre: this.nombre && this.nombre,
             granularidad: this.granularidad && this.granularidad.id,
@@ -56,11 +56,11 @@ export class TipoPrestacionComponent implements OnInit {
             limit,
         };
 
-            this.tipoPrestacionService.get(parametros).subscribe(
+        this.tipoPrestacionService.get(parametros).subscribe(
                     datos => {
-                    this.datos = datos;
-                    this.finScroll = false;
-                             }); // Bind to view
+                        this.datos = datos;
+                        this.finScroll = false;
+                    }); // Bind to view
     }// loadDatos
 
 

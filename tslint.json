@@ -133,6 +133,13 @@
             true, "dev", ["moment", "sweetalert2", "shiro-trie"]
         ],
         "prefer-object-spread": true,
-        "object-literal-shorthand": true
+        "object-literal-shorthand": true,
+        "ter-indent": [
+            true,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ]
     }
 }

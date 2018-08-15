@@ -59,5 +59,5 @@ export class AdjuntosService {
 
     generateToken() {
         return this.server.post('/auth/file-token', {});
-     }
+    }
 }
