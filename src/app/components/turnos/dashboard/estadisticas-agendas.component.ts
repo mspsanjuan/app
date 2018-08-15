@@ -25,7 +25,6 @@ export class EstadisticasAgendasComponent implements OnInit {
 
     ngOnInit() {
         // Se cargan los datos calculados
-        let cantTurnosPorPacientes;
         this.cantidadTurnosPorEstadoPaciente(this.auth.usuario);
         this.cantidadTotalDeTurnosAsignados();
         this.cantidadTurnosconAsistenciaVerificada(this.auth.usuario);
@@ -33,7 +32,7 @@ export class EstadisticasAgendasComponent implements OnInit {
     }
 
     cantidadTurnosPorEstadoPaciente(userLogged) {
-        let datosTurno = { estado: 'asignado', userName: userLogged.username, userDoc: userLogged.documento };
+        const datosTurno = { estado: 'asignado', userName: userLogged.username, userDoc: userLogged.documento };
         let countTemporal = 0;
         let countValidado = 0;
 
@@ -51,10 +50,10 @@ export class EstadisticasAgendasComponent implements OnInit {
     }
 
     cantidadTotalDeTurnosAsignados() {
-        let fecha = moment().format();
-        let today = moment(fecha).startOf('day');
+        const fecha = moment().format();
+        const today = moment(fecha).startOf('day');
 
-        let datosTurno = { estado: 'asignado' };
+        const datosTurno = { estado: 'asignado' };
         this.serviceTurno.getTurnos(datosTurno).subscribe(turnos => {
             this.cantTurnosAsignados = turnos.length;
         });
@@ -62,7 +61,7 @@ export class EstadisticasAgendasComponent implements OnInit {
 
     cantidadTurnosconAsistenciaVerificada(userLogged?) {
         // TurnosChequeados por usuario o total depende si se envia el usuario
-        let datosTurno = { asistencia: true };
+        const datosTurno = { asistencia: true };
         if (userLogged) {
             datosTurno['usuario'] = userLogged;
         }
@@ -72,7 +71,7 @@ export class EstadisticasAgendasComponent implements OnInit {
     }
 
     cantidadTurnosCodificados() {
-        let datosTurno = { codificado: true };
+        const datosTurno = { codificado: true };
         this.serviceTurno.getTurnos(datosTurno).subscribe(turnos => {
             this.turnosAuditados = turnos.filter(item => item.asistencia &&
                 (item.asistencia === 'noAsistio' || item.asistencia === 'sinDatos' ||

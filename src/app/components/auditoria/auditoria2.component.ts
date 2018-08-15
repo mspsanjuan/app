@@ -107,13 +107,13 @@ export class Auditoria2Component implements OnInit {
      * @memberof Auditoria2Component
      */
     loadPacientesVinculados() {
-        let idVinculados = this.pacienteSelected.identificadores;
+        const idVinculados = this.pacienteSelected.identificadores;
         if (idVinculados) {
             idVinculados.forEach(identificador => {
                 if (identificador.entidad === 'ANDES') {
                     this.pacienteService.getById(identificador.valor).subscribe(pac => {
-                        let porcentajeMatching = this.match.matchPersonas(this.pacienteSelected, pac,  this.weights, this.tipoDeMatching);
-                        let patient = {
+                        const porcentajeMatching = this.match.matchPersonas(this.pacienteSelected, pac,  this.weights, this.tipoDeMatching);
+                        const patient = {
                             matching : 0,
                             paciente : null
                         };
@@ -136,8 +136,8 @@ export class Auditoria2Component implements OnInit {
      */
     loadPacientePorBloque() {
         // Soundex Apellido
-        let tipoClave = 4;
-        let dto: any = {
+        const tipoClave = 4;
+        const dto: any = {
             idTipoBloque: tipoClave,
             idBloque: this.pacienteSelected.claveBlocking[tipoClave].toString()
         };
@@ -147,8 +147,8 @@ export class Auditoria2Component implements OnInit {
                 rta.forEach(element => {
                     if (element.id !== this.pacienteSelected.id) {
                         // Aplicamos match de pacientes y filtramos por mayores al 70%
-                        let porcentajeMatching = this.match.matchPersonas(this.pacienteSelected, element,  this.weights, this.tipoDeMatching);
-                        let patient = {
+                        const porcentajeMatching = this.match.matchPersonas(this.pacienteSelected, element,  this.weights, this.tipoDeMatching);
+                        const patient = {
                             matching : 0,
                             paciente : null
                         };
@@ -175,7 +175,7 @@ export class Auditoria2Component implements OnInit {
      */
     vincularPacienteClic(pac: any) {
         this.plex.confirm(' Ud. está por vincular los registros del paciente seleccionado a: ' + this.pacienteSelected.apellido + ' ' + this.pacienteSelected.nombre + ' ¿seguro desea continuar?').then((resultado) => {
-            let rta = resultado;
+            const rta = resultado;
             if (rta) {
                 this.pacientesDesvinculados.splice(this.pacientesDesvinculados.indexOf(pac), 1);
                 this.pacientesVinculados.push(pac);
@@ -192,7 +192,7 @@ export class Auditoria2Component implements OnInit {
      */
     vincularPacienteDrop(evt: any) {
         this.plex.confirm(' Ud. está por vincular los registros del paciente seleccionado a: ' + this.pacienteSelected.apellido + ' ' + this.pacienteSelected.nombre + ' ¿seguro desea continuar?').then((resultado) => {
-            let rta = resultado;
+            const rta = resultado;
             if (rta) {
                 this.pacientesDesvinculados.splice(this.pacientesDesvinculados.indexOf(evt.dragData), 1);
                 this.pacientesVinculados.push(evt.dragData);
@@ -210,7 +210,7 @@ export class Auditoria2Component implements OnInit {
      */
     vincular(pac: any) {
         /* Acá hacemos el put con el update de los pacientes */
-        let dataLink = {
+        const dataLink = {
             entidad: 'ANDES',
             valor: pac.paciente.id
         };
@@ -219,7 +219,7 @@ export class Auditoria2Component implements OnInit {
             dto: dataLink
         }).subscribe(resultado => {
             if (resultado) {
-                let activo = false;
+                const activo = false;
                 this.pacienteService.patch(pac.paciente.id, {
                     op: 'updateActivo',
                     dto: activo
@@ -240,7 +240,7 @@ export class Auditoria2Component implements OnInit {
      */
     desvincularPaciente(pac: any) {
         this.plex.confirm('¿Está seguro que desea desvincular a este paciente?').then((resultado) => {
-            let rta = resultado;
+            const rta = resultado;
             if (rta) {
                 this.pacientesVinculados.splice(this.pacientesVinculados.indexOf(pac), 1);
                 this.pacientesDesvinculados.push(pac);
@@ -250,7 +250,7 @@ export class Auditoria2Component implements OnInit {
                 }).subscribe(resultado1 => {
                     if (resultado1) {
                         // Activa el paciente
-                        let activo = true;
+                        const activo = true;
                         this.pacienteService.patch(pac.paciente.id, {
                             op: 'updateActivo',
                             dto: activo

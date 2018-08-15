@@ -51,7 +51,7 @@ export class CamaCreateUpdateComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             if (params && params['idCama']) {
-                let idCama = params['idCama'];
+                const idCama = params['idCama'];
                 this.CamaService.getCama(idCama).subscribe(cama => {
                     this.cama = cama;
                     this.estado = {...this.cama.ultimoEstado};
@@ -85,7 +85,7 @@ export class CamaCreateUpdateComponent implements OnInit {
                 nombre: this.organizacion.nombre
             };
 
-            let operacion = this.CamaService.addCama(this.cama);
+            const operacion = this.CamaService.addCama(this.cama);
             operacion.subscribe(result => {
                 if (result) {
                     if (this.cama.id) {
@@ -115,7 +115,7 @@ export class CamaCreateUpdateComponent implements OnInit {
 
     loadServicios($event) {
         if (this.organizacion) {
-            let servicios = this.organizacion.servicios;
+            const servicios = this.organizacion.servicios;
             $event.callback(servicios);
         }
     }

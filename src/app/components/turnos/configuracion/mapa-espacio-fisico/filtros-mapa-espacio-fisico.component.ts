@@ -56,7 +56,7 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
 
     loadTipoPrestaciones(event) {
         this.servicioPrestacion.get({}).subscribe((data) => {
-            let dataF = data.filter(x => {
+            const dataF = data.filter(x => {
                 return this.auth.check('turnos:planificarAgenda:prestacion:' + x.id);
             });
             event.callback(dataF);
@@ -66,7 +66,7 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
     loadProfesionales(event) {
         let listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(resultado => {
@@ -87,7 +87,7 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
         //     event.callback(respuesta.edificio);
         // });
         if (event.query) {
-            let query = {
+            const query = {
                 edificio: event.query,
                 // organizacion: this.auth.organizacion._id
             };
@@ -105,7 +105,7 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
 
         let listaEspaciosFisicos = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query,
                 activo: true
                 // organizacion: this.auth.organizacion._id
@@ -126,7 +126,7 @@ export class FiltrosMapaEspacioFisicoComponent implements OnInit {
 
     loadEquipamientos(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 equipamiento: event.query,
             };
             this.servicioEspacioFisico.get(query).subscribe(respuesta => {

@@ -186,14 +186,14 @@ export class AgregarSobreturnoComponent implements OnInit {
 
         if ($event.formValid) {
 
-            let indiceCarpeta = this.paciente.carpetaEfectores.findIndex(x => x.organizacion.id === this.auth.organizacion.id);
+            const indiceCarpeta = this.paciente.carpetaEfectores.findIndex(x => x.organizacion.id === this.auth.organizacion.id);
             if (indiceCarpeta > -1) {
                 this.paciente.carpetaEfectores[indiceCarpeta] = this.carpetaEfector;
             } else {
                 this.paciente.carpetaEfectores.push(this.carpetaEfector);
             }
 
-            let pacienteSave = {
+            const pacienteSave = {
                 id: this.paciente.id,
                 documento: this.paciente.documento,
                 apellido: this.paciente.apellido,
@@ -205,7 +205,7 @@ export class AgregarSobreturnoComponent implements OnInit {
             };
             // Si cambió el teléfono lo actualizo en el MPI
             if (this.cambioTelefono) {
-                let nuevoCel = {
+                const nuevoCel = {
                     tipo: 'celular',
                     valor: this.telefono,
                     ranking: 1,
@@ -229,7 +229,7 @@ export class AgregarSobreturnoComponent implements OnInit {
                 } else {
                     this.paciente.contacto = [nuevoCel];
                 }
-                let cambios = {
+                const cambios = {
                     op: 'updateContactos',
                     contacto: this.paciente.contacto
                 };
@@ -242,7 +242,7 @@ export class AgregarSobreturnoComponent implements OnInit {
                 });
             }
 
-            let patch = {
+            const patch = {
                 op: 'agregarSobreturno',
                 sobreturno: {
                     horaInicio: this.combinarFechas(this.agenda.horaInicio, this.horaTurno),

@@ -60,7 +60,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     actualizar() {
 
         // Función callback para usar con array.sort()
-        let sortCandidatas = function (a, b) {
+        const sortCandidatas = function (a, b) {
             return a.turno.horaInicio - b.turno.horaInicio;
         };
 
@@ -73,7 +73,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
 
                     if (((turno.estado === 'asignado' && this.agendaAReasignar.estado === 'suspendida') || turno.estado === 'suspendido') && turno.paciente && turno.paciente.id) {
 
-                        let params = {
+                        const params = {
                             idAgenda: this.agendaAReasignar.id,
                             idOrganizacion: this.agendaAReasignar.organizacion._id,
                             idBloque: bloque.id,
@@ -108,7 +108,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     interseccion(array1: any[], array2: any[]) {
 
         for (let i = 0; i < array1.length; i++) {
-            let prof1 = array1[i];
+            const prof1 = array1[i];
             if (array2.find(x => String(x._id) === String(prof1._id))) {
                 return true;
             }
@@ -120,11 +120,11 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
 
         let calculos = 0;
         agendas.forEach((ag, iAgenda) => {
-            let agendaReasignada = null;
+            const agendaReasignada = null;
             ag.bloques.forEach((bl, iBloque) => {
-                let turnosFiltrados = bl.turnos;
+                const turnosFiltrados = bl.turnos;
                 bl.turnos.forEach((tu) => {
-                    let calculoSimilitud = {
+                    const calculoSimilitud = {
                         tipoPrestacion: bl.tipoPrestaciones.findIndex(x => x._id === turno.tipoPrestacion.id) >= 0 ? 30 : 0,
                         horaInicio: 20,
                         duracionTurno: (this.agendaAReasignar.bloques.find(x => x.duracionTurno === bl.duracionTurno) ? 20 : 0),
@@ -137,9 +137,9 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                             if (!agendaReasignada) {
 
                                 ag.agendaReasignada = reasignado;
-                                let indiceBloque = (reasignado as any).bloques.findIndex(x => x._id === bl._id);
+                                const indiceBloque = (reasignado as any).bloques.findIndex(x => x._id === bl._id);
                                 ag.bloqueReasignado = reasignado.bloques[indiceBloque];
-                                let indiceTurno = ag.bloqueReasignado.turnos.findIndex(x => x._id === tu._id);
+                                const indiceTurno = ag.bloqueReasignado.turnos.findIndex(x => x._id === tu._id);
                                 ag.turnoReasignado = reasignado.bloques[indiceBloque].turnos[indiceTurno];
                             }
                         });
@@ -153,9 +153,9 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     }
 
     seleccionarCandidata(indiceTurno, i, horaDestino) {
-        let turno = this.agendasReasignar[indiceTurno].turno;
-        let bloque = this.agendasReasignar[indiceTurno].bloque;
-        let agendaSeleccionada = this.agendasReasignar[indiceTurno].agendas[i];
+        const turno = this.agendasReasignar[indiceTurno].turno;
+        const bloque = this.agendasReasignar[indiceTurno].bloque;
+        const agendaSeleccionada = this.agendasReasignar[indiceTurno].agendas[i];
         let tipoTurno;
 
         // Si la agenda es del día
@@ -171,10 +171,10 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                 tipoTurno = 'programado';
             }
         }
-        let indiceBloque = agendaSeleccionada.bloques.findIndex(b => b.duracionTurno === bloque.duracionTurno);
-        let indTurno = agendaSeleccionada.bloques[indiceBloque].turnos.findIndex(t => moment(t.horaInicio).format('HH:mm') === moment(turno.horaInicio).format('HH:mm'));
+        const indiceBloque = agendaSeleccionada.bloques.findIndex(b => b.duracionTurno === bloque.duracionTurno);
+        const indTurno = agendaSeleccionada.bloques[indiceBloque].turnos.findIndex(t => moment(t.horaInicio).format('HH:mm') === moment(turno.horaInicio).format('HH:mm'));
 
-        let datosTurno = {
+        const datosTurno = {
             idAgenda: agendaSeleccionada._id,
             idTurno: agendaSeleccionada.bloques[indiceBloque].turnos[indTurno]._id,
             idBloque: agendaSeleccionada.bloques[indiceBloque]._id,
@@ -199,8 +199,8 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
             operacion = this.serviceTurno.save(datosTurno);
             operacion.subscribe(resultado => {
                 // TODO: hacer un PUT con el id de la agenda en el campo turno.reasignado de la agenda original
-                let turnoReasignado = turno;
-                let siguiente = {
+                const turnoReasignado = turno;
+                const siguiente = {
                     idAgenda: agendaSeleccionada._id,
                     idBloque: agendaSeleccionada.bloques[indiceBloque]._id,
                     idTurno: agendaSeleccionada.bloques[indiceBloque].turnos[indTurno]._id
@@ -214,7 +214,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                     };
                 }
 
-                let reasignacion = {
+                const reasignacion = {
                     idAgenda: this.agendaAReasignar.id,
                     idTurno: turno.id,
                     idBloque: bloque.id,
@@ -226,9 +226,9 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
                     // Se envían SMS sólo en Producción
                     this.actualizar();
                     if (environment.production === true) {
-                        let dia = moment(turnoReasignado.horaInicio).format('DD/MM/YYYY');
-                        let horario = moment(turnoReasignado.horaInicio).format('HH:mm');
-                        let mensaje = 'Le informamos que su turno fue reasignado al ' + dia + ' a las ' + horario + '.';
+                        const dia = moment(turnoReasignado.horaInicio).format('DD/MM/YYYY');
+                        const horario = moment(turnoReasignado.horaInicio).format('HH:mm');
+                        const mensaje = 'Le informamos que su turno fue reasignado al ' + dia + ' a las ' + horario + '.';
                         this.enviarSMS(turnoReasignado.paciente, mensaje);
                     } else {
                         this.plex.toast('info', 'INFO: SMS no enviado (activo sólo en Producción)');
@@ -241,7 +241,7 @@ export class ReasignarTurnoAutomaticoComponent implements OnInit {
     }
 
     enviarSMS(paciente: any, mensaje) {
-        let smsParams = {
+        const smsParams = {
             telefono: paciente.telefono,
             mensaje,
         };

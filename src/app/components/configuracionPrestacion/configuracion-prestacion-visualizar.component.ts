@@ -47,7 +47,7 @@ export class ConfiguracionPrestacionVisualizarComponent implements OnInit {
                 if (unMapeo) {
                     this.configuracionPrestacionService.put({ idTipoPrestacion: unMapeo.id, idOrganizacion: unMapeo.organizaciones[0].id }).subscribe(respuesta => {
                         if (respuesta) {
-                            let index = this.mapeos.findIndex(elem => elem._id === unMapeo.id);
+                            const index = this.mapeos.findIndex(elem => elem._id === unMapeo.id);
                             this.mapeos.splice(index, 1);
                         }
                     });

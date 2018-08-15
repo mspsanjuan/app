@@ -92,7 +92,7 @@ export function getSexo() {
 export function getObjSexos() {
     let arrSexo = Object.keys(Sexo);
     arrSexo = arrSexo.slice(arrSexo.length / 2);
-    let salida = arrSexo.map(elem => {
+    const salida = arrSexo.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -104,7 +104,7 @@ export function getObjSexos() {
 export function getObjUnidadesEdad() {
     let arrUnidadEdad = Object.keys(UnidadEdad);
     arrUnidadEdad = arrUnidadEdad.slice(arrUnidadEdad.length / 2);
-    let salida = arrUnidadEdad.map(elem => {
+    const salida = arrUnidadEdad.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -122,8 +122,8 @@ export function getTipoComunicacion() {
 export function getObjTipoComunicacion() {
     let arrTC = Object.keys(tipoComunicacion);
     arrTC = arrTC.slice(arrTC.length / 2);
-    let salida = arrTC.map(elem => {
-        let idEnumerado = elem.split(' ')[1] ? elem.split(' ')[1] : elem.split(' ')[0];
+    const salida = arrTC.map(elem => {
+        const idEnumerado = elem.split(' ')[1] ? elem.split(' ')[1] : elem.split(' ')[0];
         return {
             id: idEnumerado.toLowerCase(),
             nombre: titleCase(elem)
@@ -141,7 +141,7 @@ export function getGenero() {
 export function getObjGeneros() {
     let arrGenero = Object.keys(Genero);
     arrGenero = arrGenero.slice(arrGenero.length / 2);
-    let salida = arrGenero.map(elem => {
+    const salida = arrGenero.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -159,7 +159,7 @@ export function getEstadoCivil() {
 export function getObjEstadoCivil() {
     let arrEstadoC = Object.keys(EstadoCivil);
     arrEstadoC = arrEstadoC.slice(arrEstadoC.length / 2);
-    let salida = arrEstadoC.map(elem => {
+    const salida = arrEstadoC.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -183,7 +183,7 @@ export function getPrioridades() {
 export function getEstadosAuditorias() {
     let arrEstados = Object.keys(EstadosAuditorias);
     arrEstados = arrEstados.slice(arrEstados.length / 2);
-    let salida = arrEstados.map(elem => {
+    const salida = arrEstados.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -195,7 +195,7 @@ export function getEstadosAuditorias() {
 export function getEstadosEspacios() {
     let arrEstados = Object.keys(EstadosEspacios);
     arrEstados = arrEstados.slice(arrEstados.length / 2);
-    let salida = arrEstados.map(elem => {
+    const salida = arrEstados.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)
@@ -213,7 +213,7 @@ export function getRelacionTutor() {
 export function getObjRelacionTutor() {
     let arrRT = Object.keys(relacionTutor);
     arrRT = arrRT.slice(arrRT.length / 2);
-    let salida = arrRT.map(elem => {
+    const salida = arrRT.map(elem => {
         return {
             id: elem,
             nombre: titleCase(elem)

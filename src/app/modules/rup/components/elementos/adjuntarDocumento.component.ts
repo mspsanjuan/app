@@ -61,19 +61,19 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
 
 
     readThis(inputValue: any): void {
-        let ext = this.fileExtension(inputValue.value);
+        const ext = this.fileExtension(inputValue.value);
         this.errorExt = false;
         if (!this.extensions.find((item) => item === ext.toLowerCase())) {
             (this.childsComponents.first as any).nativeElement.value = '';
             this.errorExt = true;
             return;
         }
-        let file: File = inputValue.files[0];
-        let myReader: FileReader = new FileReader();
+        const file: File = inputValue.files[0];
+        const myReader: FileReader = new FileReader();
 
         myReader.onloadend = (e) => {
             (this.childsComponents.first as any).nativeElement.value = '';
-            let metadata = {
+            const metadata = {
                 prestacion: this.prestacion.id,
                 registro: this.registro.id
             };
@@ -107,7 +107,7 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
     }
 
     imageUploaded($event) {
-        let foto = {
+        const foto = {
             ext: this.fileExtension($event.file.name),
             file: $event.src,
         };
@@ -115,7 +115,7 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
     }
 
     imageRemoved($event) {
-        let index = this.fotos.indexOf($event);
+        const index = this.fotos.indexOf($event);
         this.fotos.splice(index, 1);
         this.registro.valor.documentos.splice(index, 1);
     }
@@ -128,14 +128,14 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
     }
 
     imagenPrevia(i) {
-        let imagenPrevia = i - 1;
+        const imagenPrevia = i - 1;
         if (imagenPrevia >= 0) {
             this.indice = imagenPrevia;
         }
     }
 
     imagenSiguiente(i) {
-        let imagenSiguiente = i + 1;
+        const imagenSiguiente = i + 1;
         if (imagenSiguiente <= this.fotos.length - 1) {
             this.indice = imagenSiguiente;
         }
@@ -145,7 +145,7 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
         /** Hack momentaneo */
         // let jwt = window.sessionStorage.getItem('jwt');
         if (doc.id) {
-            let apiUri = environment.API;
+            const apiUri = environment.API;
             return apiUri + '/modules/rup/store/' + doc.id + '?token=' + this.fileToken;
         } else {
             // Por si hay algún documento en la vieja versión.
@@ -154,9 +154,9 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
     }
 
     fromMobile() {
-        let paciente = this.paciente.id;
-        let prestacion = this.prestacion.id;
-        let registro = this.registro.id;
+        const paciente = this.paciente.id;
+        const prestacion = this.prestacion.id;
+        const registro = this.registro.id;
         this.loading = true;
         this.adjuntosService.post({ paciente, prestacion, registro }).subscribe((data) => {
             this.adjunto = data;
@@ -175,7 +175,7 @@ export class AdjuntarDocumentoComponent extends RUPComponent implements OnInit {
             if (data.length > 0) {
                 this.waiting = false;
                 this.adjunto = data[0];
-                let docs = this.adjunto.valor.documentos;
+                const docs = this.adjunto.valor.documentos;
                 docs.forEach((item) => {
                     this.fotos.push(item);
                     this.registro.valor.documentos.push(item);

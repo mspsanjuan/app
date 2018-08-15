@@ -63,7 +63,7 @@ export class Wizard {
 
         // Corrije los textos
         this.steps[0].confirmButtonText = 'Comenzar';
-        let last = this.steps[this.steps.length - 1];
+        const last = this.steps[this.steps.length - 1];
         last.confirmButtonText = 'Cerrar y no volver a mostrar';
         last.showCancelButton = true;
         last.cancelButtonText = 'Cerrar';
@@ -74,7 +74,7 @@ export class Wizard {
             modal = swal(this.steps[0]);
         } else {
             // Computa el array progressSteps
-            let progressSteps: number[] = [];
+            const progressSteps: number[] = [];
             this.steps.forEach((element, index) => progressSteps.push(index + 1));
 
             // Lo injecta en cada paso
@@ -86,7 +86,7 @@ export class Wizard {
 
         // Crea la promise
         let resolve: any;
-        let promise = new Promise((res, rej) => {
+        const promise = new Promise((res, rej) => {
             resolve = res;
         });
         modal.then((reason) => {

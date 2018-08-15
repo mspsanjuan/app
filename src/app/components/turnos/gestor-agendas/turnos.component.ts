@@ -34,7 +34,7 @@ export class TurnosComponent implements OnInit {
             this.turnos = this.agenda.bloques[i].turnos;
             // Si la agenda es del día, resto los disponibles que ya pasaron
             if (this.delDia) {
-                let bloque = this.agenda.bloques[i];
+                const bloque = this.agenda.bloques[i];
                 this.arrayDelDia[i] = bloque.restantesDelDia + bloque.restantesProgramados;
             }
             if (this.agenda.bloques[i].turnos) {
@@ -88,7 +88,7 @@ export class TurnosComponent implements OnInit {
 
     ngOnInit() {
         this.turnosSeleccionados = [];
-        let agendaActualizar = this.agenda;
+        const agendaActualizar = this.agenda;
         // this.agenda = this.actualizarCarpetaPaciente(agendaActualizar);
         this.actualizarBotones();
         this.showSeleccionarTodos = (this.turnos.length > 0);
@@ -241,11 +241,11 @@ export class TurnosComponent implements OnInit {
     }
 
     actualizarBotones() {
-        let puedeRegistrarAsistencia = this.auth.getPermissions('turnos:turnos:registrarAsistencia:').length > 0;
-        let puedeSuspenderTurno = this.auth.getPermissions('turnos:turnos:suspenderTurno:').length > 0;
-        let puedeLiberarTurno = this.auth.getPermissions('turnos:turnos:liberarTurno:').length > 0;
-        let puedeEditarCarpeta = this.auth.getPermissions('turnos:turnos:editarCarpeta:').length > 0;
-        let puedeMarcarTurnDoble = this.auth.getPermissions('turnos:turnos:turnoDoble:').length > 0;
+        const puedeRegistrarAsistencia = this.auth.getPermissions('turnos:turnos:registrarAsistencia:').length > 0;
+        const puedeSuspenderTurno = this.auth.getPermissions('turnos:turnos:suspenderTurno:').length > 0;
+        const puedeLiberarTurno = this.auth.getPermissions('turnos:turnos:liberarTurno:').length > 0;
+        const puedeEditarCarpeta = this.auth.getPermissions('turnos:turnos:editarCarpeta:').length > 0;
+        const puedeMarcarTurnDoble = this.auth.getPermissions('turnos:turnos:turnoDoble:').length > 0;
         this.botones = {
             // Dar asistencia: el turno está con paciente asignado, sin asistencia ==> pasa a estar con paciente asignado, con asistencia
             darAsistencia: puedeRegistrarAsistencia && this.agendaNoCerrada() && this.tienenPacientes() && this.agendaNoSuspendida() && (this.noTienenAsistencia() && this.ningunoConEstado('suspendido')) && this.agendaHoy(),
@@ -271,8 +271,8 @@ export class TurnosComponent implements OnInit {
     }
 
     isDobleSuspendido() {
-        let indiceTurnoPadre = this.turnos.indexOf(this.turnosSeleccionados[0]) - 1;
-        let response = (this.turnos[indiceTurnoPadre].estado === 'suspendido');
+        const indiceTurnoPadre = this.turnos.indexOf(this.turnosSeleccionados[0]) - 1;
+        const response = (this.turnos[indiceTurnoPadre].estado === 'suspendido');
         return response;
     }
 
@@ -308,7 +308,7 @@ export class TurnosComponent implements OnInit {
     }
 
     eventosTurno(operacion) {
-        let patch: any = {
+        const patch: any = {
             op: operacion,
             turnos: this.turnosSeleccionados.map((resultado) => { return resultado.id; })
         };
@@ -345,7 +345,7 @@ export class TurnosComponent implements OnInit {
     asignarTurnoDoble(operacion) {
         let turnoSeleccionado;
         let index;
-        let turnosActualizar = [];
+        const turnosActualizar = [];
         let bloqueTurno;
         for (let x = 0; x < this.turnosSeleccionados.length; x++) {
             // Se busca la posición del turno y se obtiene el siguiente
@@ -363,7 +363,7 @@ export class TurnosComponent implements OnInit {
             }
         }
 
-        let patch: any = {
+        const patch: any = {
             op: operacion,
             turnos: turnosActualizar.map((resultado) => { return resultado.id; })
         };
@@ -403,7 +403,7 @@ export class TurnosComponent implements OnInit {
     enviarSMS() {
         let turno;
         for (let x = 0; x < this.turnosSeleccionados.length; x++) {
-            let idTurno = this.turnosSeleccionados[x].id;
+            const idTurno = this.turnosSeleccionados[x].id;
             this.turnos.filter(function (el, index, arr) {
                 if (el.id === idTurno) {
                     turno = el;

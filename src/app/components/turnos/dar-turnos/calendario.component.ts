@@ -76,7 +76,7 @@ export class CalendarioComponent {
 
     /** Devuelve las agendas correspondientes a un día determinado */
     public agendasPorFecha(fecha: moment.Moment): IAgenda[] {
-        let ags = this.agendas.filter((value) => {
+        const ags = this.agendas.filter((value) => {
             return (moment(fecha).isSame(value.horaInicio, 'day'));
         });
         return ags;
@@ -87,18 +87,18 @@ export class CalendarioComponent {
 
         if (this.fecha && this.agendas) {
 
-            let inicio = moment(this.fecha).startOf('month').startOf('week');
-            let cantidadSemanas = Math.ceil(moment(this.fecha).endOf('month').endOf('week').diff(moment(this.fecha).startOf('month').startOf('week'), 'weeks', true));
+            const inicio = moment(this.fecha).startOf('month').startOf('week');
+            const cantidadSemanas = Math.ceil(moment(this.fecha).endOf('month').endOf('week').diff(moment(this.fecha).startOf('month').startOf('week'), 'weeks', true));
             this.diaSeleccionado = null;
             this.calendario = [];
 
             for (let r = 1; r <= cantidadSemanas; r++) {
-                let week = [];
+                const week = [];
                 this.calendario.push(week);
 
                 for (let c = 1; c <= 7; c++) {
 
-                    let agendasPorFecha = this.agendasPorFecha(inicio);
+                    const agendasPorFecha = this.agendasPorFecha(inicio);
                     let ag = null;
 
                     if (agendasPorFecha.length > 1) {
@@ -107,7 +107,7 @@ export class CalendarioComponent {
 
                         if (this.agenda) {
                             // Si hay una agenda seleccionada
-                            let i = agendasPorFecha.indexOf(this.agenda);
+                            const i = agendasPorFecha.indexOf(this.agenda);
                             if (i >= 0) {
                                 ag = agendasPorFecha[i];
                             }
@@ -117,7 +117,7 @@ export class CalendarioComponent {
                     if (agendasPorFecha.length === 1) {
                         ag = this.agendaPorFecha(inicio);
                     }
-                    let dia = new CalendarioDia(inicio.toDate(), ag, this._solicitudPrestacion);
+                    const dia = new CalendarioDia(inicio.toDate(), ag, this._solicitudPrestacion);
                     // if (dia.estado === 'vacio' && this._solicitudPrestacion) {
                     if (dia.estado === 'vacio') {
                         dia.cantidadAgendas = 0;

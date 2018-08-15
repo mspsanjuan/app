@@ -121,7 +121,7 @@ export class PuntoInicioComponent implements OnInit {
                         agenda['cantidadTurnos'] += bloques.turnos.length;
                         // loopeamos los turnos dentro de los bloques
                         bloques.turnos.forEach(turno => {
-                            let indexPrestacion = this.prestaciones.findIndex(prestacion => {
+                            const indexPrestacion = this.prestaciones.findIndex(prestacion => {
                                 return (prestacion.solicitud.turno && prestacion.solicitud.turno === turno.id);
                             });
                             // asignamos la prestacion al turno
@@ -136,7 +136,7 @@ export class PuntoInicioComponent implements OnInit {
                     // busquemos si hy sobreturnos para vincularlos con la prestacion correspondiente
                     if (agenda.sobreturnos) {
                         agenda.sobreturnos.forEach(sobreturno => {
-                            let indexPrestacion = this.prestaciones.findIndex(prestacion => {
+                            const indexPrestacion = this.prestaciones.findIndex(prestacion => {
                                 return (prestacion.solicitud.turno && prestacion.solicitud.turno === sobreturno.id);
                             });
                             // asignamos la prestacion al turno
@@ -205,15 +205,15 @@ export class PuntoInicioComponent implements OnInit {
 
         // por tipo de prestación
         if (this.prestacionSeleccion) {
-            let agendasLength = this.agendas.length;
+            const agendasLength = this.agendas.length;
             if (agendasLength) {
 
                 for (let indexAgenda = 0; indexAgenda < agendasLength; indexAgenda++) {
 
-                    let lengthBloques = this.agendas[indexAgenda].bloques.length;
+                    const lengthBloques = this.agendas[indexAgenda].bloques.length;
                     for (let indexBloque = 0; indexBloque < lengthBloques; indexBloque++) {
 
-                        let _turnos = this.agendas[indexAgenda].bloques[indexBloque].turnos.filter(t => {
+                        const _turnos = this.agendas[indexAgenda].bloques[indexBloque].turnos.filter(t => {
                             return (t.tipoPrestacion && t.tipoPrestacion.conceptId === this.prestacionSeleccion.conceptId);
                         });
 
@@ -224,7 +224,7 @@ export class PuntoInicioComponent implements OnInit {
 
             // buscamos el paciente en los turnos fuera de agenda
             if (this.fueraDeAgenda) {
-                let _turnos = this.fueraDeAgenda.filter(p => {
+                const _turnos = this.fueraDeAgenda.filter(p => {
                     return (p.solicitud.tipoPrestacion && p.solicitud.tipoPrestacion.conceptId === this.prestacionSeleccion.conceptId);
                 });
 
@@ -232,18 +232,18 @@ export class PuntoInicioComponent implements OnInit {
             }
         }
         if (typeof this.paciente !== 'undefined' && this.paciente) {
-            let search = this.paciente.toLowerCase();
+            const search = this.paciente.toLowerCase();
 
             // buscamos el paciente en los turnos de la agenda
-            let agendasLength = this.agendas.length;
+            const agendasLength = this.agendas.length;
             if (agendasLength) {
 
                 for (let indexAgenda = 0; indexAgenda < agendasLength; indexAgenda++) {
 
-                    let lengthBloques = this.agendas[indexAgenda].bloques.length;
+                    const lengthBloques = this.agendas[indexAgenda].bloques.length;
                     for (let indexBloque = 0; indexBloque < lengthBloques; indexBloque++) {
 
-                        let _turnos = this.agendas[indexAgenda].bloques[indexBloque].turnos.filter(t => {
+                        const _turnos = this.agendas[indexAgenda].bloques[indexBloque].turnos.filter(t => {
                             let nombreCompleto = '';
                             if (t.paciente && t.paciente.id) {
                                 nombreCompleto = t.paciente.apellido + ' ' + t.paciente.nombre;
@@ -263,7 +263,7 @@ export class PuntoInicioComponent implements OnInit {
 
             // buscamos el paciente en los turnos fuera de agenda
             if (this.fueraDeAgenda) {
-                let _turnos = this.fueraDeAgenda.filter(p => {
+                const _turnos = this.fueraDeAgenda.filter(p => {
                     return (p.paciente &&
                         (p.paciente.nombre.toLowerCase().indexOf(search) >= 0 || p.paciente.apellido.toLowerCase().indexOf(search) >= 0
                             || p.paciente.documento.toLowerCase().indexOf(search) >= 0));
@@ -315,10 +315,10 @@ export class PuntoInicioComponent implements OnInit {
     getCantidadPacientes(agenda) {
         let total = 0;
 
-        let lengthBloques = agenda.bloques.length;
+        const lengthBloques = agenda.bloques.length;
         for (let indexBloque = 0; indexBloque < lengthBloques; indexBloque++) {
 
-            let _turnos = agenda.bloques[indexBloque].turnos.filter(t => {
+            const _turnos = agenda.bloques[indexBloque].turnos.filter(t => {
                 total += (t.paciente && t.paciente.id) ? 1 : 0;
             });
         }
@@ -327,8 +327,8 @@ export class PuntoInicioComponent implements OnInit {
     }
 
     tienePermisos(tipoPrestacion, prestacion) {
-        let permisos = this.auth.getPermissions('rup:tipoPrestacion:?');
-        let existe = permisos.find(permiso => (permiso === tipoPrestacion._id));
+        const permisos = this.auth.getPermissions('rup:tipoPrestacion:?');
+        const existe = permisos.find(permiso => (permiso === tipoPrestacion._id));
 
         // vamos a comprobar si el turno tiene una prestacion asociada y si ya esta en ejecucion
         // por otro profesional. En ese caso no debería poder entrar a ejecutar o validar la prestacion
@@ -347,7 +347,7 @@ export class PuntoInicioComponent implements OnInit {
 
     routeTo(action, id) {
         if (this.agendaSeleccionada && this.agendaSeleccionada !== 'fueraAgenda') {
-            let agenda = this.agendaSeleccionada ? this.agendaSeleccionada : null;
+            const agenda = this.agendaSeleccionada ? this.agendaSeleccionada : null;
             localStorage.setItem('idAgenda', agenda.id);
         }
         this.router.navigate(['rup/' + action + '/', id]);
@@ -357,7 +357,7 @@ export class PuntoInicioComponent implements OnInit {
     // dada una prestación busca las prestaciones generadas (por planes) que esten pendientes y sin turno asignado.
     comprobarPrestacionesPendientes(unaPrestacion) {
         if (unaPrestacion.id && unaPrestacion.estados[unaPrestacion.estados.length - 1].tipo === 'validada') {
-            let registropendiente = unaPrestacion.ejecucion.registros.filter(registro => registro.esSolicitud && registro.valor && registro.valor.autocitado);
+            const registropendiente = unaPrestacion.ejecucion.registros.filter(registro => registro.esSolicitud && registro.valor && registro.valor.autocitado);
             if (registropendiente && registropendiente.length > 0) {
                 this.servicioPrestacion.get({ idPrestacionOrigen: unaPrestacion.id }).subscribe(prestacionesPaciente => {
                     prestacionesPaciente.forEach(elemento => {
@@ -376,11 +376,11 @@ export class PuntoInicioComponent implements OnInit {
     mostrarTurnoPendiente(prestaciones) {
         if (prestaciones) {
             if (Array.isArray(prestaciones)) {
-                let _prestaciones = prestaciones.filter(p => {
+                const _prestaciones = prestaciones.filter(p => {
                     // filtramos todas las prestaciones que:
                     // 1) esten validadas
                     // 2) que sean planes y sean autocitados
-                    let registropendiente = p.ejecucion.registros.filter(registro => registro.esSolicitud && registro.valor &&
+                    const registropendiente = p.ejecucion.registros.filter(registro => registro.esSolicitud && registro.valor &&
                         registro.valor.autocitado
                     );
                     if (p.id && p.estados[p.estados.length - 1].tipo === 'validada' && registropendiente.length > 0
@@ -400,8 +400,8 @@ export class PuntoInicioComponent implements OnInit {
 
     // Detecta si una Agenda es futura
     esFutura(agenda: IAgenda = null) {
-        let fechaAgenda = moment(agenda.horaInicio).startOf('day');
-        let fechaActual = moment(new Date()).endOf('day');
+        const fechaAgenda = moment(agenda.horaInicio).startOf('day');
+        const fechaActual = moment(new Date()).endOf('day');
         return fechaAgenda.isAfter(fechaActual);
     }
 
@@ -419,7 +419,7 @@ export class PuntoInicioComponent implements OnInit {
     onPacienteSelected(paciente: IPaciente) {
         if (paciente.id) {
 
-            let pacienteSave = {
+            const pacienteSave = {
                 id: paciente.id,
                 documento: paciente.documento,
                 apellido: paciente.apellido,
@@ -435,10 +435,10 @@ export class PuntoInicioComponent implements OnInit {
     }
 
     darTurno(paciente) {
-        let idAgendaSeleccionada = this.agendaSeleccionada.id;
+        const idAgendaSeleccionada = this.agendaSeleccionada.id;
         if (this.agendaSeleccionada.dinamica) {
             this.plex.confirm('Paciente: <b>' + paciente.apellido + ', ' + paciente.nombre + '.</b><br>Prestación: <b>' + this.agendaSeleccionada.tipoPrestaciones[0].term + '</b>', '¿Está seguro de que desea agregar el paciente a la agenda?').then(confirmacion => {
-                let datosTurno = {
+                const datosTurno = {
                     nota: '',
                     motivoConsulta: '',
                     tipoPrestacion: this.agendaSeleccionada.tipoPrestaciones[0],

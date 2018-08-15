@@ -160,10 +160,10 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
             }
 
             // levantamos el valor que escribimos en el input
-            let search = this.searchTerm.trim();
+            const search = this.searchTerm.trim();
 
             // armamos query para enviar al servicio
-            let query = {
+            const query = {
                 search
                 // tipo: this.tipoBusqueda
             };
@@ -214,7 +214,7 @@ export class SnomedBuscarComponent implements OnInit, OnChanges, OnDestroy {
                         break;
                 }
 
-                let idTimeOut = this.timeoutHandle;
+                const idTimeOut = this.timeoutHandle;
 
                 if (this.lastRequest) {
                     this.lastRequest.unsubscribe();

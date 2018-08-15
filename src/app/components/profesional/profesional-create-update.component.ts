@@ -60,16 +60,16 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
 
 
         // consultamos si es que hay datos cargados en seleccion ... entonces hacemos un update y no un insert
-        let nombre = this.seleccion ? this.seleccion.nombre : '';
-        let apellido = this.seleccion ? this.seleccion.apellido : '';
-        let documento = this.seleccion ? this.seleccion.documento : '';
-        let fechaNac = this.seleccion ? this.seleccion.fechaNacimiento : null;
-        let fechaFalle = this.seleccion ? this.seleccion.fechaFallecimiento : null;
-        let especialidades = this.seleccion ? this.seleccion.especialidad : null;
-        let rol = this.seleccion ? this.seleccion.rol : '';
-        let sexoSelected = this.seleccion ? enumerados.getObjeto(this.seleccion.sexo) : null;
-        let genero = this.seleccion ? enumerados.getObjeto(this.seleccion.genero) : null;
-        let estadoCivil = this.seleccion ? enumerados.getObjeto(this.seleccion.estadoCivil) : null;
+        const nombre = this.seleccion ? this.seleccion.nombre : '';
+        const apellido = this.seleccion ? this.seleccion.apellido : '';
+        const documento = this.seleccion ? this.seleccion.documento : '';
+        const fechaNac = this.seleccion ? this.seleccion.fechaNacimiento : null;
+        const fechaFalle = this.seleccion ? this.seleccion.fechaFallecimiento : null;
+        const especialidades = this.seleccion ? this.seleccion.especialidad : null;
+        const rol = this.seleccion ? this.seleccion.rol : '';
+        const sexoSelected = this.seleccion ? enumerados.getObjeto(this.seleccion.sexo) : null;
+        const genero = this.seleccion ? enumerados.getObjeto(this.seleccion.genero) : null;
+        const estadoCivil = this.seleccion ? enumerados.getObjeto(this.seleccion.estadoCivil) : null;
 
         this.createForm = this.formBuilder.group({
             nombre: [nombre, Validators.required],
@@ -181,7 +181,7 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
     }
 
     loadMatriculas() {
-        let cantidadMatriculasActuales = this.seleccion.matriculas.length;
+        const cantidadMatriculasActuales = this.seleccion.matriculas.length;
         const control = <FormArray>this.createForm.controls['matriculas'];
         // Si tienen al menos una matrículas
         if (cantidadMatriculasActuales > 0) {
@@ -235,7 +235,7 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
 
     initContacto(rank: Number) {
         // Inicializa contacto
-        let fecha = new Date();
+        const fecha = new Date();
         return this.formBuilder.group({
             tipo: ['', Validators.required],
             valor: ['', Validators.required],
@@ -256,7 +256,7 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
     }
 
     setContacto(cont: any) {
-        let tipo = cont ? enumerados.getObjeto(cont.tipo) : null;
+        const tipo = cont ? enumerados.getObjeto(cont.tipo) : null;
         return this.formBuilder.group({
             tipo: [tipo, Validators.required],
             valor: [cont.valor, Validators.required],
@@ -267,12 +267,12 @@ export class ProfesionalCreateUpdateComponent implements OnInit {
     }
 
     loadContactos() {
-        let cantidadContactosActuales = this.seleccion.contacto.length;
+        const cantidadContactosActuales = this.seleccion.contacto.length;
         const control = <FormArray>this.createForm.controls['contacto'];
 
         if (cantidadContactosActuales > 0) {
             for (let i = 0; i < cantidadContactosActuales; i++) {
-                let contacto: any = this.seleccion.contacto[i];
+                const contacto: any = this.seleccion.contacto[i];
                 control.push(this.setContacto(contacto));
             }
         } else {

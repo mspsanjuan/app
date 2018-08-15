@@ -178,14 +178,14 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
             this.parametros['tipoPrestaciones'] = this.prestacionesPermisos;
         }
         if (tipo === 'fechaDesde') {
-            let fechaDesde = moment(this.fechaDesde).startOf('day');
+            const fechaDesde = moment(this.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
                 this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
                 this.parametros['organizacion'] = this.auth.organizacion._id;
             }
         }
         if (tipo === 'fechaHasta') {
-            let fechaHasta = moment(this.fechaHasta).endOf('day');
+            const fechaHasta = moment(this.fechaHasta).endOf('day');
             if (fechaHasta.isValid()) {
                 this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
                 this.parametros['organizacion'] = this.auth.organizacion._id;
@@ -255,7 +255,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     }
 
     loadAgendas() {
-        let fecha = moment().format();
+        const fecha = moment().format();
 
         if (this.hoy) {
             this.fechaDesde = fecha;
@@ -401,7 +401,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
             if (this.lastRequest) {
                 this.lastRequest.unsubscribe();
             }
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.lastRequest = this.serviceProfesional.get(query).subscribe(event.callback);
@@ -416,7 +416,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     loadEdificios(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 edificio: event.query,
                 organizacion: this.auth.organizacion.id
             };
@@ -432,7 +432,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
         let listaEspaciosFisicos = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query,
                 organizacion: this.auth.organizacion.id
             };
@@ -474,7 +474,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
                         this.agendasSeleccionadas = [];
                         this.agendasSeleccionadas = [...this.agendasSeleccionadas, ag];
                     } else {
-                        let index = this.estaSeleccionada(agenda);
+                        const index = this.estaSeleccionada(agenda);
                         if (index >= 0) {
                             agenda.agendaSeleccionadaColor = 'success';
                             this.agendasSeleccionadas.splice(index, 1);
@@ -614,8 +614,8 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     // Devuelve la duración (HH:mm) de una agenda
     duracionAgenda(horaInicio, horaFin) {
-        let horas = moment.duration(horaFin - horaInicio).hours();
-        let minutos = moment.duration(horaFin - horaInicio).minutes();
+        const horas = moment.duration(horaFin - horaInicio).hours();
+        const minutos = moment.duration(horaFin - horaInicio).minutes();
         return horas + (horas === 1 ? ' hora ' : ' horas ') + (minutos > 0 ? minutos + ' minutos' : '');
     }
 

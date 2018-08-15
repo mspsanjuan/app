@@ -118,7 +118,7 @@ export class PrestacionEjecucionComponent implements OnInit {
         // Evita que se autocompleten valores de una consulta anterior
         this.conceptObserverService.destroy();
         this.route.params.subscribe(params => {
-            let id = params['id'];
+            const id = params['id'];
             this.idAgenda = localStorage.getItem('idAgenda');
             // Mediante el id de la prestación que viene en los parámetros recuperamos el objeto prestación
             this.elementosRUPService.ready.subscribe((resultado) => {
@@ -147,9 +147,9 @@ export class PrestacionEjecucionComponent implements OnInit {
                             this.mostrarDatosEnEjecucion();
 
                             if (this.elementoRUP.requeridos.length > 0) {
-                                for (let elementoRequerido of this.elementoRUP.requeridos) {
+                                for (const elementoRequerido of this.elementoRUP.requeridos) {
                                     this.elementosRUPService.coleccionRetsetId[String(elementoRequerido.concepto.conceptId)] = elementoRequerido.params;
-                                    let registoExiste = this.prestacion.ejecucion.registros.find(registro => registro.concepto.conceptId === elementoRequerido.concepto.conceptId);
+                                    const registoExiste = this.prestacion.ejecucion.registros.find(registro => registro.concepto.conceptId === elementoRequerido.concepto.conceptId);
 
                                     if (!registoExiste) {
                                         this.ejecutarConcepto(elementoRequerido.concepto);
@@ -210,7 +210,7 @@ export class PrestacionEjecucionComponent implements OnInit {
     moverRegistroEnPosicion(posicionActual: number, posicionNueva: number) {
 
         // // buscamos el registro
-        let registro = this.prestacion.ejecucion.registros[posicionActual];
+        const registro = this.prestacion.ejecucion.registros[posicionActual];
 
         // lo quitamos de la posición actual
         this.prestacion.ejecucion.registros.splice(posicionActual, 1);
@@ -249,7 +249,7 @@ export class PrestacionEjecucionComponent implements OnInit {
             registro = registro.dragData;
         }
         // buscamos posición actual
-        let posicionActual = this.prestacion.ejecucion.registros.findIndex(r => (registro.id === r.id));
+        const posicionActual = this.prestacion.ejecucion.registros.findIndex(r => (registro.id === r.id));
 
         // si la posición a la que lo muevo es distinta a la actual
         // o si la posición nueva es distinta a la siguiente de la actual (misma posicion)
@@ -268,7 +268,7 @@ export class PrestacionEjecucionComponent implements OnInit {
             registroOrigen = registroOrigen.dragData;
         }
         // Verificamos si ya esta vinculado no dejar que se vinculen de nuevo
-        let control = this.controlVinculacion(registroOrigen, registroDestino);
+        const control = this.controlVinculacion(registroOrigen, registroDestino);
         if (control) {
             this.plex.toast('warning', 'Los elementos seleccionados ya se encuentran vinculados.');
             return false;
@@ -310,7 +310,7 @@ export class PrestacionEjecucionComponent implements OnInit {
 
         // quitamos relacion si existe
         if (this.confirmarDesvincular[registroId]) {
-            let registroActual = this.prestacion.ejecucion.registros.find(r => r.id === registroId);
+            const registroActual = this.prestacion.ejecucion.registros.find(r => r.id === registroId);
 
             if (registroActual) {
                 registroActual.relacionadoCon = registroActual.relacionadoCon.filter(rr => rr.id !== this.confirmarDesvincular[registroId]);
@@ -333,8 +333,8 @@ export class PrestacionEjecucionComponent implements OnInit {
      */
     eliminarRegistro() {
         if (this.confirmarEliminar) {
-            let registros = this.prestacion.ejecucion.registros;
-            let _registro = registros[this.indexEliminar];
+            const registros = this.prestacion.ejecucion.registros;
+            const _registro = registros[this.indexEliminar];
 
             // Quitamos toda la vinculación que puedan tener con el registro
             registros.forEach(registro => {
@@ -350,7 +350,7 @@ export class PrestacionEjecucionComponent implements OnInit {
             // Si exite el campo idRegistroTransformado significa que el registro a elimininar nace de una transformación
             // y por lo tanto hay qye volver el registro orige a su estado original
             if (_registro.valor && _registro.valor.idRegistroTransformado) {
-                let registroOriginal = registros.find(r => r.id === _registro.valor.idRegistroTransformado);
+                const registroOriginal = registros.find(r => r.id === _registro.valor.idRegistroTransformado);
                 if (registroOriginal) {
                     registroOriginal.valor.estado = 'activo';
                     delete registroOriginal.valor.idRegistroGenerado;
@@ -398,9 +398,9 @@ export class PrestacionEjecucionComponent implements OnInit {
         if (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') {
             esSolicitud = true;
         }
-        let elementoRUP = this.elementosRUPService.buscarElemento(snomedConcept, esSolicitud);
+        const elementoRUP = this.elementosRUPService.buscarElemento(snomedConcept, esSolicitud);
         // armamos el elemento data a agregar al array de registros
-        let nuevoRegistro = new IPrestacionRegistro(elementoRUP, snomedConcept);
+        const nuevoRegistro = new IPrestacionRegistro(elementoRUP, snomedConcept);
         this.itemsRegistros[nuevoRegistro.id] = { collapse: false, items: null };
         nuevoRegistro['_id'] = nuevoRegistro.id;
         // Verificamos si es un plan. Si es un plan seteamos esSolicitud en true
@@ -411,7 +411,7 @@ export class PrestacionEjecucionComponent implements OnInit {
 
         if (this.prestacion && this.prestacion.ejecucion.registros && this.prestacion.ejecucion.registros.length) {
             // TODO:: Por ahora la vinculacion automatica es solo con INFORME DEL ENCUENTRO
-            let registroRequerido = this.prestacion.ejecucion.registros.find(r => r.concepto.conceptId === '371531000');
+            const registroRequerido = this.prestacion.ejecucion.registros.find(r => r.concepto.conceptId === '371531000');
             if (registroRequerido) {
                 nuevoRegistro.relacionadoCon.push(registroRequerido);
                 if (nuevoRegistro.id) {
@@ -443,14 +443,14 @@ export class PrestacionEjecucionComponent implements OnInit {
         let valor;
         let resultado;
         this.isDraggingConcepto = false;
-        let registros = this.prestacion.ejecucion.registros;
+        const registros = this.prestacion.ejecucion.registros;
         // si tenemos mas de un registro en en el array de memoria mostramos el button de vincular.
         if (registros.length > 0) {
             this.showVincular = true;
         }
 
         // El concepto ya aparece en los registros?
-        let registoExiste = registros.find(registro => registro.concepto.conceptId === snomedConcept.conceptId);
+        const registoExiste = registros.find(registro => registro.concepto.conceptId === snomedConcept.conceptId);
         // si estamos cargando un concepto para una transformación de hall
         if (this.transformarProblema && this.registroATransformar) {
 
@@ -475,7 +475,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                 // this.registroATransformar.valor.estado = 'transformado';
                 valor = { idRegistroTransformado: this.registroATransformar.id, origen: 'transformación' };
                 window.setTimeout(() => {
-                    let nuevoRegistro = this.cargarNuevoRegistro(snomedConcept, valor);
+                    const nuevoRegistro = this.cargarNuevoRegistro(snomedConcept, valor);
                     nuevoRegistro.relacionadoCon = [this.registroATransformar];
                     this.transformarProblema = false;
                     this.registroATransformar.valor.estado = 'transformado';
@@ -496,7 +496,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                     .subscribe(dato => {
                         if (dato) {
                             // buscamos si es cronico
-                            let cronico = dato.concepto.refsetIds.find(item => item === this.servicioPrestacion.refsetsIds.cronico);
+                            const cronico = dato.concepto.refsetIds.find(item => item === this.servicioPrestacion.refsetsIds.cronico);
                             if (cronico) {
                                 valor = {
                                     idRegistroOrigen: dato.evoluciones[0].idRegistro
@@ -553,16 +553,16 @@ export class PrestacionEjecucionComponent implements OnInit {
         if (resultadoHuds.tipo === 'prestacion') {
             this.ejecutarConcepto(resultadoHuds.data.solicitud.tipoPrestacion);
         } else {
-            let idRegistroOrigen = resultadoHuds.data.evoluciones[0].idRegistro;
+            const idRegistroOrigen = resultadoHuds.data.evoluciones[0].idRegistro;
 
-            let existeEjecucion = this.prestacion.ejecucion.registros.find((registro) => {
+            const existeEjecucion = this.prestacion.ejecucion.registros.find((registro) => {
                 return (registro.valor) && (registro.valor.idRegistroOrigen) && (registro.valor.idRegistroOrigen === idRegistroOrigen);
             });
 
             if (!existeEjecucion) {
-                let valor = { idRegistroOrigen };
+                const valor = { idRegistroOrigen };
                 window.setTimeout(() => {
-                    let resultado = this.cargarNuevoRegistro(resultadoHuds.data.concepto, valor);
+                    const resultado = this.cargarNuevoRegistro(resultadoHuds.data.concepto, valor);
                 });
             } else {
                 this.plex.toast('warning', 'El elemento seleccionado ya se encuentra registrado.');
@@ -631,10 +631,10 @@ export class PrestacionEjecucionComponent implements OnInit {
             }
         } else {
 
-            let total = registro.registros.length;
+            const total = registro.registros.length;
             let contadorValiddos = 0;
             registro.registros.forEach(r => {
-                let res = this.controlValido(r);
+                const res = this.controlValido(r);
                 if (res) {
                     contadorValiddos++;
                 }
@@ -683,14 +683,14 @@ export class PrestacionEjecucionComponent implements OnInit {
             return;
         }
 
-        let registros = JSON.parse(JSON.stringify(this.prestacion.ejecucion.registros));
+        const registros = JSON.parse(JSON.stringify(this.prestacion.ejecucion.registros));
         registros.forEach(registro => {
             if (registro.relacionadoCon && registro.relacionadoCon.length > 0) {
                 registro.relacionadoCon = registro.relacionadoCon.map(r => r.id);
             }
         });
 
-        let params: any = {
+        const params: any = {
             op: 'registros',
             solicitud: this.prestacion.solicitud,
             registros
@@ -706,7 +706,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                 let cambios;
                 this.servicioPrestacion.prestacionPacienteAusente().subscribe(
                     result => {
-                        let filtroRegistros = this.prestacion.ejecucion.registros.filter(x => result.find(y => y.conceptId === x.concepto.conceptId));
+                        const filtroRegistros = this.prestacion.ejecucion.registros.filter(x => result.find(y => y.conceptId === x.concepto.conceptId));
                         if (filtroRegistros && filtroRegistros.length > 0) {
 
                             cambios = {
@@ -732,7 +732,7 @@ export class PrestacionEjecucionComponent implements OnInit {
     }
 
     volver(ambito = 'ambulatorio') {
-        let mensaje = ambito === 'ambulatorio' ? 'Punto de Inicio' : 'Mapa de Camas';
+        const mensaje = ambito === 'ambulatorio' ? 'Punto de Inicio' : 'Mapa de Camas';
         this.plex.confirm('<i class="mdi mdi-alert"></i> Se van a perder los cambios no guardados', '¿Volver al ' + mensaje + '?').then(confirmado => {
             if (confirmado) {
                 if (ambito === 'ambulatorio') {
@@ -792,11 +792,11 @@ export class PrestacionEjecucionComponent implements OnInit {
     cargaItems(registroActual, indice) {
 
         // Paso el concepto desde el que se clikeo y filtro para no mostrar su autovinculacion.
-        let registros = this.prestacion.ejecucion.registros;
+        const registros = this.prestacion.ejecucion.registros;
         this.itemsRegistros[registroActual.id].items = [];
-        let objItem = {};
+        const objItem = {};
         this.itemsRegistros[registroActual.id].items = registros.filter(registro => {
-            let control = this.controlVinculacion(registroActual, registro);
+            const control = this.controlVinculacion(registroActual, registro);
             if (registro.id !== registroActual.id) {
                 if (registroActual.relacionadoCon && registroActual.relacionadoCon.length > 0) {
                     if (registro.id !== registroActual.relacionadoCon[0].id) {
@@ -827,7 +827,7 @@ export class PrestacionEjecucionComponent implements OnInit {
     cambiarElPaciente($event) {
         this.plex.confirm('¿Esta seguro que desea cambiar al paciente actual con el paciente ' + $event.nombre + ' ' + $event.apellido + '?').then(resultado => {
             if (resultado) {
-                let params: any = {
+                const params: any = {
                     op: 'paciente',
                     paciente: {
                         id: $event.id,
@@ -919,10 +919,10 @@ export class PrestacionEjecucionComponent implements OnInit {
 
         registros = this.prestacion.ejecucion.registros;
 
-        let relacionesOrdenadas = [];
+        const relacionesOrdenadas = [];
 
         registros.forEach((cosa, index) => {
-            let esPadre = registros.filter(x => x.relacionadoCon[0] === cosa.id);
+            const esPadre = registros.filter(x => x.relacionadoCon[0] === cosa.id);
 
             if (esPadre.length > 0) {
                 if (relacionesOrdenadas.filter(x => x === cosa).length === 0) {
@@ -978,7 +978,7 @@ export class PrestacionEjecucionComponent implements OnInit {
     // Busca recursivamente en los relacionadoCon de los registros
     recorreArbol(registroDestino, registroOrigen) {
         if (registroDestino.relacionadoCon && registroDestino.relacionadoCon.length > 0) {
-            for (let registro of registroDestino.relacionadoCon) {
+            for (const registro of registroDestino.relacionadoCon) {
                 if (registro.id === registroOrigen.id) {
                     return true;
                 }
@@ -1040,7 +1040,7 @@ export class PrestacionEjecucionComponent implements OnInit {
 
     registrosColapsados() {
         this.prestacion.ejecucion.registros.forEach(registro => {
-            let unRegistro = this.itemsRegistros[registro.id].collapse;
+            const unRegistro = this.itemsRegistros[registro.id].collapse;
             if (unRegistro !== this.collapse) {
                 this.collapse = !this.collapse;
             }
@@ -1052,7 +1052,7 @@ export class PrestacionEjecucionComponent implements OnInit {
      * @param {IConcept} concept
      */
     matchinBusquedaGuiada(concept) {
-        let results = [];
+        const results = [];
         this.grupos_guida.forEach(data => {
             if (data.conceptIds.indexOf(concept.conceptId) >= 0) {
                 results.push(data);

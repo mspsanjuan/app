@@ -106,13 +106,13 @@ export class ListarSolicitudesComponent implements OnInit {
 
     getCarpetas(value, filter) {
         if (filter === 'fechaDesde') {
-            let fechaDesde = moment(this.fechaDesde).startOf('day');
+            const fechaDesde = moment(this.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
                 this.filters['fechaDesde'] = fechaDesde;
             }
         }
         if (filter === 'fechaHasta') {
-            let fechaHasta = moment(this.fechaHasta).endOf('day');
+            const fechaHasta = moment(this.fechaHasta).endOf('day');
             if (fechaHasta.isValid()) {
                 this.filters['fechaHasta'] = fechaHasta;
             }
@@ -167,7 +167,7 @@ export class ListarSolicitudesComponent implements OnInit {
     loadEspacios(event) {
         let listaEspaciosFisicos = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query,
                 organizacion: this.auth.organizacion.id
             };
@@ -187,7 +187,7 @@ export class ListarSolicitudesComponent implements OnInit {
     loadProfesionales(event) {
         let listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(resultado => {
@@ -224,7 +224,7 @@ export class ListarSolicitudesComponent implements OnInit {
     switchSeleccionCarpeta(carpeta: any) {
         if (carpeta.estado !== 'Prestada' && carpeta.tipo !== 'Manual') {
             if (!this.estaSeleccionada(carpeta)) {
-                let diaPaciente = this.switchDiaPaciente(carpeta);
+                const diaPaciente = this.switchDiaPaciente(carpeta);
                 if (diaPaciente >= 0) {
                     this.plex.toast('danger', 'No se puede prestar la carpeta del paciente más de una vez para el mismo día', 'Información', 2000);
                 } else {
@@ -252,7 +252,7 @@ export class ListarSolicitudesComponent implements OnInit {
         this.marcarTodas = !this.marcarTodas;
         if (this.marcarTodas) {
             this.carpetas.forEach(carpeta => {
-                let diaPaciente = this.switchDiaPaciente(carpeta);
+                const diaPaciente = this.switchDiaPaciente(carpeta);
                 if (carpeta.estado === 'En archivo' && carpeta.tipo === 'Automatica' && diaPaciente === -1) {
                     this.carpetasSeleccionadas.push(carpeta);
                 }
@@ -300,7 +300,7 @@ export class ListarSolicitudesComponent implements OnInit {
     }
 
     loadEstados(event) {
-        let listaEstados = [{ nombre: 'En Archivo', valor: 'En Archivo' }, { nombre: 'Prestada', valor: 'Prestada' }];
+        const listaEstados = [{ nombre: 'En Archivo', valor: 'En Archivo' }, { nombre: 'Prestada', valor: 'Prestada' }];
         event.callback(listaEstados);
     }
 
@@ -314,13 +314,13 @@ export class ListarSolicitudesComponent implements OnInit {
     }
 
     sortCarpetas() { // se divide this.carpetas en letras y en numeros para hacer el sort correspondiente
-        let val = this.sortDescending ? -1 : 1;
-        let carpetas_numeros = this.carpetas.filter(x => !isNaN(x.numero));
-        let carpetas_letras = this.carpetas.filter(x => isNaN(x.numero));
+        const val = this.sortDescending ? -1 : 1;
+        const carpetas_numeros = this.carpetas.filter(x => !isNaN(x.numero));
+        const carpetas_letras = this.carpetas.filter(x => isNaN(x.numero));
         carpetas_letras.sort((a, b) => { return (a.numero > b.numero) ? val : (b.numero > a.numero) ? -val : 0; });
         carpetas_numeros.sort((a, b) => { return (parseInt(a.numero, 10) > parseInt(b.numero, 10)) ? val : ((parseInt(b.numero, 10) > parseInt(a.numero, 10)) ? -val : 0); });
 
-        let carpetas_sort = carpetas_numeros.concat(carpetas_letras);
+        const carpetas_sort = carpetas_numeros.concat(carpetas_letras);
         this.carpetas = [];
         this.carpetas = carpetas_sort;
     }

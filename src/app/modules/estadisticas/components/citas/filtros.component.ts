@@ -69,7 +69,7 @@ export class FiltrosComponent implements AfterViewInit, OnChanges {
     }
 
     onChange () {
-        let params = {
+        const params = {
             fechaDesde: this.desde,
             fechaHasta: this.hasta,
             sexo: this.seleccion.sexo ? this.seleccion.sexo.nombre : undefined,

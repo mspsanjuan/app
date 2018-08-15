@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { TipoPrestacionService } from '../../services/tipoPrestacion.service';
 import { PlexAccordionComponent } from '@andes/plex/src/lib/accordion/accordion.component';
 import { PlexPanelComponent } from '@andes/plex/src/lib/accordion/panel.component';
-let shiroTrie = require('shiro-trie');
+const shiroTrie = require('shiro-trie');
 
 @Component({
     selector: 'arbolPermisos',
@@ -40,7 +40,7 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
             if (this.allModule) {
                 this.accordions.active = false;
             } else {
-                let index = this.userPermissions.findIndex(s => s === this.makePermission() + ':*');
+                const index = this.userPermissions.findIndex(s => s === this.makePermission() + ':*');
                 if (index >= 0) {
                     this.userPermissions.splice(index, 1);
                     this.userPermissions = [...this.userPermissions];
@@ -63,8 +63,8 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
             if (this.item.type === 'boolean') {
                 this.state = this.shiro.check(this.makePermission() + ':?');
             } else {
-                let permisos = this.makePermission();
-                let items: String[] = this.shiro.permissions(permisos + ':?');
+                const permisos = this.makePermission();
+                const items: String[] = this.shiro.permissions(permisos + ':?');
                 if (items.length > 0) {
                     if (items.indexOf('*') >= 0) {
                         this.all = true;
@@ -82,8 +82,8 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
                 }
             }
         } else {
-            let permisos = this.makePermission();
-            let items: String[] = this.shiro.permissions(permisos + ':?');
+            const permisos = this.makePermission();
+            const items: String[] = this.shiro.permissions(permisos + ':?');
             this.allModule = items.length > 0 && items.indexOf('*') >= 0;
         }
     }
@@ -97,7 +97,7 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
         // [TODO] Filtrar otras tipos de datos
         switch (type) {
             case 'prestacion':
-                let query: any = {};
+                const query: any = {};
                 if (event.query) {
                     query.term = event.query;
                 }
@@ -140,7 +140,7 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
                     return [this.makePermission() + ':*'];
                 }
 
-                let lists = [];
+                const lists = [];
                 if (this.seleccionados) {
                     this.seleccionados.forEach(item => {
                         lists.push(this.makePermission() + ':' + item._id);

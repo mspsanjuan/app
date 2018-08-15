@@ -81,12 +81,12 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
     camelcase() {
 
         if (this.modelo.nombre) {
-            let nombre = this.modelo.nombre.toLowerCase()
+            const nombre = this.modelo.nombre.toLowerCase()
 
                 .replace(/\s(.)/g, function ($1) { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
                 .replace(/^(.)/, function ($1) { return $1.toUpperCase(); });  // Mayúscula en la primer letra
 
-            let key = this.modelo.nombre
+            const key = this.modelo.nombre
                 .replace(/\s(.)/g, function ($1) { return $1.toUpperCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
                 .replace(/\s/g, '') // Quita espacios en blanco
                 .replace(/^(.)/, function ($1) { return $1.toLowerCase(); }) // Minúscula en la primer letra
@@ -122,7 +122,7 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
             this.modelo.componente.ruta = 'rup/' + granularidadString + '/' + this.modelo.key + '.component.ts';
             this.modelo.ejecucion = []; // Limpio el Select
         } else {
-            let nombreCarpeta = this.modelo.nombre
+            const nombreCarpeta = this.modelo.nombre
                 .replace(/\s(.)/g, function ($1) { return $1.toLowerCase(); }) // Mayúscula en las primeras letras(a partir de la segunda palabra)
                 .replace(/^(.)/, function ($1) { return $1.toLowerCase(); }) // Minúscula en la primer letra
                 .replace(/\s/g, '-');
@@ -166,7 +166,7 @@ export class TipoPrestacionCreateUpdateComponent implements OnInit {
         // this.modelo.ejecucion[0].reglas[0].valor = 33;
         // this.modelo.ejecucion[0].reglas[0].condicion = "condicion22";
         // console.log(this.modelo);
-        let method = (this.seleccion) ? this.tipoPrestacionService.put(this.modelo) : this.tipoPrestacionService.post(this.modelo);
+        const method = (this.seleccion) ? this.tipoPrestacionService.put(this.modelo) : this.tipoPrestacionService.post(this.modelo);
 
         method.subscribe(tipoPrestacion => {
             if (tipoPrestacion) {

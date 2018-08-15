@@ -45,8 +45,8 @@ export class OcuparCamaComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            let idCama = params['idCama'];
-            let idInternacion = params['idInternacion'];
+            const idCama = params['idCama'];
+            const idInternacion = params['idInternacion'];
             this.camasService.getCama(idCama).subscribe(cama => {
                 this.cama = cama;
                 this.organizacionService.getById(this.auth.organizacion.id).subscribe(organizacion => {
@@ -77,7 +77,7 @@ export class OcuparCamaComponent implements OnInit {
 
     ocuparCama() {
         // vamos a actualizar el estado de la cama
-        let dto = {
+        const dto = {
             fecha: this.fecha,
             estado: 'ocupada',
             unidadOrganizativa: this.cama.ultimoEstado.unidadOrganizativa ? this.cama.ultimoEstado.unidadOrganizativa : null,

@@ -48,7 +48,7 @@ export class TipoPrestacionComponent implements OnInit {
 
 
     loadDatos() {
-        let parametros = {
+        const parametros = {
             // Filtros
             nombre: this.nombre && this.nombre,
             granularidad: this.granularidad && this.granularidad.id,

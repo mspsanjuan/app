@@ -62,7 +62,7 @@ export class UsuarioUpdateComponent implements OnInit {
             if (this.organizacionesAuth.length > 0) {
                 if (this.seleccion) {
                     if (this.seleccion.organizaciones && this.seleccion.organizaciones.length > 0) {
-                        let idOrganizaciones = this.seleccion.organizaciones.map(i => i._id);
+                        const idOrganizaciones = this.seleccion.organizaciones.map(i => i._id);
 
                         this.organizacionService.get({ ids: idOrganizaciones }).subscribe(dataUss => {
                             this.organizacionesUsuario = dataUss;
@@ -167,7 +167,7 @@ export class UsuarioUpdateComponent implements OnInit {
     deleteEfector() {
         this.plex.confirm('¿Eliminar todos los permisos de ' + this.organizacionSelect.nombre + '?').then(value => {
             if (value) {
-                let index = this.userModel.organizaciones.findIndex(elem => elem._id === this.organizacionSelect._id);
+                const index = this.userModel.organizaciones.findIndex(elem => elem._id === this.organizacionSelect._id);
                 this.userModel.organizaciones.splice(index, 1);
                 this.getOrganizaciones();
 

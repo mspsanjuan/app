@@ -70,7 +70,7 @@ export class SolicitudManualComponent implements OnInit {
     loadEspacios(event) {
         let listaEspaciosFisicos = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query,
                 organizacion: this.auth.organizacion.id
             };
@@ -90,7 +90,7 @@ export class SolicitudManualComponent implements OnInit {
     loadProfesionales(event) {
         let listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(resultado => {

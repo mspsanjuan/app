@@ -54,7 +54,7 @@ export class ArancelamientoFormComponent implements OnInit {
 
     getNroCarpeta() {
         if (this.turnoSeleccionado.paciente && this.turnoSeleccionado.paciente.carpetaEfectores && this.turnoSeleccionado.paciente.carpetaEfectores.length > 0) {
-            let resultado: any = this.turnoSeleccionado.paciente.carpetaEfectores.filter((carpeta: any) => {
+            const resultado: any = this.turnoSeleccionado.paciente.carpetaEfectores.filter((carpeta: any) => {
                 return (carpeta.organizacion._id === this.idOrganizacion && carpeta.nroCarpeta !== null);
             });
             if (resultado && resultado.length) {

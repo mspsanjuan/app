@@ -33,7 +33,7 @@ export class SolicitudesComponent implements OnInit {
     }
 
     seleccionar(indice) {
-        let solicitud = this.solicitudes[indice];
+        const solicitud = this.solicitudes[indice];
         for (let i = 0; i < this.solicitudes.length; i++) {
             this.solicitudes[i].seleccionada = false;
             this.DT[i] = false;
@@ -83,7 +83,7 @@ export class SolicitudesComponent implements OnInit {
         // Solicitudes que no tienen prestacionOrigen ni turno
         // Si tienen prestacionOrigen son generadas por RUP y no se listan
         // Si tienen turno, dejan de estar pendientes de turno y no se listan
-        let params = {
+        const params = {
             solicitudDesde: this.fechaDesde,
             solicitudHasta: this.fechaHasta,
             tienePrestacionOrigen: 'no',

@@ -164,7 +164,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     onSave(valid) {
-        let organizacionGuardar = {...this.organizacionModel};
+        const organizacionGuardar = {...this.organizacionModel};
         // Mapeamos solo los conceptos que es lo que nos interesa guardar
         organizacionGuardar.servicios = this.serviciosSeleccionados.map(elem => {
             return elem.concepto;
@@ -187,7 +187,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
         organizacionGuardar.direccion.ubicacion.provincia = this.provinciaNeuquen;
         organizacionGuardar.direccion.ubicacion.barrio = null;
 
-        let operacion = this.organizacionService.save(organizacionGuardar);
+        const operacion = this.organizacionService.save(organizacionGuardar);
         operacion.subscribe(result => {
             if (result) {
                 this.plex.alert('Los datos se actualizaron correctamente');
@@ -203,7 +203,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     addContacto() {
-        let nuevoContacto = {
+        const nuevoContacto = {
             tipo: 'celular',
             valor: '',
             ranking: 0,
@@ -219,7 +219,7 @@ export class OrganizacionCreateUpdateComponent implements OnInit {
     }
 
     addEdificio() {
-        let nuevoEdificio = {
+        const nuevoEdificio = {
             id: null,
             descripcion: '',
             contacto: {

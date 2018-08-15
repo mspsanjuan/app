@@ -24,26 +24,26 @@ export class SolicitudPrestacionDefaultComponent extends RUPComponent implements
 
     loadProfesionales(event) {
         if (event && event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.serviceProfesional.get(query).subscribe(event.callback);
         } else {
-            let callback = (this.registro.valor.solicitudPrestacion.profesionalesDestino) ? this.registro.valor.solicitudPrestacion.profesionalesDestino : null;
+            const callback = (this.registro.valor.solicitudPrestacion.profesionalesDestino) ? this.registro.valor.solicitudPrestacion.profesionalesDestino : null;
             event.callback(callback);
         }
     }
 
     loadOrganizacion(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query
             };
             this.servicioOrganizacion.get(query).subscribe(resultado => {
                 event.callback(resultado);
             });
         } else {
-            let callback = (this.registro.valor.solicitudPrestacion.organizacionDestino) ? this.registro.valor.solicitudPrestacion.organizacionDestino : null;
+            const callback = (this.registro.valor.solicitudPrestacion.organizacionDestino) ? this.registro.valor.solicitudPrestacion.organizacionDestino : null;
             event.callback(callback);
         }
     }

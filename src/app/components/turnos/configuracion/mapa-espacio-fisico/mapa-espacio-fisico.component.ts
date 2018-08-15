@@ -55,8 +55,8 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
     }
 
     aproximar(date, cotaInferior) {
-        let m = date.get('minutes');
-        let remaider = m % this._unit;
+        const m = date.get('minutes');
+        const remaider = m % this._unit;
         if (remaider !== 0) {
             if (cotaInferior) {
                 date.subtract(remaider, 'minutes');
@@ -86,7 +86,7 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
             this._unit = Number(this.unit);
         }
         if (this.agendaCache === null || moment(this.agendaCache.horaInicio).startOf('day').format() !== moment(this.agendaSeleccionada.horaInicio).startOf('day').format()) {
-            let query = {
+            const query = {
                 fechaDesde: this.start.toDate(),
                 fechaHasta: this.end.toDate()
             };
@@ -104,7 +104,7 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
 
 
     generarTabla() {
-        let matrix = [];
+        const matrix = [];
         if (this.espacioTable) {
             this.espacioTable.forEach(espacio => {
                 matrix.push({
@@ -117,12 +117,12 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
         }
 
         this.agendasTable.forEach(agenda => {
-            let start_time = moment(agenda.horaInicio);
-            let end_time = moment(agenda.horaFin);
+            const start_time = moment(agenda.horaInicio);
+            const end_time = moment(agenda.horaFin);
             if (start_time >= this._start && end_time <= this._end) {
                 if (agenda.espacioFisico) {
-                    let _id = agenda.espacioFisico.id;
-                    let temp = matrix.find(item => item.id === _id);
+                    const _id = agenda.espacioFisico.id;
+                    const temp = matrix.find(item => item.id === _id);
                     if (temp) {
                         temp.items.push({
                             id: agenda.id,
@@ -158,13 +158,13 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
     }
 
     iterarLibres(start, end) {
-        let items = [];
-        let ini = this.aproximar(moment(this.agendaSeleccionada.horaInicio), false);
-        let fin = this.aproximar(moment(this.agendaSeleccionada.horaFin), true);
-        let span = this.calcFrame(start, end);
-        let unit = parseInt(this.unit.toString(), 0);
+        const items = [];
+        const ini = this.aproximar(moment(this.agendaSeleccionada.horaInicio), false);
+        const fin = this.aproximar(moment(this.agendaSeleccionada.horaFin), true);
+        const span = this.calcFrame(start, end);
+        const unit = parseInt(this.unit.toString(), 0);
         for (let i = 0; i < span; i++) {
-            let it: any = {
+            const it: any = {
                 colspan: 1,
                 time: start.clone().add(unit * i, 'minutes')
             };
@@ -175,7 +175,7 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
     }
 
     calcHeaders() {
-        let headers = [];
+        const headers = [];
         this._start = moment(this.start);
         this._end = moment(this.end);
         let temp;
@@ -212,19 +212,19 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
             case 'day':
                 return 1;
             case 'hour':
-                let _start = start.startOf('hour');
-                let _end = end.endOf('hour');
+                const _start = start.startOf('hour');
+                const _end = end.endOf('hour');
                 return _end.diff(_start, 'hours');
             default:
-                let unit = parseInt(this.unit.toString(), 0);
+                const unit = parseInt(this.unit.toString(), 0);
                 return (end.diff(start) / 60000) / unit;
         }
     }
 
     seleccionarEspacio(espacio, agendaDisponible) {
         if (agendaDisponible === true) {
-            let item = this.makeItem(this.agendaSeleccionada, espacio.id);
-            let index = this.espacioOcupado(item, espacio);
+            const item = this.makeItem(this.agendaSeleccionada, espacio.id);
+            const index = this.espacioOcupado(item, espacio);
             if (index >= 0 || typeof this.agendaSeleccionada.id === 'undefined') {
                 this.plex.confirm('Asignar espacio físico ' + espacio._value.nombre, '¿Confirmar?').then((respuesta) => {
                     if (respuesta === true) {
@@ -244,9 +244,9 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
     }
 
     makeItem(agenda, espacioID) {
-        let start_time = moment(agenda.horaInicio);
-        let end_time = moment(agenda.horaFin);
-        let item = {
+        const start_time = moment(agenda.horaInicio);
+        const end_time = moment(agenda.horaFin);
+        const item = {
             id: agenda.id,
             espacioID,
             horaInicio: agenda.horaInicio,
@@ -258,13 +258,13 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
             end: this.aproximar(end_time, true)
         };
 
-        let span = this.calcFrame(item.start, item.end);
+        const span = this.calcFrame(item.start, item.end);
         (item as any).colspan = span;
         return item;
     }
 
     espacioOcupado(item, espacio) {
-        let index = espacio._items.findIndex(el => {
+        const index = espacio._items.findIndex(el => {
             return el.time >= item.start;
         });
 
@@ -278,14 +278,14 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
     }
 
     addItem(index, item, espacio) {
-        let first = espacio._items.slice(0, index);
-        let second = espacio._items.slice(index + item.colspan);
+        const first = espacio._items.slice(0, index);
+        const second = espacio._items.slice(index + item.colspan);
 
         espacio._items = [...first, item, ...second];
         this.matrix = [...this.matrix];
         this.agendaSeleccionada.espacioFisico = espacio._value;
 
-        let _ag = this.agendasTable.find(i => i.id === item.id);
+        const _ag = this.agendasTable.find(i => i.id === item.id);
         if (_ag) {
             _ag.espacioFisico = espacio._value;
         }
@@ -293,23 +293,23 @@ export class MapaEspacioFisicoComponent implements OnInit, OnChanges {
 
     removeItem(agenda: any, row?: any) {
         if (row) {
-            let i = row._items.findIndex(item => item.id === agenda.id);
+            const i = row._items.findIndex(item => item.id === agenda.id);
             if (i >= 0) {
 
-                let item = row._items[i];
+                const item = row._items[i];
 
                 // split array in two
-                let first = row._items.slice(0, i);
-                let second = row._items.slice(i + 1);
+                const first = row._items.slice(0, i);
+                const second = row._items.slice(i + 1);
 
-                let middle = this.iterarLibres(item.start, item.end);
+                const middle = this.iterarLibres(item.start, item.end);
                 row._items = [...first, ...middle, ...second];
                 this.matrix = [...this.matrix];
 
 
             }
         } else {
-            let r = this.matrix.find(item => item.id === agenda.espacioID);
+            const r = this.matrix.find(item => item.id === agenda.espacioID);
             if (r) {
                 return this.removeItem(agenda, r);
             }

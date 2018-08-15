@@ -46,7 +46,7 @@ export class EspacioFisicoComponent implements OnInit {
     }
 
     loadEspaciosFisicos(concatenar: boolean = false) {
-        let parametros = {
+        const parametros = {
             descripcion: this.value && this.value.descripcion,
             nombre: this.value && this.value.nombre,
             edificio: this.value && this.value.edificio,

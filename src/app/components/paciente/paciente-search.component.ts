@@ -63,7 +63,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         // controlamos si tiene acceso a MPI
-        let autorizado = this.auth.getPermissions('mpi:?').length > 0;
+        const autorizado = this.auth.getPermissions('mpi:?').length > 0;
         if (!autorizado) {
             this.modoCompleto = false;
             // Si no está autorizado redirect al home
@@ -141,7 +141,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
      * @returns {DocumentoEscaneado} Devuelve el documento encontrado
      */
     private comprobarDocumentoEscaneado(): DocumentoEscaneado {
-        for (let key in DocumentoEscaneados) {
+        for (const key in DocumentoEscaneados) {
             if (DocumentoEscaneados[key].regEx.test(this.textoLibre)) {
                 // Loggea el documento escaneado para análisis
                 this.logService.post('mpi', 'scan', { data: this.textoLibre }).subscribe(() => { });
@@ -161,7 +161,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
      * @returns {*} Datos del paciente
      */
     private parseDocumentoEscaneado(documento: DocumentoEscaneado): any {
-        let datos = this.textoLibre.match(documento.regEx);
+        const datos = this.textoLibre.match(documento.regEx);
         let sexo = '';
         if (documento.grupoSexo > 0) {
             sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'femenino' : 'masculino';
@@ -196,7 +196,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
      */
     private controlarScanner(): boolean {
         if (this.textoLibre) {
-            let index = this.textoLibre.indexOf('"');
+            const index = this.textoLibre.indexOf('"');
             if (index >= 0 && index < 20 && this.textoLibre.length > 5) {
                 /* Agregamos el control que la longitud sea mayor a 5 para incrementar la tolerancia de comillas en el input */
                 this.plex.alert('El lector de código de barras no está configurado. Comuníquese con la Mesa de Ayuda de TICS');
@@ -235,10 +235,10 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;
                 // Si matchea una expresión regular, busca inmediatamente el paciente
-                let documentoEscaneado = this.comprobarDocumentoEscaneado();
+                const documentoEscaneado = this.comprobarDocumentoEscaneado();
                 if (documentoEscaneado) {
                     this.loading = true;
-                    let pacienteEscaneado = this.parseDocumentoEscaneado(documentoEscaneado);
+                    const pacienteEscaneado = this.parseDocumentoEscaneado(documentoEscaneado);
                     // Consulta API
                     this.pacienteService.get({
                         type: 'simplequery',
@@ -270,13 +270,13 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
                             }).subscribe(resultSuggest => {
                                 this.pacientesSimilares = resultSuggest;
                                 if (this.pacientesSimilares.length > 0) {
-                                    let pacienteEncontrado = this.pacientesSimilares.find(valuePac => {
+                                    const pacienteEncontrado = this.pacientesSimilares.find(valuePac => {
                                         if (valuePac.paciente.scan && valuePac.paciente.scan === this.textoLibre) {
                                             this.resultado = [valuePac.paciente];
                                             return valuePac.paciente;
                                         }
                                     });
-                                    let datoDB = {
+                                    const datoDB = {
                                         id: this.pacientesSimilares[0].paciente.id,
                                         apellido: this.pacientesSimilares[0].paciente.apellido,
                                         nombre: this.pacientesSimilares[0].paciente.nombre,

@@ -80,10 +80,10 @@ export class TurnosPacienteComponent implements OnInit {
 
     printArancelamiento(turno) {
         if (this.cambioMotivo) {
-            let data = {
+            const data = {
                 motivoConsulta: turno.motivoConsulta
             };
-            let bloqueId = (turno.bloque_id) ? turno.bloque_id : -1;
+            const bloqueId = (turno.bloque_id) ? turno.bloque_id : -1;
             this.serviceTurno.patch(turno.agenda_id, bloqueId, turno.id, data).subscribe(resultado => {
 
             });
@@ -95,7 +95,7 @@ export class TurnosPacienteComponent implements OnInit {
     eventosTurno(turno, operacion) {
         let mensaje = '';
         let tipoToast = 'info';
-        let patch: any = {
+        const patch: any = {
             op: operacion,
             turnos: [turno._id],
         };

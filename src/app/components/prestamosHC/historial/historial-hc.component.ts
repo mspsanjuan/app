@@ -40,9 +40,9 @@ export class HistorialCarpetasComponent implements OnInit {
     }
 
     loadCarpetas(event) {
-        let listaProfesionales = [];
+        const listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
         }

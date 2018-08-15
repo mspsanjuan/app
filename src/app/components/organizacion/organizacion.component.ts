@@ -45,7 +45,7 @@ export class OrganizacionComponent implements OnInit {
     }
 
     loadDatos(concatenar: boolean = false) {
-        let parametros = {
+        const parametros = {
             activo: this.value && this.value.activo,
             nombre: this.value && this.value.nombre,
             skip: this.skip,

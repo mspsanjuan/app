@@ -7,7 +7,7 @@ import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 })
 export class FrecuenciaCardiacaComponent extends RUPComponent implements OnInit {
     ngOnInit() {
-        let paciente = this.paciente;
+        const paciente = this.paciente;
         // Observa cuando cambia la propiedad 'frecuencia cardicaca' en otro elemento RUP
         if (!this.soloValores) {
             this.conceptObserverService.observe(this.registro).subscribe((data) => {
@@ -28,7 +28,7 @@ export class FrecuenciaCardiacaComponent extends RUPComponent implements OnInit 
         let Edad;
         let Sexo;
         let frecuenciaCardiaca;
-        let mensaje: any = {
+        const mensaje: any = {
             texto: '',
             class: 'danger'
         };

@@ -25,7 +25,7 @@ export class SelectPorRefsetComponent extends RUPComponent implements OnInit {
     }
 
     loadConceptos($event) {
-        let conceptosSelect = this.conceptos.map(elem => {
+        const conceptosSelect = this.conceptos.map(elem => {
             return { id: elem.conceptId, nombre: elem.term, concepto: elem };
         });
         $event.callback(conceptosSelect);

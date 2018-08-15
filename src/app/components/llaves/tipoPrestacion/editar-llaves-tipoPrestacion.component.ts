@@ -159,14 +159,14 @@ export class EditarLlavesTipoPrestacionComponent implements OnInit {
 
     loadTipoPrestaciones($event) {
 
-        let llavesFiltradas = [];
+        const llavesFiltradas = [];
         this.serviceTipoPrestacion.get({ turneable: 1 }).subscribe((tiposPrestaciones) => {
 
             this.llaveTipoPrestacionService.get({}).subscribe((llavesTP) => {
 
                 llavesTP.forEach((llave, index) => {
-                    let existe = this.existeEnArray(tiposPrestaciones, llave.tipoPrestacion);
-                    let idx = tiposPrestaciones.indexOf(existe);
+                    const existe = this.existeEnArray(tiposPrestaciones, llave.tipoPrestacion);
+                    const idx = tiposPrestaciones.indexOf(existe);
                     tiposPrestaciones.splice(idx, 1);
                     tiposPrestaciones = [...tiposPrestaciones];
                 });

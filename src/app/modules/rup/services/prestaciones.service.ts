@@ -50,7 +50,7 @@ export class PrestacionesService {
             options.showError = true;
         }
 
-        let opt = { params, options };
+        const opt = { params, options };
 
         return this.server.get(this.prestacionesUrl, opt);
     }
@@ -64,7 +64,7 @@ export class PrestacionesService {
             options.showError = true;
         }
 
-        let url = this.prestacionesUrl + '/' + id;
+        const url = this.prestacionesUrl + '/' + id;
         return this.server.get(url, options);
     }
 
@@ -145,8 +145,8 @@ export class PrestacionesService {
 
                 }
             });
-            let registroSalida = [];
-            let registroEncontrado = this.findValues(registros, key);
+            const registroSalida = [];
+            const registroEncontrado = this.findValues(registros, key);
             if (registroEncontrado && registroEncontrado.length > 0) {
                 return registroEncontrado[0];
             }
@@ -185,7 +185,7 @@ export class PrestacionesService {
             }
             prestaciones.forEach((prestacion: any) => {
                 if (prestacion.ejecucion) {
-                    let agregar = prestacion.ejecucion.registros
+                    const agregar = prestacion.ejecucion.registros
                         .filter(registro =>
                             registro.concepto.semanticTag === 'hallazgo' || registro.concepto.semanticTag === 'trastorno')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
@@ -196,7 +196,7 @@ export class PrestacionesService {
                     registros = [...registros, ...agregar];
                 }
             });
-            let registroSalida = [];
+            const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
             registros = registros.sort(
                 function (a, b) {
@@ -205,7 +205,7 @@ export class PrestacionesService {
                     return a - b;
                 });
             registros.forEach(registro => {
-                let registroEncontrado = registroSalida.find(reg => {
+                const registroEncontrado = registroSalida.find(reg => {
                     if (reg.concepto.conceptId === registro.concepto.conceptId) {
                         if (reg.evoluciones.find(e => e.idRegistro === registro.valor.idRegistroOrigen)) {
                             return reg;
@@ -213,7 +213,7 @@ export class PrestacionesService {
                     }
                 });
                 if (!registroEncontrado && registro.valor) {
-                    let dato = {
+                    const dato = {
                         concepto: registro.concepto,
                         prestaciones: [registro.idPrestacion],
                         evoluciones: [{
@@ -232,8 +232,8 @@ export class PrestacionesService {
                     };
                     registroSalida.push(dato);
                 } else {
-                    let ultimaEvolucion = registroEncontrado.evoluciones[registroEncontrado.evoluciones.length - 1];
-                    let nuevaEvolucion = {
+                    const ultimaEvolucion = registroEncontrado.evoluciones[registroEncontrado.evoluciones.length - 1];
+                    const nuevaEvolucion = {
                         fechaCarga: registro.createdAt,
                         idRegistro: registro.id,
                         profesional: registro.createdBy.nombreCompleto,
@@ -278,7 +278,7 @@ export class PrestacionesService {
             prestaciones.forEach(prestacion => {
                 if (prestacion.ejecucion) {
 
-                    let agregar = prestacion.ejecucion.registros
+                    const agregar = prestacion.ejecucion.registros
                         .filter(registro =>
                             registro.concepto.semanticTag === 'procedimiento' || registro.concepto.semanticTag === 'entidad observable' || registro.concepto.semanticTag === 'régimen/tratamiento')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
@@ -286,7 +286,7 @@ export class PrestacionesService {
                     registros = [...registros, ...agregar];
                 }
             });
-            let registroSalida = [];
+            const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
             registros = registros.sort(
                 function (a, b) {
@@ -313,7 +313,7 @@ export class PrestacionesService {
             prestaciones.forEach(prestacion => {
                 if (prestacion.ejecucion) {
 
-                    let agregar = prestacion.ejecucion.registros
+                    const agregar = prestacion.ejecucion.registros
                         .filter(registro =>
                             registro.concepto.semanticTag === 'elemento de registro')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
@@ -321,7 +321,7 @@ export class PrestacionesService {
                     registros = [...registros, ...agregar];
                 }
             });
-            let registroSalida = [];
+            const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
             registros = registros.sort(
                 function (a, b) {
@@ -347,7 +347,7 @@ export class PrestacionesService {
             }
             prestaciones.forEach(prestacion => {
                 if (prestacion.ejecucion) {
-                    let agregar = prestacion.ejecucion.registros
+                    const agregar = prestacion.ejecucion.registros
                         .filter(registro =>
                             registro.concepto.semanticTag === 'producto')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
@@ -355,7 +355,7 @@ export class PrestacionesService {
 
                 }
             });
-            let registroSalida = [];
+            const registroSalida = [];
             // ordenamos los registro por fecha para que a evoluciones se generen correctamente
             registros = registros.sort(
                 function (a, b) {
@@ -364,7 +364,7 @@ export class PrestacionesService {
                     return a - b;
                 });
             registros.forEach(registro => {
-                let registroEncontrado = registroSalida.find(reg => {
+                const registroEncontrado = registroSalida.find(reg => {
                     if (reg.concepto.conceptId === registro.concepto.conceptId) {
                         if (reg.evoluciones.find(e => e.idRegistro === registro.valor.idRegistroOrigen)) {
                             return reg;
@@ -372,7 +372,7 @@ export class PrestacionesService {
                     }
                 });
                 if (!registroEncontrado && registro.valor) {
-                    let dato = {
+                    const dato = {
                         concepto: registro.concepto,
                         prestaciones: [registro.idPrestacion],
                         evoluciones: [{
@@ -390,8 +390,8 @@ export class PrestacionesService {
                     };
                     registroSalida.push(dato);
                 } else {
-                    let ultimaEvolucion = registroEncontrado.evoluciones[registroEncontrado.evoluciones.length - 1];
-                    let nuevaEvolucion = {
+                    const ultimaEvolucion = registroEncontrado.evoluciones[registroEncontrado.evoluciones.length - 1];
+                    const nuevaEvolucion = {
                         fechaCarga: registro.createdAt,
                         idRegistro: registro.id,
                         profesional: registro.createdBy.nombreCompleto,
@@ -446,7 +446,7 @@ export class PrestacionesService {
      */
     getUnHallazgoPaciente(idPaciente: any, concepto: any): Observable<any> {
         // TODO: CHEQUEAR SI EL CONCEPTO ES EL MISMO O PERTENECE A IGUAL ELEMENTORUP
-        let registros = [];
+        const registros = [];
         // if (this.cacheRegistros[idPaciente]) {
         //     registros = this.cacheRegistros[idPaciente];
         //     return new Observable(resultado => resultado.next(registros.find(registro => registro.concepto.conceptId === concepto.conceptId)));
@@ -468,7 +468,7 @@ export class PrestacionesService {
      * @param {String} idRegistroOrigen
      */
     getUnHallazgoPacienteXOrigen(idPaciente: any, idRegistroOrigen: any): Observable<any> {
-        let registros = [];
+        const registros = [];
         return this.getByPacienteHallazgo(idPaciente).map(hallazgos =>
             hallazgos.find(registro => {
                 if (registro.evoluciones.find(e => e.idRegistro === idRegistroOrigen)) {
@@ -486,7 +486,7 @@ export class PrestacionesService {
          * @param {String} idRegistroOrigen
          */
     getUnMedicamentoXOrigen(idPaciente: any, idRegistroOrigen: any): Observable<any> {
-        let registros = [];
+        const registros = [];
         return this.getByPacienteMedicamento(idPaciente).map(registrosMed =>
             registrosMed.find(registro => {
                 if (registro.evoluciones.find(e => e.idRegistro === idRegistroOrigen)) {
@@ -512,7 +512,7 @@ export class PrestacionesService {
             options
         };
 
-        let url = this.prestacionesUrl + '/forKey/';
+        const url = this.prestacionesUrl + '/forKey/';
         return this.server.get(url, opt);
     }
 
@@ -525,7 +525,7 @@ export class PrestacionesService {
      * @memberof PrestacionesService
      */
     getRegistrosHuds(idPaciente: string, expresion) {
-        let opt = {
+        const opt = {
             params: {
                 expresion
             },
@@ -569,7 +569,7 @@ export class PrestacionesService {
      * @memberof PrestacionesService
      */
     inicializarPrestacion(paciente: any, snomedConcept: any, momento: String = 'solicitud', ambitoOrigen = 'ambulatorio', fecha: Date = new Date(), turno: any = null): any {
-        let prestacion = {
+        const prestacion = {
             paciente: {
                 id: paciente.id,
                 nombre: paciente.nombre,
@@ -657,7 +657,7 @@ export class PrestacionesService {
     }
 
     crearPrestacion(paciente: any, snomedConcept: any, momento: String = 'solicitud', fecha: any = new Date(), turno: any = null): Observable<any> {
-        let prestacion = this.inicializarPrestacion(paciente, snomedConcept, momento, 'ambulatorio', fecha, turno);
+        const prestacion = this.inicializarPrestacion(paciente, snomedConcept, momento, 'ambulatorio', fecha, turno);
         return this.post(prestacion);
     }
 
@@ -684,10 +684,10 @@ export class PrestacionesService {
 
                     // Controlemos que se trata de una prestación turneable.
                     // Solo creamos prestaciones pendiente para conceptos turneables
-                    let existeConcepto = this.conceptosTurneables.find(c => c.conceptId === conceptoSolicitud.conceptId && c.term === conceptoSolicitud.term);
+                    const existeConcepto = this.conceptosTurneables.find(c => c.conceptId === conceptoSolicitud.conceptId && c.term === conceptoSolicitud.term);
                     if (existeConcepto) {
                         // creamos objeto de prestacion
-                        let nuevaPrestacion = this.inicializarPrestacion(prestacion.paciente, existeConcepto, 'validacion', 'ambulatorio');
+                        const nuevaPrestacion = this.inicializarPrestacion(prestacion.paciente, existeConcepto, 'validacion', 'ambulatorio');
                         // asignamos la prestacion de origen
                         nuevaPrestacion.solicitud.prestacionOrigen = prestacion.id;
 
@@ -708,7 +708,7 @@ export class PrestacionesService {
             });
         }
         // hacemos el patch y luego creamos los planes
-        let dto: any = {
+        const dto: any = {
             op: 'estadoPush',
             estado: { tipo: 'validada' },
             ...(planesCrear && planesCrear.length) && { planes: planesCrear },
@@ -865,7 +865,7 @@ export class PrestacionesService {
     * @memberof PrestacionesService
     */
     public internacionesXPaciente(paciente, estado) {
-        let opt = { params: { estado, ambitoOrigen: 'internacion' }, options: {} };
+        const opt = { params: { estado, ambitoOrigen: 'internacion' }, options: {} };
         return this.server.get('/modules/rup/internaciones/ultima/' + paciente.id, opt);
     }
 

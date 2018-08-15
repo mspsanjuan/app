@@ -148,7 +148,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
                 // const frecuentesProfesional = resultados[0].frecuentes.map(res => res.concepto);
                 if (resultados && resultados.length) {
                     const frecuentesProfesional = resultados[0].frecuentes.map(res => {
-                        let concepto = res.concepto;
+                        const concepto = res.concepto;
                         concepto.frecuencia = res.frecuencia;
                         return concepto;
                     });
@@ -201,7 +201,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
         this.results = JSON.parse(JSON.stringify(this.resultsAux));
 
         if (this.results[this.busquedaActual][this.filtroActual] && this.results[this.busquedaActual][this.filtroActual].length > 0 && this.search) {
-            let search = this.search.toLowerCase();
+            const search = this.search.toLowerCase();
             // filtramos uno a uno los conceptos segun el string de busqueda
             Object.keys(this.conceptos).forEach(concepto => {
                 this.results[this.busquedaActual][concepto] = this.results[this.busquedaActual][concepto].filter(registro => {
@@ -259,7 +259,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
     dragEnd(e) {
         this._onDragEnd.emit(e);
 
-        let filtro = this.getFiltroSeleccionado();
+        const filtro = this.getFiltroSeleccionado();
 
         // devolvemos los tipos de filtros
         this.tagBusqueda.emit(filtro);
@@ -312,7 +312,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
 
     public filtrarResultados(busquedaActual) {
         // almacenamos los resultados en una variable auxiliar para poder loopear
-        let resultados = this.results[busquedaActual]['todos'];
+        const resultados = this.results[busquedaActual]['todos'];
 
         Object.keys(this.conceptos).forEach(concepto => {
             this.results[busquedaActual][concepto] = resultados.filter(x => this.conceptos[concepto].find(y => y === x.semanticTag));
@@ -323,8 +323,8 @@ export class BuscadorComponent implements OnInit, OnChanges {
         // quitamos de 'todos' aquellos que son turneables, no es correcto que aparezcan
         this.results[busquedaActual]['todos'] = this.results[busquedaActual]['todos'].filter(x => !this.esTurneable(x));
         if (this.results[busquedaActual]['planes'].length) {
-            let planesCopia = JSON.parse(JSON.stringify(this.results[busquedaActual]['planes']));
-            let planes = [];
+            const planesCopia = JSON.parse(JSON.stringify(this.results[busquedaActual]['planes']));
+            const planes = [];
             planesCopia.forEach(unPlan => {
                 unPlan.plan = true;
                 planes.push(unPlan);
@@ -437,7 +437,7 @@ export class BuscadorComponent implements OnInit, OnChanges {
      * @memberof BuscadorComponent
      */
     public seleccionarConcepto(concepto: any) {
-        let copiaConcepto = JSON.parse(JSON.stringify(concepto));
+        const copiaConcepto = JSON.parse(JSON.stringify(concepto));
         let filtro;
         if (copiaConcepto.plan) {
             delete copiaConcepto.plan;

@@ -79,7 +79,7 @@ export class CitasComponent implements AfterViewInit {
         this.estadoData = [];
 
 
-        let params = {
+        const params = {
             organizacion: this.auth.organizacion.id,
             ...$event
         };

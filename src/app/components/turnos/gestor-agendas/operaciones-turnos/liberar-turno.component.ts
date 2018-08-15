@@ -53,12 +53,12 @@ export class LiberarTurnoComponent implements OnInit {
             return;
         }
 
-        let alertCount = 0;
-        let patch = {
+        const alertCount = 0;
+        const patch = {
             op: 'liberarTurno',
             turnos: this.turnos.map((resultado) => { return resultado._id; })
         };
-        let mensaje = this.turnos.length === 1 ? 'El turno seleccionado fue liberado' : 'Los turnos seleccionados fueron liberados';
+        const mensaje = this.turnos.length === 1 ? 'El turno seleccionado fue liberado' : 'Los turnos seleccionados fueron liberados';
 
         this.serviceAgenda.patch(this.agenda.id, patch).subscribe(resultado => {
 
@@ -76,7 +76,7 @@ export class LiberarTurnoComponent implements OnInit {
     agregarPacienteListaEspera() {
 
         for (let x = 0; x < this.turnos.length; x++) {
-            let patch = {
+            const patch = {
                 op: 'listaEsperaSuspensionAgenda',
                 idAgenda: this.agenda.id,
                 pacientes: this.turnos[x]

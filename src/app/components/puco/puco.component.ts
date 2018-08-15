@@ -58,13 +58,13 @@ export class PucoComponent implements OnInit, OnDestroy {
         Observable.forkJoin([
             this.periodoPadronesPucoService.get({}),
             this.periodoPadronesProfeService.get({})]).subscribe(padrones => {
-                let arrAux = padrones[0].concat(padrones[1]);
+                const arrAux = padrones[0].concat(padrones[1]);
                 arrAux.sort((a, b) => a.version < b.version);
                 //  let periodoMasActual = new Date(arrAux[0].version); // el padron mas actual entre puco y profe
-                let periodoMasActual = new Date();  // fecha actual
+                const periodoMasActual = new Date();  // fecha actual
 
                 for (let i = 0; i < this.cantidadPeriodos; i++) {
-                    let periodoAux = moment(periodoMasActual).subtract(i, 'month');
+                    const periodoAux = moment(periodoMasActual).subtract(i, 'month');
                     this.periodos[i] = { id: i, nombre: moment(periodoAux).format('MMMM [de] YYYY'), version: periodoAux };    // Ej: {1, "mayo 2018", "2018/05/05"}
 
                 }
@@ -122,8 +122,8 @@ export class PucoComponent implements OnInit, OnDestroy {
     verificarPeriodo(periodo1, periodo2) {
         periodo1 = new Date(periodo1);
         periodo2 = new Date(periodo2);
-        let p1 = moment(periodo1).startOf('month').format('YYYY-MM-DD');
-        let p2 = moment(periodo2).startOf('month').format('YYYY-MM-DD');
+        const p1 = moment(periodo1).startOf('month').format('YYYY-MM-DD');
+        const p2 = moment(periodo2).startOf('month').format('YYYY-MM-DD');
 
         if (moment(p1).diff(p2) > 0) {
             return periodo2;
@@ -146,13 +146,13 @@ export class PucoComponent implements OnInit, OnDestroy {
 
             this.loading = true;
             this.errorSearchTerm = false;
-            let search = this.searchTerm.trim();
+            const search = this.searchTerm.trim();
 
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;
                 if (this.periodoSelect) {
-                    let periodoPuco = this.verificarPeriodo(this.periodoSelect.version, this.ultimaActualizacionPuco);
-                    let periodoProfe = this.verificarPeriodo(this.periodoSelect.version, this.ultimaActualizacionProfe);
+                    const periodoPuco = this.verificarPeriodo(this.periodoSelect.version, this.ultimaActualizacionPuco);
+                    const periodoProfe = this.verificarPeriodo(this.periodoSelect.version, this.ultimaActualizacionProfe);
 
                     Observable.forkJoin([
                         this.obraSocialService.get({ dni: search, periodo: periodoPuco }),

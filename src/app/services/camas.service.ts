@@ -45,7 +45,7 @@ export class CamasService {
     }
 
     NewEstado(idcama, estado): Observable<any> {
-        let dto: any = {
+        const dto: any = {
             op: 'estado',
             estado
         };

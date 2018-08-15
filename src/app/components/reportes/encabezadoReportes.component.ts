@@ -88,7 +88,7 @@ export class EncabezadoReportesComponent implements OnInit {
 
     loadOrganizacion(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query
             };
             this.servicioOrganizacion.get(query).subscribe(event.callback);
@@ -101,13 +101,13 @@ export class EncabezadoReportesComponent implements OnInit {
 
     refreshSelection(value, tipo) {
         if (tipo === 'horaInicio') {
-            let horaInicio = moment(this.horaInicio).startOf('day');
+            const horaInicio = moment(this.horaInicio).startOf('day');
             if (horaInicio.isValid()) {
                 this.parametros['horaInicio'] = horaInicio.isValid() ? horaInicio.toDate() : moment().format();
             }
         }
         if (tipo === 'horaFin') {
-            let horaFin = moment(this.horaFin).endOf('day');
+            const horaFin = moment(this.horaFin).endOf('day');
             if (horaFin.isValid()) {
                 this.parametros['horaFin'] = horaFin.isValid() ? horaFin.toDate() : moment().format();
             }

@@ -44,7 +44,7 @@ export class CamaEstadoComponent implements OnInit {
     }
 
     loadServicios($event) {
-        let servicios = this.organizacion.servicios;
+        const servicios = this.organizacion.servicios;
         $event.callback(servicios);
     }
 

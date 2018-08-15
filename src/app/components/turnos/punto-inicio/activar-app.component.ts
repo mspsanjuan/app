@@ -95,7 +95,7 @@ export class ActivarAppComponent implements OnInit, OnChanges {
     }
 
     contacto(key) {
-        let index = this.paciente.contacto.findIndex(item => item.tipo === key);
+        const index = this.paciente.contacto.findIndex(item => item.tipo === key);
         if (index >= 0) {
             return this.paciente.contacto[index].valor;
         }
@@ -103,11 +103,11 @@ export class ActivarAppComponent implements OnInit, OnChanges {
     }
 
     addContacto(key, value) {
-        let index = this.paciente.contacto.findIndex(item => item.tipo === key);
+        const index = this.paciente.contacto.findIndex(item => item.tipo === key);
         if (index >= 0) {
             return this.paciente.contacto[index].valor = value;
         } else {
-            let nuevo = {
+            const nuevo = {
                 tipo: key,
                 valor: value,
                 ranking: 1,
@@ -124,14 +124,14 @@ export class ActivarAppComponent implements OnInit, OnChanges {
         if (this.celular && this.email) {
             this.addContacto('celular', this.celular);
             this.addContacto('email', this.email);
-            let cambios = {
+            const cambios = {
                 op: 'updateContactos',
                 contacto: this.paciente.contacto
             };
 
 
             if (this.hideButton && !this.hideButtonResend) {
-                let contacto = {
+                const contacto = {
                     email: this.email,
                     telefono: this.celular
                 };
@@ -141,7 +141,7 @@ export class ActivarAppComponent implements OnInit, OnChanges {
                     }
                 });
             } else {
-                let contacto = {
+                const contacto = {
                     email: this.email,
                     telefono: this.celular
                 };

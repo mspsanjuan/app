@@ -25,15 +25,9 @@ export class IndiceDeMasaCorporalComponent extends RUPComponent implements OnIni
         let peso = null;
         let talla = null;
         let imc = null;
-        let key;
-        let prestacionPeso = false;
-        let prestacionTalla = false;
-        let arrayDePeso: any;
-        let arrayDeTalla: any;
-
         // busquemos los valores requeridos para la formula en la prestación actual
         if (this.registro.registros && this.registro.registros.length > 0) {
-            let registroPeso = this.registro.registros.find(r => r.concepto.conceptId === this.pesoConceptId);
+            const registroPeso = this.registro.registros.find(r => r.concepto.conceptId === this.pesoConceptId);
             if (registroPeso && registroPeso.valor) {
                 peso = registroPeso.valor;
             } else {
@@ -44,7 +38,7 @@ export class IndiceDeMasaCorporalComponent extends RUPComponent implements OnIni
                 });
             }
 
-            let registroTalla = this.registro.registros.find(r => r.concepto.conceptId === this.tallaConceptId);
+            const registroTalla = this.registro.registros.find(r => r.concepto.conceptId === this.tallaConceptId);
             if (registroTalla && registroTalla.valor) {
                 talla = registroTalla.valor;
             } else {

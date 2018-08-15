@@ -106,7 +106,7 @@ export class RevisionAgendaComponent implements OnInit {
     }
 
     asignarPaciente(paciente) {
-        let estado: String = 'asignado';
+        const estado: String = 'asignado';
         let telefono;
         if (paciente.contacto) {
             if (paciente.contacto.length > 0) {
@@ -117,7 +117,7 @@ export class RevisionAgendaComponent implements OnInit {
                 });
             }
         }
-        let pacienteTurno = {
+        const pacienteTurno = {
             id: this.paciente.id,
             documento: this.paciente.documento,
             apellido: this.paciente.apellido,
@@ -198,7 +198,7 @@ export class RevisionAgendaComponent implements OnInit {
      * @memberof RevisionAgendaComponent
      */
     agregarDiagnostico(diagnostico) {
-        let nuevoDiagnostico = {
+        const nuevoDiagnostico = {
             codificacionProfesional: null, // solamente obtenida de RUP o SIPS y definida por el profesional
             codificacionAuditoria: null,  // corresponde a la codificación establecida la instancia de revisión de agendas
             primeraVez: false
@@ -244,7 +244,7 @@ export class RevisionAgendaComponent implements OnInit {
         });
         if (!turnoSinVerificar) { // Si todos los turnos están verificados..
             // Se cambia de estado la agenda a pendienteAuditoria
-            let patch = {
+            const patch = {
                 op: 'pendienteAuditoria',
                 estado: 'pendienteAuditoria'
             };
@@ -256,7 +256,7 @@ export class RevisionAgendaComponent implements OnInit {
             // si hay algún turno sin verificar asistencia y la agenda ya está en otro estado, se vuelve a pendiente asisitencia
             if (this.agenda.estado !== 'pendienteAsistencia') {
                 // Se cambia de estado la agenda a pendienteAuditoria
-                let patch = {
+                const patch = {
                     op: 'pendienteAsistencia',
                     estado: 'pendienteAsistencia'
                 };
@@ -290,7 +290,7 @@ export class RevisionAgendaComponent implements OnInit {
         });
         if (!turnoSinCodificar) {
             // Se cambia de estado la agenda a Auditada
-            let patch = {
+            const patch = {
                 op: this.estadoCodificado.id,
                 estado: this.estadoCodificado.id
             };

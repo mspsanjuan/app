@@ -309,7 +309,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     isEmptyObject(obj) {
-        for (let prop in obj) {
+        for (const prop in obj) {
             if (obj.hasOwnProperty(prop)) {
                 return false;
             }
@@ -326,7 +326,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                     // Caso que el paciente existe y no tiene ninguna entidad validadora e ingresó como validado
                     this.seleccion.entidadesValidadoras.push('RENAPER');
                 } else {
-                    let validador = this.seleccion.entidadesValidadoras.find(entidad => entidad === 'RENAPER');
+                    const validador = this.seleccion.entidadesValidadoras.find(entidad => entidad === 'RENAPER');
                     if (!validador) {
                         this.seleccion.entidadesValidadoras.push('RENAPER');
                     }
@@ -485,7 +485,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     onFocusout(type, value) {
 
         let item = null;
-        for (let elem of this.pacienteModel.contacto) {
+        for (const elem of this.pacienteModel.contacto) {
             if (elem.tipo === type || elem.valor === value) {
                 item = elem;
             }
@@ -502,8 +502,8 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     verificarContactosRepetidos() {
-        let valores = [];
-        for (let elem of this.pacienteModel.contacto) {
+        const valores = [];
+        for (const elem of this.pacienteModel.contacto) {
             const item = valores.find(s => s === elem.valor);
             if (item) {
                 return false;
@@ -518,7 +518,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
         const repetidos = this.verificarContactosRepetidos();
         if (valid.formValid && repetidos) {
 
-            let pacienteGuardar = {...this.pacienteModel};
+            const pacienteGuardar = {...this.pacienteModel};
 
             pacienteGuardar.sexo = ((typeof this.pacienteModel.sexo === 'string')) ? this.pacienteModel.sexo : (Object(this.pacienteModel.sexo).id);
             pacienteGuardar.estadoCivil = this.pacienteModel.estadoCivil ? ((typeof this.pacienteModel.estadoCivil === 'string')) ? this.pacienteModel.estadoCivil : (Object(this.pacienteModel.estadoCivil).id) : null;
@@ -571,12 +571,12 @@ export class PacienteCreateUpdateComponent implements OnInit {
                     // Borramos relaciones
                     if (this.relacionesBorradas.length > 0) {
                         this.relacionesBorradas.forEach(rel => {
-                            let relacionOpuesta = this.parentescoModel.find((elem) => {
+                            const relacionOpuesta = this.parentescoModel.find((elem) => {
                                 if (elem.nombre === rel.relacion.opuesto) {
                                     return elem;
                                 }
                             });
-                            let dto = {
+                            const dto = {
                                 relacion: relacionOpuesta,
                                 referencia: pacienteGuardar.id,
                             };
@@ -591,12 +591,12 @@ export class PacienteCreateUpdateComponent implements OnInit {
                     // agregamos las relaciones opuestas
                     if (pacienteGuardar.relaciones && pacienteGuardar.relaciones.length > 0) {
                         pacienteGuardar.relaciones.forEach(rel => {
-                            let relacionOpuesta = this.parentescoModel.find((elem) => {
+                            const relacionOpuesta = this.parentescoModel.find((elem) => {
                                 if (elem.nombre === rel.relacion.opuesto) {
                                     return elem;
                                 }
                             });
-                            let dto = {
+                            const dto = {
                                 relacion: relacionOpuesta,
                                 referencia: pacienteGuardar.id,
                                 nombre: pacienteGuardar.nombre,
@@ -660,7 +660,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
             if (pacienteOrigen.relaciones && pacienteOrigen.relaciones.length > 0) {
                 for (let i = 0; i < pacienteOrigen.relaciones.length; i++) {
                     if (!pacienteOrigen.relaciones[i].referencia) {
-                        let nuevoTemporal: any = {
+                        const nuevoTemporal: any = {
                             activo: true,
                             apellido: pacienteOrigen.relaciones[i].apellido.toString(),
                             nombre: pacienteOrigen.relaciones[i].nombre.toString(),
@@ -689,7 +689,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                             claveBlocking: null,
                             isScan: this.esEscaneado
                         };
-                        let idNuevoTemporal = await this.saveNuevoTemporal(nuevoTemporal);
+                        const idNuevoTemporal = await this.saveNuevoTemporal(nuevoTemporal);
                         pacienteOrigen.relaciones[i].referencia = idNuevoTemporal;
                     }
                 }
@@ -725,7 +725,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
         return new Promise((resolve, reject) => {
             if (this.pacienteModel.nombre && this.pacienteModel.apellido && this.pacienteModel.documento &&
                 this.pacienteModel.fechaNacimiento && this.pacienteModel.sexo) {
-                let dto: any = {
+                const dto: any = {
                     type: 'suggest',
                     claveBlocking: 'documento',
                     percentage: true,
@@ -796,7 +796,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     verificarDNISexo(listaSimilares) {
         let i = 0;
         let cond = false;
-        let sexoPac = ((typeof this.pacienteModel.sexo === 'string')) ? this.pacienteModel.sexo : (Object(this.pacienteModel.sexo).id);
+        const sexoPac = ((typeof this.pacienteModel.sexo === 'string')) ? this.pacienteModel.sexo : (Object(this.pacienteModel.sexo).id);
         while (i < listaSimilares.length && !cond) {
             if ((listaSimilares[i].paciente.documento === this.pacienteModel.documento) && (listaSimilares[i].paciente.sexo === sexoPac)) {
                 this.enableIgnorarGuardar = false;
@@ -825,7 +825,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     addContacto(key, valor) {
-        let nuevoContacto = {
+        const nuevoContacto = {
             tipo: key,
             valor,
             ranking: 0,
@@ -841,7 +841,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     addFinanciador() {
-        let nuevoFinanciador = {
+        const nuevoFinanciador = {
             entidad: null,
             codigo: '',
             activo: true,
@@ -862,7 +862,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
         }
     }
     private comprobarDocumentoEscaneado(): DocumentoEscaneado {
-        for (let key in DocumentoEscaneados) {
+        for (const key in DocumentoEscaneados) {
             if (DocumentoEscaneados[key].regEx.test(this.buscarPacRel)) {
                 // Loggea el documento escaneado para análisis
                 this.logService.post('mpi', 'scan', {
@@ -886,7 +886,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
      * @returns {*} Datos del paciente
      */
     private parseDocumentoEscaneado(documento: DocumentoEscaneado): any {
-        let datos = this.buscarPacRel.match(documento.regEx);
+        const datos = this.buscarPacRel.match(documento.regEx);
         let sexo = '';
         if (documento.grupoSexo > 0) {
             sexo = (datos[documento.grupoSexo].toUpperCase() === 'F') ? 'femenino' : 'masculino';
@@ -918,10 +918,10 @@ export class PacienteCreateUpdateComponent implements OnInit {
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;
                 // Si matchea una expresión regular, busca inmediatamente el paciente
-                let documentoEscaneado = this.comprobarDocumentoEscaneado();
+                const documentoEscaneado = this.comprobarDocumentoEscaneado();
                 if (documentoEscaneado) {
                     this.loading = true;
-                    let pacienteEscaneado = this.parseDocumentoEscaneado(documentoEscaneado);
+                    const pacienteEscaneado = this.parseDocumentoEscaneado(documentoEscaneado);
                     // Consulta API
                     this.pacienteService.get({
                         type: 'simplequery',
@@ -954,13 +954,13 @@ export class PacienteCreateUpdateComponent implements OnInit {
                                 this.PacientesRel = resultSuggest;
                                 if (this.PacientesRel.length > 0) {
                                     this.buscarPacRel = '';
-                                    let pacienteEncontrado = this.PacientesRel.find(valuePac => {
+                                    const pacienteEncontrado = this.PacientesRel.find(valuePac => {
                                         if (valuePac.paciente.scan && valuePac.paciente.scan === this.buscarPacRel) {
                                             return valuePac.paciente;
                                         }
                                     });
 
-                                    let datoDB = {
+                                    const datoDB = {
                                         id: this.PacientesRel[0].paciente.id,
                                         apellido: this.PacientesRel[0].paciente.apellido,
                                         nombre: this.PacientesRel[0].paciente.nombre,
@@ -997,7 +997,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                                     /// Cargar como paciente validado pq está escaneado
                                     this.buscarPacRel = '';
                                     this.PacientesRel = null;
-                                    let pacienteGuardar: any = {
+                                    const pacienteGuardar: any = {
                                         activo: true,
                                         apellido: pacienteEscaneado.apellido.toString(),
                                         nombre: pacienteEscaneado.nombre.toString(),
@@ -1027,7 +1027,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
                                     };
 
 
-                                    let operacionPac = this.pacienteService.save(pacienteGuardar);
+                                    const operacionPac = this.pacienteService.save(pacienteGuardar);
                                     operacionPac.subscribe(result => {
                                         if (result) {
                                             this.seleccionarPacienteRelacionado(result, true);
@@ -1066,7 +1066,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
 
     seleccionarPacienteRelacionado(pacienteEncontrado, esReferencia) {
         this.buscarPacRel = '';
-        let unaRelacion = {
+        const unaRelacion = {
             relacion: null,
             referencia: null,
             nombre: '',
@@ -1102,7 +1102,7 @@ export class PacienteCreateUpdateComponent implements OnInit {
     }
 
     addNota() {
-        let nuevaNota = {
+        const nuevaNota = {
             fecha: new Date(),
             nota: '',
             destacada: false
@@ -1127,14 +1127,14 @@ export class PacienteCreateUpdateComponent implements OnInit {
         this.pacienteModel.notas[indice].destacada = !this.pacienteModel.notas[indice].destacada;
         if (this.pacienteModel.notas.length > 1) {
             this.pacienteModel.notas.sort((a, b) => {
-                let resultado = (a.destacada && !b.destacada ? -1 : (b.destacada && !a.destacada ? 1 : 0));
+                const resultado = (a.destacada && !b.destacada ? -1 : (b.destacada && !a.destacada ? 1 : 0));
                 return resultado;
             });
         }
     }
 
     chequearContacto(key) {
-        let index = this.pacienteModel.contacto.findIndex(item => item.tipo === key);
+        const index = this.pacienteModel.contacto.findIndex(item => item.tipo === key);
         if (index >= 0) {
             return true;
         } else {

@@ -95,7 +95,7 @@ export class IniciarInternacionComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             if (params && params['id']) {
-                let id = params['id'];
+                const id = params['id'];
                 this.camasService.getCama(id).subscribe(cama => {
                     this.cama = cama;
                 });
@@ -118,8 +118,8 @@ export class IniciarInternacionComponent implements OnInit {
     }
 
     buscarRegistroInforme(internacion) {
-        let registros = internacion.ejecucion.registros;
-        let informe = registros.find(r => r.concepto.conceptId === this.snomedIngreso.conceptId);
+        const registros = internacion.ejecucion.registros;
+        const informe = registros.find(r => r.concepto.conceptId === this.snomedIngreso.conceptId);
         return informe;
     }
 
@@ -193,21 +193,21 @@ export class IniciarInternacionComponent implements OnInit {
 
 
         // armamos el elemento data a agregar al array de registros
-        let nuevoRegistro = new IPrestacionRegistro(null, this.snomedIngreso);
+        const nuevoRegistro = new IPrestacionRegistro(null, this.snomedIngreso);
         nuevoRegistro.valor = { informeIngreso: this.informeIngreso };
         // el concepto snomed del tipo de prestacion para la internacion
-        let conceptoSnomed = this.tipoPrestacionSeleccionada;
+        const conceptoSnomed = this.tipoPrestacionSeleccionada;
 
         this.informeIngreso.fechaIngreso = this.combinarFechas(this.informeIngreso.fechaIngreso, this.informeIngreso.horaIngreso);
         delete this.informeIngreso.horaIngreso;
         // creamos la prestacion de internacion y agregamos el registro de ingreso
-        let nuevaPrestacion = this.servicioPrestacion.inicializarPrestacion(this.paciente, this.tipoPrestacionSeleccionada, 'ejecucion', 'internacion', this.informeIngreso.fechaIngreso);
+        const nuevaPrestacion = this.servicioPrestacion.inicializarPrestacion(this.paciente, this.tipoPrestacionSeleccionada, 'ejecucion', 'internacion', this.informeIngreso.fechaIngreso);
         nuevaPrestacion.ejecucion.registros = [nuevoRegistro];
         nuevaPrestacion.paciente['_id'] = this.paciente.id;
         this.servicioPrestacion.post(nuevaPrestacion).subscribe(prestacion => {
             if (this.cama) {
                 // vamos a actualizar el estado de la cama
-                let dto = {
+                const dto = {
                     fecha: this.informeIngreso.fechaIngreso,
                     estado: 'ocupada',
                     unidadOrganizativa: this.cama.ultimoEstado.unidadOrganizativa ? this.cama.ultimoEstado.unidadOrganizativa : null,

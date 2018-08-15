@@ -45,7 +45,7 @@ export class PanelEspacioComponent implements OnInit {
     }
 
     buscarAgendas() {
-        let params = {
+        const params = {
             fechaDesde: this.fecha.setHours(0, 0, 0, 0),
             fechaHasta: this.fecha.setHours(23, 59, 0, 0),
         };
@@ -69,16 +69,16 @@ export class PanelEspacioComponent implements OnInit {
     llenarConsultorios() {
         this.horarios = [];
         this.inicio = new Date(this.fecha.setHours(8, 0, 0, 0));
-        let inicioM = moment(this.inicio);
+        const inicioM = moment(this.inicio);
         this.fin = new Date(this.fecha.setHours(22, 0, 0, 0));
-        let diferencia = (this.fin.getTime() - this.inicio.getTime()) / 60000;
-        let cantidadBloques = diferencia / this.unidad;
+        const diferencia = (this.fin.getTime() - this.inicio.getTime()) / 60000;
+        const cantidadBloques = diferencia / this.unidad;
         this.sinConsultorio.forEach((unconsul, index) => {
             unconsul.color = this.colores[index + this.agendas.length];
         });
 
         for (let j = 0; j < cantidadBloques; j++) {
-            let lista = [];
+            const lista = [];
             for (let i = 0; i < this.espacios.length; i++) {
                 let bandera = false;
                 for (let k = 0; k < this.agendas.length; k++) {
@@ -94,7 +94,7 @@ export class PanelEspacioComponent implements OnInit {
                     }
                 }
                 if (bandera) {
-                    let elto = {
+                    const elto = {
                         agenda: this.agenda,
                         espacio: this.espacios[i]
                     };
@@ -103,14 +103,14 @@ export class PanelEspacioComponent implements OnInit {
                         this.agenda.saltear = true;
                     }
                 } else {
-                    let elto = {
+                    const elto = {
                         agenda: '',
                         espacio: this.espacios[i]
                     };
                     lista.push(elto);
                 }
             }
-            let elemento = {
+            const elemento = {
                 hora: inicioM.format('HH:mm'),
                 lista: lista.sort(
                     function (a, b) {
@@ -140,7 +140,7 @@ export class PanelEspacioComponent implements OnInit {
     }
 
     public seleccionarEspacio(espacio) {
-        let arrayTemp = this.horarios.map(elem => { return elem.hora; });
+        const arrayTemp = this.horarios.map(elem => { return elem.hora; });
         let i1Horarios: number;
         let i2Horarios: number;
         let bandera = true;
@@ -152,7 +152,7 @@ export class PanelEspacioComponent implements OnInit {
                 i1Horarios = arrayTemp.indexOf(moment(this.agendaSel.horaInicio).format('HH:mm'));
                 i2Horarios = arrayTemp.indexOf(moment(this.agendaSel.horaFin).format('HH:mm'));
                 for (let i = i1Horarios; i < i2Horarios; i++) {
-                    let ind = this.horarios[i].lista.map(function (obj) {
+                    const ind = this.horarios[i].lista.map(function (obj) {
                         return obj.espacio.id;
                     }).indexOf(espacio.id);
                     bandera = bandera && (this.horarios[i].lista[ind].agenda === '');
@@ -164,7 +164,7 @@ export class PanelEspacioComponent implements OnInit {
                     this.agendaSel.rows = rows;
                     // espacio.seleccionado = false;
                     this.agendaSel.espacioFisico = espacio;
-                    let indice = this.agendasModificar.map(
+                    const indice = this.agendasModificar.map(
                         function (obj) {
                             return obj.id;
                         }
@@ -176,7 +176,7 @@ export class PanelEspacioComponent implements OnInit {
                     }
                     // this.agendasModificar.push({ id: this.agendaSel.id, espacioFisico: espacio });
                     for (let i = i1Horarios; i < i2Horarios; i++) {
-                        let ind = this.horarios[i].lista.map(function (obj) {
+                        const ind = this.horarios[i].lista.map(function (obj) {
                             return obj.espacio.id;
                         }).indexOf(espacio.id);
                         if (this.agendaSel.rows > 1 && !this.agendaSel.saltear) {
@@ -184,7 +184,7 @@ export class PanelEspacioComponent implements OnInit {
                             this.agendaSel.saltear = true;
                         } else {
                             if (this.agendaSel.rows > 1 && this.agendaSel.saltear) {
-                                let lista = this.horarios[i].lista;
+                                const lista = this.horarios[i].lista;
                                 lista.splice(ind, 1);
                             }
                         }
@@ -198,14 +198,14 @@ export class PanelEspacioComponent implements OnInit {
     }
 
     eliminar(agenda, horario, indiceConsultorio) {
-        let filas = agenda.rows;
-        let ef = agenda.espacioFisico;
+        const filas = agenda.rows;
+        const ef = agenda.espacioFisico;
         agenda.saltear = false;
         agenda.espacioFisico = null;
         agenda.rows = 0;
         agenda.seleccionada = null;
         this.sinConsultorio.push(agenda);
-        let indice = this.agendasModificar.map(
+        const indice = this.agendasModificar.map(
             function (obj) {
                 return obj.id;
             }
@@ -215,8 +215,8 @@ export class PanelEspacioComponent implements OnInit {
         } else {
             this.agendasModificar.push({ id: agenda.id, espacioFisico: null });
         }
-        let indiceHorarios = this.horarios.indexOf(horario);
-        let ii = this.horarios[indiceHorarios].lista.map(function (obj) {
+        const indiceHorarios = this.horarios.indexOf(horario);
+        const ii = this.horarios[indiceHorarios].lista.map(function (obj) {
             return obj.espacio.id;
         }).indexOf(ef.id);
         ef.seleccionado = false;
@@ -235,9 +235,9 @@ export class PanelEspacioComponent implements OnInit {
     confirmar() { // TODO: verificar mensaje de ok
         let band = true;
         for (let i = 0; i < this.agendasModificar.length; i++) {
-            let espacio = this.agendasModificar[i].espacioFisico ?
+            const espacio = this.agendasModificar[i].espacioFisico ?
                 { _id: this.agendasModificar[i].espacioFisico.id, nombre: this.agendasModificar[i].espacioFisico.nombre } : null;
-            let patch = {
+            const patch = {
                 op: 'editarAgenda',
                 espacioFisico: espacio
             };

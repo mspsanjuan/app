@@ -299,7 +299,7 @@ export class AuditoriaPrestacionPacienteComponent implements OnInit {
     // }
 
     cambiarEstado(auditoriaPP: IAuditoriaPrestacionPaciente, key: String, value: any) {
-        let patch = {
+        const patch = {
             key,
             value
         };

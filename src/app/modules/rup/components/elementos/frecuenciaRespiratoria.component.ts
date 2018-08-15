@@ -31,7 +31,7 @@ export class FrecuenciaRespiratoriaComponent extends RUPComponent implements OnI
         let Edad;
         let Sexo;
         let frecuenciaRespiratoria;
-        let mensaje: any = {
+        const mensaje: any = {
             texto: '',
             class: 'danger'
         };

@@ -11,7 +11,7 @@ export class FilterPermisos implements PipeTransform {
             return items;
         }
         return items.filter(permiso => {
-            let item: string = permiso.split(':', 2)[0];
+            const item: string = permiso.split(':', 2)[0];
             return (item === value.nombre);
         });
     }

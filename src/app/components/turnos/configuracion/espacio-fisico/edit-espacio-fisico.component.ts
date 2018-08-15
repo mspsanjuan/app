@@ -39,14 +39,14 @@ export class EditEspacioFisicoComponent implements OnInit {
     ngOnInit() {
         this.autorizado = this.auth.check('turnos:editarEspacio');
 
-        let nombre = this.espacioFisicoHijo ? this.espacioFisicoHijo.nombre : '';
-        let descripcion = this.espacioFisicoHijo ? this.espacioFisicoHijo.descripcion : '';
-        let edificio = this.espacioFisicoHijo ? this.espacioFisicoHijo.edificio : '';
-        let sector = this.espacioFisicoHijo ? this.espacioFisicoHijo.sector : '';
-        let servicio = this.espacioFisicoHijo ? this.espacioFisicoHijo.servicio : '';
-        let detalle = this.espacioFisicoHijo ? this.espacioFisicoHijo.detalle : '';
-        let activo = this.espacioFisicoHijo ? this.espacioFisicoHijo.activo : true;
-        let equipamiento = this.espacioFisicoHijo ? this.espacioFisicoHijo.equipamiento : [];
+        const nombre = this.espacioFisicoHijo ? this.espacioFisicoHijo.nombre : '';
+        const descripcion = this.espacioFisicoHijo ? this.espacioFisicoHijo.descripcion : '';
+        const edificio = this.espacioFisicoHijo ? this.espacioFisicoHijo.edificio : '';
+        const sector = this.espacioFisicoHijo ? this.espacioFisicoHijo.sector : '';
+        const servicio = this.espacioFisicoHijo ? this.espacioFisicoHijo.servicio : '';
+        const detalle = this.espacioFisicoHijo ? this.espacioFisicoHijo.detalle : '';
+        const activo = this.espacioFisicoHijo ? this.espacioFisicoHijo.activo : true;
+        const equipamiento = this.espacioFisicoHijo ? this.espacioFisicoHijo.equipamiento : [];
         // this.modelo = { nombre, descripcion, activo, edificio, detalle, servicio, sector, equipamiento };
         this.modelo = { nombre, descripcion, activo, edificio, detalle, equipamiento };
         if (servicio && servicio !== '') {
@@ -66,7 +66,7 @@ export class EditEspacioFisicoComponent implements OnInit {
     loadSectores(event) {
         // let sectores = [];
         this.espacioFisicoService.get({ organizacion: this.auth.organizacion._id }).subscribe(respuesta => {
-            let sectores = respuesta.map((ef) => {
+            const sectores = respuesta.map((ef) => {
                 return (typeof ef.sector !== 'undefined' && ef.sector.nombre !== '-' ? ef.sector : []);
             }).filter((elem, index, self) => {
                 return index === self.indexOf(elem);

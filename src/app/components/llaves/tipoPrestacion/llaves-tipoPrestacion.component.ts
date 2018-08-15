@@ -134,7 +134,7 @@ export class LlavesTipoPrestacionComponent implements OnInit {
     }
 
     cambiarEstado(llaveTP: ILlavesTipoPrestacion, key: String, value: any) {
-        let patch = {
+        const patch = {
             key,
             value
         };

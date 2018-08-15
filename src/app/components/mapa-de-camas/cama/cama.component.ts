@@ -89,7 +89,7 @@ export class CamaComponent implements OnInit {
     }
 
     public cambiarEstado(cama, estado) {
-        let dto = {
+        const dto = {
             fecha: this.fecha,
             estado,
             unidadOrganizativa: cama.ultimoEstado.unidadOrganizativa ? cama.ultimoEstado.unidadOrganizativa : null,
@@ -142,7 +142,7 @@ export class CamaComponent implements OnInit {
     }
 
     public desocuparCama(cama) {
-        let dto = {
+        const dto = {
             fecha: this.fecha,
             estado: 'desocupada',
             unidadOrganizativa: cama.ultimoEstado.unidadOrganizativa ? cama.ultimoEstado.unidadOrganizativa : null,

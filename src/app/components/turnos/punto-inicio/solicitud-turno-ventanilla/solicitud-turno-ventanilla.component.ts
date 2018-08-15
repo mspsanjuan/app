@@ -26,7 +26,7 @@ export class SolicitudTurnoVentanillaComponent implements OnInit {
     set paciente(value: any) {
         this._paciente = value;
         // Se crea un paciente que coincida con el schema de la collection 'prestacion'
-        let paciente = {
+        const paciente = {
             id: this.paciente.id,
             documento: this.paciente.documento,
             apellido: this.paciente.apellido,
@@ -105,7 +105,7 @@ export class SolicitudTurnoVentanillaComponent implements OnInit {
 
     loadOrganizacion(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 nombre: event.query
             };
             this.servicioOrganizacion.get(query).subscribe(resultado => {
@@ -116,7 +116,7 @@ export class SolicitudTurnoVentanillaComponent implements OnInit {
 
     loadProfesionales(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(event.callback);
@@ -145,7 +145,7 @@ export class SolicitudTurnoVentanillaComponent implements OnInit {
     loadProfesionalesMulti(event) {
         let listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(resultado => {

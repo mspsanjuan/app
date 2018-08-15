@@ -38,7 +38,7 @@ export class EvolucionProblemaDefaultComponent extends RUPComponent implements O
             this.registro.concepto.refsetIds.forEach(refSet => {
                 Object.keys(this.prestacionesService.refsetsIds).forEach(k => {
                     if (this.prestacionesService.refsetsIds[k] === refSet) {
-                        let referencia = k.replace(/_/g, ' ');
+                        const referencia = k.replace(/_/g, ' ');
                         this.referentSet.push(referencia);
                     }
                 });
@@ -135,12 +135,12 @@ export class EvolucionProblemaDefaultComponent extends RUPComponent implements O
 
     friendlyDate(fecha) {
         if (this.registro.valor.fechaInicio) {
-            let oldDateMoment = moment(fecha, 'YYYY/MM/DD');
-            let newDateMoment = moment();
+            const oldDateMoment = moment(fecha, 'YYYY/MM/DD');
+            const newDateMoment = moment();
 
-            let numYears = newDateMoment.diff(oldDateMoment, 'years');
-            let numMonths = newDateMoment.diff(oldDateMoment, 'months');
-            let numDays = newDateMoment.diff(oldDateMoment, 'days');
+            const numYears = newDateMoment.diff(oldDateMoment, 'years');
+            const numMonths = newDateMoment.diff(oldDateMoment, 'months');
+            const numDays = newDateMoment.diff(oldDateMoment, 'days');
 
             if (numYears > 0) {
                 this.inicioEstimadoUnidad = numYears;

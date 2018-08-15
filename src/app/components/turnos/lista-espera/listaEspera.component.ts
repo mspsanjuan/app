@@ -42,7 +42,7 @@ export class ListaEsperaComponent implements OnInit {
     }
 
     loadDatos(concatenar: boolean = false) {
-        let parametros = {
+        const parametros = {
             apellido: this.value && this.value.apellido,
             nombre: this.value && this.value.nombre,
             documento: this.value && this.value.documento,

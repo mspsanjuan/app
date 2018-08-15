@@ -47,7 +47,7 @@ export class AgregarNotaAgendaComponent implements OnInit {
     guardarNota() {
         let alertCount = 0;
         this.agendasSeleccionadas.forEach((agenda, index) => {
-            let patch = {
+            const patch = {
                 op: 'notaAgenda',
                 // 'nota': agenda.nota
                 nota: this.nota

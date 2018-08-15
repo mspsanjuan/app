@@ -66,14 +66,14 @@ export class AutocitarTurnoAgendasComponent implements OnInit {
 
     seleccionarCandidata(indiceTurno, indiceBloque, indiceAgenda) {
 
-        let bloque = this.agendasAutocitar[indiceAgenda].bloques[indiceBloque];
-        let turno = this.agendasAutocitar[indiceAgenda].bloques[indiceBloque].turnos[indiceTurno];
+        const bloque = this.agendasAutocitar[indiceAgenda].bloques[indiceBloque];
+        const turno = this.agendasAutocitar[indiceAgenda].bloques[indiceBloque].turnos[indiceTurno];
 
         // Agenda con el turno que necesitamos
         this.agendaSeleccionada = this.agendasAutocitar[indiceAgenda];
 
         // Paciente Turno
-        let pacienteSave = {
+        const pacienteSave = {
             id: this.paciente.id,
             documento: this.paciente.documento,
             apellido: this.paciente.apellido,
@@ -86,7 +86,7 @@ export class AutocitarTurnoAgendasComponent implements OnInit {
 
 
         // Creo el Turno nuevo
-        let datosTurnoNuevo = {
+        const datosTurnoNuevo = {
             idAgenda: this.agendaSeleccionada.id,
             idBloque: bloque.id,
             idTurno: turno.id,
@@ -124,7 +124,7 @@ export class AutocitarTurnoAgendasComponent implements OnInit {
 
     esTurnoDoble(turno) {
         if (this.agendaSeleccionada) {
-            let bloqueTurno = this.agendaSeleccionada.bloques.find(bloque => (bloque.turnos.findIndex(t => (t.id === turno._id)) >= 0));
+            const bloqueTurno = this.agendaSeleccionada.bloques.find(bloque => (bloque.turnos.findIndex(t => (t.id === turno._id)) >= 0));
             let index;
             if (bloqueTurno) {
                 index = bloqueTurno.turnos.findIndex(t => { return t.id === turno._id; });

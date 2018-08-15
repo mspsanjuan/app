@@ -25,7 +25,7 @@ export class CalendarioDia {
             let disponible: boolean = (this.agenda.turnosDisponibles > 0);
             this.estadoAgenda = this.agenda.estado;
             if (disponible) {
-                let countBloques = [];
+                const countBloques = [];
 
                 // Si la agenda es de hoy, los turnos programados deberán sumarse  al contador "delDia"
                 if (this.agenda.horaInicio >= moment().startOf('day').toDate() && this.agenda.horaInicio <= moment().endOf('day').toDate()) {
@@ -43,7 +43,7 @@ export class CalendarioDia {
                     this.estado = (this.delDiaDisponibles > 0 && this.gestionDisponibles === 0) ? 'disponible' : 'ocupado';
                     // En caso contrario, se calculan los contadores por separado
                 } else {
-                    let autocitado = solicitudPrestacion && solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
+                    const autocitado = solicitudPrestacion && solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
                     this.agenda.bloques.forEach((bloque, indexBloque) => {
                         countBloques.push({
                             // Asignamos a contadores dinamicos la cantidad inicial de c/u

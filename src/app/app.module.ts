@@ -351,7 +351,7 @@ export let RUPRegistry = {
     CircunferenciaCinturaComponent,
 };
 
-let RUPComponentsArray = [
+const RUPComponentsArray = [
     SelectPorRefsetComponent,
     AutocitadoComponent,
     EvolucionProblemaDefaultComponent,

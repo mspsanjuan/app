@@ -65,7 +65,7 @@ export class BotonesAgendaComponent implements OnInit {
     confirmarEstado(estado) {
         let alertCount = 0;
         this.agendasSeleccionadas.forEach((agenda, index) => {
-            let patch = {
+            const patch = {
                 op: estado,
                 estado
             };
@@ -121,17 +121,17 @@ export class BotonesAgendaComponent implements OnInit {
 
     // Muestra/oculta botones según una combinación de criterios
     actualizarBotones() {
-        let puedeEditar = this.auth.getPermissions('turnos:agenda:puedeEditar:').length > 0;
-        let puedeSuspender = this.auth.getPermissions('turnos:agenda:puedeSuspender:').length > 0;
-        let puedeHabilitar = this.auth.getPermissions('turnos:agenda:puedeHabilitar:').length > 0;
-        let puedePublicar = this.auth.getPermissions('turnos:agenda:puedePublicar:').length > 0;
-        let puedePausar = this.auth.getPermissions('turnos:agenda:puedePausar:').length > 0;
-        let puedeReanudar = this.auth.getPermissions('turnos:agenda:puedeReanudar:').length > 0;
-        let puedeClonar = this.auth.getPermissions('turnos:agenda:puedeClonar:').length > 0;
-        let puedeDarSobreturno = this.auth.getPermissions('turnos:agenda:puedeDarSobreturno:').length > 0;
-        let puedeImprimir = this.auth.getPermissions('turnos:agenda:puedeImprimir:').length > 0;
-        let puedeReasignar = this.auth.getPermissions('turnos:agenda:puedeReasignar:').length > 0;
-        let puedeBorrar = this.auth.getPermissions('turnos:agenda:puedeBorrar:').length > 0;
+        const puedeEditar = this.auth.getPermissions('turnos:agenda:puedeEditar:').length > 0;
+        const puedeSuspender = this.auth.getPermissions('turnos:agenda:puedeSuspender:').length > 0;
+        const puedeHabilitar = this.auth.getPermissions('turnos:agenda:puedeHabilitar:').length > 0;
+        const puedePublicar = this.auth.getPermissions('turnos:agenda:puedePublicar:').length > 0;
+        const puedePausar = this.auth.getPermissions('turnos:agenda:puedePausar:').length > 0;
+        const puedeReanudar = this.auth.getPermissions('turnos:agenda:puedeReanudar:').length > 0;
+        const puedeClonar = this.auth.getPermissions('turnos:agenda:puedeClonar:').length > 0;
+        const puedeDarSobreturno = this.auth.getPermissions('turnos:agenda:puedeDarSobreturno:').length > 0;
+        const puedeImprimir = this.auth.getPermissions('turnos:agenda:puedeImprimir:').length > 0;
+        const puedeReasignar = this.auth.getPermissions('turnos:agenda:puedeReasignar:').length > 0;
+        const puedeBorrar = this.auth.getPermissions('turnos:agenda:puedeBorrar:').length > 0;
 
         this.vistaBotones = {
             // Se puede editar sólo una agenda que esté en estado planificacion o disponible
@@ -168,7 +168,7 @@ export class BotonesAgendaComponent implements OnInit {
     }
 
     hayAgendasSuspendidas() {
-        let reasignar = this.agendasSeleccionadas.filter((agenda) => {
+        const reasignar = this.agendasSeleccionadas.filter((agenda) => {
             return (agenda.nominalizada && !agenda.dinamica && agenda.estado === 'suspendida');
         }).length > 0;
         return reasignar;
@@ -206,7 +206,7 @@ export class BotonesAgendaComponent implements OnInit {
     }
 
     puedoDisponer() {
-        let disponer = this.agendasSeleccionadas.filter((agenda) => {
+        const disponer = this.agendasSeleccionadas.filter((agenda) => {
             return (agenda.estado !== 'planificacion' || !agenda.nominalizada);
         }).length <= 0;
         return disponer;
@@ -237,12 +237,12 @@ export class BotonesAgendaComponent implements OnInit {
     }
 
     puedoAgregar() {
-        let agenda = this.agendasSeleccionadas[0];
+        const agenda = this.agendasSeleccionadas[0];
         return (agenda.nominalizada && !agenda.dinamica && (agenda.estado === 'disponible' || agenda.estado === 'publicada'));
     }
 
     puedoRevisar() {
-        let agenda = this.agendasSeleccionadas[0];
+        const agenda = this.agendasSeleccionadas[0];
         // return (agenda.estado === 'pendienteAsistencia' || agenda.estado === 'pendienteAuditoria' || agenda.estado === 'auditada');
         return ((agenda.estado === 'pendienteAsistencia' || agenda.estado === 'pendienteAuditoria' || agenda.estado === 'publicada' || agenda.estado === 'auditada') && moment(agenda.horaFin).isBefore(moment(new Date())));
     }

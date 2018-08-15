@@ -79,22 +79,22 @@ export class ListaEsperaCreateUpdateComponent implements OnInit {
     onSave() {
         let listaEspera: any;
         let operacion: Observable<IListaEspera>;
-        let datosPrestacion = {
+        const datosPrestacion = {
             id: this.opciones.prestacion.id,
             nombre: this.opciones.prestacion.nombre
         };
-        let datosProfesional = !this.opciones.profesional ? null : {
+        const datosProfesional = !this.opciones.profesional ? null : {
             id: this.opciones.profesional.id,
             nombre: this.opciones.profesional.nombre,
             apellido: this.opciones.profesional.apellido
         };
-        let datosPaciente = {
+        const datosPaciente = {
             id: this.paciente.id,
             nombre: this.paciente.nombre,
             apellido: this.paciente.apellido,
             documento: this.paciente.documento
         };
-        let fechaActual = moment().format();
+        const fechaActual = moment().format();
         listaEspera = {
             fecha: fechaActual,
             estado: 'Ingreso Manual',

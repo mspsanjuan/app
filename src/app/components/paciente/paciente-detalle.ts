@@ -73,7 +73,7 @@ export class PacienteDetalleComponent implements OnInit {
             // Queda pendiente actualizar la localidad y provincia de renaper en caso que no la carguen
             this.deshabilitarValidar = true;
             this.loading = false;
-            let datos = resultado.datos;
+            const datos = resultado.datos;
             if (resultado.datos.nroError === 0) {
                 if (patient.estado === 'temporal') {
                     patient.nombre = datos.nombres;

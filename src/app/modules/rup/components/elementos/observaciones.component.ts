@@ -13,7 +13,7 @@ export class ObservacionesComponent extends RUPComponent implements OnInit {
             this.registro.concepto.refsetIds.forEach(refSet => {
                 Object.keys(this.prestacionesService.refsetsIds).forEach(k => {
                     if (this.prestacionesService.refsetsIds[k] === refSet) {
-                        let referencia = k.replace(/_/g, ' ');
+                        const referencia = k.replace(/_/g, ' ');
                         this.referentSet.push(referencia);
                     }
                 });

@@ -55,7 +55,7 @@ export class PanelAgendaComponent implements OnInit {
         this.editarEspacioFisicoEmit.emit(true);
         if (this.editaAgendaPanel.espacioFisico) {
             this.espaciosList = [this.editaAgendaPanel.espacioFisico];
-            let query = {
+            const query = {
                 nombre: (this.editaAgendaPanel.espacioFisico ? this.editaAgendaPanel.espacioFisico.nombre : ''),
                 limit: 10
                 // organizacion: this.auth.organizacion._id
@@ -85,7 +85,7 @@ export class PanelAgendaComponent implements OnInit {
                 espacioFisico = null;
             }
 
-            let patch = {
+            const patch = {
                 op: 'editarAgenda',
                 profesional,
                 espacioFisico
@@ -111,7 +111,7 @@ export class PanelAgendaComponent implements OnInit {
     loadProfesionales(event) {
         let listaProfesionales = [];
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.servicioProfesional.get(query).subscribe(resultado => {
@@ -133,7 +133,7 @@ export class PanelAgendaComponent implements OnInit {
         //     event.callback(respuesta.edificio);
         // });
         if (event.query) {
-            let query = {
+            const query = {
                 edificio: event.query,
                 // organizacion: this.auth.organizacion._id
             };
@@ -146,7 +146,7 @@ export class PanelAgendaComponent implements OnInit {
     }
 
     loadEspacios(event) {
-        let query = {};
+        const query = {};
         let listaEspaciosFisicos = [];
         if (event.query) {
             query['nombre'] = event.query;
@@ -170,18 +170,18 @@ export class PanelAgendaComponent implements OnInit {
     espaciosChange(agenda) {
 
         // TODO: ver límite
-        let query: any = {
+        const query: any = {
             limit: 20,
             activo: true
         };
 
         if (agenda.espacioFisico) {
-            let nombre = agenda.espacioFisico;
+            const nombre = agenda.espacioFisico;
             query.nombre = nombre;
         }
 
         if (agenda.equipamiento && agenda.equipamiento.length > 0) {
-            let equipamiento = agenda.equipamiento.map((item) => item.term);
+            const equipamiento = agenda.equipamiento.map((item) => item.term);
             query.equipamiento = equipamiento;
         }
 
@@ -213,17 +213,13 @@ export class PanelAgendaComponent implements OnInit {
      */
     validarSolapamientos(tipo) {
         this.alertas = [];
-
-        // Inicio y Fin de Agenda
-        let iniAgenda, finAgenda;
-
         if (tipo === 'profesionales') {
             // Loop profesionales
             if (this.agenda.profesionales) {
                 this.agenda.profesionales.forEach((profesional, index) => {
                     this.serviceAgenda.get({ organizacion: this.auth.organizacion.id, idProfesional: profesional.id, rango: true, desde: this.agenda.horaInicio, hasta: this.agenda.horaFin }).subscribe(agendas => {
                         // Hay problemas de solapamiento?
-                        let agendasConSolapamiento = agendas.filter(agenda => {
+                        const agendasConSolapamiento = agendas.filter(agenda => {
                             return agenda.id !== this.agenda.id || !this.agenda.id; // Ignorar agenda actual
                         });
 
@@ -239,7 +235,7 @@ export class PanelAgendaComponent implements OnInit {
             if (this.agenda.espacioFisico) {
                 this.serviceAgenda.get({ espacioFisico: this.agenda.espacioFisico._id, rango: true, desde: this.agenda.horaInicio, hasta: this.agenda.horaFin }).subscribe(agendas => {
                     // Hay problemas de solapamiento?
-                    let agendasConSolapamiento = agendas.filter(agenda => {
+                    const agendasConSolapamiento = agendas.filter(agenda => {
                         return agenda.id !== this.agenda.id || !this.agenda.id; // Ignorar agenda actual
                     });
 

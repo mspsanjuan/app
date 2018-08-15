@@ -30,7 +30,7 @@ export class VistaCDAComponent implements OnInit {
 
     ngOnInit() {
 
-        let data = this.registro;
+        const data = this.registro;
         this.servicioCDA.getJson(this.registro.data.cda_id).subscribe(
             cda => {
                 this.autorCDA = cda.ClinicalDocument.author.assignedAuthor.assignedPerson ? cda.ClinicalDocument.author.assignedAuthor.assignedPerson.name : null;
@@ -41,8 +41,8 @@ export class VistaCDAComponent implements OnInit {
     }
 
     descargar(archivo) {
-        let token = window.sessionStorage.getItem('jwt');
-        let url = environment.API + '/modules/cda/' + archivo + '?token=' + token;
+        const token = window.sessionStorage.getItem('jwt');
+        const url = environment.API + '/modules/cda/' + archivo + '?token=' + token;
         window.open(url);
     }
 }

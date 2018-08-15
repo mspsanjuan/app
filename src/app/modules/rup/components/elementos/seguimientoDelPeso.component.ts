@@ -32,8 +32,8 @@ export class SeguimientoDelPesoComponent extends RUPComponent implements OnInit 
 
                     // ordenamos los pesos por fecha
                     this.pesos.sort(function (a, b) {
-                        let dateA = new Date(a.fecha).getTime();
-                        let dateB = new Date(b.fecha).getTime();
+                        const dateA = new Date(a.fecha).getTime();
+                        const dateB = new Date(b.fecha).getTime();
 
                         return dateA > dateB ? 1 : -1;
                     });
@@ -111,7 +111,7 @@ export class SeguimientoDelPesoComponent extends RUPComponent implements OnInit 
                 callbacks: {
                     // Use the footer callback to display the sum of the items showing in the tooltip
                     footer (tooltipItems, _data) {
-                        let text = [];
+                        const text = [];
                         tooltipItems.forEach(function (tooltipItem) {
                             text.push('Profesional: ' + data[tooltipItem.index].profesional.nombreCompleto);
                             text.push('Prestación: ' + data[tooltipItem.index].tipoPrestacion.term);

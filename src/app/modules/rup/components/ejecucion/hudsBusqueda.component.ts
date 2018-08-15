@@ -142,7 +142,7 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
     devolverPrestacion(prestacion) {
-        let resultado = {
+        const resultado = {
             tipo: 'prestacion',
             data: prestacion
         };
@@ -150,7 +150,7 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
     devolverHallazgo(hallazgo) {
-        let resultado = {
+        const resultado = {
             tipo: 'hallazgo',
             data: hallazgo
         };
@@ -158,7 +158,7 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
     devolverMedicamento(medicamento) {
-        let resultado = {
+        const resultado = {
             tipo: 'medicamento',
             data: medicamento
         };
@@ -166,7 +166,7 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
     devolverLaboratorio(laboratorio) {
-        let resultado = {
+        const resultado = {
             tipo: 'laboratorio',
             data: laboratorio
         };
@@ -247,7 +247,7 @@ export class HudsBusquedaComponent implements OnInit {
                 break;
         }
 
-        let elemento = {
+        const elemento = {
             tipo,
             data: registro
         };
@@ -347,7 +347,7 @@ export class HudsBusquedaComponent implements OnInit {
         // (alfa === concepto.term)
         if (this.filtroActual === 'producto' || tipo) {
 
-            let array = !tipo ? this.filtroActual : tipo;
+            const array = !tipo ? this.filtroActual : tipo;
 
             switch (array) {
                 case 'producto':
@@ -584,8 +584,8 @@ export class HudsBusquedaComponent implements OnInit {
         this.servicioPrestacion.getCDAByPaciente(this.paciente.id).subscribe(registros => {
             this.cdas = registros;
             this.listarLaboratorios();
-            let otrasPrestaciones = [... this.cdas.filter(cda => cda.prestacion.snomed.conceptId !== '4241000179101')];
-            let filtro = otrasPrestaciones.map(op => {
+            const otrasPrestaciones = [... this.cdas.filter(cda => cda.prestacion.snomed.conceptId !== '4241000179101')];
+            const filtro = otrasPrestaciones.map(op => {
                 op.id = op.cda_id;
                 return {
                     data: op,
@@ -616,8 +616,8 @@ export class HudsBusquedaComponent implements OnInit {
     }
 
     buscarTranformacion(transformado) {
-        let listaCompleta = [... this.hallazgosNoActivos, ... this.problemasActivos];
-        let hallazgoEncontrado = listaCompleta.find(h => h.evoluciones[0].idRegistro === transformado.evoluciones[0].idRegistroGenerado);
+        const listaCompleta = [... this.hallazgosNoActivos, ... this.problemasActivos];
+        const hallazgoEncontrado = listaCompleta.find(h => h.evoluciones[0].idRegistro === transformado.evoluciones[0].idRegistroGenerado);
         if (hallazgoEncontrado) {
             return hallazgoEncontrado.concepto.term;
         } else {

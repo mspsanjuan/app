@@ -127,7 +127,7 @@ export class PrestacionValidacionComponent implements OnInit {
         }
         this.puedeDescargarPDF = this.auth.getPermissions('descargas:?').length > 0;
         this.route.params.subscribe(params => {
-            let id = params['id'];
+            const id = params['id'];
             this.idAgenda = localStorage.getItem('agenda');
             this.elementosRUPService.ready.subscribe((resultado) => {
                 if (resultado) {
@@ -182,7 +182,7 @@ export class PrestacionValidacionComponent implements OnInit {
                         });
                     }
                     if (registro.concepto.semanticTag === 'hallazgo' || registro.concepto.semanticTag === 'trastorno' || registro.concepto.semanticTag === 'situacion') {
-                        let parametros = {
+                        const parametros = {
                             conceptId: registro.concepto.conceptId,
                             paciente: this.paciente,
                             secondaryConcepts: this.prestacion.ejecucion.registros.map(r => r.concepto.conceptId)
@@ -208,9 +208,9 @@ export class PrestacionValidacionComponent implements OnInit {
      * @memberof PrestacionValidacionComponent
      */
     validar() {
-        let existeDiagnostico = this.prestacion.ejecucion.registros.find(p => p.esDiagnosticoPrincipal === true);
-        let diagnosticoRepetido = this.prestacion.ejecucion.registros.filter(p => p.esDiagnosticoPrincipal === true).length > 1;
-        let existeC2 = this.prestacion.ejecucion.registros.find(p => (p.esPrimeraVez === undefined && this.codigosCie10[p.id] && this.codigosCie10[p.id].c2));
+        const existeDiagnostico = this.prestacion.ejecucion.registros.find(p => p.esDiagnosticoPrincipal === true);
+        const diagnosticoRepetido = this.prestacion.ejecucion.registros.filter(p => p.esDiagnosticoPrincipal === true).length > 1;
+        const existeC2 = this.prestacion.ejecucion.registros.find(p => (p.esPrimeraVez === undefined && this.codigosCie10[p.id] && this.codigosCie10[p.id].c2));
 
         if (existeC2) {
             this.plex.toast('info', existeC2.concepto.term.toUpperCase() + '. Debe indicar si es primera vez.');
@@ -231,10 +231,10 @@ export class PrestacionValidacionComponent implements OnInit {
 
                 // cargar los conceptos mas frecuentes por profesional y tipo de prestación
                 // Se copian los registros de la ejecución actual, para agregarle la frecuencia
-                let registros = this.prestacion.ejecucion.registros;
+                const registros = this.prestacion.ejecucion.registros;
 
                 // filtramos los planes que deben generar prestaciones pendientes (Planes con conceptos turneales)
-                let planes = this.prestacion.ejecucion.registros.filter(r => r.esSolicitud);
+                const planes = this.prestacion.ejecucion.registros.filter(r => r.esSolicitud);
 
                 this.servicioPrestacion.validarPrestacion(this.prestacion, planes).subscribe(prestacion => {
                     this.prestacion = prestacion;
@@ -256,7 +256,7 @@ export class PrestacionValidacionComponent implements OnInit {
                     // Cargar el mapeo de snomed a cie10 para las prestaciones que vienen de agendas
                     this.servicioPrestacion.prestacionPacienteAusente().subscribe(
                         result => {
-                            let filtroRegistros = this.prestacion.ejecucion.registros.filter(x => result.find(y => y.conceptId === x.concepto.conceptId));
+                            const filtroRegistros = this.prestacion.ejecucion.registros.filter(x => result.find(y => y.conceptId === x.concepto.conceptId));
                             if (this.prestacion.solicitud.turno && !(filtroRegistros && filtroRegistros.length > 0)) {
                                 this.servicioAgenda.patchCodificarTurno({ op: 'codificarTurno', turnos: [this.prestacion.solicitud.turno] }).subscribe(salida => { });
                             }
@@ -276,18 +276,18 @@ export class PrestacionValidacionComponent implements OnInit {
                 return false;
             } else {
                 // guardamos una copia de la prestacion antes de romper la validacion.
-                let prestacionCopia = JSON.parse(JSON.stringify(this.prestacion));
+                const prestacionCopia = JSON.parse(JSON.stringify(this.prestacion));
 
                 // Agregamos el estado de la prestacion copiada.
-                let estado = { tipo: 'modificada', idOrigenModifica: prestacionCopia.id };
+                const estado = { tipo: 'modificada', idOrigenModifica: prestacionCopia.id };
 
                 // Guardamos la prestacion copia
                 this.servicioPrestacion.clonar(prestacionCopia, estado).subscribe(prestacionClonada => {
 
-                    let prestacionModificada = prestacionClonada;
+                    const prestacionModificada = prestacionClonada;
 
                     // hacemos el patch y luego creamos los planes
-                    let cambioEstado: any = {
+                    const cambioEstado: any = {
                         op: 'romperValidacion',
                         estado: { tipo: 'ejecucion', idOrigenModifica: prestacionModificada.id }
                     };
@@ -320,8 +320,8 @@ export class PrestacionValidacionComponent implements OnInit {
     }
 
     tienePermisos(tipoPrestacion) {
-        let permisos = this.auth.getPermissions('rup:tipoPrestacion:?');
-        let existe = permisos.find(permiso => (permiso === tipoPrestacion._id));
+        const permisos = this.auth.getPermissions('rup:tipoPrestacion:?');
+        const existe = permisos.find(permiso => (permiso === tipoPrestacion._id));
 
         return existe;
     }
@@ -341,12 +341,12 @@ export class PrestacionValidacionComponent implements OnInit {
 
     cargaPlan(prestacionesSolicitadas) {
         prestacionesSolicitadas = prestacionesSolicitadas.filter(ps => ps.solicitud.registros[0].valor.solicitudPrestacion.autocitado);
-        let tiposPrestaciones = prestacionesSolicitadas.map(ps => {
+        const tiposPrestaciones = prestacionesSolicitadas.map(ps => {
             return this.servicioPrestacion.conceptosTurneables.find(c => c.conceptId === ps.solicitud.tipoPrestacion.conceptId);
         });
 
         prestacionesSolicitadas.forEach(ps => {
-            let idRegistro = ps.solicitud.registros[0].id;
+            const idRegistro = ps.solicitud.registros[0].id;
             this.asignarTurno[idRegistro] = [];
             if (ps.solicitud.turno) {
                 this.asignarTurno[idRegistro] = ps;
@@ -367,7 +367,7 @@ export class PrestacionValidacionComponent implements OnInit {
                 if (agendas) {
                     agendas.forEach(a => this.prestacionesAgendas = [...this.prestacionesAgendas, ...a.tipoPrestaciones]);
                     prestacionesSolicitadas.forEach(element => {
-                        let idRegistro = element.solicitud.registros[0].id;
+                        const idRegistro = element.solicitud.registros[0].id;
                         if (this.prestacionesAgendas.find(pa => pa.conceptId === element.solicitud.tipoPrestacion.conceptId && pa.term === element.solicitud.tipoPrestacion.term)) {
                             this.asignarTurno[idRegistro] = element;
                         }
@@ -383,8 +383,8 @@ export class PrestacionValidacionComponent implements OnInit {
     }
 
     defualtDiagnosticoPrestacion() {
-        let count = 0;
-        let items = this.prestacion.ejecucion.registros.filter(elemento => ['hallazgo', 'trastorno', 'situación', 'procedimiento', 'entidad observable', 'régimen/tratamiento', 'producto'].indexOf(elemento.concepto.semanticTag) >= 0);
+        const count = 0;
+        const items = this.prestacion.ejecucion.registros.filter(elemento => ['hallazgo', 'trastorno', 'situación', 'procedimiento', 'entidad observable', 'régimen/tratamiento', 'producto'].indexOf(elemento.concepto.semanticTag) >= 0);
         if (items.length === 1) {
             items[0].esDiagnosticoPrincipal = true;
         }
@@ -412,10 +412,10 @@ export class PrestacionValidacionComponent implements OnInit {
 
         registros = this.prestacion.ejecucion.registros;
 
-        let relacionesOrdenadas = [];
+        const relacionesOrdenadas = [];
 
         registros.forEach((cosa, index) => {
-            let esPadre = registros.filter(x => x.relacionadoCon[0] === cosa.id);
+            const esPadre = registros.filter(x => x.relacionadoCon[0] === cosa.id);
 
             if (esPadre.length > 0) {
                 if (relacionesOrdenadas.filter(x => x === cosa).length === 0) {
@@ -554,8 +554,8 @@ export class PrestacionValidacionComponent implements OnInit {
         setTimeout(() => {
 
             let content = '';
-            let headerPrestacion: any = document.getElementById('pageHeader').cloneNode(true);
-            let datosSolicitud: any = document.getElementById('datosSolicitud').cloneNode(true);
+            const headerPrestacion: any = document.getElementById('pageHeader').cloneNode(true);
+            const datosSolicitud: any = document.getElementById('datosSolicitud').cloneNode(true);
 
             /**
              * Cada logo va a quedar generado como base64 desde la API:
@@ -581,7 +581,7 @@ export class PrestacionValidacionComponent implements OnInit {
             `;
 
             // agregamos prestaciones
-            let elementosRUP: HTMLCollection = document.getElementsByClassName('rup-card');
+            const elementosRUP: HTMLCollection = document.getElementsByClassName('rup-card');
 
             const total = elementosRUP.length;
             for (let i = 0; i < total; i++) {
@@ -604,8 +604,8 @@ export class PrestacionValidacionComponent implements OnInit {
     }
 
     private descargarArchivo(data: any, headers: any): void {
-        let blob = new Blob([data], headers);
-        let nombreArchivo = this.slug.slugify(this.prestacion.solicitud.tipoPrestacion.term + '-' + moment().format('DD-MM-YYYY-hmmss')) + '.pdf';
+        const blob = new Blob([data], headers);
+        const nombreArchivo = this.slug.slugify(this.prestacion.solicitud.tipoPrestacion.term + '-' + moment().format('DD-MM-YYYY-hmmss')) + '.pdf';
         saveAs(blob, nombreArchivo);
     }
 
@@ -614,7 +614,7 @@ export class PrestacionValidacionComponent implements OnInit {
      * @param {IConcept} concept
      */
     enBusquedaGuiada(concept) {
-        let results = [];
+        const results = [];
         this.gruposGuiada.forEach(data => {
             if (data.conceptIds.indexOf(concept.conceptId) >= 0) {
                 results.push(data);

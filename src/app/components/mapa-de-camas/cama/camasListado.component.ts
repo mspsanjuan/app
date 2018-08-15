@@ -54,7 +54,7 @@ export class CamasListadoComponent implements OnInit {
     se guardo devuelve el objeto para actualizar el listado.
     */
     createUpdateCama($event) {
-        let indexCama = this.camas.findIndex(cama => cama.id === $event.id);
+        const indexCama = this.camas.findIndex(cama => cama.id === $event.id);
         if ($event && indexCama === -1) {
             this.camas.push($event);
             this.createUpdate = false;

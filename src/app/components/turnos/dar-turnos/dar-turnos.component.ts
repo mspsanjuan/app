@@ -215,8 +215,8 @@ export class DarTurnosComponent implements OnInit {
         // Si el siguiente turno está disponible, se habilita la opción de turno doble
         let cantidadTurnos;
         this.permitirTurnoDoble = false;
-        let tipoTurnoDoble = this.tiposTurnosSelect.toString();
-        let cantidadDisponible = this.countBloques[this.indiceBloque];
+        const tipoTurnoDoble = this.tiposTurnosSelect.toString();
+        const cantidadDisponible = this.countBloques[this.indiceBloque];
         if (cantidadDisponible) {
             if (this.agenda.bloques[this.indiceBloque].cantidadTurnos) {
                 cantidadTurnos = this.agenda.bloques[this.indiceBloque].cantidadTurnos;
@@ -238,13 +238,13 @@ export class DarTurnosComponent implements OnInit {
 
     loadProfesionales(event) {
         if (event.query) {
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.serviceProfesional.get(query).subscribe(event.callback);
         } else if (this._solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.profesionales) {
             // TODO quedaria ver que se va a hacer cuando en la solicitud se tengan mas de un profesional asignado
-            let query = {
+            const query = {
                 nombreCompleto: this._solicitudPrestacion.solicitud.registros[0].valor.profesionales[0].nombreCompleto,
             };
             this.serviceProfesional.get(query).subscribe(event.callback);
@@ -255,7 +255,7 @@ export class DarTurnosComponent implements OnInit {
     }
 
     filtrar() {
-        let search = {
+        const search = {
             tipoPrestacion: this.opciones.tipoPrestacion ? this.opciones.tipoPrestacion : null,
             profesional: this.opciones.profesional ? this.opciones.profesional : null,
             usuario: this.auth.usuario
@@ -265,7 +265,7 @@ export class DarTurnosComponent implements OnInit {
         }
 
         if (search.tipoPrestacion || search.profesional) {
-            let index = this.busquedas.findIndex(
+            const index = this.busquedas.findIndex(
                 item => (item.profesional && search.profesional ? item.profesional._id === search.profesional._id : search.profesional === null) &&
                     (item.tipoPrestacion && search.tipoPrestacion ? item.tipoPrestacion._id === search.tipoPrestacion._id : search.tipoPrestacion === null)
             );
@@ -299,7 +299,7 @@ export class DarTurnosComponent implements OnInit {
         this.agendas = [];
         this.agenda = null;
 
-        let fechaHasta = (moment(this.opciones.fecha).endOf('month')).toDate();
+        const fechaHasta = (moment(this.opciones.fecha).endOf('month')).toDate();
 
         // Filtro búsqueda
         if (this.opciones.tipoPrestacion || this.opciones.profesional) {
@@ -312,7 +312,7 @@ export class DarTurnosComponent implements OnInit {
                 organizacion: this.auth.organizacion._id,
                 nominalizada: true
             };
-            let autocitado = this._solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
+            const autocitado = this._solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
             if (this.opciones.profesional && autocitado) {
                 params['idProfesional'] = this.opciones.profesional[0].id;
             } else {
@@ -342,8 +342,8 @@ export class DarTurnosComponent implements OnInit {
                 if (!this.mostrarNoDisponibles) {
 
                     this.agendas = this.agendas.filter(agenda => {
-                        let delDia = agenda.horaInicio >= moment().startOf('day').toDate() && agenda.horaInicio <= moment().endOf('day').toDate();
-                        let cond = (agenda.estado === 'publicada' && !this._solicitudPrestacion && (((agenda.turnosRestantesDelDia + agenda.turnosRestantesProgramados) > 0 && delDia === true && this.hayTurnosEnHorario(agenda))
+                        const delDia = agenda.horaInicio >= moment().startOf('day').toDate() && agenda.horaInicio <= moment().endOf('day').toDate();
+                        const cond = (agenda.estado === 'publicada' && !this._solicitudPrestacion && (((agenda.turnosRestantesDelDia + agenda.turnosRestantesProgramados) > 0 && delDia === true && this.hayTurnosEnHorario(agenda))
                             || (agenda.turnosRestantesProgramados > 0 && delDia === false))) ||
                             ((agenda.estado === 'publicada' || agenda.estado === 'disponible') && (this._solicitudPrestacion && ((autocitado && agenda.turnosRestantesProfesional > 0) ||
                                 (!autocitado && agenda.turnosRestantesGestion > 0))) ||
@@ -360,8 +360,8 @@ export class DarTurnosComponent implements OnInit {
 
                 // Ordena las Agendas por fecha/hora de inicio
                 this.agendas = this.agendas.sort((a, b) => {
-                    let inia = a.horaInicio ? new Date(a.horaInicio.setHours(0, 0, 0, 0)) : null;
-                    let inib = b.horaInicio ? new Date(b.horaInicio.setHours(0, 0, 0, 0)) : null;
+                    const inia = a.horaInicio ? new Date(a.horaInicio.setHours(0, 0, 0, 0)) : null;
+                    const inib = b.horaInicio ? new Date(b.horaInicio.setHours(0, 0, 0, 0)) : null;
                     {
                         return (inia ? (inia.getTime() - inib.getTime() || b.turnosDisponibles - a.turnosDisponibles) : b.turnosDisponibles - a.turnosDisponibles);
                     }
@@ -374,11 +374,11 @@ export class DarTurnosComponent implements OnInit {
     }
 
     hayTurnosEnHorario(agenda) {
-        let ultimoBloque = agenda.bloques.length - 1;
-        let ultimoTurno = agenda.bloques[ultimoBloque].turnos.length - 1;
-        let ultimahora = moment(agenda.horaFin).format();
-        let horaLimite = (moment(new Date()).format());
-        let resolucion = (ultimahora > horaLimite);
+        const ultimoBloque = agenda.bloques.length - 1;
+        const ultimoTurno = agenda.bloques[ultimoBloque].turnos.length - 1;
+        const ultimahora = moment(agenda.horaFin).format();
+        const horaLimite = (moment(new Date()).format());
+        const resolucion = (ultimahora > horaLimite);
         return resolucion;
     }
 
@@ -396,7 +396,7 @@ export class DarTurnosComponent implements OnInit {
     seleccionarAgenda(agenda) {
         // Asigno agenda
         this.agenda = agenda;
-        let agendaDeHoy = this.agenda.horaInicio >= moment().startOf('day').toDate() && this.agenda.horaInicio <= moment().endOf('day').toDate();
+        const agendaDeHoy = this.agenda.horaInicio >= moment().startOf('day').toDate() && this.agenda.horaInicio <= moment().endOf('day').toDate();
         let turnoAnterior = null;
         this.turnoDoble = false;
         // Ver si cambió el estado de la agenda en otro lado
@@ -413,12 +413,12 @@ export class DarTurnosComponent implements OnInit {
                 this.alternativas = [];
 
                 // Tipo de Prestación, para poder filtrar las agendas
-                let tipoPrestacion: String = this.opciones.tipoPrestacion ? this.opciones.tipoPrestacion.id : '';
+                const tipoPrestacion: String = this.opciones.tipoPrestacion ? this.opciones.tipoPrestacion.id : '';
 
                 // Se filtran los bloques segun el filtro tipoPrestacion
                 this.bloques = this.agenda.bloques.filter(
                     function (value) {
-                        let prestacionesBlq = value.tipoPrestaciones.map(function (obj) {
+                        const prestacionesBlq = value.tipoPrestaciones.map(function (obj) {
                             return obj.id;
                         });
                         if (tipoPrestacion) {
@@ -442,14 +442,14 @@ export class DarTurnosComponent implements OnInit {
 
                 if (this.agenda) {
 
-                    let idAgendas = this.agendas.map(elem => {
+                    const idAgendas = this.agendas.map(elem => {
                         return elem.id;
                     });
 
                     this.indice = idAgendas.indexOf(this.agenda.id);
 
                     // Usamos CalendarioDia para hacer chequeos
-                    let cal = new CalendarioDia(null, this.agenda, this._solicitudPrestacion);
+                    const cal = new CalendarioDia(null, this.agenda, this._solicitudPrestacion);
 
                     /*Si hay turnos disponibles para la agenda, se muestra en el panel derecho*/
                     if (cal.estado !== 'ocupado') {
@@ -472,7 +472,7 @@ export class DarTurnosComponent implements OnInit {
                                 }
                             }
 
-                            let countBloques = [];
+                            const countBloques = [];
                             this.delDiaDisponibles = 0;
                             this.programadosDisponibles = 0;
                             this.gestionDisponibles = 0;
@@ -571,7 +571,7 @@ export class DarTurnosComponent implements OnInit {
 
     seleccionarBusqueda(indice: number) {
         this.opciones.tipoPrestacion = this.busquedas[indice].tipoPrestacion;
-        let actualizarProfesional = (this.opciones.profesional === this.busquedas[indice].profesional);
+        const actualizarProfesional = (this.opciones.profesional === this.busquedas[indice].profesional);
         this.opciones.profesional = this.busquedas[indice].profesional;
         if (!actualizarProfesional && this.eventoProfesional) {
             this.eventoProfesional.callback(this.busquedas[indice].profesional);
@@ -581,7 +581,7 @@ export class DarTurnosComponent implements OnInit {
 
     seleccionarUltimoTurno(turno) {
         this.opciones.tipoPrestacion = turno.tipoPrestacion;
-        let actualizarProfesional = (this.opciones.profesional === turno.profesionales);
+        const actualizarProfesional = (this.opciones.profesional === turno.profesionales);
         this.opciones.profesional = turno.profesionales[0];
         // TODO revisar carga de profesional, idem solicitudes
         // if (!actualizarProfesional && this.eventoProfesional) {
@@ -597,7 +597,7 @@ export class DarTurnosComponent implements OnInit {
     verAgenda(direccion: String) {
         if (this.agendas) {
             // Asegurar que no nos salimos del rango de agendas (agendas.length)
-            let enRango = direccion === 'der' ? ((this.indice + 1) < this.agendas.length) : ((this.indice - 1) >= 0);
+            const enRango = direccion === 'der' ? ((this.indice + 1) < this.agendas.length) : ((this.indice - 1) >= 0);
             if (enRango) {
                 if (direccion === 'der') {
                     if (moment(this.agenda.horaInicio).startOf('day').format() === moment(this.agendas[this.indice + 1].horaInicio).startOf('day').format()) {
@@ -662,7 +662,7 @@ export class DarTurnosComponent implements OnInit {
     }
 
     getUltimosTurnos() {
-        let ultimosTurnos = [];
+        const ultimosTurnos = [];
         this.serviceAgenda.find(this.paciente.id).subscribe(agendas => {
             agendas.forEach((agenda, indexAgenda) => {
                 agenda.bloques.forEach((bloque, indexBloque) => {
@@ -697,7 +697,7 @@ export class DarTurnosComponent implements OnInit {
     actualizarPaciente() {
         // Si cambió el teléfono lo actualizo en el MPI
         if (this.cambioTelefono) {
-            let nuevoCel = {
+            const nuevoCel = {
                 tipo: 'celular',
                 valor: this.telefono,
                 ranking: 0,
@@ -723,7 +723,7 @@ export class DarTurnosComponent implements OnInit {
                 this.paciente.contacto = [nuevoCel];
             }
             // Actualizo teléfono del paciente en MPI
-            let cambios = {
+            const cambios = {
                 op: 'updateContactos',
                 contacto: this.paciente.contacto
             };
@@ -773,7 +773,7 @@ export class DarTurnosComponent implements OnInit {
                 } else {
                     if (this.changeCarpeta && this.carpetaEfector.nroCarpeta && this.carpetaEfector.nroCarpeta !== '' && this.carpetaEfector.nroCarpeta !== this.nroCarpetaOriginal) {
                         this.carpetaEfector.nroCarpeta = this.carpetaEfector.nroCarpeta.trim(); // quitamos los espacios
-                        let indiceCarpeta = this.paciente.carpetaEfectores.findIndex(x => (x.organizacion as any)._id === this.auth.organizacion.id);
+                        const indiceCarpeta = this.paciente.carpetaEfectores.findIndex(x => (x.organizacion as any)._id === this.auth.organizacion.id);
                         if (indiceCarpeta > -1) {
                             this.paciente.carpetaEfectores[indiceCarpeta] = this.carpetaEfector;
                         } else {
@@ -800,7 +800,7 @@ export class DarTurnosComponent implements OnInit {
     }
 
     private guardarTurno(agd: IAgenda) {
-        let pacienteSave = {
+        const pacienteSave = {
             id: this.paciente.id,
             documento: this.paciente.documento,
             apellido: this.paciente.apellido,
@@ -813,7 +813,7 @@ export class DarTurnosComponent implements OnInit {
             obraSocial: this.obraSocialPaciente
         };
         if (agd.dinamica) {
-            let datosTurno = {
+            const datosTurno = {
                 nota: this.nota,
                 motivoConsulta: this.motivoConsulta,
                 tipoPrestacion: this.turnoTipoPrestacion,
@@ -845,7 +845,7 @@ export class DarTurnosComponent implements OnInit {
             this.agenda.bloques[this.indiceBloque].cantidadTurnos = (this.agenda.bloques[this.indiceBloque].cantidadTurnos) - 1;
 
             // Datos del Turno
-            let datosTurno = {
+            const datosTurno = {
                 idAgenda: this.agenda.id,
                 idTurno: this.turno.id,
                 idBloque: this.bloque.id,
@@ -863,7 +863,7 @@ export class DarTurnosComponent implements OnInit {
                 // En este caso se trata de dar nuevamente un turno con el siguiente turno disponible con el mismo horario
                 if (err && (err === 'noDisponible')) {
                     if (this.agenda.bloques[this.indiceBloque].citarPorBloque && (this.agenda.bloques[this.indiceBloque].turnos.length > (this.indiceTurno + 1))) {
-                        let nuevoIndice = this.indiceTurno + 1;
+                        const nuevoIndice = this.indiceTurno + 1;
                         if (this.agenda.bloques[this.indiceBloque].turnos[this.indiceTurno].horaInicio.getTime() === this.agenda.bloques[this.indiceBloque].turnos[nuevoIndice].horaInicio.getTime()) {
                             this.indiceTurno = nuevoIndice;
                             this.turno = this.agenda.bloques[this.indiceBloque].turnos[nuevoIndice];
@@ -882,19 +882,19 @@ export class DarTurnosComponent implements OnInit {
     private afterSaveTurno(pacienteSave) {
         this.enviarSMS(pacienteSave);
         this.estadoT = 'noSeleccionada';
-        let agendaReturn = this.agenda; // agendaReturn será devuelta al gestor.
+        const agendaReturn = this.agenda; // agendaReturn será devuelta al gestor.
         let turnoSiguiente = null;
         if (this.indiceBloque >= 0) {
             turnoSiguiente = this.agenda.bloques[this.indiceBloque].turnos[this.indiceTurno + 1];
         }
-        let agendaid = this.agenda.id;
+        const agendaid = this.agenda.id;
         this.agenda = null;
         this.actualizar('');
         this.plex.toast('info', 'El turno se asignó correctamente');
         this.hideDarTurno = false;
 
         if (this._solicitudPrestacion) {
-            let params = {
+            const params = {
                 op: 'asignarTurno',
                 idTurno: this.turno.id
             };
@@ -905,7 +905,7 @@ export class DarTurnosComponent implements OnInit {
         if (this.turnoDoble) {
 
             if (turnoSiguiente.estado === 'disponible') {
-                let patch: any = {
+                const patch: any = {
                     op: 'darTurnoDoble',
                     turnos: [turnoSiguiente.id]
                 };
@@ -934,15 +934,15 @@ export class DarTurnosComponent implements OnInit {
     enviarSMS(paciente: any) {
         // Enviar SMS sólo en Producción
         if (environment.production === true) {
-            let dia = moment(this.turno.horaInicio).format('DD/MM/YYYY');
-            let horario = moment(this.turno.horaInicio).format('HH:mm');
+            const dia = moment(this.turno.horaInicio).format('DD/MM/YYYY');
+            const horario = moment(this.turno.horaInicio).format('HH:mm');
             // let mensaje = 'Usted tiene un turno el dia ' + dia + ' a las ' + horario + ' hs. para ' + datosTurno.tipoPrestacion.nombre;
             let mensaje = this.paciente.apellido + ' el ' + this.agenda.organizacion.nombre + ' le recuerda su turno de ' + this.turnoTipoPrestacion.nombre +
                 ' el dia ' + dia + ' a las ' + horario + ' hs. ';
             if (this.agenda.espacioFisico) {
                 mensaje = mensaje + 'en ' + this.agenda.espacioFisico.nombre + '.';
             }
-            let smsParams = {
+            const smsParams = {
                 telefono: paciente.telefono,
                 mensaje,
             };
@@ -974,9 +974,9 @@ export class DarTurnosComponent implements OnInit {
     }
 
     tieneTurnos(bloque: IBloque): boolean {
-        let turnos = bloque.turnos;
+        const turnos = bloque.turnos;
         if (this._solicitudPrestacion) {
-            let autocitado = this._solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
+            const autocitado = this._solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion && this._solicitudPrestacion.solicitud.registros[0].valor.solicitudPrestacion.autocitado === true;
             if (autocitado && bloque.restantesProfesional > 0) {
                 return turnos.find(turno => turno.estado === 'disponible' && turno.horaInicio >= this.hoy) != null;
             }
@@ -984,7 +984,7 @@ export class DarTurnosComponent implements OnInit {
                 return turnos.find(turno => turno.estado === 'disponible' && turno.horaInicio >= this.hoy) != null;
             }
         } else {
-            let delDia = bloque.horaInicio >= moment().startOf('day').toDate() && bloque.horaInicio <= moment().endOf('day').toDate();
+            const delDia = bloque.horaInicio >= moment().startOf('day').toDate() && bloque.horaInicio <= moment().endOf('day').toDate();
             if (delDia && (bloque.restantesDelDia + bloque.restantesProgramados) > 0) {
                 return turnos.find(turno => turno.estado === 'disponible') != null;
             }
@@ -1063,16 +1063,16 @@ export class DarTurnosComponent implements OnInit {
     noSeAsignaTurno() {
         let listaEspera: any;
         let operacion: Observable<IListaEspera>;
-        let datosPrestacion = !this.opciones.tipoPrestacion ? null : {
+        const datosPrestacion = !this.opciones.tipoPrestacion ? null : {
             id: this.opciones.tipoPrestacion.id,
             nombre: this.opciones.tipoPrestacion.nombre
         };
-        let datosProfesional = !this.opciones.profesional ? null : {
+        const datosProfesional = !this.opciones.profesional ? null : {
             id: this.opciones.profesional.id,
             nombre: this.opciones.profesional.nombre,
             apellido: this.opciones.profesional.apellido
         };
-        let datosPaciente = !this.paciente ? null : {
+        const datosPaciente = !this.paciente ? null : {
             id: this.paciente.id,
             nombre: this.paciente.nombre,
             apellido: this.paciente.apellido,

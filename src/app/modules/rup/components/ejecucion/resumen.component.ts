@@ -28,7 +28,7 @@ export class ResumenComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            let id = params['id'];
+            const id = params['id'];
             this.servicioPrestacionPaciente.getById(id, { showError: false }).subscribe(prestacion => {
                 this.prestacion = prestacion;
                 // this.loadProblemas();
@@ -90,7 +90,7 @@ export class ResumenComponent implements OnInit {
      */
     iniciarPrestacion(id) {
 
-        let cambioEstado: any = {
+        const cambioEstado: any = {
             op: 'estadoPush',
             estado: {
                 fecha: new Date(),

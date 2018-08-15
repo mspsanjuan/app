@@ -45,7 +45,7 @@ export class EspecialidadComponent implements OnInit {
     }
 
     loadDatos(concatenar: boolean = false) {
-        let parametros = {
+        const parametros = {
             codigoSisa: this.value && this.value.codigoSisa,
             nombre: this.value && this.value.nombre, skip: this.skip, limit
         };

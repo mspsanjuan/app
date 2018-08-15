@@ -27,7 +27,7 @@ export class AppComponent {
 
     private menuList = [];
     public checkPermissions(): any {
-        let accessList = [];
+        const accessList = [];
         this.menuList = [];
 
         if (this.auth.loggedIn()) {

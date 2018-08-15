@@ -22,7 +22,6 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
     public ExisteCausaExterna = false;
 
     ngOnInit() {
-        let params;
         if (!this.registro.valor) {
             this.registro.valor = {
                 InformeEgreso: {
@@ -45,7 +44,7 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
             };
         }
         // Cargamos todos los procedimientos.
-        this.procedimientosQuirurgicosService.get(params).subscribe(rta => {
+        this.procedimientosQuirurgicosService.get(null).subscribe(rta => {
             this.listaProcedimientosQuirurgicos = rta.map(elem => {
                 return { id: elem._id, nombre: elem.nombre };
             });
@@ -54,14 +53,14 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
 
     codigoCIE10(event) {
         if (event && event.query) {
-            let query = {
+            const query = {
                 nombre: event.query
             };
-            this.Cie10Service.get(query).subscribe((datos) => {
+            this.cie10Service.get(query).subscribe((datos) => {
                 event.callback(datos);
             });
         } else {
-            let callback = [];
+            const callback = [];
             if (this.registro.valor.InformeEgreso.diagnosticoPrincipal) {
                 callback.push(this.registro.valor.InformeEgreso.diagnosticoPrincipal);
             }
@@ -81,7 +80,7 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
     }
 
     addNacimiento() {
-        let nuevoNacimiento = {
+        const nuevoNacimiento = {
             pesoAlNacer: null,
             condicionAlNacer: null,
             terminacion: null,
@@ -97,7 +96,7 @@ export class EgresoInternacionComponent extends RUPComponent implements OnInit {
 
 
     addProcedimientoQuirurgico() {
-        let nuevoProcedimiento = {
+        const nuevoProcedimiento = {
             procedimiento: null,
             fecha: null};
         this.registro.valor.InformeEgreso.procedimientosQuirurgicos.push(nuevoProcedimiento);

@@ -90,7 +90,7 @@ export class PlanificarAgendaComponent implements OnInit {
 
     loadTipoPrestaciones(event) {
         this.servicioTipoPrestacion.get({ turneable: 1 }).subscribe((data) => {
-            let dataF = data.filter(x => {
+            const dataF = data.filter(x => {
                 return this.auth.check('turnos:planificarAgenda:prestacion:' + x.id);
             });
             event.callback(dataF);
@@ -104,7 +104,7 @@ export class PlanificarAgendaComponent implements OnInit {
             if (this.lastRequest) {
                 this.lastRequest.unsubscribe();
             }
-            let query = {
+            const query = {
                 nombreCompleto: event.query
             };
             this.lastRequest = this.servicioProfesional.get(query).subscribe(resultado => {
@@ -136,7 +136,7 @@ export class PlanificarAgendaComponent implements OnInit {
     }
     loadSectores(event) {
         this.servicioEspacioFisico.get({ organizacion: this.auth.organizacion._id }).subscribe(respuesta => {
-            let sectores = respuesta.map((ef) => {
+            const sectores = respuesta.map((ef) => {
                 return (typeof ef.sector !== 'undefined' && ef.sector.nombre !== '-' ? { nombre: ef.sector.nombre, id: ef.sector.id } : []);
             });
             event.callback(sectores);
@@ -163,7 +163,7 @@ export class PlanificarAgendaComponent implements OnInit {
     }
 
     loadEspaciosFisicos(event) {
-        let query = {};
+        const query = {};
         let listaEspaciosFisicos = [];
         if (event.query) {
             query['nombre'] = event.query;
@@ -197,7 +197,7 @@ export class PlanificarAgendaComponent implements OnInit {
             this.modelo.tipoPrestaciones.forEach((prestacion, index) => {
                 const copiaPrestacion = operaciones.clonarObjeto(prestacion);
                 if (bloque.tipoPrestaciones) {
-                    let i = bloque.tipoPrestaciones.map(function (e) { return e.nombre; }).
+                    const i = bloque.tipoPrestaciones.map(function (e) { return e.nombre; }).
                         indexOf(copiaPrestacion.nombre);
                     if (i >= 0) {
                         bloque.tipoPrestaciones[i].activo = true;
@@ -231,7 +231,7 @@ export class PlanificarAgendaComponent implements OnInit {
 
     calculosInicio() {
         this.modelo.fecha = this.modelo.horaInicio;
-        let bloques = this.modelo.bloques;
+        const bloques = this.modelo.bloques;
         bloques.forEach((bloque, index) => {
             bloque.indice = index;
             if (!this.modelo.intercalar) {
@@ -351,7 +351,7 @@ export class PlanificarAgendaComponent implements OnInit {
                 // Si se agrego una prestacion, la agrego a los bloques
                 if (this.modelo.tipoPrestaciones) {
                     this.modelo.tipoPrestaciones.forEach((prestacion) => {
-                        let copiaPrestacion = operaciones.clonarObjeto(prestacion);
+                        const copiaPrestacion = operaciones.clonarObjeto(prestacion);
                         copiaPrestacion.activo = false;
                         const tipo = bloque.tipoPrestaciones.find(x => x.nombre === copiaPrestacion.nombre);
                         const i = bloque.tipoPrestaciones.indexOf(tipo);
@@ -375,14 +375,14 @@ export class PlanificarAgendaComponent implements OnInit {
         if (this.elementoActivo.horaFin) {
             this.aproximar(this.elementoActivo.horaFin);
         }
-        let inicio = this.combinarFechas(this.fecha, this.elementoActivo.horaInicio);
-        let fin = this.combinarFechas(this.fecha, this.elementoActivo.horaFin);
+        const inicio = this.combinarFechas(this.fecha, this.elementoActivo.horaInicio);
+        const fin = this.combinarFechas(this.fecha, this.elementoActivo.horaFin);
 
         if (inicio && fin) {
-            let duracion = this.calcularDuracion(inicio, fin, this.elementoActivo.cantidadTurnos);
+            const duracion = this.calcularDuracion(inicio, fin, this.elementoActivo.cantidadTurnos);
             if (duracion) {
                 this.elementoActivo.duracionTurno = Math.floor(duracion);
-                let cantidad = this.calcularCantidad(inicio, fin, duracion);
+                const cantidad = this.calcularCantidad(inicio, fin, duracion);
                 this.elementoActivo.cantidadTurnos = Math.floor(cantidad);
             }
             this.validarTodo();
@@ -397,8 +397,8 @@ export class PlanificarAgendaComponent implements OnInit {
 
     cambiaTurnos(cual: String) {
         this.fecha = new Date(this.modelo.fecha);
-        let inicio = this.combinarFechas(this.fecha, this.elementoActivo.horaInicio);
-        let fin = this.combinarFechas(this.fecha, this.elementoActivo.horaFin);
+        const inicio = this.combinarFechas(this.fecha, this.elementoActivo.horaInicio);
+        const fin = this.combinarFechas(this.fecha, this.elementoActivo.horaFin);
         if (inicio && fin) {
             if (cual === 'cantidad' && this.elementoActivo.cantidadTurnos) {
                 this.elementoActivo.duracionTurno = this.calcularDuracion(inicio, fin, this.elementoActivo.cantidadTurnos);
@@ -482,7 +482,7 @@ export class PlanificarAgendaComponent implements OnInit {
         if (cantidad && inicio && fin) {
             inicio = moment(inicio);
             fin = moment(fin);
-            let total = fin.diff(inicio, 'minutes');
+            const total = fin.diff(inicio, 'minutes');
             return Math.floor(total / cantidad);
         } else {
             if (this.elementoActivo.duracionTurno) {
@@ -497,7 +497,7 @@ export class PlanificarAgendaComponent implements OnInit {
         if (duracion && duracion && inicio && fin) {
             inicio = moment(inicio);
             fin = moment(fin);
-            let total = fin.diff(inicio, 'minutes');
+            const total = fin.diff(inicio, 'minutes');
             return Math.floor(total / duracion);
         } else {
             if (this.elementoActivo.cantidadTurnos) {
@@ -516,8 +516,8 @@ export class PlanificarAgendaComponent implements OnInit {
     }
 
     aproximar(date: Date) {
-        let m = date.getMinutes();
-        let remaider = m % 5;
+        const m = date.getMinutes();
+        const remaider = m % 5;
         if (remaider !== 0) {
             if (remaider < 3) {
                 date.setMinutes(m - remaider);
@@ -530,8 +530,6 @@ export class PlanificarAgendaComponent implements OnInit {
     validarTodo() {
         this.alertas = [];
         let alerta: string;
-        let indice: number;
-        let cantidad: number;
         let iniAgenda = null;
         let finAgenda = null;
         this.fecha = new Date(this.modelo.fecha);
@@ -548,7 +546,7 @@ export class PlanificarAgendaComponent implements OnInit {
             iniAgenda = this.combinarFechas(this.fecha, this.modelo.horaInicio);
             finAgenda = this.combinarFechas(this.fecha, this.modelo.horaFin);
         }
-        let bloques = this.modelo.bloques;
+        const bloques = this.modelo.bloques;
         let totalBloques = 0;
 
         // Verifica que ningún profesional de la agenda esté asignado a otra agenda en ese horario
@@ -556,7 +554,7 @@ export class PlanificarAgendaComponent implements OnInit {
             this.modelo.profesionales.forEach((profesional, index) => {
                 this.serviceAgenda.get({ organizacion: this.auth.organizacion.id, idProfesional: profesional.id, rango: true, desde: iniAgenda, hasta: finAgenda, estados: ['planificacion', 'disponible', 'publicada', 'pausada'] }).
                     subscribe(agendas => {
-                        let agds = agendas.filter(agenda => {
+                        const agds = agendas.filter(agenda => {
                             return agenda.id !== this.modelo.id || !this.modelo.id;
                         });
                         if (agds.length > 0) {
@@ -573,7 +571,7 @@ export class PlanificarAgendaComponent implements OnInit {
         if (iniAgenda && finAgenda && this.modelo.espacioFisico) {
             this.serviceAgenda.get({ espacioFisico: this.modelo.espacioFisico.id, rango: true, desde: iniAgenda, hasta: finAgenda, estados: ['planificacion', 'disponible', 'publicada', 'pausada'] }).
                 subscribe(agendas => {
-                    let agds = agendas.filter(agenda => {
+                    const agds = agendas.filter(agenda => {
                         return agenda.id !== this.modelo.id || !this.modelo.id;
                     });
                     if (agds.length > 0) {
@@ -606,8 +604,8 @@ export class PlanificarAgendaComponent implements OnInit {
         // Verificaciones en cada bloque
         if (bloques) {
             bloques.forEach((bloque, index) => {
-                let inicio = this.combinarFechas(this.fecha, bloque.horaInicio);
-                let fin = this.combinarFechas(this.fecha, bloque.horaFin);
+                const inicio = this.combinarFechas(this.fecha, bloque.horaInicio);
+                const fin = this.combinarFechas(this.fecha, bloque.horaFin);
 
                 if (bloque.cantidadTurnos && bloque.duracionTurno) {
                     totalBloques = totalBloques + (bloque.cantidadTurnos * bloque.duracionTurno);
@@ -641,9 +639,9 @@ export class PlanificarAgendaComponent implements OnInit {
                 }
 
                 // Verifica que no se solape con ningún otro
-                let mapeo = bloques.map(function (obj) {
+                const mapeo = bloques.map(function (obj) {
                     if (obj.indice !== bloque.indice) {
-                        let robj = {};
+                        const robj = {};
                         robj['horaInicio'] = obj.horaInicio;
                         robj['horaFin'] = obj.horaFin;
                         return robj;
@@ -654,12 +652,12 @@ export class PlanificarAgendaComponent implements OnInit {
 
                 mapeo.forEach((bloqueMap, index1) => {
                     if (bloqueMap) {
-                        let bloqueMapIni = this.combinarFechas(this.fecha, bloqueMap.horaInicio);
-                        let bloqueMapFin = this.combinarFechas(this.fecha, bloqueMap.horaFin);
+                        const bloqueMapIni = this.combinarFechas(this.fecha, bloqueMap.horaInicio);
+                        const bloqueMapFin = this.combinarFechas(this.fecha, bloqueMap.horaFin);
                         // if (this.compararFechas(inicio, bloqueMapFin) < 0 && this.compararFechas(bloqueMapIni, inicio) < 0) {
                         if (this.compararFechas(bloqueMapIni, fin) < 0 && this.compararFechas(inicio, bloqueMapFin) < 0) {
                             alerta = 'El bloque ' + (bloque.indice + 1) + ' se solapa con el ' + (index1 + 1);
-                            let alertaOpuesta = 'El bloque ' + (index1 + 1) + ' se solapa con el ' + (bloque.indice + 1);
+                            const alertaOpuesta = 'El bloque ' + (index1 + 1) + ' se solapa con el ' + (bloque.indice + 1);
                             if (this.alertas.indexOf(alertaOpuesta) < 0) {
                                 this.alertas.push(alerta);
                             }
@@ -695,20 +693,20 @@ export class PlanificarAgendaComponent implements OnInit {
     espaciosChange(agenda) {
 
         // TODO: ver límite
-        let query: any = {
+        const query: any = {
             limit: 20,
             activo: true
         };
 
         if (agenda.espacioFisico) {
-            let nombre = agenda.espacioFisico;
-            let efector = this.auth.organizacion; // Para que realice el filtro por organización donde estoy logueado
+            const nombre = agenda.espacioFisico;
+            const efector = this.auth.organizacion; // Para que realice el filtro por organización donde estoy logueado
             query.nombre = nombre;
             query.organizacion = efector.id;
         }
 
         if (agenda.equipamiento && agenda.equipamiento.length > 0) {
-            let equipamiento = agenda.equipamiento.map((item) => item.term);
+            const equipamiento = agenda.equipamiento.map((item) => item.term);
             query.equipamiento = equipamiento;
         }
 
@@ -743,7 +741,7 @@ export class PlanificarAgendaComponent implements OnInit {
         }
 
         for (let i = 0; i < this.modelo.bloques.length; i++) {
-            let bloque = this.modelo.bloques[i];
+            const bloque = this.modelo.bloques[i];
             // Verifico que cada bloque tenga al menos una prestacion activa
             let prestacionActiva = false;
             for (let j = 0; j < bloque.tipoPrestaciones.length; j++) {
@@ -785,7 +783,7 @@ export class PlanificarAgendaComponent implements OnInit {
             }
 
             this.modelo.organizacion = this.auth.organizacion;
-            let bloques = this.modelo.bloques;
+            const bloques = this.modelo.bloques;
 
             bloques.forEach((bloque, index) => {
                 bloque.horaInicio = this.combinarFechas(this.fecha, bloque.horaInicio);
@@ -807,7 +805,7 @@ export class PlanificarAgendaComponent implements OnInit {
                     }
 
                     for (let i = 0; i < bloque.cantidadTurnos; i++) {
-                        let turno = {
+                        const turno = {
                             estado: 'disponible',
                             horaInicio: this.combinarFechas(this.fecha, new Date(bloque.horaInicio.getTime() + i * bloque.duracionTurno * 60000)),
                             tipoTurno: undefined

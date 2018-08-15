@@ -104,7 +104,7 @@ export class PrestacionCrearComponent implements OnInit {
 
         this.existePaciente();
 
-        let conceptoSnomed = this.tipoPrestacionSeleccionada;
+        const conceptoSnomed = this.tipoPrestacionSeleccionada;
         let nuevaPrestacion;
         nuevaPrestacion = {
             paciente: {
@@ -153,7 +153,7 @@ export class PrestacionCrearComponent implements OnInit {
         // Hay paciente?
         this.existePaciente();
 
-        let params = {
+        const params = {
             disponiblesProfesional: true,
             idTipoPrestacion: this.tipoPrestacionSeleccionada.id,
             fechaDesde: moment(new Date()).startOf('day').toDate(),
@@ -179,7 +179,7 @@ export class PrestacionCrearComponent implements OnInit {
         if (unPacientePresente.idPrestacion) {
 
             if (unPacientePresente.estado === 'Programado') {
-                let cambioEstado: any = {
+                const cambioEstado: any = {
                     op: 'estadoPush',
                     estado: { tipo: 'ejecucion' }
                 };
@@ -197,7 +197,7 @@ export class PrestacionCrearComponent implements OnInit {
             // TODO: REVISAR
             // Marcar la asistencia al turno
             if (unPacientePresente.estado !== 'Suspendido' && unPacientePresente.turno.asistencia !== 'asistio') {
-                let patch: any = {
+                const patch: any = {
                     op: 'darAsistencia',
                     turnos: [unPacientePresente.turno]
                 };

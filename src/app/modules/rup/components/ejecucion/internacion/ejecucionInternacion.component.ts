@@ -102,7 +102,7 @@ export class EjecucionInternacionComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            let id = params['id'];
+            const id = params['id'];
             this.elementosRUPService.ready.subscribe((resultado) => {
                 if (resultado) {
                     this.inicializar(id);
@@ -134,9 +134,9 @@ export class EjecucionInternacionComponent implements OnInit {
     }
 
     comprobarEgresoParaValidar() {
-        let registros = this.prestacion.ejecucion.registros;
+        const registros = this.prestacion.ejecucion.registros;
         // nos fijamos si el concepto ya aparece en los registros
-        let egresoExiste = registros.find(registro => registro.concepto.conceptId === this.egreso.conceptId);
+        const egresoExiste = registros.find(registro => registro.concepto.conceptId === this.egreso.conceptId);
 
         if (egresoExiste && this.prestacion.estados[this.prestacion.estados.length - 1].tipo !== 'validada') {
             if (egresoExiste.valor.InformeEgreso.fechaEgreso && egresoExiste.valor.InformeEgreso.tipoEgreso) {
@@ -151,9 +151,9 @@ export class EjecucionInternacionComponent implements OnInit {
 
     ejecutarConcepto(snomedConcept) {
         let resultado;
-        let registros = this.prestacion.ejecucion.registros;
+        const registros = this.prestacion.ejecucion.registros;
         // nos fijamos si el concepto ya aparece en los registros
-        let registoExiste = registros.find(registro => registro.concepto.conceptId === snomedConcept.conceptId);
+        const registoExiste = registros.find(registro => registro.concepto.conceptId === snomedConcept.conceptId);
         // si estamos cargando un concepto para una transformación de hall
         if (registoExiste) {
             this.plex.toast('warning', 'El elemento seleccionado ya se encuentra registrado.');
@@ -165,11 +165,11 @@ export class EjecucionInternacionComponent implements OnInit {
 
     cargarNuevoRegistro(snomedConcept, valor = null) {
         // Elemento a ejecutar dinámicamente luego de buscar y clickear en snomed
-        let esSolicitud = false;
+        const esSolicitud = false;
 
-        let elementoRUP = this.elementosRUPService.buscarElemento(snomedConcept, esSolicitud);
+        const elementoRUP = this.elementosRUPService.buscarElemento(snomedConcept, esSolicitud);
         // armamos el elemento data a agregar al array de registros
-        let nuevoRegistro = new IPrestacionRegistro(elementoRUP, snomedConcept);
+        const nuevoRegistro = new IPrestacionRegistro(elementoRUP, snomedConcept);
         nuevoRegistro['_id'] = nuevoRegistro.id;
         nuevoRegistro.valor = valor;
         // Agregamos al array de registros
@@ -179,9 +179,9 @@ export class EjecucionInternacionComponent implements OnInit {
     }
 
     guardarPrestacion() {
-        let registros = JSON.parse(JSON.stringify(this.prestacion.ejecucion.registros));
+        const registros = JSON.parse(JSON.stringify(this.prestacion.ejecucion.registros));
 
-        let params: any = {
+        const params: any = {
             op: 'registros',
             registros
         };
@@ -200,7 +200,7 @@ export class EjecucionInternacionComponent implements OnInit {
                 return false;
             } else {
 
-                let planes = [];
+                const planes = [];
 
                 this.servicioPrestacion.validarPrestacion(this.prestacion, planes).subscribe(prestacion => {
                     this.prestacion = prestacion;
@@ -220,18 +220,18 @@ export class EjecucionInternacionComponent implements OnInit {
                 return false;
             } else {
                 // guardamos una copia de la prestacion antes de romper la validacion.
-                let prestacionCopia = JSON.parse(JSON.stringify(this.prestacion));
+                const prestacionCopia = JSON.parse(JSON.stringify(this.prestacion));
 
                 // Agregamos el estado de la prestacion copiada.
-                let estado = { tipo: 'modificada', idOrigenModifica: prestacionCopia.id };
+                const estado = { tipo: 'modificada', idOrigenModifica: prestacionCopia.id };
 
                 // Guardamos la prestacion copia
                 this.servicioPrestacion.clonar(prestacionCopia, estado).subscribe(prestacionClonada => {
 
-                    let prestacionModificada = prestacionClonada;
+                    const prestacionModificada = prestacionClonada;
 
                     // hacemos el patch y luego creamos los planes
-                    let cambioEstado: any = {
+                    const cambioEstado: any = {
                         op: 'romperValidacion',
                         estado: { tipo: 'ejecucion', idOrigenModifica: prestacionModificada.id }
                     };
@@ -257,13 +257,13 @@ export class EjecucionInternacionComponent implements OnInit {
      */
     generaEpicrisis() {
         let epicrisis;
-        let params = {
+        const params = {
             idPrestacionOrigen: this.prestacion.id
         };
         this.servicioPrestacion.get(params).subscribe(prestacionExiste => {
             epicrisis = prestacionExiste;
             if (!epicrisis.length) {
-                let nuevaPrestacion = this.servicioPrestacion.inicializarPrestacion(this.prestacion.paciente, this.epicrisis, 'ejecucion', 'internacion');
+                const nuevaPrestacion = this.servicioPrestacion.inicializarPrestacion(this.prestacion.paciente, this.epicrisis, 'ejecucion', 'internacion');
                 nuevaPrestacion.solicitud.prestacionOrigen = this.prestacion.id;
                 this.servicioPrestacion.post(nuevaPrestacion).subscribe(prestacion => {
                     this.router.navigate(['rup/ejecucion', prestacion.id]);

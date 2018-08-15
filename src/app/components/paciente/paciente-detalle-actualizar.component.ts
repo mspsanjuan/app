@@ -131,7 +131,7 @@ export class PacienteDetalleActualizarComponent implements OnInit {
     }
 
     addContacto() {
-        let nuevoContacto = {
+        const nuevoContacto = {
             tipo: 'celular',
             valor: '',
             ranking: 0,

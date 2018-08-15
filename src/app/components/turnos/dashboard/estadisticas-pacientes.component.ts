@@ -57,7 +57,7 @@ export class EstadisticasPacientesComponent implements OnInit {
 
     ngOnInit() {
         // Se cargan los datos calculados
-        let hoy = {
+        const hoy = {
             fechaDesde: moment().startOf('month').format(),
             fechaHasta: moment().endOf('day').format()
         };
@@ -84,7 +84,7 @@ export class EstadisticasPacientesComponent implements OnInit {
             pacienteMPI => {
                 this._paciente = pacienteMPI;
                 if (this._paciente && this._paciente.id) {
-                    let datosTurno = { pacienteId: this._paciente.id };
+                    const datosTurno = { pacienteId: this._paciente.id };
                     let cantInasistencias = 0;
                     // Se muestra la cantidad de turnos otorgados e inasistencias
                     this.serviceTurno.getHistorial(datosTurno).subscribe(turnos => {
@@ -107,7 +107,7 @@ export class EstadisticasPacientesComponent implements OnInit {
                     });
 
                     // Se muestra la cantidad de turnos anulados
-                    let datosLog = { idPaciente: this._paciente.id, operacion: 'turnos:liberar' };
+                    const datosLog = { idPaciente: this._paciente.id, operacion: 'turnos:liberar' };
                     this.serviceLogPaciente.get(datosLog).subscribe(logs => {
                         if (logs && logs.length) {
                             this.anulaciones = logs.length;
@@ -120,8 +120,8 @@ export class EstadisticasPacientesComponent implements OnInit {
 
     private sortTurnos(turnos) {
         turnos = turnos.sort((a, b) => {
-            let inia = a.horaInicio ? new Date(a.horaInicio) : null;
-            let inib = b.horaInicio ? new Date(b.horaInicio) : null;
+            const inia = a.horaInicio ? new Date(a.horaInicio) : null;
+            const inib = b.horaInicio ? new Date(b.horaInicio) : null;
             {
                 return ((inia && inib) ? (inib.getTime() - inia.getTime()) : 0);
             }
@@ -167,7 +167,7 @@ export class EstadisticasPacientesComponent implements OnInit {
                 },
                 nroCarpeta: this.nuevaCarpeta
             };
-            let indiceCarpeta = this._paciente.carpetaEfectores.findIndex(x => (x.organizacion as any)._id === this.auth.organizacion.id);
+            const indiceCarpeta = this._paciente.carpetaEfectores.findIndex(x => (x.organizacion as any)._id === this.auth.organizacion.id);
             if (indiceCarpeta > -1) {
                 this._paciente.carpetaEfectores[indiceCarpeta] = this.carpetaEfector;
             } else {

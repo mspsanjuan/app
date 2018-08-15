@@ -20,17 +20,13 @@ export class TensionSistolicaComponent extends RUPComponent implements OnInit {
     }
 
     getMensajes() {
-        let Edad;
-        let percentiloTalla;
-        let BajaTensionSistolica;
-        let tensionSistolica = this.registro.valor;
-
-        let mensaje: any = {
+        const tensionSistolica = this.registro.valor;
+        const mensaje: any = {
             texto: '',
             class: 'danger'
         };
+        const Edad = this.paciente.edad;
 
-        Edad = this.paciente.edad;
         // percentiloTalla = 5; //Falta tomar valor del percentilo
 
 

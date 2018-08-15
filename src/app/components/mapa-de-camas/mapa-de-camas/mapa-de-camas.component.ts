@@ -147,7 +147,7 @@ export class MapaDeCamasComponent implements OnInit {
 
         const regex_nombre = new RegExp('.*' + this.filtros.nombre + '.*', 'ig');
 
-        let _desinfectada = (this.filtros.desinfectada) ? false : null;
+        const _desinfectada = (this.filtros.desinfectada) ? false : null;
 
         this.camas = this.camasCopy.filter((i) => {
             return (

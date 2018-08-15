@@ -50,7 +50,7 @@ export class VistaHudsComponent implements OnInit {
 
         if (!this.paciente) {
             this.route.params.subscribe(params => {
-                let id = params['id'];
+                const id = params['id'];
                 // Carga la información completa del paciente
                 this.servicioPaciente.getById(
                     id).subscribe(paciente => {

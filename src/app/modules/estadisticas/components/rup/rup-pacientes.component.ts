@@ -48,7 +48,7 @@ export class RupPacientesComponent implements AfterViewInit {
             this.tablas = [];
             this.registros = [];
 
-            let prestaciones = this.prestacionesHijas.filter(item => item.check).map(item => item.conceptId);
+            const prestaciones = this.prestacionesHijas.filter(item => item.check).map(item => item.conceptId);
             this.estService.get({ desde: this.desde, hasta: this.hasta, prestaciones }).subscribe((resultados) => {
                 this.showData = true;
                 if (this.detallar) {
@@ -68,13 +68,13 @@ export class RupPacientesComponent implements AfterViewInit {
 
     createTable(prestaciones, data) {
         prestaciones.forEach((prestacion) => {
-            let items = data.filter(item => item.prestacion.conceptId === prestacion.conceptId);
+            const items = data.filter(item => item.prestacion.conceptId === prestacion.conceptId);
             if (items.length > 0) {
-                let info = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+                const info = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
                 items.forEach((item) => {
-                    let d = item._id.decada > 9 ? 9 : item._id.decada;
-                    let s = item._id.sexo === 'masculino' ? 0 : 1;
+                    const d = item._id.decada > 9 ? 9 : item._id.decada;
+                    const s = item._id.sexo === 'masculino' ? 0 : 1;
 
                     info[s][d] += item.count;
                     info[s][10] += item.count; // total file
@@ -83,7 +83,7 @@ export class RupPacientesComponent implements AfterViewInit {
                 });
 
 
-                let table = {
+                const table = {
                     prestacion,
                     data: info
                 };
@@ -95,14 +95,14 @@ export class RupPacientesComponent implements AfterViewInit {
     }
 
     crearTotales(prestaciones, data) {
-        let info = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+        const info = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
         prestaciones.forEach((prestacion) => {
-            let items = data.filter(item => item.prestacion.conceptId === prestacion.conceptId);
+            const items = data.filter(item => item.prestacion.conceptId === prestacion.conceptId);
             if (items.length > 0) {
 
                 items.forEach((item) => {
-                    let d = item._id.decada > 9 ? 9 : item._id.decada;
-                    let s = item._id.sexo === 'masculino' ? 0 : 1;
+                    const d = item._id.decada > 9 ? 9 : item._id.decada;
+                    const s = item._id.sexo === 'masculino' ? 0 : 1;
 
                     info[s][d] += item.count;
                     info[s][10] += item.count; // total file
@@ -111,7 +111,7 @@ export class RupPacientesComponent implements AfterViewInit {
                 });
             }
         });
-        let table = {
+        const table = {
             prestacion: { term: this.detallar ? 'Totalizado' : this.prestacion.term },
             data: info
         };
@@ -120,10 +120,10 @@ export class RupPacientesComponent implements AfterViewInit {
     }
 
     buscarRelaciones(row) {
-        let names = [];
+        const names = [];
         row.relaciones.forEach((item) => {
             this.registros.forEach((reg) => {
-                let i = reg.ids.indexOf(item);
+                const i = reg.ids.indexOf(item);
                 if (i >= 0) {
                     names.push(reg.concepto.term);
                 }

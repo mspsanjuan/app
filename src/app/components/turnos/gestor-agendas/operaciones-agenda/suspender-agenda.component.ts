@@ -76,7 +76,7 @@ export class SuspenderAgendaComponent implements OnInit {
             return;
         }
 
-        let patch = {
+        const patch = {
             op: 'suspendida',
             estado: 'suspendida'
         };
@@ -101,9 +101,9 @@ export class SuspenderAgendaComponent implements OnInit {
         if (environment.production === true) {
             for (let x = 0; x < this.seleccionadosSMS.length; x++) {
                 if (this.seleccionadosSMS[x].avisoSuspension !== 'enviado') {
-                    let dia = moment(this.seleccionadosSMS[x].horaInicio).format('DD/MM/YYYY');
-                    let horario = moment(this.seleccionadosSMS[x].horaInicio).format('HH:mm');
-                    let mensaje = 'Le informamos que su turno del dia ' + dia + ' a las ' + horario + ' horas fue SUSPENDIDO.   ' + this.auth.organizacion.nombre;
+                    const dia = moment(this.seleccionadosSMS[x].horaInicio).format('DD/MM/YYYY');
+                    const horario = moment(this.seleccionadosSMS[x].horaInicio).format('HH:mm');
+                    const mensaje = 'Le informamos que su turno del dia ' + dia + ' a las ' + horario + ' horas fue SUSPENDIDO.   ' + this.auth.organizacion.nombre;
                     this.seleccionadosSMS[x].smsEnviado = 'pendiente';
                     this.seleccionadosSMS[x].smsEnviado = this.send(this.seleccionadosSMS[x], mensaje);
                 }
@@ -115,13 +115,13 @@ export class SuspenderAgendaComponent implements OnInit {
     }
 
     send(turno: any, mensaje) {
-        let smsParams = {
+        const smsParams = {
             telefono: turno.paciente.telefono,
             mensaje,
         };
         let idBloque;
         this.agenda.bloques.forEach(element => {
-            let indice = element.turnos.findIndex(t => {
+            const indice = element.turnos.findIndex(t => {
                 return (t.id === turno.id);
             });
             idBloque = (indice !== -1) ? element.id : -1;
@@ -130,7 +130,7 @@ export class SuspenderAgendaComponent implements OnInit {
             sms => {
                 if (sms === '0') {
                     this.plex.toast('info', 'Se envió SMS al paciente ' + turno.paciente.nombre + ' ' + turno.paciente.apellido);
-                    let data = {
+                    const data = {
                         avisoSuspension: 'enviado'
                     };
                     this.turnosService.patch(this.agenda.id, idBloque, turno.id, data).subscribe(resultado => {
@@ -141,7 +141,7 @@ export class SuspenderAgendaComponent implements OnInit {
             err => {
                 if (err) {
                     this.plex.toast('danger', 'ERROR: Servicio caído');
-                    let data = {
+                    const data = {
                         idAgenda: this.agenda.id,
                         idBloque,
                         idTurno: turno.id,
@@ -155,7 +155,7 @@ export class SuspenderAgendaComponent implements OnInit {
     }
 
     seleccionarTurno(turno) {
-        let indice = this.seleccionadosSMS.indexOf(turno);
+        const indice = this.seleccionadosSMS.indexOf(turno);
         this.todosSeleccionados = false;
         if (indice === -1) {
             if (!(turno.reasignado && turno.reasignado.siguiente)) {

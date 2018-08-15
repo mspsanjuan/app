@@ -132,14 +132,14 @@ export class ElementosRUPService {
         // Busca el elemento RUP que implemente el concepto
 
         if (esSolicitud) {
-            let elemento = this.cacheParaSolicitud[concepto.conceptId];
+            const elemento = this.cacheParaSolicitud[concepto.conceptId];
             if (elemento) {
                 return elemento;
             } else {
                 return this.defaultsParaSolicitud[concepto.semanticTag];
             }
         } else {
-            let elemento = this.cache[concepto.conceptId];
+            const elemento = this.cache[concepto.conceptId];
             if (elemento) {
                 return elemento;
             } else {

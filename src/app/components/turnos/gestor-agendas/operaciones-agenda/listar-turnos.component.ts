@@ -19,7 +19,7 @@ export class ListarTurnosComponent implements OnInit {
     @Input('agendas') // recibe un array de agendas
     set agendas(value: any) {
         this._agendas = value;
-        let turnos = [];
+        const turnos = [];
     }
     get agendas(): any {
         return this._agendas;

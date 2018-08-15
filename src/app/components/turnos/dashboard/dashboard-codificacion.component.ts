@@ -38,7 +38,7 @@ export class DashboardCodificacionComponent implements OnInit {
         if (!this.autorizado) {
             this.redirect('inicio');
         } else {
-            let fecha = moment().format();
+            const fecha = moment().format();
             this.fechaDesde = moment(fecha).startOf('month');
             this.fechaHasta = moment(fecha).endOf('day');
 
