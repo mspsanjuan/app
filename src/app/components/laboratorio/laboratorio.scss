@@ -229,3 +229,8 @@ i[class^="mdi mdi-"] {
         color: white;
     }
 }
+
+.scrollPacientes{    
+    overflow-y: auto;
+    max-height: 200px;
+}
