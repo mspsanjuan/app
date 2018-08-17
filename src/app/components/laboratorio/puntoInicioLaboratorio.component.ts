@@ -226,9 +226,9 @@ export class PuntoInicioLaboratorioComponent
             this.plex.info('danger', resultado.err);
         } else {
             this.pacientes = resultado.pacientes;
-            if (this.pacientes){
+            if (this.pacientes) {
                 this.mostrarListaMpi = true;
-            }else{
+            } else {
                 this.mostrarListaMpi = false;
             }
         }
@@ -239,10 +239,10 @@ export class PuntoInicioLaboratorioComponent
         // this.plex.info('success', `Seleccionó el paciente ${paciente.apellido}, ${paciente.nombre}`);
         this.pacienteActivo = paciente;
         console.log(this.pacienteActivo);
-        if (this.pacienteActivo){
+        if (this.pacienteActivo) {
             this.busqueda.dniPaciente = paciente.documento;
 
-        }else{
+        } else {
             this.busqueda.dniPaciente = null;
         }
         this.refreshSelection(null, 'dniPaciente');
@@ -252,7 +252,7 @@ export class PuntoInicioLaboratorioComponent
         this.pacienteActivo = paciente;
     }
 
-        changeCarga(tipo) {
+    changeCarga(tipo) {
         console.log(tipo);
         if (tipo === 'pAnalisis') {
             console.log('por analisis');
@@ -270,7 +270,7 @@ export class PuntoInicioLaboratorioComponent
         console.log(this.formaCarga);
     }
 
-    changeServicio(){
+    changeServicio() {
         this.busqueda.servicios = null;
     }
 

@@ -64,6 +64,7 @@ export enum PrioridadesPrestacion {
 }
 
 export enum CargaLaboratorio {
+    'recepcion',
     'control',
     'carga',
     'validacion'
@@ -71,9 +72,7 @@ export enum CargaLaboratorio {
 
 export enum PrioridadesLaboratorio {
     'normal',
-    'urgencia guardia',
-    'urgencia ambulatorio',
-    'todos'
+    'urgencia'
 }
 
 export enum OrigenLaboratorio {
