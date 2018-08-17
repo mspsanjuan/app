@@ -33,6 +33,7 @@ export class PuntoInicioLaboratorioComponent
     public pacientes;
     public pacienteActivo;
     public cargaLaboratorioEnum;
+    public mostrarListaMpi = false;
     public modo = {
         id: 'control',
         nombre: 'Control'
@@ -223,6 +224,11 @@ export class PuntoInicioLaboratorioComponent
             this.plex.info('danger', resultado.err);
         } else {
             this.pacientes = resultado.pacientes;
+            if (this.pacientes){
+                this.mostrarListaMpi = true;
+            }else{
+                this.mostrarListaMpi = false;
+            }
         }
     }
 

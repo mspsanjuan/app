@@ -6,7 +6,8 @@
                 <plex-tabs>
                     <plex-tab label="Laboratorio general"></plex-tab>
                     <plex-tab label="Microbiologia"></plex-tab>
-                    <plex-tab label="Pesquisa neonatal"></plex-tab>
+                    <plex-tab label="Screening neonatal"></plex-tab>
+                    <plex-tab label="Bromatologia"></plex-tab>
                 </plex-tabs>
                 <div class="dropdown-secundario">
                     <i class="mdi mdi-dots-horizontal"></i>
@@ -94,7 +95,7 @@
                 <label for="">Paciente</label>
                 <paciente-buscar (searchStart)="searchStart()" (searchEnd)="searchEnd($event)"></paciente-buscar>
                 <!-- Listado de pacientes -->
-                <div class="scrollPacientes">
+                <div class="scrollPacientes" *ngIf='mostrarListaMpi'>
                     <paciente-listado [pacientes]="pacientes" [autoselect]="false" (selected)="seleccionarPaciente($event)" (hover)="hoverPaciente($event)"></paciente-listado>
                 </div>
             </div>

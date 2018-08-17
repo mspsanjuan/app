@@ -28,8 +28,8 @@
                         <strong>Usuario: </strong>
                         <p>{{ protocoloSelected.createdBy.nombreCompleto }}</p>
                         <hr>
-                        <strong>Solicitante: </strong>
-                        <p>lmonteverde</p>
+                        <strong>Paciente: </strong>
+                        <p>{{protocoloSelected.paciente.nombre}}{{protocoloSelected.paciente.apellido}}</p>
                         <hr>
                         <strong>Fecha de Registro:</strong>
                         <p>{{ protocoloSelected.createdAt | date: 'dd/MM/yyyy' }}</p>
