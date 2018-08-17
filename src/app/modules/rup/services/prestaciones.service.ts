@@ -1,10 +1,10 @@
-import { TipoPrestacionService } from './../../../services/tipoPrestacion.service';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { Auth } from '@andes/auth';
 import { Server } from '@andes/shared';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { IPrestacion } from '../interfaces/prestacion.interface';
 import { IPrestacionRegistro } from '../interfaces/prestacion.registro.interface';
+import { TipoPrestacionService } from './../../../services/tipoPrestacion.service';
 import { SnomedService } from '../../../services/term/snomed.service';
 
 @Injectable()

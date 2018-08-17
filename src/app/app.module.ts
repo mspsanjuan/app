@@ -86,7 +86,10 @@ import { ProfeService } from './services/profe.service';
 import { PeriodoPadronesPucoService } from './services/periodoPadronesPuco.service';
 import { PeriodoPadronesProfeService } from './services/periodoPadronesProfe.service';
 
+import { ReglasComponent } from './components/top/reglas/reglas.component';
+import { ReglaService } from './services/top/reglas.service';
 
+// TOP
 // ... Usuarios
 import { UsuarioService } from './services/usuarios/usuario.service';
 
@@ -112,6 +115,7 @@ import { AnsesService } from './services/fuentesAutenticas/servicioAnses.service
 // RUP
 import { FrecuentesProfesionalService } from './modules/rup/services/frecuentesProfesional.service';
 import { CDAService } from './modules/rup/services/CDA.service';
+
 
 
 // Componentes
@@ -310,7 +314,9 @@ import { CamaEstadoComponent } from './components/mapa-de-camas/cama/camaEstado.
 import { CamasService } from './services/camas.service';
 
 // Solicitudes
-import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+import { SolicitudesComponent } from './components/top/solicitudes/solicitudes.component';
+import { DetalleSolicitudComponent } from './components/top/solicitudes/detalleSolicitud.component';
+import { NuevaSolicitudComponent } from './components/top/solicitudes/nuevaSolicitud.component';
 
 // Componentes RUP
 // [jgabriel] Por alguna cuestión de Angular's DI no se puede tener esto en otro archivo. WTF?
@@ -519,6 +525,8 @@ registerLocaleData(localeEs, 'es');
         LaboratoriosComponent,
         // Solicitudes
         SolicitudesComponent,
+        DetalleSolicitudComponent,
+        NuevaSolicitudComponent,
         PrestamosHcComponent,
         ListarSolicitudesComponent,
         ListarPrestamosComponent,
@@ -532,7 +540,8 @@ registerLocaleData(localeEs, 'es');
         // Configuracion prestacion
         ConfiguracionPrestacionVisualizarComponent,
         ConfiguracionPrestacionCrearComponent,
-        PucoComponent
+        PucoComponent,
+        ReglasComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
@@ -597,8 +606,8 @@ registerLocaleData(localeEs, 'es');
         CDAService,
         SugerenciasService,
         ConfiguracionPrestacionService,
-        PrestacionLegacyService
-
+        PrestacionLegacyService,
+        ReglaService
     ]
 })
 
