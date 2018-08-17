@@ -30,10 +30,18 @@ export class PuntoInicioLaboratorioComponent
     public prioridadesEnum;
     public laboratorioInternoEnum: any;
     public dniPaciente: any;
+    public pacientes;
+    public pacienteActivo;
+    public cargaLaboratorioEnum;
+    public mostrarListaMpi = false;
     public modo = {
-        control: false,
-        carga: false,
-        validacion: false
+        id: 'control',
+        nombre: 'Control'
+    };
+    public formaCarga = {
+        listProtocolo: false,
+        hTrabajo: false,
+        pAnalisis: false
     };
     public busqueda = {
         fechaDesde: new Date(),
@@ -43,7 +51,8 @@ export class PuntoInicioLaboratorioComponent
         apellidoPaciente: null,
         origen: null,
         numProtocoloDesde: null,
-        numProtocoloHasta: null
+        numProtocoloHasta: null,
+        servicios: null,
     };
 
     constructor(public plex: Plex, private formBuilder: FormBuilder,
@@ -56,11 +65,13 @@ export class PuntoInicioLaboratorioComponent
         this.prioridadesEnum = enumerados.getPrioridadesLab();
         this.origenEnum = enumerados.getOrigenLab();
         this.laboratorioInternoEnum = enumerados.getLaboratorioInterno();
+        this.cargaLaboratorioEnum = enumerados.getCargaLaboratorio();
         this.refreshSelection();
     }
 
     // funciones
     refreshSelection(value?, tipo?) {
+        console.log(this.modo);
         let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
         if (fechaDesde.isValid()) {
             this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
@@ -203,6 +214,64 @@ export class PuntoInicioLaboratorioComponent
         event.callback(enumerados.getPrioridadesLab());
         return enumerados.getPrioridadesLab();
     }
+
+    searchStart() {
+        this.pacientes = null;
+    }
+
+    searchEnd(resultado: any) {
+        if (resultado.err) {
+            this.plex.info('danger', resultado.err);
+        } else {
+            this.pacientes = resultado.pacientes;
+            if (this.pacientes){
+                this.mostrarListaMpi = true;
+            }else{
+                this.mostrarListaMpi = false;
+            }
+        }
+    }
+
+
+    seleccionarPaciente(paciente: any) {
+        // this.plex.info('success', `Seleccionó el paciente ${paciente.apellido}, ${paciente.nombre}`);
+        this.pacienteActivo = paciente;
+        console.log(this.pacienteActivo);
+        if (this.pacienteActivo){
+            this.busqueda.dniPaciente = paciente.documento;
+
+        }else{
+            this.busqueda.dniPaciente = null;
+        }
+        this.refreshSelection(null, 'dniPaciente');
+    }
+
+    hoverPaciente(paciente: any) {
+        this.pacienteActivo = paciente;
+    }
+
+        changeCarga(tipo) {
+        console.log(tipo);
+        if (tipo === 'pAnalisis') {
+            console.log('por analisis');
+            this.formaCarga.listProtocolo = false;
+            this.formaCarga.hTrabajo = false;
+        } else if (tipo === 'hTrabajo') {
+            console.log('por hTrabajo');
+            this.formaCarga.pAnalisis = false;
+            this.formaCarga.listProtocolo = false;
+        } else if (tipo === 'listProtocolo') {
+            console.log('por listProtocolo');
+            this.formaCarga.pAnalisis = false;
+            this.formaCarga.hTrabajo = false;
+        };
+        console.log(this.formaCarga);
+    }
+
+    changeServicio(){
+        this.busqueda.servicios = null;
+    }
+
 
 
     // Hardcodeo

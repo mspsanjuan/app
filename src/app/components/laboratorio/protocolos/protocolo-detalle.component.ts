@@ -18,7 +18,7 @@ export class ProtocoloDetalleComponent
     @HostBinding('class.plex-layout') layout = true; // Permite el uso de flex-box en el componente
 
     public mostrarMasOpciones = false;
-    public protocolo: any = {};
+    public protocoloSelected: any = {};
     public fechaDesde: any;
     public fechaHasta: any;
     public parametros = [];
@@ -29,13 +29,13 @@ export class ProtocoloDetalleComponent
     set cargarProtocolo(value: any) {
         console.log('cargarProtocolo set', value);
         if (value) {
-            this.protocolo = value;
+            this.protocoloSelected = value;
         }
     }
 
     get cargarProtocolo() {
         console.log('cargarProtocolo get');
-        return this.protocolo;
+        return this.protocoloSelected;
     }
 
     constructor(public plex: Plex, private formBuilder: FormBuilder,
@@ -45,6 +45,7 @@ export class ProtocoloDetalleComponent
 
 
     ngOnInit() {
+        console.log(this.protocoloSelected);
         console.log(this.protocolos);
     }
 

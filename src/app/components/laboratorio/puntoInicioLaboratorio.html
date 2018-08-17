@@ -6,7 +6,8 @@
                 <plex-tabs>
                     <plex-tab label="Laboratorio general"></plex-tab>
                     <plex-tab label="Microbiologia"></plex-tab>
-                    <plex-tab label="Pesquisa neonatal"></plex-tab>
+                    <plex-tab label="Screening neonatal"></plex-tab>
+                    <plex-tab label="Bromatologia"></plex-tab>
                 </plex-tabs>
                 <div class="dropdown-secundario">
                     <i class="mdi mdi-dots-horizontal"></i>
@@ -16,15 +17,37 @@
         <!-- Conjunto de filtros -->
         <div class="row">
 
-            <div class="col-12">
-                <h4>Modo</h4>
+            <div class="col-6">
+                <!-- <h4>Modo</h4>
                 <plex-bool type="checkbox" [(ngModel)]="modo.control" label="Control" name="Control"></plex-bool>
                 <plex-bool type="checkbox" [(ngModel)]="modo.carga" label="Carga" name="Carga"></plex-bool>
-                <plex-bool type="checkbox" [(ngModel)]="modo.validacion" label="Validacion" name="Validacion"></plex-bool>
-
+                <plex-bool type="checkbox" [(ngModel)]="modo.validacion" label="Validacion" name="Validacion"></plex-bool> -->
+                <plex-select [(ngModel)]="modo" name="LaboratorioInterno" (change)='changeServicio()' label="Modo" [data]='cargaLaboratorioEnum'
+                    [required]="true"></plex-select>
             </div>
+            <div class="col-6" *ngIf='modo && modo.id === "carga"'>
+                <label for="">Forma de cargar</label>
+                <plex-bool type="checkbox" [(ngModel)]="formaCarga.listProtocolo" label="Por lista de protocolos" (change)='changeCarga("listProtocolo")'
+                    name="protocolos"></plex-bool>
+                <plex-bool type="checkbox" [(ngModel)]="formaCarga.hTrabajo" label="Por hoja de trabajo" (change)='changeCarga("hTrabajo")'
+                    name="trabajo"></plex-bool>
+                <plex-bool type="checkbox" [(ngModel)]="formaCarga.pAnalisis" label="Por analisis" (change)='changeCarga("pAnalisis")' name="analisis"></plex-bool>
+            </div>
+
         </div>
         <div class="row contenedor-filtros">
+            <div class="col-2">
+                <plex-select [(ngModel)]="LaboratorioInterno" (change)="refreshSelection($event,'LaboratorioInterno')" name="LaboratorioInterno"
+                    label="Area" [data]='laboratorioInternoEnum' [required]="true"></plex-select>
+            </div>
+            <div class="col-2">
+                <plex-select [(ngModel)]="prioridad" (change)="refreshSelection($event,'prioridad')" name="Prioridad" label="Prioridad" [data]="prioridadesEnum"
+                    [required]="true"></plex-select>
+            </div>
+            <div class="col-2">
+                <plex-select [(ngModel)]="busqueda.origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" [data]="origenEnum"
+                    [required]="true"></plex-select>
+            </div>
             <div class="col-2">
                 <plex-datetime type="date" [(ngModel)]="busqueda.fechaDesde" (change)="refreshSelection($event,'fechaDesde')" name="fechaDesde"
                     label="Fecha desde" class="fechas" [required]="true">
@@ -35,19 +58,7 @@
                     label="Fecha hasta" class="fechas" [required]="true">
                 </plex-datetime>
             </div>
-            <div class="col-2">
-                <plex-select [(ngModel)]="busqueda.origen" (change)="refreshSelection($event,'origen')" name="origen" label="Origen" [data]="origenEnum"
-                    [required]="true"></plex-select>
-            </div>
 
-            <div class="col-2">
-                <plex-select [(ngModel)]="prioridad" (change)="refreshSelection($event,'prioridad')" name="Prioridad" label="Prioridad" [data]="prioridadesEnum"
-                    [required]="true"></plex-select>
-            </div>
-            <div class="col-2">
-                <plex-select [(ngModel)]="LaboratorioInterno" (change)="refreshSelection($event,'LaboratorioInterno')" name="LaboratorioInterno"
-                    label="Lab. Interno" [data]='laboratorioInternoEnum' [required]="true"></plex-select>
-            </div>
             <div class="col-2 labs-contenedor-secundario">
                 <div class="contenedor-bloque-texto line-height mr-2">
                     <h6>Filtrado avanzado</h6>
@@ -58,9 +69,14 @@
         </div>
         <!-- Filtros avanzados -->
         <div class="row" *ngIf="mostrarMasOpciones">
-            <div class="col-3">
-                <plex-select [(ngModel)]="busqueda.servicios" name="Servicio" (getData)="loadServicios($event)"
-                    label="Servicio" placeholder="Seleccione el servicio" labelField="term" [required]="true" idField="term">
+            <div *ngIf='modo && modo.id === "carga"' class="col-3">
+                <plex-select [(ngModel)]="busqueda.servicios" name="Servicio" (getData)="loadServicios($event)" label="Servicio" placeholder="Seleccione el servicio"
+                    labelField="term" [multiple]="true" [required]="true" idField="term">
+                </plex-select>
+            </div>
+            <div *ngIf='modo && modo.id !== "carga"' class="col-3">
+                <plex-select [(ngModel)]="busqueda.servicios" name="Servicio" (getData)="loadServicios($event)" label="Servicio" placeholder="Seleccione el servicio"
+                    labelField="term" [required]="true" idField="term">
                 </plex-select>
             </div>
             <div class="col-3">
@@ -75,10 +91,16 @@
                 <plex-select [(ngModel)]="efectorSolicitante" (change)="refreshSelection($event,'efectorSolicitante')" name="efectorSolicitante"
                     label="Efector Solicitante" (getData)="loadOrganizacion($event)"></plex-select>
             </div>
+            <div class="col-12">
+                <label for="">Paciente</label>
+                <paciente-buscar (searchStart)="searchStart()" (searchEnd)="searchEnd($event)"></paciente-buscar>
+                <!-- Listado de pacientes -->
+                <div class="scrollPacientes" *ngIf='mostrarListaMpi'>
+                    <paciente-listado [pacientes]="pacientes" [autoselect]="false" (selected)="seleccionarPaciente($event)" (hover)="hoverPaciente($event)"></paciente-listado>
+                </div>
+            </div>
+
             <!-- <div class="col-3">
-                            <plex-float [(ngModel)]="numeroOrigen" (change)="refreshSelection($event,'numeroOrigen')" name="numeroOrigen" label="Numero Origen" ></plex-float>
-                        </div> -->
-            <div class="col-3">
                 <plex-float [(ngModel)]="busqueda.dniPaciente" (change)="refreshSelection($event,'dniPaciente')" name="dniPaciente" label="Documento del paciente"></plex-float>
             </div>
             <div class="col-3">
@@ -87,7 +109,8 @@
             </div>
             <div class="col-3">
                 <plex-text [(ngModel)]="busqueda.nombrePaciente" (change)="refreshSelection($event,'nombrePaciente')" name="nombre" label="Nombre del paciente"></plex-text>
-            </div>
+            </div> -->
+
         </div>
         <hr>
         <!--Resultados-->
@@ -113,13 +136,13 @@
                                 <strong>&nbsp;|&nbsp;Origen&nbsp;</strong>
                                 <p>{{protocolo.solicitud.ambitoOrigen}}</p>
                                 <strong>&nbsp;|&nbsp;Servicio&nbsp;</strong>
-                                <p>Clinica </p>
+                                <p>Clinica</p>
                             </div>
                             <div class="labs-item-texto">
                                 <strong>Usuario:&nbsp;</strong>
                                 <p>{{protocolo.createdBy.nombreCompleto}}</p>
-                                <strong>&nbsp;|&nbsp;Solicitante:&nbsp;</strong>
-                                <p>lmonteverde</p>
+                                <strong>&nbsp;|&nbsp;Paciente:&nbsp;</strong>
+                                <p>{{protocolo.paciente.nombre}} {{protocolo.paciente.apellido}} </p>
                                 <strong>&nbsp;|&nbsp;Fecha de Registro:&nbsp;</strong>
                                 <p>{{protocolo.createdAt | date: 'dd/MM/yyyy'}}</p>
                             </div>

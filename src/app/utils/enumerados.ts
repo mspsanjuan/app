@@ -63,6 +63,12 @@ export enum PrioridadesPrestacion {
     'emergencia'
 }
 
+export enum CargaLaboratorio {
+    'control',
+    'carga',
+    'validacion'
+}
+
 export enum PrioridadesLaboratorio {
     'normal',
     'urgencia'
@@ -205,6 +211,20 @@ export function getPrioridades() {
 
 export function getPrioridadesLab() {
     let arrLab = Object.keys(PrioridadesLaboratorio);
+    arrLab = arrLab.slice(arrLab.length / 2);
+    let salida = arrLab.map(elem => {
+        return {
+            'id': elem,
+            'nombre': titleCase(elem)
+        };
+    });
+    return salida;
+}
+
+
+
+export function getCargaLaboratorio() {
+    let arrLab = Object.keys(CargaLaboratorio);
     arrLab = arrLab.slice(arrLab.length / 2);
     let salida = arrLab.map(elem => {
         return {

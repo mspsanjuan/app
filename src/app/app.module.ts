@@ -132,6 +132,10 @@ import { HeaderPacienteComponent } from './components/paciente/headerPaciente.co
 import { DashboardComponent } from './components/paciente/dashboard.component';
 import { PacienteDetalleComponent } from './components/paciente/paciente-detalle';
 import { PacienteDetalleActualizarComponent } from './components/paciente/paciente-detalle-actualizar.component';
+import { PacienteBuscarComponent } from './modules/mpi/components/paciente-buscar.component';
+import { PacienteListadoComponent } from './modules/mpi/components/paciente-listado.component';
+import { PacientePanelComponent } from './modules/mpi/components/paciente-panel.component';
+import { PacienteDemoComponent } from './modules/mpi/components/demo.component';
 
 // PUCO/ObraSocial
 import { PucoComponent } from './components/puco/puco.component';
@@ -389,7 +393,6 @@ import { ProtocoloService } from './services/laboratorio/protocolo.service';
 
 registerLocaleData(localeEs, 'es');
 
-
 // Main module
 @NgModule({
     imports: [
@@ -478,7 +481,13 @@ registerLocaleData(localeEs, 'es');
         SolicitudManualComponent,
         CamaEstadoComponent,
         OcuparCamaComponent,
-        PucoComponent
+        PucoComponent,
+        // MPI
+        PacienteBuscarComponent,
+        PacienteListadoComponent,
+        PacientePanelComponent,
+        PacienteDemoComponent,
+        PacientePanelComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
