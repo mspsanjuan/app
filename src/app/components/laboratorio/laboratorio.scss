@@ -202,6 +202,64 @@ section.contenedor-tabs {
     }
 }
 
+.labs-listado-item-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 60px;
+    padding: 0.25rem 0.5rem;
+    background-color: white!important;
+    border:solid 1px black;
+
+    &:hover{ 
+        background-color: $dark-grey;
+        border: solid 2px $blue;   
+    }
+    
+    .listado-contenedor-secundario {
+        display: flex;
+        justify-content: flex-start;
+        width: 75%;
+    }
+    
+    td {
+        border: none!important;
+    }
+
+    .labs-item-numero {
+        display: flex;
+        flex-direction: row;
+        font-weight: bolder; 
+        
+        & h2 {
+            align-self: center;
+            display: flex;
+            margin-bottom: 0;
+        }
+    }
+
+    .contenedor-bloque-texto {
+        @extend %bloque-texto;
+        height: 3rem;
+        align-self: center;
+
+        .labs-item-texto {
+            display: flex;
+            flex-direction: row;
+            font-weight: normal; 
+        }
+    }
+
+    hr {
+        border: solid 1px gray;
+        height: 35%;
+        margin: 10px;
+        align-self: center;
+    }
+}
+
 // Sidebar
 plex-layout-sidebar[type="invert"]
     plex-box > div:last-child {

@@ -34,6 +34,7 @@ export class PuntoInicioLaboratorioComponent
     public pacienteActivo;
     public cargaLaboratorioEnum;
     public mostrarListaMpi = false;
+    public indexProtocolo;
     public modo = {
         id: 'control',
         nombre: 'Control'
@@ -74,25 +75,25 @@ export class PuntoInicioLaboratorioComponent
         console.log(this.modo);
         let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
         if (fechaDesde.isValid()) {
-            this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
+            this.parametros['solicitudDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
         }
 
         let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
         if (fechaHasta.isValid()) {
-            this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
+            this.parametros['solicitudHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
         }
         this.parametros['tipoPrestacionSolicititud'] = '15220000';
         this.parametros['organizacion'] = this.auth.organizacion._id;
         if (tipo === 'fechaDesde') {
             let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
-                this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
+                this.parametros['solicitudDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
             }
         }
         if (tipo === 'fechaHasta') {
             let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
             if (fechaHasta.isValid()) {
-                this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
+                this.parametros['solicitudHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
             }
         }
         if (tipo === 'dniPaciente') {
@@ -150,7 +151,7 @@ export class PuntoInicioLaboratorioComponent
         let registro: any = registros.find((reg) => {
             return reg.nombre === 'numeroProtocolo';
         });
-        return registro.valor;
+        return registro ? registro.valor : null;
     }
 
     getProtocolos(params: any) {
@@ -169,7 +170,7 @@ export class PuntoInicioLaboratorioComponent
         return false;
     }
 
-    verProtocolo(protocolo, multiple, e) {
+    verProtocolo(protocolo, multiple, e, index) {
         // Si se presionó el boton suspender, no se muestran otros protocolos hasta que se confirme o cancele la acción.
 
         if (protocolo && protocolo.id) {
@@ -177,6 +178,7 @@ export class PuntoInicioLaboratorioComponent
             this.protocolo = protocolo;
             this.showListarProtocolos = false;
             this.showProtocoloDetalle = true;
+            this.indexProtocolo = index;
             // }
         }
     }

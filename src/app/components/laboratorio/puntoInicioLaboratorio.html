@@ -122,12 +122,14 @@
         <!-- Listado -->
         <table class="table table-striped table-sm">
             <tbody>
-                <tr class="labs-listado-item" *ngFor="let protocolo of protocolos; let i = index" (click)="verProtocolo(protocolo, false, $event)">
+                <tr class="labs-listado-item" *ngFor="let protocolo of protocolos; let i = index" (click)="verProtocolo(protocolo, false, $event,i)">
                     <div class="listado-contenedor-secundario">
                         <td class="labs-item-numero">
-                            <i class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+
+                            <i *ngIf='protocolo.paciente.sexo === "femenino"' class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+                            <i *ngIf='protocolo.paciente.sexo === "masculino"' class="mdi mdi-gender-male mdi-36px  azul"></i>
                             <hr>
-                            <h2 *ngIf='protocolo.solicitud.registros.length > 0'>{{getNumeroProtocolo(protocolo.solicitud.registros)}}</h2>
+                            <h2 *ngIf='getNumeroProtocolo(protocolo.solicitud.registros) !== null'>{{getNumeroProtocolo(protocolo.solicitud.registros)}}</h2>
                             <hr>
                         </td>
                         <td class="contenedor-bloque-texto">
@@ -203,4 +205,4 @@
 </plex-layout>
 
 <!-- Switchea a listado practicas -->
-<protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo" [protocolos]="protocolos" (volverAListaControEmit)='showProtocoloDetalle = false;showListarProtocolos = true'></protocolo-detalle>
+<protocolo-detalle *ngIf="showProtocoloDetalle" [cargarProtocolo]="protocolo" [indexProtocolo]='indexProtocolo' [protocolos]="protocolos" [modo]='modo' (volverAListaControEmit)='showProtocoloDetalle = false;showListarProtocolos = true'></protocolo-detalle>
