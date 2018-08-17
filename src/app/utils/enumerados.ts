@@ -64,6 +64,7 @@ export enum PrioridadesPrestacion {
 }
 
 export enum CargaLaboratorio {
+    'recepcion',
     'control',
     'carga',
     'validacion'
