@@ -65,9 +65,7 @@ export enum PrioridadesPrestacion {
 
 export enum PrioridadesLaboratorio {
     'normal',
-    'urgencia guardia',
-    'urgencia ambulatorio',
-    'todos'
+    'urgencia'
 }
 
 export enum OrigenLaboratorio {

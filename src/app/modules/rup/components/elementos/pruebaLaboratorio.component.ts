@@ -14,20 +14,20 @@ export class PruebaLaboratorioComponent extends RUPComponent implements OnInit {
     ngOnInit() {
         // Buscamos los tipos de prestación que sean turneables para los que el tenga permisos
         // (OBS: a futuro un profesional puede tener permisos para más Prestaciones que no sean turneables)
-        this.servicioTipoPrestacion.get({ id: this.auth.getPermissions('rup:tipoPrestacion:?') }).subscribe(data => {
-            this.tiposPrestacion = data;
-            if (!this.registro.valor) {
-                this.registro.valor = { solicitudPrestacion: {} };
-                this.registro.valor.solicitudPrestacion['autocitado'] = false;
-                this.registro.valor.solicitudPrestacion['prestacionSolicitada'] = this.registro.concepto.conceptId;
-            }
+        if (!this.registro.valor) {
+            this.registro.valor = {
+                solicitudPrestacion: {}
+            };
+            this.registro.valor.solicitudPrestacion['autocitado'] = false;
+            //this.registro.valor.solicitudPrestacion['prestacionSolicitada'] = this.tiposPrestacion.find(tp => tp.conceptId === this.registro.concepto.conceptId);
 
-        });
+            this.registro.valor.solicitudPrestacion['prestacionSolicitada'] = this.tiposPrestacion.find(tp => tp.conceptId === this.prestacion.solicitud.tipoPrestacion.conceptId);
+
+        }
 
     }
 
     loadPrioridad(event) {
-        console.log(enumerados.getPrioridadesLab());
         event.callback(enumerados.getPrioridadesLab());
         return enumerados.getPrioridadesLab();
 
@@ -47,33 +47,23 @@ export class PruebaLaboratorioComponent extends RUPComponent implements OnInit {
         }
     }
 
-    loadProfesionales(event) {
-        if (event && event.query) {
-            let query = {
-                nombreCompleto: event.query
-            };
-            this.serviceProfesional.get(query).subscribe(event.callback);
-        } else {
-            let callback = (this.registro.valor.solicitudPrestacion.profesionalesDestino) ? this.registro.valor.solicitudPrestacion.profesionalesDestino : null;
-            event.callback(callback);
-        }
-    }
-
-
-    loadServicios($event) {
+    loadServicios(event) {
         this.servicioOrganizacion.getById(this.auth.organizacion.id).subscribe((organizacion: any) => {
-            console.log(organizacion)
             let servicioEnum = organizacion.unidadesOrganizativas;
-            $event.callback(servicioEnum);
+            event.callback(servicioEnum);
         });
 
     }
 
-    loadPracticas($event) {
+    loadPracticas(event) {
         this.snomedService.getQuery({ expression: '<<88308000' }).subscribe(result => {
-            $event.callback(result);
+            event.callback(result);
         });
 
     }
+
+
+
+
 
 }
