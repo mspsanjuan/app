@@ -18,6 +18,7 @@ import { RoutingGuard } from './app.routings-guard.class';
 import { MapsComponent } from './utils/mapsComponent';
 
 // Componentes
+
 // ... Tablas Maestras
 import { PacienteSearchComponent } from './components/paciente/paciente-search.component';
 import { EspecialidadComponent } from './components/especialidad/especialidad.component';
@@ -36,7 +37,7 @@ import { ListaEsperaComponent } from './components/turnos/lista-espera/listaEspe
 import { ClonarAgendaComponent } from './components/turnos/gestor-agendas/operaciones-agenda/clonar-agenda';
 import { PanelEspacioComponent } from './components/turnos/configuracion/espacio-fisico/panel-espacio.component';
 import { GestorAgendasComponent } from './components/turnos/gestor-agendas/gestor-agendas.component';
-import { PuntoInicioTurnosComponent } from './components/turnos/dashboard/puntoInicio-turnos.component';
+import { PuntoInicioTurnosComponent } from './components/turnos/punto-inicio/puntoInicio-turnos.component';
 
 // ... MPI
 import { DashboardComponent } from './components/paciente/dashboard.component';
@@ -67,6 +68,8 @@ import { ConsultaDiagnosticoComponent } from './components/reportes/consultaDiag
 import { EncabezadoReportesComponent } from './components/reportes/encabezadoReportes.component';
 import { CantidadConsultaXPrestacionComponent } from './components/reportes/cantidadConsultaXPrestacion.component';
 
+// CONFIGURACION PRESTACION
+import { ConfiguracionPrestacionVisualizarComponent } from './components/configuracionPrestacion/configuracion-prestacion-visualizar.component';
 
 // Internacion
 import { MapaDeCamasComponent } from './components/mapa-de-camas/mapa-de-camas/mapa-de-camas.component';
@@ -74,12 +77,13 @@ import { CamasListadoComponent } from './components/mapa-de-camas/cama/camasList
 import { IniciarInternacionComponent } from './modules/rup/components/ejecucion/internacion/iniciarInternacion.component';
 import { EjecucionInternacionComponent } from './modules/rup/components/ejecucion/internacion/ejecucionInternacion.component';
 // Solicitudes
-import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+import { SolicitudesComponent } from './components/top/solicitudes/solicitudes.component';
 import { OcuparCamaComponent } from './modules/rup/components/ejecucion/internacion/ocuparCama.component';
 import { CamaCreateUpdateComponent } from './components/mapa-de-camas/cama/cama-create-update.component';
 
 // Préstamos HC
 import { PrestamosHcComponent } from './components/prestamosHC/prestamos-hc.component';
+import { ReglasComponent } from './components/top/reglas/reglas.component';
 
 // Laboratorio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
@@ -116,7 +120,7 @@ const appRoutes: Routes = [
   { path: 'citas/agenda', component: PlanificarAgendaComponent, canActivate: [RoutingGuard] },
   { path: 'citas/turnos', component: DarTurnosComponent, canActivate: [RoutingGuard] },
   { path: 'citas/listaEspera', component: ListaEsperaComponent, canActivate: [RoutingGuard] },
-  { path: 'puntoInicioTurnos', component: PuntoInicioTurnosComponent, canActivate: [RoutingGuard] },
+  { path: 'citas/puntoInicio', component: PuntoInicioTurnosComponent, canActivate: [RoutingGuard] },
 
   // RUP
   { path: 'rup', component: PuntoInicioComponent, canActivate: [RoutingGuard] },
@@ -132,6 +136,10 @@ const appRoutes: Routes = [
   { path: 'rup/llavesTipoPrestacion', component: LlavesTipoPrestacionComponent, canActivate: [RoutingGuard] },
   { path: 'rup/vista/:id', component: VistaHudsComponent, canActivate: [RoutingGuard] },
   { path: 'rup/buscaHuds', component: HudsBusquedaPacienteComponent, canActivate: [RoutingGuard] },
+
+  // configuracion prestacion
+  { path: 'configuracionPrestacion', component: ConfiguracionPrestacionVisualizarComponent, canActivate: [RoutingGuard] },
+
   
   // Mapa de camas
   { path: 'mapa-de-camas', component: MapaDeCamasComponent, canActivate: [RoutingGuard] },
@@ -150,6 +158,10 @@ const appRoutes: Routes = [
   
   // Solicitudes
   { path: 'solicitudes', component: SolicitudesComponent, canActivate: [RoutingGuard] },
+
+  // TOP
+  { path: 'top/reglas', component: ReglasComponent, canActivate: [RoutingGuard] },
+
 
   // Laboratorio
   { path: 'laboratorio', component: PuntoInicioLaboratorioComponent, canActivate: [RoutingGuard] },

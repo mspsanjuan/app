@@ -1,0 +1,47 @@
+<fieldset>
+    <legend>Solicitudes pendientes de Turno</legend>
+    <div class="row">
+        <div class="col-12">
+            <ng-container *ngIf="solicitudesPrestaciones.length > 0; then lista else mensaje"></ng-container>
+            <ng-template #lista>
+                <!-- Lista de solicitudes -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Prestación</th>
+                            <th>Profesional/Organización</th>
+                            <th>Operación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let prestacion of solicitudesPrestaciones">
+                            <td>
+                                {{ prestacion.solicitud.fecha | date: 'dd/MM/yyyy' }}
+                            </td>
+                            <td>
+                                {{ prestacion.solicitud.tipoPrestacion.term }}
+                            </td>
+                            <td>
+                                {{ prestacion.solicitud.profesional | profesional }} - {{ prestacion?.solicitud?.organizacion?.nombre }}
+                                <span class="text-danger" *ngIf="prestacion.solicitud?.registros[0]?.valor?.solicitudPrestacion?.autocitado === true">(autocitado)</span>
+                            </td>
+                            <td>
+                                <plex-button *ngIf="!prestacion.solicitud?.turno && (auth.organizacion.id === prestacion?.solicitud?.organizacion?.id)" type="success"
+                                    label="DAR TURNO" (click)="solicitudPrestacionDarTurno(prestacion)" title="Dar turno"></plex-button>
+                                <span *ngIf="prestacion.solicitud?.turno && (auth.organizacion.id === prestacion?.solicitud?.organizacion?.id)" class="badge badge-success">Turno Dado</span>
+                                <span *ngIf="prestacion.solicitud?.turno && (auth.organizacion.id !== prestacion?.solicitud?.organizacion?.id)" class="badge badge-info">Turno Dado</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+
+            <!-- Mensaje -->
+            <ng-template #mensaje>
+                <i class="mdi mdi-information-outline"></i> No hay solicitudes pendientes
+                <hr>
+            </ng-template>
+        </div>
+    </div>
+</fieldset>
