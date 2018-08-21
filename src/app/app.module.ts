@@ -449,7 +449,10 @@ let RUPComponentsArray = [
     DesarrolloPsicomotorComponent,
     RegistrarMedidasAntropometricasNinoM2AComponent,
     RegistrarMedidasAntropometricasNinoE2Y3AComponent,
-    RegistrarMedidasAntropometricasNinoE3Y6AComponent
+    RegistrarMedidasAntropometricasNinoE3Y6AComponent,
+    ConfiguracionPrestacionVisualizarComponent,
+    ConfiguracionPrestacionCrearComponent,
+    ReglasComponent
 ];
 
 /** moment pipes  - desde agular 5 hay que importar el locale a demanda */
@@ -623,6 +626,8 @@ registerLocaleData(localeEs, 'es');
         ConfiguracionPrestacionService,
         PrestacionLegacyService,
         ReglaService
+
+
     ]
 })
 
