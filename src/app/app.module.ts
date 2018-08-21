@@ -145,6 +145,10 @@ import { HeaderPacienteComponent } from './components/paciente/headerPaciente.co
 import { DashboardComponent } from './components/paciente/dashboard.component';
 import { PacienteDetalleComponent } from './components/paciente/paciente-detalle';
 import { PacienteDetalleActualizarComponent } from './components/paciente/paciente-detalle-actualizar.component';
+import { PacienteBuscarComponent } from './modules/mpi/components/paciente-buscar.component';
+import { PacienteListadoComponent } from './modules/mpi/components/paciente-listado.component';
+import { PacientePanelComponent } from './modules/mpi/components/paciente-panel.component';
+import { PacienteDemoComponent } from './modules/mpi/components/demo.component';
 
 // PUCO/ObraSocial
 import { PucoComponent } from './components/puco/puco.component';
@@ -231,6 +235,7 @@ import { ObservacionesComponent } from './modules/rup/components/elementos/obser
 import { NuevaEvolucionProblemaComponent } from './modules/rup/components/elementos/nuevaEvolucionProblema.component';
 import { EvolucionProblemaDefaultComponent } from './modules/rup/components/elementos/evolucionProblemaDefault.component';
 import { AutocitadoComponent } from './modules/rup/components/elementos/autocitado.component';
+import { PruebaLaboratorioComponent } from './modules/rup/components/elementos/pruebaLaboratorio.component';
 import { ObesidadComponent } from './modules/rup/components/elementos/obesidad.component';
 import { HipertensionArterialComponent } from './modules/rup/components/elementos/hipertensionArterial.component';
 import { FiltradoGlomerularComponent } from './modules/rup/components/elementos/filtradoGlomerular.component';
@@ -337,6 +342,9 @@ import { EstadisticaModule } from './modules/estadisticas/estadistica.module';
 import { ConfiguracionPrestacionVisualizarComponent } from './components/configuracionPrestacion/configuracion-prestacion-visualizar.component';
 import { ConfiguracionPrestacionCrearComponent } from './components/configuracionPrestacion/configuracion-prestacion-crear.component';
 
+// Laboratorio
+import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
+import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 
 export let RUPRegistry = {
     'SelectPorRefsetComponent': SelectPorRefsetComponent,
@@ -354,6 +362,7 @@ export let RUPRegistry = {
     'FrecuenciaCardiacaComponent': FrecuenciaCardiacaComponent,
     'FrecuenciaRespiratoriaComponent': FrecuenciaRespiratoriaComponent,
     'AutocitadoComponent': AutocitadoComponent,
+    'PruebaLaboratorioComponent': PruebaLaboratorioComponent,
     'ObesidadComponent': ObesidadComponent,
     'HipertensionArterialComponent': HipertensionArterialComponent,
     'FiltradoGlomerularComponent': FiltradoGlomerularComponent,
@@ -392,6 +401,7 @@ export let RUPRegistry = {
 let RUPComponentsArray = [
     SelectPorRefsetComponent,
     AutocitadoComponent,
+    PruebaLaboratorioComponent,
     EvolucionProblemaDefaultComponent,
     FiltradoGlomerularComponent,
     FrecuenciaCardiacaComponent,
@@ -445,9 +455,9 @@ let RUPComponentsArray = [
 /** moment pipes  - desde agular 5 hay que importar el locale a demanda */
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { ProtocoloService } from './services/laboratorio/protocolo.service';
 
 registerLocaleData(localeEs, 'es');
-
 
 // Main module
 @NgModule({
@@ -528,6 +538,8 @@ registerLocaleData(localeEs, 'es');
         DetalleSolicitudComponent,
         NuevaSolicitudComponent,
         PrestamosHcComponent,
+        PuntoInicioLaboratorioComponent,
+        ProtocoloDetalleComponent,
         ListarSolicitudesComponent,
         ListarPrestamosComponent,
         PrestarHcComponent,
@@ -537,11 +549,13 @@ registerLocaleData(localeEs, 'es');
         SolicitudManualComponent,
         CamaEstadoComponent,
         OcuparCamaComponent,
-        // Configuracion prestacion
-        ConfiguracionPrestacionVisualizarComponent,
-        ConfiguracionPrestacionCrearComponent,
         PucoComponent,
-        ReglasComponent
+        // MPI
+        PacienteBuscarComponent,
+        PacienteListadoComponent,
+        PacientePanelComponent,
+        PacienteDemoComponent,
+        PacientePanelComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
@@ -603,6 +617,7 @@ registerLocaleData(localeEs, 'es');
         CamasService,
         PrestamosService,
         ProcedimientosQuirurgicosService,
+        ProtocoloService,
         CDAService,
         SugerenciasService,
         ConfiguracionPrestacionService,

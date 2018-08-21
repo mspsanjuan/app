@@ -1,0 +1,216 @@
+<plex-layout main="9">
+    <plex-layout-main>
+        <header>
+            <!--Panel de Agendas-->
+            <h4>Laboratorio general | Practicas y resultados</h4>
+        </header>
+        <!--Navegacion entre protocolos-->
+        <section class="labs-listado-item" *ngIf='modo.id !== "control"'>
+            <plex-button type="info" icon="chevron-left" (click)='anterior()'></plex-button>
+            <div class="listado-contenedor-secundario">
+                <article class="labs-item-numero" *ngIf='getNumeroProtocolo(protocoloSelected.solicitud.registros) !== null'>
+                    <i class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+                    <hr>
+                    <h2>{{getNumeroProtocolo(protocoloSelected.solicitud.registros)}}</h2>
+                    <hr>
+                </article>
+                <article class="contenedor-bloque-texto">
+                    <div class="labs-item-texto">
+                        <p>{{ protocoloSelected.solicitud.fecha | date: 'dd/MM/yyyy' }}</p>
+                        <hr>
+                        <strong>Origen: </strong>
+                        <p>{{ protocoloSelected.solicitud.ambitoOrigen }}</p>
+                        <hr>
+                        <strong>Servicio: </strong>
+                        <p>Clinica</p>
+                    </div>
+                    <div class="labs-item-texto">
+                        <strong>Usuario: </strong>
+                        <p>{{ protocoloSelected.createdBy.nombreCompleto }}</p>
+                        <hr>
+                        <strong>Paciente: </strong>
+                        <p>{{protocoloSelected.paciente.nombre}}{{protocoloSelected.paciente.apellido}}</p>
+                        <hr>
+                        <strong>Fecha de Registro:</strong>
+                        <p>{{ protocoloSelected.createdAt | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                </article>
+            </div>
+            <div class="badge-container">
+                <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+            </div>
+            <plex-button type="info" icon='chevron-right' (click)='siguiente()'></plex-button>
+        </section>
+
+        <section class="labs-listado-item-input" *ngIf='modo.id === "control"'>
+                <plex-button type="info" icon="chevron-left" (click)='anterior()'></plex-button>
+                <div class="listado-contenedor-secundario">
+                <article class="labs-item-numero">
+                    <div class="row">
+                        <div class="col-3">
+                            <plex-datetime type="date" [(ngModel)]="protocoloSelected.solicitud.fecha" name="Fecha" label="Fecha"></plex-datetime>
+                        </div>
+                        <div class="col-3">
+                            <plex-datetime type="date" [(ngModel)]="protocoloSelected.solicitud.fecha" name="Fecha" label="Fecha protocolo"></plex-datetime>
+                        </div>
+                        <div class="col-3">
+                            <plex-select [data]="tiposClaves" [(ngModel)]="tipoClave" (change)="onClaveChange($event)" placeholder="Seleccione..." label="Area">
+                            </plex-select>
+                        </div>
+                        <div class="col-3">
+                            <plex-select [(ngModel)]="profesional" labelField="apellido + ' ' + nombre" (getData)="loadProfesionales($event)" (change)="onClaveChange($event)"
+                                placeholder="Seleccione..." label="Medico Solicitante">
+                            </plex-select>
+                        </div>
+                        <div class="col-3">
+                            <plex-select [data]="tiposClaves" [(ngModel)]="tipoClave" (change)="onClaveChange($event)" placeholder="Seleccione..." label="Efector Solicitante">
+                            </plex-select>
+
+                        </div>
+                        <div class="col-3">
+
+                            <plex-select [(ngModel)]="tipoClave" name="Servicio" (getData)="loadServicios($event)" label="Servicio" placeholder="Seleccione el servicio"
+                                labelField="term" [required]="true" idField="term"> </plex-select>
+                        </div>
+                        <div class="col-3">
+                            <plex-select [data]="tiposClaves" [(ngModel)]="tipoClave" (change)="onClaveChange($event)" placeholder="Seleccione..." label="Prioridad">
+                            </plex-select>
+                        </div>
+                        <div class="col-12">
+                            <label for="">Paciente</label>
+                            <paciente-buscar (searchStart)="searchStart()" (searchEnd)="searchEnd($event)"></paciente-buscar>
+                            <!-- Listado de pacientes -->
+                            <div class="scrollPacientes" *ngIf='mostrarListaMpi'>
+                                <paciente-listado [pacientes]="pacientes" [autoselect]="false" (selected)="seleccionarPaciente($event)" (hover)="hoverPaciente($event)"></paciente-listado>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="badge-container">
+                <plex-badge type="danger" class="ml-2"> prioridad </plex-badge>
+                <plex-badge type="warning" class="ml-2"> estado </plex-badge>
+            </div>
+            <plex-button type="info" icon='chevron-right' (click)='siguiente()'></plex-button>
+        </section>
+        <!-- Botonera -->
+        <div class="botonera-container">
+            <plex-button class="left ml-2" type="info" icon='chevron-up' label="boton clave 1"></plex-button>
+            <plex-button class="center ml-2" type="success" icon='chevron-up' label="boton clave 2"></plex-button>
+            <plex-button class="right ml-2" type="warning" icon='chevron-up' label="boton clave 3"></plex-button>
+        </div>
+        <hr>
+        <!--Listado de practicas-->
+        <table *ngIf="protocoloSelected.ejecucion?.registros.length > 0" class="table table-striped table-sm">
+            <thead>
+                <th>Cod.</th>
+                <th>Análisis</th>
+                <th class="float-center">Valor</th>
+                <th></th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let practica of getPracticas(protocoloSelected.ejecucion.registros); let i=index">
+                    <tr *ngIf="!getPracticas(practica.registros).length > 0" [ngClass]="">
+                        <td>
+                            <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
+                        </td>
+                        <td>
+                            <span class="float-left">{{practica.nombre}}</span>
+                        </td>
+                        <td class="text-left align-middle estado">
+                            <p>
+                                <input type='number' />
+                            </p>
+                        </td>
+                        <td>
+                            <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
+                            <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
+                        </td>
+                        <td>
+                            <plex-button type="info" size="sm" class="ml-2">
+                                <i class="mdi mdi-eye"></i>
+                            </plex-button>
+                            <plex-button type="success" size="sm" class="ml-2">
+                                <i class="mdi mdi-file-document"></i>
+                            </plex-button>
+                            <plex-button type="warning" size="sm" class="ml-2">
+                                <i class="mdi mdi-message-alert"></i>
+                            </plex-button>
+                        </td>
+                    </tr>
+
+                    <ng-container *ngIf="getPracticas(practica.registros).length > 0">
+                        <tr>
+                            <td>
+                                <span class="float-left">{{getCodigoPractica(practica.registros)}}</span>
+                            </td>
+                            <td>
+                                <span class="float-left">
+                                    <strong>{{practica.nombre}}</strong>
+                                </span>
+                            </td>
+                            <td class="text-right align-middle estado">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let subpractica of getPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
+                            <td>
+                                <span class="float-left">{{getCodigoPractica(subpractica.registros)}}</span>
+                            </td>
+                            <td>
+                                <span class="float-left">{{subpractica.nombre}}</span>
+                            </td>
+                            <td>
+                                <p>
+                                    <input type='number' />
+                                </p>
+                            </td>
+                            <td>
+                                <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
+                                <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
+                            </td>
+                            <td>
+                                <plex-button type="info" size="sm" class="ml-2">
+                                    <i class="mdi mdi-eye"></i>
+                                </plex-button>
+                                <plex-button type="success" size="sm" class="ml-2">
+                                    <i class="mdi mdi-file-document"></i>
+                                </plex-button>
+                                <plex-button type="warning" size="sm" class="ml-2">
+                                    <i class="mdi mdi-message-alert"></i>
+                                </plex-button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <div class="row " *ngFor="let protocolo of protocolos; let i=index" (click)='protocoloSelected = protocolo; indexProtocolo = i'
+            [ngClass]="{'invert': protocolo._id === protocoloSelected._id}">
+            <div class="col-2">
+                <i *ngIf='protocolo.paciente.sexo === "femenino"' class="mdi mdi-gender-female mdi-36px mdi-rotate-45 rosa"></i>
+                <i *ngIf='protocolo.paciente.sexo === "masculino"' class="mdi mdi-gender-male mdi-36px  azul"></i>
+            </div>
+            <div class="col-5">
+                <label class="control-label text-info">N° Protocolo</label>
+                <span *ngIf='getNumeroProtocolo(protocolo.solicitud.registros) !== null'>{{getNumeroProtocolo(protocolo.solicitud.registros)}}</span>
+            </div>
+            <div class="col-5">
+                <label class="control-label text-info">Fecha</label>
+                <span>{{protocolo.solicitud.fecha | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <hr>
+        </div>
+
+    </plex-layout-sidebar>
+    <plex-layout-footer>
+        <plex-button position="left" type="warning" (click)="volverProtocolos()">Volver</plex-button>
+    </plex-layout-footer>
+</plex-layout>
