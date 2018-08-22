@@ -20,6 +20,7 @@ export class PuntoInicioLaboratorioComponent
 
     public showListarProtocolos = true;
     public showProtocoloDetalle = false;
+    public showCargarSolicitud = false;
     public protocolos: any = [];
     public protocolo: any = {};
     public fechaDesde: any = new Date();
@@ -274,6 +275,10 @@ export class PuntoInicioLaboratorioComponent
         this.busqueda.servicios = null;
     }
 
+    formularioSolicitud() {
+        this.showCargarSolicitud = true;
+        this.showListarProtocolos = false;
+    }
 
 
     // Hardcodeo

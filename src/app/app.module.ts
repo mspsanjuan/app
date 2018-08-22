@@ -345,6 +345,7 @@ import { ConfiguracionPrestacionCrearComponent } from './components/configuracio
 // Laboratorio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
+import { IniciarProtocoloComponent } from './components/laboratorio/iniciarProtocolo.component';
 
 export let RUPRegistry = {
     'SelectPorRefsetComponent': SelectPorRefsetComponent,
@@ -543,6 +544,7 @@ registerLocaleData(localeEs, 'es');
         PrestamosHcComponent,
         PuntoInicioLaboratorioComponent,
         ProtocoloDetalleComponent,
+        IniciarProtocoloComponent,
         ListarSolicitudesComponent,
         ListarPrestamosComponent,
         PrestarHcComponent,
