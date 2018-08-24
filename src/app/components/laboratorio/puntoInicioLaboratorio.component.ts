@@ -123,31 +123,9 @@ export class PuntoInicioLaboratorioComponent
         this.getProtocolos(this.parametros);
     };
 
-    // refreshSelection(value?, tipo?) {
-    //     this.parametros['tipoPrestacionSolicititud'] = '15220000';
-    //     this.parametros['organizacion'] = this.auth.organizacion._id;
-    //     if (tipo === 'fechaDesde') {
-    //         let fechaDesde = moment(this.busqueda.fechaDesde).startOf('day');
-    //         if (fechaDesde.isValid()) {
-    //             this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
-    //         }
-    //     }
-    //     if (tipo === 'fechaHasta') {
-    //         let fechaHasta = moment(this.busqueda.fechaHasta).endOf('day');
-    //         if (fechaHasta.isValid()) {
-    //             this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
-    //         }
-    //     }
-    //     if (tipo === 'dniPaciente') {
-    //         this.parametros['pacienteDocumento'] = this.dniPaciente;
-    //     }
-    //     if (tipo === 'dniPaciente') {
-    //         this.parametros['pacienteDocumento'] = this.dniPaciente;
-    //     }
+    
 
-    //     this.getProtocolos(this.parametros);
-    // };
-
+    
     getNumeroProtocolo(registros) {
         let registro: any = registros.find((reg) => {
             return reg.nombre === 'numeroProtocolo';
@@ -279,39 +257,6 @@ export class PuntoInicioLaboratorioComponent
         this.showCargarSolicitud = true;
         this.showListarProtocolos = false;
     }
-
-
-    // Hardcodeo
-    protocols = [
-        {
-            id: '716852',
-            fecha: '11/07/2018',
-            origen: 'ambulatorio',
-            servicio: 'clinica',
-            usuario: 'lmonteverde',
-            solicitante: 'wmolini',
-            fechaRegistro: '05/07/2018',
-        },
-        {
-            id: '516846',
-            fecha: '17/07/2018',
-            origen: 'ambulatorio',
-            servicio: 'clinica',
-            usuario: 'lmonteverde',
-            solicitante: 'wmolini',
-            fechaRegistro: '09/07/2018',
-        },
-        {
-            id: '354879',
-            fecha: '13/07/2018',
-            origen: 'guardia',
-            servicio: 'clinica',
-            usuario: 'lmonteverde',
-            solicitante: 'wmolini',
-            fechaRegistro: '11/07/2018',
-        }
-    ];
-
 }
 
 

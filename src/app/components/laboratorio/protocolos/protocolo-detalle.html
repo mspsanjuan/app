@@ -107,6 +107,8 @@
                 <th>Cod.</th>
                 <th>Análisis</th>
                 <th class="float-center">Valor</th>
+                <th class="float-center">UM</th>
+                <th class="float-center">VR</th>
                 <th></th>
                 <th>Acciones</th>
             </thead>
@@ -120,9 +122,15 @@
                             <span class="float-left">{{practica.nombre}}</span>
                         </td>
                         <td class="text-left align-middle estado">
-                            <p>
-                                <input type='number' />
+                            <p>{{practica.valor}}
+                                <plex-float [(ngModel)]="practica.valor" ></plex-float>
                             </p>
+                        </td>
+                        <td>
+                            {{getUnidad(practica.registros)}}
+                        </td>
+                        <td>
+                            
                         </td>
                         <td>
                             <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
@@ -165,10 +173,13 @@
                             <td>
                                 <span class="float-left">{{subpractica.nombre}}</span>
                             </td>
-                            <td>
+                            <td class="text-left align-middle estado">
                                 <p>
-                                    <input type='number' />
+                                    <plex-float [(ngModel)]="subpractica.valor" ></plex-float>
                                 </p>
+                            </td>
+                            <td>
+                                {{getUnidad(subpractica.registros)}}
                             </td>
                             <td>
                                 <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>

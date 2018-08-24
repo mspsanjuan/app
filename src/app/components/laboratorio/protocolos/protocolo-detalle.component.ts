@@ -104,6 +104,14 @@ export class ProtocoloDetalleComponent
         return registro ? registro.valor : null;
     }
 
+    getUnidad(registros) {
+    console.log('getUnidad',registros)
+        let registro: any = registros.find((reg) => {
+            return reg.concepto.conceptId === '282372007';
+        });
+        return registro ? registro.valor.term : null;
+    }
+
     loadServicios($event) {
         this.servicioOrganizacion.getById(this.auth.organizacion.id).subscribe((organizacion: any) => {
             console.log(organizacion);
