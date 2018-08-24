@@ -106,9 +106,15 @@
             <thead>
                 <th>Cod.</th>
                 <th>Análisis</th>
-                <th class="float-center">Valor</th>
-                <th class="float-center">UM</th>
-                <th class="float-center">VR</th>
+
+                <ng-container *ngIf='modo.id !== "control"' >
+                    <th class="float-center">Valor</th>
+                    <th class="float-center">UM</th>
+                    <th class="float-center">VR</th>
+                </ng-container>
+                <ng-container *ngIf='modo.id === "validacion"' >
+                    <th class="float-center">Val.</th>
+                </ng-container>
                 <th></th>
                 <th>Acciones</th>
             </thead>
@@ -121,17 +127,23 @@
                         <td>
                             <span class="float-left">{{practica.nombre}}</span>
                         </td>
-                        <td class="text-left align-middle estado">
-                            <p>{{practica.valor}}
-                                <plex-float [(ngModel)]="practica.valor" ></plex-float>
-                            </p>
-                        </td>
-                        <td>
-                            {{getUnidad(practica.registros)}}
-                        </td>
-                        <td>
-                            
-                        </td>
+
+                        <ng-container *ngIf='modo.id !== "control"' >
+                            <td class="text-left align-middle estado">
+                                <p>{{practica.valor}}
+                                    <plex-float [(ngModel)]="practica.valor" ></plex-float>
+                                </p>
+                            </td>
+                            <td>
+                                {{getUnidad(practica.registros)}}
+                            </td>
+                            <td>
+                                10000 - 15000
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf='modo.id === "validacion"' >
+                            <input type='checkbox' >
+                        </ng-container>
                         <td>
                             <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
                             <plex-badge type="info" class="ml-2"> F(x) </plex-badge>
@@ -161,10 +173,7 @@
                             </td>
                             <td class="text-right align-middle estado">
                             </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
+                            <td colspan="5"></td>
                         </tr>
                         <tr *ngFor="let subpractica of getPracticas(practica.registros); let i=index" class="hover" [ngClass]="">
                             <td>
@@ -173,14 +182,24 @@
                             <td>
                                 <span class="float-left">{{subpractica.nombre}}</span>
                             </td>
-                            <td class="text-left align-middle estado">
-                                <p>
-                                    <plex-float [(ngModel)]="subpractica.valor" ></plex-float>
-                                </p>
-                            </td>
-                            <td>
-                                {{getUnidad(subpractica.registros)}}
-                            </td>
+
+                            <ng-container *ngIf='modo.id !== "control"' >
+                                <td class="text-left align-middle estado">
+                                    <p>{{practica.valor}}
+                                        <plex-float [(ngModel)]="subpractica.valor" ></plex-float>
+                                    </p>
+                                </td>
+                                <td>
+                                    {{getUnidad(subpractica.registros)}}
+                                </td>
+                                <td>
+                                    10000 - 15000
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf='modo.id === "validacion"' >
+                                <input type='checkbox' >
+                            </ng-container>
+     
                             <td>
                                 <plex-badge type="danger" class="ml-2"> valores criticos </plex-badge>
                                 <plex-badge type="info" class="ml-2"> F(x) </plex-badge>

@@ -18,10 +18,6 @@
         <div class="row">
 
             <div class="col-6">
-                <!-- <h4>Modo</h4>
-                <plex-bool type="checkbox" [(ngModel)]="modo.control" label="Control" name="Control"></plex-bool>
-                <plex-bool type="checkbox" [(ngModel)]="modo.carga" label="Carga" name="Carga"></plex-bool>
-                <plex-bool type="checkbox" [(ngModel)]="modo.validacion" label="Validacion" name="Validacion"></plex-bool> -->
                 <plex-select [(ngModel)]="modo" name="LaboratorioInterno" (change)='changeServicio()' label="Modo" [data]='cargaLaboratorioEnum'
                     [required]="true"></plex-select>
             </div>
@@ -102,9 +98,6 @@
                     <paciente-listado [pacientes]="pacientes" [autoselect]="false" (selected)="seleccionarPaciente($event)" (hover)="hoverPaciente($event)"></paciente-listado>
                 </div>
             </div>
-
-
-
         </div>
         <hr>
         <!--Resultados-->

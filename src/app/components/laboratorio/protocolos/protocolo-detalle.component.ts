@@ -39,14 +39,12 @@ export class ProtocoloDetalleComponent
     @Input() indexProtocolo: any;
     @Input('cargarProtocolo')
     set cargarProtocolo(value: any) {
-        console.log('cargarProtocolo set', value);
         if (value) {
             this.protocoloSelected = value;
         }
     }
 
     get cargarProtocolo() {
-        console.log('cargarProtocolo get');
         return this.protocoloSelected;
     }
 
