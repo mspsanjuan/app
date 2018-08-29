@@ -70,7 +70,6 @@ export class PacienteListadoComponent {
     }
 
     public seleccionar(paciente: IPaciente) {
-<<<<<<< HEAD
         if (this.seleccionado && this.seleccionado.id === paciente.id) {
             this.seleccionado = null;
 
@@ -81,7 +80,6 @@ export class PacienteListadoComponent {
             this.selected.emit(paciente);
         }
 
-=======
         if (this.seleccionado !== paciente) {
             this.seleccionado = paciente;
             this.selected.emit(this.seleccionado);
@@ -89,7 +87,6 @@ export class PacienteListadoComponent {
             this.seleccionado = null;
             this.selected.emit(null);
         }
->>>>>>> mpi-componentes
     }
 
     public hoverPaciente(paciente: IPaciente) {
