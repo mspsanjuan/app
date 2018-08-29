@@ -25,11 +25,9 @@
             "tsconfig": "tsconfig.json",
             "prefix": "app",
             "mobile": false,
+            "scripts": [],
             "styles": [
                 "styles.scss"
-            ],
-            "scripts": [
-                "../node_modules/intro.js/intro.js"
             ],
             "environmentSource": "environments/environment.ts",
             "environments": {
@@ -59,10 +57,19 @@
             "showCircularDependencies": false
         }
     },
+<<<<<<< HEAD
     "lint": [
         {
             "files": "src/**/*.ts",
             "project": "src/tsconfig.json"
         }
     ]
+=======
+    "lint": [
+        {
+            "files": "src/**/*.ts",
+            "project": "src/tsconfig.json"
+        }
+    ]
+>>>>>>> mpi-componentes
 }

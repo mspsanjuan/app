@@ -47,6 +47,11 @@ export class PacienteListadoComponent {
      */
     @Input() autoselect = true;
     /**
+    * Indica como se muestra la tabla de resultados
+    *
+    */
+    @Input() type: 'default' | 'sm' = 'default';
+    /**
      * Evento que se emite cuando se selecciona un paciente
      *
      * @type {EventEmitter<IPaciente>}
@@ -65,6 +70,7 @@ export class PacienteListadoComponent {
     }
 
     public seleccionar(paciente: IPaciente) {
+<<<<<<< HEAD
         if (this.seleccionado && this.seleccionado.id === paciente.id) {
             this.seleccionado = null;
 
@@ -75,6 +81,15 @@ export class PacienteListadoComponent {
             this.selected.emit(paciente);
         }
 
+=======
+        if (this.seleccionado !== paciente) {
+            this.seleccionado = paciente;
+            this.selected.emit(this.seleccionado);
+        } else {
+            this.seleccionado = null;
+            this.selected.emit(null);
+        }
+>>>>>>> mpi-componentes
     }
 
     public hoverPaciente(paciente: IPaciente) {
