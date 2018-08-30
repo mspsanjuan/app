@@ -40,7 +40,14 @@ export class MapaDeCamasComponent implements OnInit {
     public showMenu = true;
     public historicoMode = false;
     public filtroActive;
-    public cantidadXEstado;
+    public cantidadXEstado: any = {
+        ocupada: 0,
+        desocupada: 0,
+        reparacion: 0,
+        bloqueada: 0,
+        oxigeno: 0,
+        disponible: 0
+    }
     public inactive = false;
     public camaSeleccionada;
     // Muestra el componente egreso en el sidebar
@@ -320,14 +327,16 @@ export class MapaDeCamasComponent implements OnInit {
     }
 
     countFiltros() {
-        this.cantidadXEstado = {
-            ocupada: this.camas.filter(c => c.ultimoEstado.estado === 'ocupada'),
-            desocupada: this.camas.filter(c => c.ultimoEstado.estado === 'desocupada'),
-            reparacion: this.camas.filter(c => c.ultimoEstado.estado === 'reparacion'),
-            bloqueada: this.camas.filter(c => c.ultimoEstado.estado === 'bloqueada'),
-            oxigeno: this.camas.filter(c => c.equipamiento.find(e => e.conceptId === '261746005')),
-            disponible: this.camas.filter(c => c.ultimoEstado.estado === 'disponible')
-        };
+        if (this.camas) {
+            this.cantidadXEstado = {
+                ocupada: this.camas.filter(c => c.ultimoEstado.estado === 'ocupada'),
+                desocupada: this.camas.filter(c => c.ultimoEstado.estado === 'desocupada'),
+                reparacion: this.camas.filter(c => c.ultimoEstado.estado === 'reparacion'),
+                bloqueada: this.camas.filter(c => c.ultimoEstado.estado === 'bloqueada'),
+                oxigeno: this.camas.filter(c => c.equipamiento.find(e => e.conceptId === '261746005')),
+                disponible: this.camas.filter(c => c.ultimoEstado.estado === 'disponible')
+            };
+        }
         this.loadCountFiltros = true;
     }
 
