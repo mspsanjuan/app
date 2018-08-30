@@ -22,7 +22,8 @@ export class ResumenInternacionComponent implements OnInit {
     public editarEgreso = false;
     public btnIniciarEditar;
     public mostrarValidacion = false;
-
+    // Rotacion flechita
+    public flechita = false;
     public conceptoEgreso = {
         conceptId: '58000006',
         term: 'alta del paciente',
@@ -172,8 +173,7 @@ export class ResumenInternacionComponent implements OnInit {
         });
     }
 
-    // Rotacion flechita
-    flechita: boolean = false;
+
     rotarFlechita(event) {
         this.flechita = !this.flechita;
     }
