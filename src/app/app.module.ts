@@ -60,6 +60,7 @@ import { BarrioService } from './services/barrio.service';
 import { LocalidadService } from './services/localidad.service';
 import { PaisService } from './services/pais.service';
 import { PacienteService } from './services/paciente.service';
+import { PracticaService } from './services/laboratorio/practica.service';
 import { TipoEstablecimientoService } from './services/tipoEstablecimiento.service';
 import { ProvinciaService } from './services/provincia.service';
 import { FinanciadorService } from './services/financiador.service';
@@ -346,6 +347,9 @@ import { ConfiguracionPrestacionCrearComponent } from './components/configuracio
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 import { IniciarProtocoloComponent } from './components/laboratorio/iniciarProtocolo.component';
+import { PracticaBuscarComponent } from './components/laboratorio/components/practica-buscar.component';
+import { PracticaDemoComponent } from './components/laboratorio/components/demoPractica.component';
+import { PracticaListadoComponent } from './components/laboratorio/components/practica-listado.component';
 
 export let RUPRegistry = {
     'SelectPorRefsetComponent': SelectPorRefsetComponent,
@@ -555,6 +559,12 @@ registerLocaleData(localeEs, 'es');
         CamaEstadoComponent,
         OcuparCamaComponent,
         PucoComponent,
+        //LABORATORIO
+        PracticaBuscarComponent,
+        PracticaDemoComponent,
+        PracticaListadoComponent,
+
+
         // MPI
         PacienteBuscarComponent,
         PacienteListadoComponent,
@@ -583,6 +593,7 @@ registerLocaleData(localeEs, 'es');
         LocalidadService,
         BarrioService,
         PacienteService,
+        PracticaService,
         FinanciadorService,
         ParentescoService,
         appRoutingProviders,

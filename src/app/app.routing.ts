@@ -89,6 +89,7 @@ import { ReglasComponent } from './components/top/reglas/reglas.component';
 import { PuntoInicioLaboratorioComponent } from './components/laboratorio/puntoInicioLaboratorio.component';
 import { ProtocoloDetalleComponent } from './components/laboratorio/protocolos/protocolo-detalle.component';
 import { IniciarProtocoloComponent } from './components/laboratorio/iniciarProtocolo.component';
+import { PracticaDemoComponent } from './components/laboratorio/components/demoPractica.component';
 
 // Home de Estadisticas
 // import { HomeComponent } from './modules/estadisticas/components/home.component';
@@ -168,6 +169,7 @@ const appRoutes: Routes = [
   { path: 'laboratorio', component: PuntoInicioLaboratorioComponent, canActivate: [RoutingGuard] },
   { path: 'laboratorio', component: ProtocoloDetalleComponent, canActivate: [RoutingGuard] },
   { path: 'laboratorio', component: IniciarProtocoloComponent, canActivate: [RoutingGuard] },
+  { path: 'laboratorio/demo', component: PracticaDemoComponent, canActivate: [RoutingGuard] },
 
   // RUTAS LEGACY --- Deshabilitar una vez migradas al nuevo esquema rup/xxx , citas/xxx
   /* ELIMINAR ==> */ { path: 'pacientes', component: PacienteSearchComponent, canActivate: [RoutingGuard] },
