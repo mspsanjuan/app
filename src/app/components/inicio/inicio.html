@@ -1,83 +1,17 @@
 <section>
-    <plex-box>
-        <div class="text-center">
-            <div class="logo"></div>
-            <div *ngIf="!denied" class="row">
-                <div *ngIf="mpi" class="col-4">
-                    <div class="boton color-celeste" routerLink="/mpi">
-                        <i class="icono mdi mdi-account-multiple-outline"></i>
-                        <div class="titulo">MPI</div>
-                        <div class="subtitulo">Indice Maestro
-                            <br>de Pacientes</div>
-                        <div class="detalle">Optimiza el proceso de
-                            <br>identificación del paciente</div>
-                    </div>
-                </div>
-                <div *ngIf="turnos==='gestor'" class="col-4">
-                    <div class="boton color-violeta" routerLink="/citas/gestor_agendas">
-                        <i class="icono mdi mdi-calendar"></i>
-                        <div class="titulo">CITAS</div>
-                        <div class="subtitulo">Centro Inteligente
-                            <br>de Agendas &amp; Turnos</div>
-                        <div class="detalle">Mejora la accesibilidad de
-                            <br>pacientes a las prestaciones</div>
-                    </div>
-                </div>
-                <div *ngIf="turnos==='inicioTurnos'" class="col-4">
-                    <div class="boton color-violeta" routerLink="/citas/puntoInicio">
-                        <i class="icono mdi mdi-calendar"></i>
-                        <div class="titulo">CITAS</div>
-                        <div class="subtitulo">Centro Inteligente
-                            <br>de Agendas &amp; Turnos</div>
-                        <div class="detalle">Mejora la accesibilidad de
-                            <br>pacientes a las prestaciones</div>
-                    </div>
-                </div>
-                <div *ngIf="rup" class="col-4">
-                    <div class="boton color-rosa" routerLink="/rup">
-                        <i class="icono mdi mdi-contacts"></i>
-                        <div class="titulo">HUDS</div>
-                        <div class="subtitulo">Historia Digital
-                            <br>de Salud</div>
-                        <div class="detalle">Registro universal
-                            <br>de prestaciones de pacientes</div>
-                    </div>
-                </div>
-                <div *ngIf="prestamosHC" class="col-4">
-                    <div class="boton color-amarillo" routerLink="/prestamosHC">
-                        <i class="icono mdi mdi-folder"></i>
-                        <div class="titulo">PRESTAMOS DE CARPETAS</div>
-                        <div class="subtitulo">SOLICITUDES MANUALES
-                            <br> Y AUTOMÁTICAS</div>
-                        <div class="detalle">Mejora la administración
-                            <br>de las carpetas de Historias Clínicas de los pacientes</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <div *ngIf="!denied" class="row mt-4">
-                <div *ngIf="mapaDeCamas" class="col-4">
-                    <div class="boton color-amarillo" routerLink="/mapa-de-camas">
-                        <i class="icono mdi mdi-hotel"></i>
-                        <div class="titulo">Acosta2</div>
-                        <div class="subtitulo">Mapa de camas</div>
-                        <div class="detalle">Vea el estado del mapa de camas
-                            <br />de los distintos servicios de la organización</div>
-                    </div>
-                </div>
-            </div> -->
-
-            <div *ngIf="denied" class="row">
-                <div class="col">
-                    <div class="boton color-amarillo">
-                        <i class="icono mdi mdi-alert"></i>
-                        <div class="titulo">ATENCIÓN</div>
-                        <div class="subtitulo">PERMISOS DE APLICACIONES</div>
-                        <div class="detalle">Ud. no posee permisos para ningún módulo de ANDES</div>
-                    </div>
-                </div>
-            </div>
-
+    <div class="row">
+        <div class="col-3">
+            <plex-radio [data]="['Peso','Talla','CC','IMC']" label="Evolución" (change)="mostrarCurva($event, elemento)">
+            </plex-radio>
         </div>
-    </plex-box>
+        <div class="col-9">
+            <plex-box>
+                <div style="height: 100%; width:100%">
+                    <canvas baseChart [datasets]="chart.dataset" [labels]="chart.labels" [options]="chart.options" [colors]="chart.colors" [legend]="true"
+                        [chartType]="'line'">
+                    </canvas>
+                </div>
+            </plex-box>
+        </div>
+    </div>
 </section>
