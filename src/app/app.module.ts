@@ -330,6 +330,7 @@ import { EstadisticaModule } from './modules/estadisticas/estadistica.module';
 // Configuracion prestaciones
 import { ConfiguracionPrestacionVisualizarComponent } from './components/configuracionPrestacion/configuracion-prestacion-visualizar.component';
 import { ConfiguracionPrestacionCrearComponent } from './components/configuracionPrestacion/configuracion-prestacion-crear.component';
+import { ChartComponent } from './components/inicio/chart.component';
 
 
 export let RUPRegistry = {
@@ -532,7 +533,9 @@ registerLocaleData(localeEs, 'es');
         // Configuracion prestacion
         ConfiguracionPrestacionVisualizarComponent,
         ConfiguracionPrestacionCrearComponent,
-        PucoComponent
+        PucoComponent,
+        // graficos
+        ChartComponent,
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],

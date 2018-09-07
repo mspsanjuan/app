@@ -1,17 +1,3 @@
 <section>
-    <div class="row">
-        <div class="col-3">
-            <plex-radio [data]="['Peso','Talla','CC','IMC']" label="Evolución" (change)="mostrarCurva($event, elemento)">
-            </plex-radio>
-        </div>
-        <div class="col-9">
-            <plex-box>
-                <div style="height: 100%; width:100%">
-                    <canvas baseChart [datasets]="chart.dataset" [labels]="chart.labels" [options]="chart.options" [colors]="chart.colors" [legend]="true"
-                        [chartType]="'line'">
-                    </canvas>
-                </div>
-            </plex-box>
-        </div>
-    </div>
+    <radio-chart [paciente]="paciente"></radio-chart>
 </section>

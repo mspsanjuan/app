@@ -1,7 +1,19 @@
-<plex-box>
-    <div style="height: 100%; width:100%">
-        <canvas baseChart [datasets]="chart.dataset" [labels]="chart.labels" [options]="chart.options" [colors]="chart.colors" [legend]="true"
-            [chartType]="'line'">
-        </canvas>
+<div class="row">
+    <div class="col-12">
+        <h2>{{paciente._id}} - {{paciente.apellido}}, {{paciente.nombre}}</h2>
     </div>
-</plex-box>
+    <div class="col-3">
+        <form>
+            <strong>Seleccione la curva a mostrar</strong>
+            <plex-radio [(ngModel)]="modelo.radio" [data]="opciones" name="evolucion" [required]="true" (change)="generarEtiquetasCurva()"></plex-radio>
+        </form>
+    </div>
+    <div class="col-9">
+        <div style="height: 50%; width:50%">
+            <div style="display: block" *ngIf="mostrarChart">
+                <canvas baseChart height="300" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [legend]="barChartLegend" [chartType]="barChartType" ></canvas>
+            </div>
+        </div>
+    </div>
+</div>
