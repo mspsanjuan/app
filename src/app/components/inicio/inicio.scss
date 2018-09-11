@@ -1,13 +1,27 @@
 //
 // Variables
-$color-celeste: #039ac6;
-$color-violeta: #9B2A79;
-$color-rosa: #002B3A;
-$color-amarillo: #666600;
-$color-salmon: #E2917F;
-$color-coral: #ce803e;
-//
-// Clases
+// $andes-celeste: #039ac6;
+// $andes-violeta: #9B2A79;
+// $andes-rosa: #002B3A;
+// $andes-amarillo: #666600;
+// $andes-salmon: #E2917F;
+// $andes-coral: #ce803e;
+
+$andes-azul-oscuro: #002838;
+$andes-azul: #0070cc;
+$andes-azul-claro: #00A8E0;
+$andes-celeste: #84cef0;
+$andes-violeta: #982f98;
+$andes-magenta: #e3007e;
+$andes-verde: #00b9b1;
+$andes-verde-claro: #63c7b7;
+$andes-naranja: #ff4a1a;
+$andes-naranja-claro: #f4a03b;
+
+
+
+// Refactor layout inicio
+
 .logo {
     background-image: url('../../assets/img/logo-wide.svg');
     background-size: contain;
@@ -20,67 +34,107 @@ $color-coral: #ce803e;
     margin-bottom: 3em;
 }
 
-.boton {
-    padding: .5em;
-    color: white;
-    cursor: pointer;
-    transition: all .5s;
-    // Contenido
-    .icono {
-        font-size: 3em;
+.andes-contenedor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 1rem;
+    grid-gap: 10px;
+
+
+    .andes-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 50%;
+        max-height: 400px;
+        box-shadow: 1px 3px 5px 3px lightgrey;
+        text-align: center;
+        
+        padding: .5em;
+        color: white;
+        cursor: pointer;
+        transition: all .5s;
+
+
+        // Colores
+        &.andes-azul-oscuro {
+            background: $andes-azul-oscuro;
+        }
+        &.andes-azul-oscuro:hover {
+            background: darken($andes-azul-oscuro, 10%);
+        }
+        &.andes-azul {
+            background: $andes-azul;
+        }
+        &.andes-azul:hover {
+            background: darken($andes-azul, 10%);
+        }
+        &.andes-azul-claro {
+            background: $andes-azul;
+        }
+        &.andes-azul-claro:hover {
+            background: darken($andes-azul-oscuro, 10%);
+        }
+        &.andes-celeste {
+            background: $andes-celeste;
+        }
+        &.andes-celeste:hover {
+            background: darken($andes-celeste, 20%);
+        }
+        &.andes-violeta {
+            background: $andes-violeta;
+        }
+        &.andes-violeta:hover {
+            background: darken($andes-violeta, 20%);
+        }
+        &.andes-magenta {
+            background: $andes-magenta;
+        }
+        &.andes-magenta:hover {
+            background: darken($andes-magenta, 20%);
+        }
+        &.andes-naranja {
+            background: $andes-naranja;
+        }
+        &.andes-naranja:hover {
+            background: darken($andes-naranja, 10%);
+        }
+        &.andes-naranja-claro {
+            background: $andes-naranja-claro;
+        }
+        &.andes-naranja-claro:hover {
+            background: darken($andes-naranja-claro, 10%);
+        }
+        &.andes-verde {
+            background: $andes-verde;
+        }
+        &.andes-verde:hover {
+            background: darken($andes-verde, 10%);
+        }
+
+
+             // Contenido
+            .icono {
+                font-size: 3em;
+            }
+            .titulo {
+                text-transform: uppercase;
+                font-size: 2em;
+                font-weight: 600;
+                line-height: .8em;
+                padding-bottom: 1em;
+            }
+
+            .subtitulo {
+                text-transform: uppercase;
+                font-size: 1.5em;
+                font-weight: 300;
+                line-height: 1em;
+                padding-bottom: 1em;
+            }
+            .detalle {
+                font-weight: 300;
+            }
+        }
     }
-    .titulo {
-        text-transform: uppercase;
-        font-size: 2em;
-        font-weight: 100;
-        line-height: .8em;
-        padding-bottom: 1em;
-    }
-    .subtitulo {
-        text-transform: uppercase;
-        font-size: 1.5em;
-        font-weight: 100;
-        line-height: 1em;
-        padding-bottom: 1em;
-    }
-    .detalle {
-        font-weight: 100;
-    }
-    // Colores
-    &.color-celeste {
-        background: $color-celeste;
-    }
-    &.color-celeste:hover {
-        background: darken($color-celeste, 20%);
-    }
-    &.color-violeta {
-        background: $color-violeta;
-    }
-    &.color-violeta:hover {
-        background: darken($color-violeta, 20%);
-    }
-    &.color-rosa {
-        background: $color-rosa;
-    }
-    &.color-rosa:hover {
-        background: darken($color-rosa, 10%);
-    }
-    &.color-amarillo {
-        background: $color-amarillo;
-    }
-    &.color-amarillo:hover {
-        background: darken($color-amarillo, 10%);
-    }
-    &.color-salmon {
-        background: $color-salmon;
-    }
-    &.color-salmon:hover {
-        background: darken($color-salmon, 10%);
-    }
-    &.color-coral {
-        background: $color-coral;
-    }
-    &.color-coral:hover {
-        background: darken($color-coral, 10%);
-    }
-}
