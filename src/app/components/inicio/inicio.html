@@ -1,52 +1,80 @@
 <section>
-    <plex-box>
-        <div class="text-center">
-            <div class="logo"></div>
+    <!-- <plex-box> -->
+        <div class="andes-contenedor-principal">
+            <div class="logo-container rounded">
+                <div class="logo desktop"></div>
+            </div>
+            <div class="andes-contenedor-secundario w-50">
+                <h4 class=""><strong>Bienvenido!</strong></h4>
+                <hr class="andes-azul-oscuro">
+                <h5 class="">
+                    A través de ANDES podrás registrar y gestionar datos de pacientes, prestaciones, turnos y agendas.
+                </h5>
+            </div>
             <div *ngIf="!denied" class="andes-contenedor-cards">
-
                 <!-- MPI -->
-                <div *ngIf="mpi" class="andes-card andes-azul-claro" routerLink="/mpi">
-                    <i class="icono mdi mdi-account-multiple-outline"></i>
-                    <div class="titulo">MPI</div>
-                    <div class="subtitulo">Indice Maestro<br>de Pacientes</div>
-                    <div class="detalle">Optimiza el proceso de<br>identificación del paciente</div>
+                <div *ngIf="mpi" class="andes-card" routerLink="/mpi">
+                    <img class="andes-card-img bg-azul-claro img-mpi" alt="">
+                    <div class="icono i-md andes-azul-claro rounded border"><i class="md mdi mdi-account-multiple-outline"></i></div>
+                    <article class="andes-contenedor-secundario p-3">
+                        <h2 class="titulo andes-azul-claro">MPI</h2>
+                        <h5 class="subtitulo">Indice Maestro de Pacientes</h5>
+                        <hr class="andes-azul-claro">
+                        <p class="detalle ">Optimiza el proceso de identificación del paciente</p>
+                    </article>
                 </div>
 
                 <!-- CITAS -->
-                <div *ngIf="turnos==='gestor'" class="andes-card andes-violeta" routerLink="/citas/gestor_agendas">
-                    <i class="icono mdi mdi-calendar"></i>
-                    <div class="titulo">CITAS</div>
-                    <div class="subtitulo">Centro Inteligente<br>de Agendas &amp; Turnos</div>
-                    <div class="detalle">Mejora la accesibilidad de<br>pacientes a las prestaciones</div>
+                <div *ngIf="turnos==='gestor'" class="andes-card" routerLink="/citas/gestor_agendas">
+                    <img class="andes-card-img bg-violeta img-turnos" alt="">
+                    <i class="icono i-md andes-violeta rounded border i-md md mdi mdi-calendar"></i>
+                    <article class="andes-contenedor-secundario p-3">
+                        <h2 class="titulo andes-violeta">CITAS</h2>
+                        <h5 class="subtitulo">Centro Inteligente de Agendas &amp; Turnos</h5>
+                        <hr class="andes-violeta">
+                        <p class="detalle">Mejora la accesibilidad de pacientes a las prestaciones</p>
+                    </article>
                 </div>
-                <div *ngIf="turnos==='inicioTurnos'" class="andes-card andes-violeta" routerLink="/citas/puntoInicio">
-                    <i class="icono mdi mdi-calendar"></i>
-                    <div class="titulo">CITAS</div>
-                    <div class="subtitulo">Centro Inteligente<br>de Agendas &amp; Turnos</div>
-                    <div class="detalle">Mejora la accesibilidad de<br>pacientes a las prestaciones</div>
+                <div *ngIf="turnos==='inicioTurnos'" class="andes-card" routerLink="/citas/puntoInicio">
+                    <img class="andes-card-img bg-violeta img-turnos" alt="">                    
+                    <i class="icono i-md andes-violeta rounded border i-md md mdi mdi-calendar"></i>
+                    <article class="andes-contenedor-secundario p-3">
+                        <h2 class="titulo andes-violeta">CITAS</h2>
+                        <h5 class="subtitulo">Centro Inteligente de Agendas &amp; Turnos</h5>
+                        <hr class="andes-violeta">
+                        <p class="detalle">Mejora la accesibilidad de pacientes a las prestaciones</p>
+                    </article>
                 </div>
 
                 <!-- HUDS -->
-                <div *ngIf="rup" class="andes-card andes-azul-oscuro" routerLink="/rup">
-                    <i class="icono mdi mdi-contacts"></i>
-                    <div class="titulo">HUDS</div>
-                    <div class="subtitulo">Historia Digital<br>de Salud</div>
-                    <div class="detalle">Registro universal<br>de prestaciones de pacientes</div>
+                <div *ngIf="rup" class="andes-card" routerLink="/rup">
+                    <img class="andes-card-img bg-azul-oscuro img-rup" alt="">                    
+                    <i class="icono i-md andes-azul-oscuro rounded border i-md md mdi mdi-contacts"></i>
+                    <article class="andes-contenedor-secundario p-3">
+                        <h2 class="titulo andes-azul-oscuro">HUDS</h2>
+                        <h5 class="subtitulo">Historia Digital de Salud</h5>
+                        <hr class="andes-azul-oscuro">
+                        <p class="detalle">Registro universal de prestaciones de pacientes</p>
+                    </article>
                 </div>
 
                 <!-- PRESTAMOS -->
-                <div *ngIf="prestamosHC" class="andes-card andes-verde" routerLink="/prestamosHC">
-                    <i class="icono mdi mdi-folder"></i>
-                    <div class="titulo">PRESTAMOS DE CARPETAS</div>
-                    <div class="subtitulo">SOLICITUDES MANUALES<br> Y AUTOMÁTICAS</div>
-                    <div class="detalle">Mejora la administración<br>de las carpetas de Historias Clínicas de los pacientes</div>
+                <div *ngIf="prestamosHC" class="andes-card" routerLink="/prestamosHC">
+                    <img class="andes-card-img bg-verde img-citas" alt="">                   
+                    <i class="icono i-md andes-verde rounded borderi-md md mdi mdi-folder"></i>
+                    <article class="andes-contenedor-secundario p-3">
+                        <h2 class="titulo andes-verde">PRESTAMOS DE CARPETAS</h2>
+                        <h5 class="subtitulo">SOLICITUDES MANUALES  Y AUTOMÁTICAS</h5>
+                        <hr class="andes-verde">
+                        <p class="detalle">Mejora la administración de las carpetas de Historias Clínicas de los pacientes</p>
+                    </article>
                 </div>
             </div>
 
             <!-- <div *ngIf="!denied" class="row mt-4">
                 <div *ngIf="mapaDeCamas" class="col-4">
                     <div class="boton andes-amarillo" routerLink="/mapa-de-camas">
-                        <i class="icono mdi mdi-hotel"></i>
+                        <i class="icono md mdi mdi-hotel"></i>
                         <div class="titulo">Acosta2</div>
                         <div class="subtitulo">Mapa de camas</div>
                         <div class="detalle">Vea el estado del mapa de camas
@@ -56,17 +84,15 @@
             </div> -->
 
             <!-- PERMISOS -->
-            <div *ngIf="denied" class="row">
-                <div class="col">
-                    <div class="boton andes-naranja">
-                        <i class="icono mdi mdi-alert"></i>
-                        <div class="titulo">ATENCIÓN</div>
-                        <div class="subtitulo">PERMISOS DE APLICACIONES</div>
-                        <div class="detalle">Ud. no posee permisos para ningún módulo de ANDES</div>
-                    </div>
+            <div *ngIf="denied" class="andes-contenedor-principal">
+                <div class="andes-contenedor-secundario">
+                    <i class="icono i-md andes-magenta rounded border mdi mdi-alert"></i>
+                    <h2 class="titulo xl magenta">ATENCIÓN</h2>
+                    <h5 class="subtitulo lg">PERMISOS DE APLICACIONES</h5>
+                        <hr class="andes-magenta">
+                    <p class="detalle md">Ud. no posee permisos para ningún módulo de ANDES</p>
                 </div>
             </div>
-
         </div>
-    </plex-box>
+    <!-- </plex-box> -->
 </section>

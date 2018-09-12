@@ -18,20 +18,72 @@ $andes-verde-claro: #63c7b7;
 $andes-naranja: #ff4a1a;
 $andes-naranja-claro: #f4a03b;
 
+$andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
+
 
 
 // Refactor layout inicio
 
-.logo {
-    background-image: url('../../assets/img/logo-wide.svg');
-    background-size: contain;
+// TODO: Engrillar bloque de data superior (logo, textos, etc.)
+// ngIf="inicio" > no-margins!
+
+.andes-contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: $andes-gradient;
     background-repeat: no-repeat;
-    width: 60%;
-    max-width: 600px;
-    min-height: 100px;
-    display: inline-block;
-    margin-top: 3em;
-    margin-bottom: 3em;
+    height: 100vh;
+}
+
+    .logo-container {
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        background-color: white;
+        width: 10rem;
+        height: 10rem;
+        padding: 1.5rem;
+        margin-top: 3em;
+        margin-bottom: 3em;
+        box-shadow: 1px 3px 5px 3px lightgrey;
+        
+        .logo {
+            background-image: url('../../assets/img/andes-v-txt.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 7.5rem;
+            height: 7.5rem;
+            // max-width: 600px;
+            // min-height: 100px;
+        }
+        
+    }
+
+
+
+.andes-contenedor-secundario {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    text-align: center;
+
+    &.w-25 {
+        width: 25%;
+    }
+
+    &.w-50 {
+        width: 50%;
+    }
+
+    &.w-75 {
+        width: 75%;
+    }
+
+    &.p-3 {
+        padding: 3rem;
+    }
 }
 
 .andes-contenedor-cards {
@@ -40,101 +92,242 @@ $andes-naranja-claro: #f4a03b;
     padding: 1rem;
     grid-gap: 10px;
 
-
     .andes-card {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
-        min-width: 50%;
-        max-height: 400px;
+        height: 350px;
         box-shadow: 1px 3px 5px 3px lightgrey;
         text-align: center;
-        
-        padding: .5em;
-        color: white;
+        background-color: white;
         cursor: pointer;
-        transition: all .5s;
+        // transition: all .5s;
+
+        &:hover {
+            border: solid 7px $andes-celeste;
+            background-color: rgb(247, 247, 247);
+            box-shadow: 1px 3px 5px 3px lightgrey;
+            box-sizing: border-box;
+        }
+    }
 
 
-        // Colores
-        &.andes-azul-oscuro {
-            background: $andes-azul-oscuro;
+
+
+        
+    // CONTENIDO
+
+    // Imagenes
+    .andes-card-img {
+        height: 8rem;	
+        width: 100%;
+        mix-blend-mode: multiply;
+        background-position: center;
+        background-blend-mode: multiply;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        // Filtro imagenes
+        &.bg-azul-oscuro {
+            background-color: $andes-azul-oscuro;
         }
-        &.andes-azul-oscuro:hover {
-            background: darken($andes-azul-oscuro, 10%);
+
+            &.bg-azul-oscuro:hover {
+                background: darken($andes-azul-oscuro, 10%);
+            }
+
+        &.bg-azul {
+            background-color: $andes-azul;
         }
-        &.andes-azul {
-            background: $andes-azul;
+
+        &.bg-azul-claro {
+            background-color: $andes-azul-claro;
         }
-        &.andes-azul:hover {
-            background: darken($andes-azul, 10%);
+
+        &.bg-violeta {
+            background-color: $andes-violeta;
         }
-        &.andes-azul-claro {
-            background: $andes-azul;
+
+        &.bg-magenta {
+            background-color: $andes-magenta;
         }
-        &.andes-azul-claro:hover {
-            background: darken($andes-azul-oscuro, 10%);
+
+            &.bg-magenta:hover {
+                background: darken($andes-magenta, 20%);
+            }
+
+        &.bg-naranja {
+            background: $andes-naranja;
         }
+
+            &.bg-naranja:hover {
+                background: darken($andes-naranja, 10%);
+            }
+
+        &.bg-naranja-claro {
+            background: $andes-naranja-claro;
+        }
+
+            &.bg-naranja-claro:hover {
+                background: darken($andes-naranja-claro, 10%);
+            }
+
+        &.bg-verde {
+            background: $andes-verde;
+        }
+
+            &.bg-verde:hover {
+                background: darken($andes-verde, 10%);
+            }
+
         &.andes-celeste {
             background: $andes-celeste;
         }
-        &.andes-celeste:hover {
-            background: darken($andes-celeste, 20%);
-        }
-        &.andes-violeta {
-            background: $andes-violeta;
-        }
-        &.andes-violeta:hover {
-            background: darken($andes-violeta, 20%);
-        }
-        &.andes-magenta {
-            background: $andes-magenta;
-        }
-        &.andes-magenta:hover {
-            background: darken($andes-magenta, 20%);
-        }
-        &.andes-naranja {
-            background: $andes-naranja;
-        }
-        &.andes-naranja:hover {
-            background: darken($andes-naranja, 10%);
-        }
-        &.andes-naranja-claro {
-            background: $andes-naranja-claro;
-        }
-        &.andes-naranja-claro:hover {
-            background: darken($andes-naranja-claro, 10%);
-        }
-        &.andes-verde {
-            background: $andes-verde;
-        }
-        &.andes-verde:hover {
-            background: darken($andes-verde, 10%);
-        }
+
+            &.andes-celeste:hover {
+                background: darken($andes-celeste, 20%);
+            }
 
 
-             // Contenido
-            .icono {
-                font-size: 3em;
-            }
-            .titulo {
-                text-transform: uppercase;
-                font-size: 2em;
-                font-weight: 600;
-                line-height: .8em;
-                padding-bottom: 1em;
-            }
 
-            .subtitulo {
-                text-transform: uppercase;
-                font-size: 1.5em;
-                font-weight: 300;
-                line-height: 1em;
-                padding-bottom: 1em;
-            }
-            .detalle {
-                font-weight: 300;
-            }
+        &.img-mpi {
+            background-image: url("../../assets/img/andes-mpi.jpg");
+        }
+        &.img-citas {
+            background-image: url("../../assets/img/andes-citas.jpg");
+        }
+        &.img-turnos {
+            background-image: url("../../assets/img/andes-turnos.jpg");
+        }
+        &.img-rup {
+            background-image: url("../../assets/img/andes-rup.jpg");
         }
     }
+
+    // Iconos
+    .icono {
+        font-size: 2rem;
+        position: absolute;
+        top: 60%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        &.i-md {
+            width: 5rem;
+            height: 5rem;
+            padding: 0.75rem;
+            background: white;
+        }
+
+        >.mdi {
+            align-self: center;
+        }
+    }
+
+
+    // Tipografia
+    .titulo {
+        text-transform: uppercase;
+        font-weight: 600;
+        line-height: .8em;
+    }
+
+    .subtitulo {
+        text-transform: capitalize;
+        // font-size: 1.5em;
+        font-weight: 300;
+        line-height: 1em;
+    }
+
+    .detalle {
+        font-weight: 300;
+    }
+}
+
+
+// Variantes formales
+.rounded {
+    border-radius: 50%;
+}
+
+.border {
+    border: solid 3px;
+}
+
+hr {
+    width: 20px;
+    border: solid 1px;
+}
+
+// Variantes cromaticas
+.icono, .titulo, .subtitulo, .detalle, .border, hr {
+    &.andes-magenta {
+        color: $andes-magenta;
+    }
+
+    &.andes-azul-oscuro {
+        color: $andes-azul-oscuro;
+    }
+
+    &.andes-azul {
+        color: $andes-azul;
+    }
+
+    &.andes-azul-claro {
+        color: $andes-azul-claro;
+    }
+
+    &.andes-celeste {
+        color: $andes-celeste;
+    }
+
+    &.andes-violeta {
+        color: $andes-violeta;
+    }
+
+    &.andes-magenta {
+        color: $andes-magenta;
+    }
+
+    &.andes-naranja {
+        color: $andes-naranja;
+    }
+
+    &.andes-naranja-claro {
+        color: $andes-naranja-claro;
+    }
+
+    &.andes-verde {
+        color: $andes-verde;
+    }
+
+    &.andes-blanco {
+        color: white;
+    }
+
+    &.shadow {
+        text-shadow: 3px 4px 3px lightgray;
+    }
+
+    
+
+    // Variantes tipograficas
+    &.txt-sm {
+        font-size: 1rem;
+    }
+    
+    &.txt-md {
+        font-size: 2.5rem;
+    }
+    
+    &.txt-lg {
+        font-size: 5rem;
+    }
+    
+    &.txt-xl {
+        font-size: 10rem;
+    }
+
+}    
