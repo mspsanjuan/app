@@ -111,13 +111,13 @@ export class BuscadorComponent implements OnInit, OnChanges, AfterViewInit {
      *
      * @memberof BuscadorComponent
      */
-    public tooltips = {
-        hallazgos: 'Incluyen signos, síntomas, antecedentes tanto positivos como negativos.<br><br>Ejemplos: antecedente de asma, no fuma, vivienda adecuada.',
-        trastornos: 'Incluye enfermedades y situaciones siempre anómalas.<br><br>Ejemplos: cardiopatía, diabetes mellitus tipo I, asma, aclorhidria.',
-        procedimientos: 'Incluye todos los procedimientos/prácticas que se realizan durante una prestación.<br><br>Ejemplos: Medir tensión arteria, registrar signos vitales',
-        planes: 'Incluye todos los procedimientos/prácticas que se solicitan o planifican a futuro.<br><br>Ejemplos: Consulta de Neurología, Resonancia Magnética, Placa de torax',
-        productos: 'Incluye medicamentos e insumos<br><br>Ejemplos: Amoxicilina 500 mg en capsulas, Acido Clavulánico, etc.',
-    };
+    // public tooltips = {
+    //     hallazgos: 'Incluyen signos, síntomas, antecedentes tanto positivos como negativos.<br><br>Ejemplos: antecedente de asma, no fuma, vivienda adecuada.',
+    //     trastornos: 'Incluye enfermedades y situaciones siempre anómalas.<br><br>Ejemplos: cardiopatía, diabetes mellitus tipo I, asma, aclorhidria.',
+    //     procedimientos: 'Incluye todos los procedimientos/prácticas que se realizan durante una prestación.<br><br>Ejemplos: Medir tensión arteria, registrar signos vitales',
+    //     planes: 'Incluye todos los procedimientos/prácticas que se solicitan o planifican a futuro.<br><br>Ejemplos: Consulta de Neurología, Resonancia Magnética, Placa de torax',
+    //     productos: 'Incluye medicamentos e insumos<br><br>Ejemplos: Amoxicilina 500 mg en capsulas, Acido Clavulánico, etc.',
+    // };
 
     constructor(public servicioTipoPrestacion: TipoPrestacionService,
         private frecuentesProfesionalService: FrecuentesProfesionalService,
@@ -206,11 +206,11 @@ export class BuscadorComponent implements OnInit, OnChanges, AfterViewInit {
                 updatedOn: moment('2018-09-01').toDate(),
                 steps: [
                     { title: 'Nuevo buscador', content: 'Presentamos una forma más fácil de buscar los conceptos para registrar en la consulta' },
-                    { title: 'Hallazgos', content: this.tooltips.hallazgos },
-                    { title: 'Trastornos', content: this.tooltips.trastornos },
-                    { title: 'Procedimientos', content: this.tooltips.procedimientos },
-                    { title: 'Solicitudes', content: this.tooltips.planes },
-                    { title: 'Insumos', content: this.tooltips.productos },
+                    // { title: 'Hallazgos', content: this.tooltips.hallazgos },
+                    // { title: 'Trastornos', content: this.tooltips.trastornos },
+                    // { title: 'Procedimientos', content: this.tooltips.procedimientos },
+                    // { title: 'Solicitudes', content: this.tooltips.planes },
+                    // { title: 'Insumos', content: this.tooltips.productos },
                 ],
                 forceShow: false,
                 fullScreen: false,

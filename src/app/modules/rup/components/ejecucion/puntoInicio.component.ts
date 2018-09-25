@@ -294,32 +294,32 @@ export class PuntoInicioComponent implements OnInit {
     }
 
     iniciarPrestacion(paciente, snomedConcept, turno) {
-        this.plex.confirm('Paciente: <b>' + paciente.apellido + ', ' + paciente.nombre + '.</b><br>Prestación: <b>' + snomedConcept.term + '</b>', '¿Crear Prestación?').then(confirmacion => {
-            if (confirmacion) {
-                this.servicioPrestacion.crearPrestacion(paciente, snomedConcept, 'ejecucion', new Date(), turno).subscribe(prestacion => {
+        //this.plex.confirm('Paciente: <b>' + paciente.apellido + ', ' + paciente.nombre + '.</b><br>Prestación: <b>' + snomedConcept.term + '</b>', '¿Crear Prestación?').then(confirmacion => {
+        //  if (confirmacion) {
+        this.servicioPrestacion.crearPrestacion(paciente, snomedConcept, 'ejecucion', new Date(), turno).subscribe(prestacion => {
 
-                    this.routeTo('ejecucion', prestacion.id);
-                }, (err) => {
-                    this.plex.alert('No fue posible crear la prestación', 'ERROR');
-                });
-            } else {
-                return false;
-            }
+            this.routeTo('ejecucion', prestacion.id);
+        }, (err) => {
+            this.plex.alert('No fue posible crear la prestación', 'ERROR');
         });
+        // } else {
+        //     return false;
+        // }
+        // });
     }
 
     iniciarPrestacionNoNominalizada(snomedConcept, turno) {
-        this.plex.confirm('</b><br>Prestación: <b>' + snomedConcept.term + '</b>', '¿Crear Prestación?').then(confirmacion => {
-            if (confirmacion) {
-                this.servicioPrestacion.crearPrestacion(null, snomedConcept, 'ejecucion', new Date(), turno).subscribe(prestacion => {
-                    this.routeTo('ejecucion', prestacion.id);
-                }, (err) => {
-                    this.plex.alert('No fue posible crear la prestación', 'ERROR');
-                });
-            } else {
-                return false;
-            }
+        // this.plex.confirm('</b><br>Prestación: <b>' + snomedConcept.term + '</b>', '¿Crear Prestación?').then(confirmacion => {
+        //     if (confirmacion) {
+        this.servicioPrestacion.crearPrestacion(null, snomedConcept, 'ejecucion', new Date(), turno).subscribe(prestacion => {
+            this.routeTo('ejecucion', prestacion.id);
+        }, (err) => {
+            this.plex.alert('No fue posible crear la prestación', 'ERROR');
         });
+        //     } else {
+        //         return false;
+        //     }
+        // });
     }
 
     /**
