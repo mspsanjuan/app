@@ -20,22 +20,35 @@ $andes-naranja-claro: #f4a03b;
 
 $andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
 
+// No hace el override
+body {
+    padding-top: 0px!important;
+    background-color: none!important;
 
+    div.content {
+        margin-left: 0px!important;
+        margin-right: 0px!important;
+    }
+}
 
 // Refactor layout inicio
 
 // TODO: Engrillar bloque de data superior (logo, textos, etc.)
 // ngIf="inicio" > no-margins!
 
+.andes-bg-gradient {
+    background: $andes-gradient;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
 .andes-contenedor-principal {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background: $andes-gradient;
-    background-repeat: no-repeat;
-    height: 100vh;
-}
+    padding: 1vw;
 
+    
     .logo-container {
         align-self: center;
         display: flex;
@@ -52,6 +65,8 @@ $andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
             background-image: url('../../assets/img/andes-v-txt.svg');
             background-size: contain;
             background-repeat: no-repeat;
+            background-position-x: 3px;
+            background-position-y: 2px;
             width: 7.5rem;
             height: 7.5rem;
             // max-width: 600px;
@@ -102,6 +117,8 @@ $andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
         text-align: center;
         background-color: white;
         cursor: pointer;
+        position: relative;
+
         // transition: all .5s;
 
         &:hover {
@@ -111,6 +128,8 @@ $andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
             box-sizing: border-box;
         }
     }
+}
+
 
 
 
@@ -209,7 +228,7 @@ $andes-gradient: linear-gradient(#B8D8F2, #F4F0E7, #FFFCF3);
     .icono {
         font-size: 2rem;
         position: absolute;
-        top: 60%;
+        top: 7%;
         display: flex;
         justify-content: center;
         text-align: center;
