@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, Input, EventEmitter, HostBinding, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { Auth } from '@andes/auth';
@@ -16,7 +15,6 @@ import { OrganizacionService } from './../../../../services/organizacion.service
 import { IPaciente } from '../../../../interfaces/IPaciente';
 import { TurnoService } from '../../../../services/turnos/turno.service';
 import { WebSocketService } from '../../../../services/websocket.service';
-
 @Component({
     selector: 'rup-puntoInicio',
     templateUrl: 'puntoInicio.html',
@@ -53,9 +51,9 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
     private prestacionesOriginales: any = [];
     public prestacionSeleccion: any;
     public paciente: any;
+
     public mostrarBtnTurnero = false;
     public ultimoLlamado;
-
     public espaciosFisicosTurnero = [];
 
     constructor(
@@ -75,6 +73,7 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.ws.disconnect();
     }
+
     ngOnInit() {
         this.ws.connect();
         this.servicioTurnero.get({}).subscribe((pantallas) => {
@@ -87,15 +86,6 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
                 });
             });
         });
-
-        // this.servicioOrganizacion.getById(this.auth.organizacion.id).subscribe(res => {
-        //     let organizacion: any = res;
-        //     if (organizacion.turnero === true) {
-        //         this.mostrarBtnTurnero = true;
-        //         this.conexionPantalla();
-        //     }
-
-        // });
 
         // Verificamos permisos globales para rup, si no posee realiza redirect al home
         if (this.auth.getPermissions('rup:?').length <= 0) {
@@ -118,8 +108,6 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
             }
         }
     }
-
-
 
     redirect(pagina: string) {
         this.router.navigate(['./' + pagina]);
@@ -208,6 +196,7 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
             this.filtrar();
 
             if (this.agendas.length) {
+                this.agendaSeleccionada = this.agendas[0];
                 this.cargarTurnos(this.agendas[0]);
             }
 
@@ -318,8 +307,6 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
 
         if (this.agendas.length) {
             this.agendaSeleccionada = this.agendas[0];
-            this.index = 0;
-            this.volverALlamar = false;
         }
 
     }
@@ -400,14 +387,11 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
 
     cargarTurnos(agenda) {
         this.agendaSeleccionada = agenda ? agenda : 'fueraAgenda';
+        this.mostrarBtnTurnero = false;
         if (agenda) {
             let i = this.espaciosFisicosTurnero.findIndex( (e) => e === agenda.espacioFisico.id);
-            if (i >= 0 ) {
-                this.mostrarBtnTurnero = true;
-                return;
-            }
+            this.mostrarBtnTurnero = (i >= 0 );
         }
-        this.mostrarBtnTurnero = false;
     }
 
     routeTo(action, id) {
@@ -531,5 +515,4 @@ export class PuntoInicioComponent implements OnInit, OnDestroy {
     }
 
 }
-
 

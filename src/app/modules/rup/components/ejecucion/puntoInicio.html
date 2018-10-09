@@ -204,6 +204,7 @@
                                     </td>
                                     <td class="text-right">
                                         <ng-container *ngIf="turno.tipoPrestacion && turno.paciente?.id">
+                                            <plex-button *ngIf="mostrarBtnTurnero" type="info" size="sm" icon="bell-ring-outline" (click)="llamarTurnero(turno)"></plex-button> 
 
                                             <plex-button (click)="routeTo('vista', turno.paciente.id)" label="VER HUDS" type="primary btn-sm">
                                             </plex-button>
@@ -326,6 +327,7 @@
 
                                         <td class="text-right">
                                             <ng-container *ngIf="sobreturno.tipoPrestacion && sobreturno.paciente?.id">
+                                                <plex-button *ngIf="mostrarBtnTurnero" type="info" size="sm" icon="bell-ring-outline" (click)="llamarTurnero(sobreturno)"></plex-button> 
                                                 <plex-button (click)="routeTo('vista', sobreturno.paciente.id)" label="VER HUDS" type="primary btn-sm">
                                                 </plex-button>
                                                 <plex-button *ngIf="!esFutura(agendaSeleccionada) && agendaSeleccionada.estado !== 'auditada' && sobreturno.estado !== 'suspendido' && sobreturno.paciente && !sobreturno.prestacion && tienePermisos(sobreturno.tipoPrestacion)"
@@ -412,6 +414,7 @@
                             </tr>
                         </tbody>
                     </table>
+
                 </ng-container>
             </plex-box>
         </div>

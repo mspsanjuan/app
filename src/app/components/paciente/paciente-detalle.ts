@@ -20,6 +20,7 @@ export class PacienteDetalleComponent implements OnInit {
      * @type {IPaciente}
      * @memberof PacienteDetalleComponent
      */
+    @Input('mostrarRenaper') mostrarRenaper: Boolean;
     @Input('paciente')
     set paciente(value: IPaciente) {
         this._paciente = value;
@@ -36,7 +37,7 @@ export class PacienteDetalleComponent implements OnInit {
     inconsistenciaDatos = false;
     backUpDatos = [];
 
-    constructor(private pacienteService: PacienteService, private renaperService: RenaperService, private plex: Plex) { }
+    constructor(private renaperService: RenaperService, private plex: Plex) { }
 
     ngOnInit() {
         this.backUpDatos['nombre'] = this.paciente.nombre;
@@ -71,7 +72,6 @@ export class PacienteDetalleComponent implements OnInit {
             // Queda pendiente actualizar la localidad y provincia de renaper en caso que no la carguen
             this.deshabilitarValidar = true;
             this.loading = false;
-            let codigo = resultado.codigo;
             let datos = resultado.datos;
             if (resultado.datos.nroError === 0) {
                 if (patient.estado === 'temporal') {
