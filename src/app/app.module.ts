@@ -32,23 +32,9 @@ import { AgmCoreModule } from '@agm/core';
 import { MapsComponent } from './utils/mapsComponent';
 import { PermisosComponent } from './utils/permisos/permisos.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
-import { HoverClassDirective } from './directives/hover-class.directive';
-import { DocumentosService } from './services/documentos.service';
 
-// Pipes
-import { EdadPipe } from './pipes/edad.pipe';
-import { ProfesionalPipe } from './pipes/profesional.pipe';
-import { FromNowPipe } from './pipes/fromNow.pipe';
-import { FechaPipe } from './pipes/fecha.pipe';
-import { PacientePipe } from './pipes/paciente.pipe';
-import { SexoPipe } from './pipes/sexo.pipe';
-import { OrganizacionPipe } from './pipes/organizacion.pipe';
-import { SortBloquesPipe } from './pipes/agenda-bloques.pipe';
-import { TextFilterPipe } from './pipes/textFilter.pipe';
-import { FilterPermisos } from './pipes/filterPermisos.pipe';
-import { EnumerarPipe } from './pipes/enumerar.pipe';
-import { PluralizarPipe } from './pipes/pluralizar.pipe';
-import { IconoCamaPipe } from './pipes/iconoCama.pipe';
+import { SharedModule } from '@app/shared';
+
 
 // Servicios
 // ... Tablas Maestras
@@ -457,6 +443,7 @@ import { FormTerapeuticoService } from './services/formTerapeutico/formTerapeuti
 import { ArbolItemComponent } from './components/formularioTerapeutico/arbolItem.component';
 import { FormTerapeuticoDetallePageComponent } from './components/formularioTerapeutico/form-terapeutico-detalle.component';
 import { AddformTerapeuticoComponent } from './components/formularioTerapeutico/add-form-terapeutico';
+import { DocumentosService } from './services/documentos.service';
 
 registerLocaleData(localeEs, 'es');
 
@@ -473,6 +460,7 @@ registerLocaleData(localeEs, 'es');
         Ng2DragDropModule,
         ChartsModule,
         routing,
+        SharedModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAJuFVuMmVwV8gtP_1m3Ll1VzHagAI_X9I'
         })
@@ -485,8 +473,7 @@ registerLocaleData(localeEs, 'es');
         ProfesionalCreateUpdateComponent,
         EspecialidadComponent, EspecialidadCreateUpdateComponent,
         PacienteCreateUpdateComponent, PacienteDetalleComponent, PacienteSearchComponent, DashboardComponent,
-        MapsComponent, EdadPipe, ProfesionalPipe, FromNowPipe, FechaPipe, PacientePipe, SexoPipe, OrganizacionPipe, SortBloquesPipe, TextFilterPipe,
-        FilterPermisos, EnumerarPipe, PluralizarPipe, IconoCamaPipe,
+        MapsComponent,
         PlanificarAgendaComponent, AutocitarTurnoAgendasComponent, BuscadorCie10Component, PanelEspacioComponent, EspacioFisicoComponent, EditEspacioFisicoComponent, FiltrosMapaEspacioFisicoComponent,
         TipoPrestacionComponent, TipoPrestacionCreateUpdateComponent,
         DarTurnosComponent, CalendarioComponent, GestorAgendasComponent,
@@ -504,7 +491,7 @@ registerLocaleData(localeEs, 'es');
         Auditoria2Component,
         LlavesTipoPrestacionComponent, EditarLlavesTipoPrestacionComponent,
         AuditoriaPrestacionPacienteComponent, EditarAuditoriaPrestacionPacienteComponent,
-        HoverClassDirective, PuntoInicioTurnosComponent, ReasignarTurnoAgendasComponent,
+        PuntoInicioTurnosComponent, ReasignarTurnoAgendasComponent,
         PacienteSearchTurnosComponent, TurnosPacienteComponent, DashboardCodificacionComponent,
         SolicitudTurnoVentanillaComponent, ListaSolicitudTurnoVentanillaComponent, ActivarAppComponent,
         BusquedaUsuarioComponent, UsuarioCreateComponent, UsuarioUpdateComponent,

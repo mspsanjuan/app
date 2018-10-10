@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, EventEmitter, Output, ViewEncapsulation, HostBinding, DebugElement } from '@angular/core';
 import { Plex } from '@andes/plex';
-import { EdadPipe } from './../../../../pipes/edad.pipe';
 import { Auth } from '@andes/auth';
 import { FacturacionAutomaticaService } from './../../../../services/facturacionAutomatica.service';
 import { ObraSocialService } from './../../../../services/obraSocial.service';
-import { IObraSocial } from '../../../../interfaces/IObraSocial';
 @Component({
     selector: 'arancelamiento-form',
     templateUrl: 'arancelamiento-form.html',

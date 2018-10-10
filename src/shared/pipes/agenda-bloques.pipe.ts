@@ -1,4 +1,5 @@
-import { IBloque } from './../interfaces/turnos/IBloque';
+// [TODO] Pipe propio de Turnos
+import { IBloque } from '../../app/interfaces/turnos/IBloque';
 import { Pipe, PipeTransform } from '@angular/core';
 
 // No se recomienda usar pipes para ordenar: https://angular.io/guide/pipes#appendix-no-filterpipe-or-orderbypipe

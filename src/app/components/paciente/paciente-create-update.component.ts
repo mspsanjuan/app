@@ -68,21 +68,9 @@ import {
     IProvincia
 } from './../../interfaces/IProvincia';
 import {
-    FechaPipe
-} from './../../pipes/fecha.pipe';
-import {
     Plex
 } from '@andes/plex';
-import {
-    MapsComponent
-} from './../../utils/mapsComponent';
 import * as moment from 'moment';
-import {
-    PacientePipe
-} from './../../pipes/paciente.pipe';
-import {
-    EdadPipe
-} from './../../pipes/edad.pipe';
 
 import {
     FormBuilder,
