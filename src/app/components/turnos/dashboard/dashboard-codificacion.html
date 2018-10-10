@@ -22,8 +22,8 @@
                     <div class="col-12">
                         <div *ngFor="let agenda of agendasCodificar; let indiceAgenda = index">
                             <plex-accordion>
-                                <plex-panel *ngIf="agendasCodificar.length>0" tituloPrincipal="Agenda: {{ agenda.horaInicio | fecha }} de {{ agenda.horaInicio | date: 'HH:mm'
-            }} a {{ agenda.horaFin | date: 'HH:mm' }} hs
+                                <plex-panel *ngIf="agendasCodificar.length>0" tituloPrincipal="Agenda: {{ agenda.horaInicio | fecha }} de {{ agenda.horaInicio | hora
+            }} a {{ agenda.horaFin | hora }} hs
             Profesionales: {{ agenda.profesionales | enumerar:['apellido', 'nombre'] }} ">
                                     <div class="row">
                                         <revision-agenda [agenda]="agenda" [modoCompleto]="false" class="col-12"></revision-agenda>

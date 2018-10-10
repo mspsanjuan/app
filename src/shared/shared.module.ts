@@ -15,6 +15,7 @@ import { FilterPermisos } from './pipes/filterPermisos.pipe';
 import { EnumerarPipe } from './pipes/enumerar.pipe';
 import { PluralizarPipe } from './pipes/pluralizar.pipe';
 import { IconoCamaPipe } from './pipes/iconoCama.pipe';
+import { HoraPipe } from './pipes/hora.pipe';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { IconoCamaPipe } from './pipes/iconoCama.pipe';
         ProfesionalPipe,
         FromNowPipe,
         FechaPipe,
+        HoraPipe,
         PacientePipe,
         SexoPipe,
         OrganizacionPipe,

@@ -298,7 +298,7 @@
                             <div *ngIf="!mostrarHeaderCompleto" class="row">
                                 <div class="col-12">
                                     {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | fecha}}, {{ agenda.horaInicio | date:
-                                    'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}} hs
+                                    'HH:mm'}} a {{ agenda.horaFin | hora}} hs
                                     <div *ngFor="let tipoPrestacion of agenda.tipoPrestaciones">{{tipoPrestacion.nombre}}</div>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                             <div *ngIf="mostrarHeaderCompleto" class="row">
                                 <div class="col-12">
                                     <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio
-                                    | fecha}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin |
+                                    | fecha}}, {{ agenda.horaInicio | hora}} a {{ agenda.horaFin |
                                     date: 'HH:mm'}} hs
                                 </div>
                             </div>
@@ -351,7 +351,7 @@
                         <tr *ngFor="let turno of bloque.turnos; let i=index" class="hover" [ngClass]="{'bg-inverse text-white': estaSeleccionado(bloque.turnos[i])}">
 
                             <td (click)="seleccionarTurno(bloque.turnos[i], bloque)">
-                                <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                                <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                             </td>
                             <td (click)="seleccionarTurno(bloque.turnos[i], bloque)">
                                 <span *ngIf="turno.paciente && turno.paciente.id">{{ turno.paciente | paciente }} </span>
@@ -399,7 +399,7 @@
                                 <i *ngIf="!estaSeleccionado(agenda.sobreturnos[i])" class="mdi mdi-checkbox-blank-outline"></i>
                             </td>
                             <td (click)="seleccionarTurno(agenda.sobreturnos[i], bloque)">
-                                <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | date: 'HH:mm' }}</strong>
+                                <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | hora }}</strong>
                             </td>
                             <td (click)="seleccionarTurno(agenda.sobreturnos[i], -1)">
                                 <span *ngIf="sobreturno.paciente && sobreturno.paciente.id">{{ sobreturno.paciente | paciente }} </span>

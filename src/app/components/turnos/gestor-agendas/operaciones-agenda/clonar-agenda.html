@@ -42,8 +42,8 @@
                     <div class="row">
                         <div class="col-12">
                             <span>
-                                <b>Fecha:</b> {{agenda.horaInicio | fecha}} - {{agenda.horaInicio | date: 'HH:mm'}}
-                                - {{agenda.horaFin | date: 'HH:mm'}}</span>
+                                <b>Fecha:</b> {{agenda.horaInicio | fecha}} - {{agenda.horaInicio | hora}}
+                                - {{agenda.horaFin | hora}}</span>
                         </div>
                     </div>
                     <div class="row">
@@ -67,7 +67,7 @@
                     <ng-template ngFor let-unBloque="$implicit" [ngForOf]="agenda.bloques" let-i="index">
                         <div class="row">
                             <div class="col">{{unBloque.descripcion}}</div>
-                            <div class="col">{{unBloque.horaInicio | date: 'HH:mm'}} - {{unBloque.horaFin | date: 'HH:mm'}}</div>
+                            <div class="col">{{unBloque.horaInicio | hora}} - {{unBloque.horaFin | hora}}</div>
                             <div class="col">{{unBloque.cantidadTurnos}} turnos de {{unBloque.duracionTurno}}'</div>
                         </div>
                     </ng-template>
@@ -76,7 +76,7 @@
                         <header>Agendas en conflicto</header>
                         <plex-accordion>
                             <ng-template ngFor let-agendaF="$implicit" [ngForOf]="agendasFiltradas" let-i="index">
-                                <plex-panel tituloPrincipal="{{agendaF.horaInicio | date: 'dd/MM/yyyy hh:mm'}} - {{agendaF.horaFin | date: 'HH:mm'}}" icon="arrow-down-drop-circle-outline">
+                                <plex-panel tituloPrincipal="{{agendaF.horaInicio | date: 'dd/MM/yyyy hh:mm'}} - {{agendaF.horaFin | hora}}" icon="arrow-down-drop-circle-outline">
                                     <li *ngIf="agendaF.conflictoEF">
                                         Conflicto con Espacio Físico
                                     </li>

@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label>Agenda </label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio
-                                    | fecha}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin |
+                                    | fecha}}, {{ agenda.horaInicio | hora}} a {{ agenda.horaFin |
                                     date: 'HH:mm'}} hs
                                 </div>
                                 <div class="col">
@@ -39,8 +39,8 @@
                         <thead>
                             <tr>
                                 <th colspan="14">&raquo; Bloque
-                                    <span *ngIf="bloque.descripcion"> {{ bloque.descripcion }} </span> de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin
-                                    | date: 'HH:mm'}} hs
+                                    <span *ngIf="bloque.descripcion"> {{ bloque.descripcion }} </span> de {{ bloque.horaInicio | hora}} a {{ bloque.horaFin
+                                    | hora}} hs
                                 </th>
                             </tr>
                             <tr>
@@ -62,7 +62,7 @@
                             <tr *ngFor="let turno of bloque.turnos; let i=index">
                                 <td>
                                     <small>
-                                        <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                                        <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                                     </small>
                                 </td>
                                 <!--documento, carpetaPaciente-->
@@ -126,7 +126,7 @@
                             <tr *ngFor="let sobreturno of agenda.sobreturnos; let i=index">
                                 <td>
                                     <small>
-                                        <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | date: 'HH:mm' }}</strong>
+                                        <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | hora }}</strong>
                                     </small>
                                 </td>
                                 <!--documento, carpetaPaciente-->

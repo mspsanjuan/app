@@ -19,7 +19,7 @@
                     <div *ngIf="!mostrarHeaderCompleto" class="row">
                         <div class="col-12">
                             {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | fecha}}, {{ agenda.horaInicio | date:
-                            'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}} hs
+                            'HH:mm'}} a {{ agenda.horaFin | hora}} hs
                             <div *ngFor="let tipoPrestacion of agenda.tipoPrestaciones">{{tipoPrestacion.nombre}}</div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div *ngIf="mostrarHeaderCompleto" class="row">
                         <div class="col-12">
                             <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | date:
-                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
+                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | hora}} a {{ agenda.horaFin | hora}}
                             hs
                         </div>
                     </div>
@@ -80,7 +80,7 @@
             <table class="table">
                 <thead *ngIf="bloque.descripcion || bloque.citarPorBloque">
                     <tr>
-                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}}
+                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | hora}} a {{ bloque.horaFin | hora}}
                             hs
                         </th>
                         <th *ngIf="agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}}
@@ -103,7 +103,7 @@
                         </td>
                         <!-- Hora turno -->
                         <td>
-                            <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                            <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                         </td>
                         <!-- Teléfono del paciente, si tiene -->
                         <td>
@@ -151,7 +151,7 @@
                         </td>
                         <!-- Hora turno -->
                         <td>
-                            <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                            <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                         </td>
                         <!-- Teléfono del paciente, si tiene -->
                         <td>

@@ -19,7 +19,7 @@
                     <div *ngIf="!mostrarHeaderCompleto" class="row">
                         <div class="col-12">
                             {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | fecha}}, {{ agenda.horaInicio | date:
-                            'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}} hs
+                            'HH:mm'}} a {{ agenda.horaFin | hora}} hs
                             <div *ngFor="let tipoPrestacion of agenda.tipoPrestaciones">{{tipoPrestacion.nombre}}</div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div *ngIf="mostrarHeaderCompleto" class="row">
                         <div class="col-12">
                             <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | date:
-                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
+                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | hora}} a {{ agenda.horaFin | hora}}
                             hs
                         </div>
                     </div>
@@ -127,7 +127,7 @@
             <table class="table">
                 <thead *ngIf="bloque.descripcion || bloque.citarPorBloque">
                     <tr>
-                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}}
+                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | hora}} a {{ bloque.horaFin | hora}}
                             hs
                         </th>
                         <th *ngIf="agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}}
@@ -146,7 +146,7 @@
                             <i *ngIf="!estaSeleccionado(bloque.turnos[i])" class="mdi mdi-checkbox-blank-outline"></i>
                         </td>
                         <td *ngIf="!agenda.dinamica" (click)="seleccionarTurno(bloque.turnos[i],false, false)">
-                            <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                            <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                         </td>
                         <td (click)="seleccionarTurno(bloque.turnos[i], false, false)">
 
@@ -224,7 +224,7 @@
                         <i *ngIf="!estaSeleccionado(agenda.sobreturnos[i])" class="mdi mdi-checkbox-blank-outline"></i>
                     </td>
                     <td (click)="seleccionarTurno(agenda.sobreturnos[i], false, true)">
-                        <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | date: 'HH:mm' }}</strong>
+                        <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | hora }}</strong>
                     </td>
                     <td (click)="seleccionarTurno(agenda.sobreturnos[i], false, true)">
                         <small *ngIf="sobreturno?.paciente?.id" [ngClass]="{'text-danger' : sobreturno?.estado === 'suspendido'}">{{ sobreturno.paciente | paciente }}

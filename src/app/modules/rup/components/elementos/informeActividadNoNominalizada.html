@@ -103,11 +103,11 @@
         </div>
         <div class="col-3 ">
             <label>Hora inicio</label>
-            {{registro.valor.informe?.horaIngreso | date: 'HH:mm'}}
+            {{registro.valor.informe?.horaIngreso | hora}}
         </div>
         <div class="col-3 ">
             <label>Hora fin</label>
-            {{registro.valor.informe?.horaFin | date: 'HH:mm'}}
+            {{registro.valor.informe?.horaFin | hora}}
         </div>
     </div>
     <div class="row">

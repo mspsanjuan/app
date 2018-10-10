@@ -17,7 +17,7 @@
                     </div>
 
                     <b>Agenda:</b> {{agendaAReasignar.horaInicio | date: 'EEEE'}} {{agendaAReasignar.horaInicio | fecha}}
-                    de {{agendaAReasignar?.horaInicio|date:'HH:mm'}} a {{agendaAReasignar.horaFin | date: 'HH:mm'}} hs
+                    de {{agendaAReasignar?.horaInicio|date:'HH:mm'}} a {{agendaAReasignar.horaFin | hora}} hs
                     <br>
                     <b>Prestaciones:</b> {{ agendaAReasignar.tipoPrestaciones | enumerar:['term']:'/' }}
                     <br>
@@ -55,7 +55,7 @@
                                     <ng-template #reasignado>
                                         <ng-container *ngIf="(agendaAReasignar.estado === 'suspendida' && turno.estado === 'asignado') || (turno.estado === 'suspendido' && turno.paciente && turno.paciente.id)">
                                             <td (click)="seleccionarTurno(turno, bloque, false)">
-                                                <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                                                <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                                             </td>
                                             <td (click)="seleccionarTurno(turno, bloque, false)">
                                                 <span *ngIf="turno && turno.paciente">{{ turno.paciente | paciente }} </span>
@@ -93,7 +93,7 @@
                                     <ng-template #noReasignado>
                                         <ng-container *ngIf="(agendaAReasignar.estado === 'suspendida' && turno.estado === 'asignado') || (turno.estado === 'suspendido' && turno.paciente?.id)">
                                             <td (click)="seleccionarTurno(turno, bloque, false)">
-                                                <strong *ngIf="turno">{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                                                <strong *ngIf="turno">{{ turno.horaInicio | hora }}</strong>
                                             </td>
                                             <td (click)="seleccionarTurno(turno, bloque, false)">
                                                 <span *ngIf="turno && turno.paciente">{{ turno.paciente | paciente }} </span>

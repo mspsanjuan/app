@@ -23,7 +23,7 @@
                 <ng-container *ngIf="idInfoAgenda === agenda.id">
                     <div class="info-agenda">
                         <div class="texto-agenda">
-                            <b>{{agenda.horaInicio | date: 'HH:mm' }} a {{agenda.horaFin | date: 'HH:mm'}} hs</b>
+                            <b>{{agenda.horaInicio | hora }} a {{agenda.horaFin | hora}} hs</b>
                             <br> {{agenda.prestaciones | enumerar:['term']}}
                             <br>
                             <small *ngIf="agenda.profesionales?.length > 0">

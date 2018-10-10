@@ -58,7 +58,7 @@
 
                                     <td>
                                         <div>
-                                            {{agenda.horaInicio | date: 'HH:mm'}} a {{agenda.horaFin | date: 'HH:mm'}} hs
+                                            {{agenda.horaInicio | hora}} a {{agenda.horaFin | hora}} hs
                                             <span *ngIf="agenda.nota">
                                                 <i title="{{agenda.nota}}" class="mdi mdi-comment"></i>
                                             </span>
@@ -120,7 +120,7 @@
                         <div class="col-12">
                             <ng-container>
                                 {{ agendaSeleccionada.horaInicio | date: 'EEE' }} {{ agendaSeleccionada.horaInicio | fecha}}, {{ agendaSeleccionada.horaInicio
-                                | date: 'HH:mm'}} a {{ agendaSeleccionada.horaFin | date: 'HH:mm'}} hs
+                                | hora}} a {{ agendaSeleccionada.horaFin | hora}} hs
                                 <span class="badge-info" *ngIf="agendaSeleccionada.dinamica">Dinámica</span>
                                 <div *ngFor="let tipoPrestacion of agendaSeleccionada.tipoPrestaciones">{{tipoPrestacion.nombre}}</div>
 
@@ -135,7 +135,7 @@
                     <table *ngFor="let bloque of agendaSeleccionada.bloques" class="table table-striped">
                         <thead *ngIf="bloque.descripcion">
                             <tr>
-                                <th *ngIf="!agendaSeleccionada.nominalizada" colspan="4">{{bloque.descripcion}} de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin | date:
+                                <th *ngIf="!agendaSeleccionada.nominalizada" colspan="4">{{bloque.descripcion}} de {{ bloque.horaInicio | hora}} a {{ bloque.horaFin | date:
                                     'HH:mm'}} hs
                                 </th>
                                 <th *ngIf="agendaSeleccionada.nominalizada" colspan="4">{{bloque.descripcion}}
@@ -147,7 +147,7 @@
                                 <tr *ngIf="turno" class="hover">
                                     <td>
                                         <ng-container *ngIf="!agendaSeleccionada.dinamica">
-                                            <strong>{{ turno.horaInicio | date: 'HH:mm' }}</strong>
+                                            <strong>{{ turno.horaInicio | hora }}</strong>
                                         </ng-container>
 
                                         <div *ngIf="turno.prestacion && turno?.prestacion?.estados">
@@ -267,7 +267,7 @@
                                 <ng-container *ngFor="let sobreturno of agendaSeleccionada.sobreturnos; let j=index">
                                     <tr *ngIf="sobreturno" class="hover">
                                         <td>
-                                            <strong>{{ sobreturno.horaInicio | date: 'HH:mm' }}</strong>
+                                            <strong>{{ sobreturno.horaInicio | hora }}</strong>
                                             <div *ngIf="sobreturno && sobreturno.prestacion && sobreturno?.prestacion?.estados">
                                                 <br />
                                                 <span class="badge " [ngClass]="{'badge-success': sobreturno.prestacion.estados[sobreturno.prestacion.estados.length - 1].tipo === 'validada',
@@ -358,7 +358,7 @@
                         <tbody>
                             <tr *ngFor="let prestacion of fueraDeAgenda" class="hover">
                                 <td>
-                                    <strong *ngIf="prestacion">{{ prestacion.solicitud.fecha | date: 'HH:mm' }}</strong>
+                                    <strong *ngIf="prestacion">{{ prestacion.solicitud.fecha | hora }}</strong>
                                     <br>
                                     <span class="badge " [ngClass]="{'badge-success': prestacion.estados[prestacion.estados.length - 1].tipo === 'validada',
                                                     'badge-warning': prestacion.estados[prestacion.estados.length - 1].tipo === 'ejecucion'}">

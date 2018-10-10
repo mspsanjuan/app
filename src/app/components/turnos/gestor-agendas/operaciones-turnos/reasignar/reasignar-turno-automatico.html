@@ -35,7 +35,7 @@
                                 <span>
                                     <b>Turno suspendido: </b> {{ agendaAReasignar?.horaInicio | date: 'EEE' | uppercase }} {{
                                     agendaAReasignar?.horaInicio | fecha }} a las {{ agendaReasignar?.turno.horaInicio
-                                    | date: 'HH:mm' }} hs.
+                                    | hora }} hs.
                                     <br>
                                 </span>
 
@@ -68,8 +68,8 @@
                                             <div *ngIf="agendasOcultas[i] === agenda._id" class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio |
                                                     date: 'dd/MM/yyyy' }}
-                                                    <i class="mdi mdi-clock"></i> {{ agendaReasignar.turno.horaInicio | date:'HH:mm'}} a {{ agendaReasignar.turno.horaFin
-                                                    | date:'HH:mm'}} hs.
+                                                    <i class="mdi mdi-clock"></i> {{ agendaReasignar.turno.horaInicio | hora}} a {{ agendaReasignar.turno.horaFin
+                                                    | hora}} hs.
                                                 </h5>
                                             </div>
                                             <!-- REASIGNAR -->
@@ -78,8 +78,8 @@
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 class="mb-1">{{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio
                                                         | fecha }}
-                                                        <i class="mdi mdi-clock"></i> {{ agendaReasignar.turno.horaInicio | date:'HH:mm'}} a {{ agendaReasignar.turno.horaFin
-                                                        | date:'HH:mm'}} hs.
+                                                        <i class="mdi mdi-clock"></i> {{ agendaReasignar.turno.horaInicio | hora}} a {{ agendaReasignar.turno.horaFin
+                                                        | hora}} hs.
                                                     </h5>
                                                     <small>Similitud: {{ agenda.similitud }}%</small>
                                                 </div>
@@ -107,7 +107,7 @@
                                     <div class="col-12 bg-success text-white card-block">
                                         Reasignado al Turno:
                                         <b>{{ agendaReasignar.agendas[0]?.horaInicio | date: 'EEE' | uppercase }} {{ agendaReasignar.agendas[0]?.horaInicio
-                                            | fecha}}, {{ agendaReasignar.turno?.horaInicio | date: 'HH:mm'}}
+                                            | fecha}}, {{ agendaReasignar.turno?.horaInicio | hora}}
                                             hs</b>
                                         <div>Prestación:
                                             <b>{{agendaReasignar?.turno?.tipoPrestacion?.nombre}}</b>

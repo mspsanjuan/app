@@ -166,20 +166,20 @@
                                         <div *ngIf="!bloque.pacienteSimultaneos && !bloque.citarPorBloque">
                                             <div *ngIf="turno.estado == 'disponible'" class="text-center hover p-2 mb-3 outline-dashed-default" [appHover]="'text-success outline-success'"
                                                 (click)="seleccionarTurno(bloque,i)">
-                                                {{turno.horaInicio | date: 'HH:mm'}}
+                                                {{turno.horaInicio | hora}}
                                             </div>
                                         </div>
                                         <div *ngIf="bloque.pacienteSimultaneos">
                                             <div *ngIf="turno.estado == 'disponible' && primerSimultaneoDisponible(bloque, turno, i)" class="text-center hover p-2 mb-3 outline-dashed-default"
                                                 [appHover]="'text-success outline-success'" (click)="seleccionarTurno(bloque,i)">
-                                                {{turno.horaInicio | date: 'HH:mm'}}
+                                                {{turno.horaInicio | hora}}
                                             </div>
                                             <!-- <br *ngIf="turno.estado == 'disponible' && primerSimultaneoDisponible(bloque, turno, i)  && i+bloque.cantidadSimultaneos<bloque.turnos.length"> -->
                                         </div>
                                         <div *ngIf="bloque.citarPorBloque">
                                             <div *ngIf="turno.estado == 'disponible' && primerSimultaneoDisponible(bloque, turno, i)" class="text-center hover p-2 mb-3 outline-dashed-default"
                                                 [appHover]="'text-success outline-success'" (click)="seleccionarTurno(bloque,i)">
-                                                {{turno.horaInicio | date: 'HH:mm'}}
+                                                {{turno.horaInicio | hora}}
                                             </div>
                                             <!-- <br *ngIf="turno.estado == 'disponible' && primerSimultaneoDisponible(bloque, turno, i)  && i+bloque.cantidadBloque<bloque.turnos.length"> -->
                                         </div>
@@ -266,7 +266,7 @@
                                 <div *ngIf="paciente" class="text-ellipsis">{{this.paciente | paciente}}</div>
                                 <!-- <div *ngIf="paciente.documento !== ''">{{this.paciente.documento | number}}</div> -->
                                 <label>Turno</label>
-                                <div>{{agenda.horaInicio | date: 'EEE d/MMM' | uppercase}} a las {{turno.horaInicio | date:'HH:mm'}}</div>
+                                <div>{{agenda.horaInicio | date: 'EEE d/MMM' | uppercase}} a las {{turno.horaInicio | hora}}</div>
                                 <div *ngIf="paciente.documento === ''">Sin documento (temporal)</div>
                             </div>
                             <div class="col">
