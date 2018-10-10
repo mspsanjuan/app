@@ -32,7 +32,7 @@
                             <span *ngIf="turnoSeleccionado.paciente.documento === ''"> Sin documento (temporal)</span>
                             <span *ngIf="turnoSeleccionado.paciente.fechaNacimiento !== null">| Edad: {{ turnoSeleccionado.paciente | edad }}</span>
                             <span *ngIf="turnoSeleccionado?.paciente?.id && turnoSeleccionado?.paciente?.sexo">| Sexo: {{ turnoSeleccionado.paciente | sexo }}</span>
-                            <span *ngIf="turnoSeleccionado?.paciente?.id && turnoSeleccionado?.paciente?.edad">{{ turno.paciente.fechaNacimiento | date: 'dd/MM/yyyy' }}</span>
+                            <span *ngIf="turnoSeleccionado?.paciente?.id && turnoSeleccionado?.paciente?.edad">{{ turno.paciente.fechaNacimiento | fecha }}</span>
                         </div>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
                             <!--Header pequeño-->
                             <div *ngIf="!mostrarHeaderCompleto" class="row">
                                 <div class="col-12">
-                                    {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | date: 'dd/MM/yyyy'}}, {{ agenda.horaInicio | date:
+                                    {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | fecha}}, {{ agenda.horaInicio | date:
                                     'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}} hs
                                     <div *ngFor="let tipoPrestacion of agenda.tipoPrestaciones">{{tipoPrestacion.nombre}}</div>
                                 </div>
@@ -306,7 +306,7 @@
                             <div *ngIf="mostrarHeaderCompleto" class="row">
                                 <div class="col-12">
                                     <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio
-                                    | date: 'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin |
+                                    | fecha}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin |
                                     date: 'HH:mm'}} hs
                                 </div>
                             </div>

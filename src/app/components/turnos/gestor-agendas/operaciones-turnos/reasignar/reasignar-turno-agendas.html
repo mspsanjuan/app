@@ -48,7 +48,7 @@
                         <!-- AGENDA DESTINO -->
                         <div class="col-6 text-info" *ngIf="agendaDestino?.agenda">
                             <b>{{agendaDestino?.agenda?.horaInicio | date: 'EEEE' | uppercase }} {{ agendaDestino?.agenda?.horaInicio
-                                | date: 'dd/MM/yyyy'}} de {{ agendaDestino?.agenda.horaInicio | date: 'HH:mm' }} a {{ agendaDestino?.agenda?.horaFin
+                                | fecha}} de {{ agendaDestino?.agenda.horaInicio | date: 'HH:mm' }} a {{ agendaDestino?.agenda?.horaFin
                                 | date:'HH:mm' }} hs
                             </b>
                         </div>
@@ -98,7 +98,7 @@
                     <div *ngIf="hayTurnosDisponibles(agenda)" class="col-6">
                         <div class="card">
                             <div class="card-block">
-                                <h5 class="card-title">Agenda: {{ agenda.horaInicio | date: 'dd/MM/yyyy' }} de {{ agenda.horaInicio | date: 'HH:mm'
+                                <h5 class="card-title">Agenda: {{ agenda.horaInicio | fecha }} de {{ agenda.horaInicio | date: 'HH:mm'
                                     }} a {{ agenda.horaFin | date: 'HH:mm' }} hs</h5>
                                 <p class="card-text" *ngIf="agenda.profesionales?.length > 0">Profesionales: {{ agenda.profesionales | enumerar:['apellido', 'nombre'] }}</p>
                                 <p class="card-text text-danger" *ngIf="agenda.profesionales?.length === 0">Sin profesional asignado</p>

@@ -59,7 +59,7 @@
                                 <tbody>
                                     <tr *ngFor="let solicitud of solicitudes; let i=index" class="hover" [ngClass]="{'bg-inverse text-white': (solicitud.seleccionada===true)}"
                                         (click)="seleccionar(i)">
-                                        <td>{{solicitud.fecha | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{solicitud.fecha | fecha}}</td>
                                         <td>{{solicitud.paciente | paciente}}</td>
                                         <td>{{solicitud.organizacionOrigen.nombre}}</td>
                                         <td>{{solicitud.profesionalOrigen | profesional}}</td>
