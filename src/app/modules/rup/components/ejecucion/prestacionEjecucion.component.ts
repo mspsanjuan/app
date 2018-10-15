@@ -253,21 +253,6 @@ export class PrestacionEjecucionComponent implements OnInit {
         // agregamos a la nueva posición
         this.prestacion.ejecucion.registros.splice(posicionNueva, 0, registro);
 
-        // quitamos relacion si existe
-        // if (this.prestacion.ejecucion.registros[posicionNueva]) {
-        //     if (this.prestacion.ejecucion.registros[posicionNueva].relacionadoCon) {
-        //         let prestacion = this.prestacion.ejecucion.registros[posicionNueva].relacionadoCon[0].concepto.fsn;
-        //         // Primer letra con mayúsculas
-        //         prestacion = prestacion[0].toUpperCase() + prestacion.slice(1);
-        //         this.plex.confirm('Se va a romper la vinculación con el registro:<br><b>' + prestacion + '</b>', '¿Romper vinculación?').then(confirm => {
-        //             if (confirm) {
-        //                 this.prestacion.ejecucion.registros[posicionNueva].relacionadoCon = [];
-        //                 return true;
-        //             }
-        //             return false;
-        //         });
-        //     }
-        // }
     }
 
 
@@ -515,7 +500,12 @@ export class PrestacionEjecucionComponent implements OnInit {
         if (snomedConcept[0] && snomedConcept[0][0] === 'planes') {
             snomedConcept = JSON.parse(JSON.stringify(snomedConcept[1]));
             snomedConcept.semanticTag = 'plan';
+        } else {
+            if (snomedConcept[1]) {
+                snomedConcept = JSON.parse(JSON.stringify(snomedConcept[1]));
+            }
         }
+
 
         this.tipoBusqueda = this.refSet;
 
@@ -594,7 +584,9 @@ export class PrestacionEjecucionComponent implements OnInit {
                                         registroDestino.relacionadoCon = [...registroDestino.relacionadoCon, resultado];
                                     }
                                 } else {
-                                    registroDestino.relacionadoCon = [resultado];
+                                    if (registroDestino) {
+                                        registroDestino.relacionadoCon = [resultado];
+                                    }
                                 }
                             } else {
 
@@ -614,7 +606,9 @@ export class PrestacionEjecucionComponent implements OnInit {
                                                 resultado.relacionadoCon = (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') ? this.tipoBusqueda[1].conceptos : this.tipoBusqueda.conceptos;
                                                 // }
                                             } else {
-                                                registroDestino.relacionadoCon = [resultado];
+                                                if (registroDestino) {
+                                                    registroDestino.relacionadoCon = [resultado];
+                                                }
                                             }
 
                                         } else {
@@ -626,7 +620,9 @@ export class PrestacionEjecucionComponent implements OnInit {
                                                 resultado.relacionadoCon = (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') ? this.tipoBusqueda[1].conceptos : this.tipoBusqueda.conceptos;
                                                 // }
                                             } else {
-                                                registroDestino.relacionadoCon = [resultado];
+                                                if (registroDestino) {
+                                                    registroDestino.relacionadoCon = [resultado];
+                                                }
                                             }
                                         }
                                     });
