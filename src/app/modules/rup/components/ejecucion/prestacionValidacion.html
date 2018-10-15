@@ -138,13 +138,13 @@
                                     </b>
                                     <small *ngIf="elemento?.relacionadoCon && elemento?.relacionadoCon.length > 0 && !elementoRUP?.reglas?.requeridos?.relacionesMultiples"
                                         class="badge badge-info text-uppercase">
-                                        {{ elemento.relacionadoCon[0].concepto.term[0].toUpperCase() + elemento.relacionadoCon[0].concepto.term.slice(1)}}
+                                        {{ elemento.relacionadoCon[0]?.concepto?.term[0].toUpperCase() + elemento.relacionadoCon[0]?.concepto?.term.slice(1)}}
                                     </small>
                                     <ng-container *ngIf="elementoRUP?.reglas?.requeridos?.relacionesMultiples">
                                         <ng-container *ngFor="let relacion of elemento.relacionadoCon">
 
                                             <span class="badge badge-info">
-                                                {{ relacion?.cara ? 'diente ' + relacion?.concepto?.term + ' (cara ' + relacion.cara + ')' : relacion.concepto.term }}
+                                                {{ relacion?.cara ? 'diente ' + relacion?.concepto?.term + ' (cara ' + relacion.cara + ')' : relacion?.concepto?.term }}
                                             </span>
                                         </ng-container>
                                     </ng-container>

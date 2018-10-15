@@ -431,7 +431,7 @@ export class PrestacionValidacionComponent implements OnInit {
 
         let traverse = (_registros, registro, deep) => {
             let orden = [];
-            let hijos = _registros.filter(item => item.relacionadoCon[0] === registro.id || item.relacionadoCon[0] === registro.concepto.conceptId);
+            let hijos = _registros.filter(item => item.relacionadoCon[0] && (item.relacionadoCon[0].id === registro.id || item.relacionadoCon[0] === registro.concepto.conceptId));
             this.registrosDeep[registro.id] = deep;
             hijos.forEach((hijo) => {
                 orden = [...orden, hijo, ...traverse(_registros, hijo, deep + 1)];
@@ -443,7 +443,6 @@ export class PrestacionValidacionComponent implements OnInit {
             this.registrosDeep[root.id] = 0;
             relacionesOrdenadas = [...relacionesOrdenadas, root, ...traverse(this.prestacion.ejecucion.registros, root, 1)];
         });
-
 
         this.registrosOrdenados = relacionesOrdenadas;
     }

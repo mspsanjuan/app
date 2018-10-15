@@ -295,7 +295,6 @@ export class PrestacionEjecucionComponent implements OnInit {
     }
 
     vincularRegistros(registroOrigen: any, registroDestino: any) {
-
         // let registros = this.prestacion.ejecucion.registros;
 
         // si proviene del drag and drop lo que llega es un concepto
@@ -479,11 +478,13 @@ export class PrestacionEjecucionComponent implements OnInit {
             nuevoRegistro.esSolicitud = true;
         }
         nuevoRegistro.valor = valor;
-
         if (this.prestacion && this.prestacion.ejecucion.registros && this.prestacion.ejecucion.registros.length) {
             // TODO:: Por ahora la vinculacion automatica es solo con INFORME DEL ENCUENTRO
             let registroRequerido = this.prestacion.ejecucion.registros.find(r => r.concepto.conceptId === '371531000');
             if (registroRequerido) {
+                if (!nuevoRegistro.relacionadoCon) {
+                    nuevoRegistro.relacionadoCon = [];
+                }
                 nuevoRegistro.relacionadoCon.push(registroRequerido);
                 if (nuevoRegistro.id) {
                     this.itemsRegistros[nuevoRegistro.id].collapse = true;
@@ -663,7 +664,7 @@ export class PrestacionEjecucionComponent implements OnInit {
                     } else {
                         this.tipoBusqueda = this.filtroRefset ? this.filtroRefset : this.tipoBusqueda;
                         // resultado.relacionadoCon = (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') ? (this.tipoBusqueda && this.tipoBusqueda[1] && this.tipoBusqueda[1].conceptos) : [];
-                        resultado.relacionadoCon = (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') ? this.tipoBusqueda[1].conceptos : (this.tipoBusqueda && this.tipoBusqueda.conceptos ? this.tipoBusqueda.conceptos : []);
+                        resultado.relacionadoCon = (this.tipoBusqueda && this.tipoBusqueda.length && this.tipoBusqueda[0] === 'planes') ? this.tipoBusqueda[1].conceptos : (this.tipoBusqueda && this.tipoBusqueda.conceptos ? this.tipoBusqueda.conceptos : resultado.relacionadoCon);
 
                     }
                     // this.tipoBusqueda = null;
