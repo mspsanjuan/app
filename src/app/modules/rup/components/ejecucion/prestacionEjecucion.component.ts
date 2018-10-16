@@ -465,7 +465,7 @@ export class PrestacionEjecucionComponent implements OnInit {
         nuevoRegistro.valor = valor;
         if (this.prestacion && this.prestacion.ejecucion.registros && this.prestacion.ejecucion.registros.length) {
             // TODO:: Por ahora la vinculacion automatica es solo con INFORME DEL ENCUENTRO
-            let registroRequerido = this.prestacion.ejecucion.registros.find(r => r.concepto.conceptId === '371531000');
+            let registroRequerido = this.prestacion.ejecucion.registros.find(r => r.concepto.conceptId === this.servicioPrestacion.conceptosSnomed.InformeEncuentro);
             if (registroRequerido) {
                 if (!nuevoRegistro.relacionadoCon) {
                     nuevoRegistro.relacionadoCon = [];
