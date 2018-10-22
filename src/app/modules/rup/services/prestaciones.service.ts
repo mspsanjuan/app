@@ -909,7 +909,6 @@ export class PrestacionesService {
         * @memberof PrestacionesService
         */
     mostrarInformeRelacionado(paciente, registro, concepto) {
-        console.log(registro);
         let salida = '';
         if (registro.idPrestacion && concepto.conceptId !== this.conceptosSnomed.InformeEncuentro) {
             if (this.cache[paciente.id]) {
