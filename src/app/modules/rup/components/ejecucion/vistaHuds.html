@@ -24,7 +24,7 @@
                                     <ng-container *ngIf="registro.data.concepto.semanticTag !== 'trastorno' && registro.data.concepto.semanticTag !== 'hallazgo'">
                                         <div class="row">
                                             <div class="col">
-                                                <span [innerHTML]="servicioPrestacion.mostrarInformeRelacionado(paciente,registro.data)"></span>
+                                                <span [innerHTML]="servicioPrestacion.mostrarInformeRelacionado(paciente,registro.data, registro.data.concepto)"></span>
                                             </div>
                                         </div>
                                         <hr>
