@@ -169,19 +169,21 @@ export class BotonesAgendaComponent implements OnInit {
 
     hayAgendasSuspendidas() {
         let reasignar = this.agendasSeleccionadas.filter((agenda) => {
-            return (agenda.nominalizada && !agenda.dinamica && agenda.estado === 'suspendida');
+            return (agenda.nominalizada && !agenda.dinamica && agenda.estado === 'suspendida' && agenda.bl);
         }).length > 0;
         return reasignar;
     }
 
     // Comprueba que haya algún turno con paciente, en estado suspendido
     hayTurnosSuspendidos() {
+        //    debugger;
         if (!this.agendasSeleccionadas[0].dinamica) {
             for (let x = 0; x < this.agendasSeleccionadas.length; x++) {
                 for (let y = 0; y < this.agendasSeleccionadas[x].bloques.length; y++) {
                     if (this.agendasSeleccionadas[x].bloques[y].turnos) {
                         for (let z = 0; z < this.agendasSeleccionadas[x].bloques[y].turnos.length; z++) {
                             if (this.agendasSeleccionadas[x].bloques[y].turnos[z].estado === 'suspendido' && this.agendasSeleccionadas[x].bloques[y].turnos[z].paciente && this.agendasSeleccionadas[x].bloques[y].turnos[z].paciente.id) {
+                                //                 console.log('true');
                                 return true;
                             }
                         }
@@ -189,6 +191,7 @@ export class BotonesAgendaComponent implements OnInit {
                 }
             }
         } else {
+            //        console.log('false');
             return false;
         }
     }

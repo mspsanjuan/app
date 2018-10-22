@@ -6,7 +6,9 @@
                 <legend>
                     <div class="clearfix">
                         <span class="float-left">Bloques y Turnos</span>
-                        <span class="badge-{{estadosAgenda[agenda.estado]?.class}} float-right">{{ estadosAgenda[agenda.estado]?.nombre }}</span>
+                        <span class="badge-{{estadosAgenda[agenda.estado]?.class}} float-right">{{ estadosAgenda[agenda.estado]?.nombre
+                            }}
+                        </span>
                     </div>
                 </legend>
                 <!--Header de la agenda-->
@@ -26,8 +28,8 @@
                     <!--Header completo-->
                     <div *ngIf="mostrarHeaderCompleto" class="row">
                         <div class="col-12">
-                            <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | date:
-                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
+                            <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio |
+                            date: 'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
                             hs
                         </div>
                     </div>
@@ -105,7 +107,8 @@
         <h5 *ngIf="!agenda.nominalizada">Actividad No Nominalizada, no se dan turnos</h5>
         <!--Turnos-->
         <ng-container *ngFor="let bloque of agenda.bloques | sortBloques let k = index">
-            <table *ngIf="agenda.nominalizada && !agenda.dinamica" class="table table-condensed table-turnos text-center small" title="Turnos disponibles para este bloque">
+            <table *ngIf="agenda.nominalizada && !agenda.dinamica" class="table table-condensed turnos-disponibles text-center small"
+                title="Turnos disponibles para este bloque">
                 <thead>
                     <tr>
                         <td>Del día</td>
@@ -125,15 +128,19 @@
                 </tbody>
             </table>
             <table class="table">
-                <thead *ngIf="bloque.descripcion || bloque.citarPorBloque">
+                <thead>
                     <tr>
-                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}}
-                            hs
+                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio
+                            | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}} hs
                         </th>
                         <th *ngIf="agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}}
+                            <div class="row">
+                                <div class="col">
+                                    <span *ngIf="bloque.citarPorBloque" class="text-info small muted">Citación por segmento</span>
+                                </div>
+                            </div>
                         </th>
-                        <th *ngIf="bloque.citarPorBloque">
-                            <span class="text-info">Citación por segmento</span>
+                        <th *ngIf="agenda.nominalizada && !bloque.descripcion">Bloque n° {{k}}
                         </th>
                     </tr>
                 </thead>
@@ -150,7 +157,8 @@
                         </td>
                         <td (click)="seleccionarTurno(bloque.turnos[i], false, false)">
 
-                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{ turno.paciente | paciente }}
+                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{
+                                turno.paciente | paciente }}
                                 <span class="text-danger" *ngIf="turno?.estado === 'suspendido'">(suspendido)</span>
                             </small>
                             <small>
@@ -161,22 +169,32 @@
                                 </span>
                                 <span *ngIf="turno.estado ==='asignado' && turno.paciente.carpetaEfectores">
                                     <span *ngFor="let carpeta of turno.paciente.carpetaEfectores">
-                                        <span *ngIf="carpeta.organizacion?._id == idOrganizacion && carpeta.nroCarpeta!==null"> | Nro Carpeta {{carpeta.nroCarpeta}} </span>
+                                        <span *ngIf="carpeta.organizacion?._id == idOrganizacion && carpeta.nroCarpeta!==null"> |
+                                            Nro Carpeta {{carpeta.nroCarpeta}} </span>
                                     </span>
                                 </span>
                             </small>
                             <small class="text-warning" *ngIf="turno.tipoTurno === 'profesional' && turno.estado === 'asignado'">(autocitado)</small>
-                            <small class="text-warning" *ngIf="turno.tipoTurno === 'gestion' && turno.estado === 'asignado'">(con llave)</small>
+                            <small class="text-warning" *ngIf="turno.tipoTurno === 'gestion' && turno.estado === 'asignado'">(con
+                                llave)
+                            </small>
                             <small class="text-warning" *ngIf="turno.tipoTurno === 'programado' && turno.estado === 'asignado'">(programado)</small>
-                            <small class="text-warning" *ngIf="turno.tipoTurno === 'delDia' && turno.estado === 'asignado'">(del día)</small>
+                            <small class="text-warning" *ngIf="turno.tipoTurno === 'delDia' && turno.estado === 'asignado'">(del
+                                día)
+                            </small>
 
                             <br *ngIf="turno?.paciente?.id && bloque.tipoPrestaciones.length > 1 && turno.tipoPrestacion">
                             <small>
-                                <span *ngIf="bloque.tipoPrestaciones.length > 1 && turno.tipoPrestacion">{{ turno.tipoPrestacion.nombre }}</span>
+                                <span *ngIf="bloque.tipoPrestaciones.length > 1 && turno.tipoPrestacion">{{ turno.tipoPrestacion.nombre
+                                    }}
+                                </span>
                             </small>
                             <small *ngIf="turno?.estado === 'disponible'">Disponible</small>
-                            <small [ngClass]="{'text-danger': turno.estado === 'turnoDoble'}" *ngIf="turno?.estado === 'turnoDoble'">Turno Doble</small>
-                            <small [ngClass]="{'text-danger': turno.estado === 'suspendido'}" *ngIf="!turno?.paciente?.id && turno?.estado === 'suspendido'">Turno suspendido (sin paciente)</small>
+                            <small [ngClass]="{'text-danger': turno.estado === 'turnoDoble'}" *ngIf="turno?.estado === 'turnoDoble'">Turno
+                                Doble
+                            </small>
+                            <small [ngClass]="{'text-danger': turno.estado === 'suspendido'}" *ngIf="!turno?.paciente?.id && turno?.estado === 'suspendido'">Turno
+                                suspendido (sin paciente)</small>
                         </td>
                         <td>
                             <small *ngIf="turno?.paciente?.id && turno?.estado === 'suspendido' && turno.reasignado?.siguiente" class="badge badge-info float-right"
@@ -227,7 +245,8 @@
                         <strong *ngIf="sobreturno">{{ sobreturno.horaInicio | date: 'HH:mm' }}</strong>
                     </td>
                     <td (click)="seleccionarTurno(agenda.sobreturnos[i], false, true)">
-                        <small *ngIf="sobreturno?.paciente?.id" [ngClass]="{'text-danger' : sobreturno?.estado === 'suspendido'}">{{ sobreturno.paciente | paciente }}
+                        <small *ngIf="sobreturno?.paciente?.id" [ngClass]="{'text-danger' : sobreturno?.estado === 'suspendido'}">{{
+                            sobreturno.paciente | paciente }}
                             <span class="text-danger" *ngIf="sobreturno?.estado === 'suspendido'">(suspendido)</span>
                         </small>
                         <small>
@@ -239,7 +258,8 @@
                                 | Nro Carpeta
                                 <small> | </small>
                                 <span *ngFor="let carpeta of sobreturno.paciente.carpetaEfectores">
-                                    <small *ngIf="carpeta.organizacion?._id == idOrganizacion && carpeta.nroCarpeta!==null">{{carpeta.nroCarpeta}} </small>
+                                    <small *ngIf="carpeta.organizacion?._id == idOrganizacion && carpeta.nroCarpeta!==null">{{carpeta.nroCarpeta}}
+                                    </small>
                                 </span>
                             </span>
                         </small>

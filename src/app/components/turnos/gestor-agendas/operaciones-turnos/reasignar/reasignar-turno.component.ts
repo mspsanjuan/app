@@ -139,6 +139,16 @@ export class ReasignarTurnoComponent implements OnInit {
         }
     }
 
+    // Chequea que un bloque dado posea turnos suspendidos (Para reasignar)
+    tieneTurnosAReasignar(bloque) {
+        let flag = false;
+        let i = 0;
+        while (i < bloque.turnos.length && !flag) {
+            flag = (bloque.turnos[i].estado === 'suspendido');
+            i++;
+        }
+        return flag;
+    }
     /**
      * Volver al gestor
      */

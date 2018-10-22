@@ -450,6 +450,15 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     }
 
+    tieneTurnosAReasignar(agenda) {
+        let flag = false;
+        let i = 0;
+        while (!flag && i > agenda.bloques.length) {
+            flag = agenda.bloques[i].tieneTurnosAReasignar;
+        }
+        return flag;
+    }
+
     verAgenda(agenda, multiple, e) {
         // Si se presionó el boton suspender, no se muestran otras agendas hasta que se confirme o cancele la acción.
         if (!this.showSuspenderAgenda) {
