@@ -6,7 +6,8 @@
                 <legend>
                     <div class="clearfix">
                         <span class="float-left">TURNOS SUSPENDIDOS</span>
-                        <span class="badge-{{estadosAgenda[agenda.estado]?.class}} float-right">{{ estadosAgenda[agenda.estado]?.nombre }}</span>
+                        <span class="badge-{{estadosAgenda[agenda.estado]?.class}} float-right">{{ estadosAgenda[agenda.estado]?.nombre
+                            }}</span>
                     </div>
                 </legend>
                 <!--Header de la agenda-->
@@ -26,8 +27,8 @@
                     <!--Header completo-->
                     <div *ngIf="mostrarHeaderCompleto" class="row">
                         <div class="col-12">
-                            <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio | date:
-                            'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
+                            <label>Fecha</label> {{ agenda.horaInicio | date: 'EEE' | uppercase }} {{ agenda.horaInicio |
+                            date: 'dd/MM/yyyy'}}, {{ agenda.horaInicio | date: 'HH:mm'}} a {{ agenda.horaFin | date: 'HH:mm'}}
                             hs
                         </div>
                     </div>
@@ -71,7 +72,8 @@
             titlePosition="right"></i>
     </div>
     <div class="col-10 text-center">
-        <plex-button type="default" icon="mdi mdi-email-outline" (click)="notificar()" title="Enviar un mensaje al paciente" titlePosition="left"></plex-button>
+        <plex-button class="float-right" type="default" icon="mdi mdi-email-outline" (click)="notificar()" title="Enviar un mensaje al paciente"
+            titlePosition="left"></plex-button>
     </div>
     <div class="col-12">
         <h5 *ngIf="!agenda.nominalizada">Actividad No Nominalizada, no se dan turnos</h5>
@@ -80,8 +82,8 @@
             <table class="table">
                 <thead *ngIf="bloque.descripcion || bloque.citarPorBloque">
                     <tr>
-                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}}
-                            hs
+                        <th *ngIf="!agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}} de {{ bloque.horaInicio
+                            | date: 'HH:mm'}} a {{ bloque.horaFin | date: 'HH:mm'}} hs
                         </th>
                         <th *ngIf="agenda.nominalizada && bloque.descripcion">{{bloque.descripcion}}
                         </th>
@@ -107,7 +109,8 @@
                         </td>
                         <!-- Teléfono del paciente, si tiene -->
                         <td>
-                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{ turno.paciente | paciente }}
+                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{
+                                turno.paciente | paciente }}
                             </small>
                             <small *ngIf="turno?.paciente?.id">
                                 <span *ngIf="turno.paciente.telefono !== '' ; else noTelefono">
@@ -155,7 +158,8 @@
                         </td>
                         <!-- Teléfono del paciente, si tiene -->
                         <td>
-                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{ turno.paciente | paciente }}
+                            <small *ngIf="turno?.paciente?.id" [ngClass]="{'text-danger' : turno?.estado === 'suspendido'}">{{
+                                turno.paciente | paciente }}
                             </small>
                             <small *ngIf="turno?.paciente?.id">
                                 <span *ngIf="turno.paciente.telefono !== '' ; else noTelefono">
