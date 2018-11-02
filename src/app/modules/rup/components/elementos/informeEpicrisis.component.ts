@@ -6,7 +6,6 @@ import { RUPComponent } from './../core/rup.component';
     selector: 'rup-InformeEpicrisisComponent',
     templateUrl: 'informeEpicrisis.html',
     styleUrls: ['informeEpicrisis.scss'],
-    encapsulation: ViewEncapsulation.None // Use to disable CSS Encapsulation for this component
 })
 
 export class InformeEpicrisisComponent extends RUPComponent implements OnInit {

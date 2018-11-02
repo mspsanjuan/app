@@ -285,7 +285,7 @@ import { ColonoscopiaControlComponent } from './modules/rup/components/elementos
 import { SeleccionBinariaComponent } from './modules/rup/components/elementos/seleccionBinaria.component';
 import { AnestesiaComponent } from './modules/rup/components/elementos/anestesia.component';
 import { ValorNumericoComponent } from './modules/rup/components/elementos/valorNumerico.component';
-
+import { SeccionesAccordionComponent } from './modules/rup/components/elementos/seccionesAccordion/seccionesAccordion.component';
 
 import { ProcedimientoDeEnfermeriaComponent } from './modules/rup/components/elementos/procedimientoDeEnfermeria.component';
 // TODO: Eliminar todo esto de las llaves: deprecated
@@ -417,6 +417,7 @@ export let RUPRegistry = {
     'AnestesiaComponent': AnestesiaComponent,
     'ValorNumericoComponent': ValorNumericoComponent,
     'ProcedimientoDeEnfermeriaComponent': ProcedimientoDeEnfermeriaComponent,
+    'SeccionesAccordionComponent': SeccionesAccordionComponent
 };
 
 let RUPComponentsArray = [
@@ -479,7 +480,8 @@ let RUPComponentsArray = [
     SeleccionBinariaComponent,
     AnestesiaComponent,
     ValorNumericoComponent,
-    ProcedimientoDeEnfermeriaComponent
+    ProcedimientoDeEnfermeriaComponent,
+    SeccionesAccordionComponent
 ];
 
 /** moment pipes  - desde agular 5 hay que importar el locale a demanda */
@@ -490,6 +492,7 @@ import { FormTerapeuticoService } from './services/formTerapeutico/formTerapeuti
 import { ArbolItemComponent } from './components/formularioTerapeutico/arbolItem.component';
 import { FormTerapeuticoDetallePageComponent } from './components/formularioTerapeutico/form-terapeutico-detalle.component';
 import { AddformTerapeuticoComponent } from './components/formularioTerapeutico/add-form-terapeutico';
+
 
 
 registerLocaleData(localeEs, 'es');

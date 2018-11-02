@@ -1,12 +1,7 @@
 <!-- Este es un elemento RUP -->
-
 <!-- Moléculas -->
-<ng-container *ngIf="elementoRUP.requeridos && elementoRUP.requeridos.length">
-    <!-- <div class="d-flex align-items-center justify-content-start" [ngClass]="{'d-flex justify-content-start': soloValores}"> -->
+<ng-container *ngIf="!((elementoRUP.params && elementoRUP.params['accordion']) || !elementoRUP.params) && elementoRUP.requeridos && elementoRUP.requeridos.length">
     <ng-container *ngFor="let item of elementoRUP.requeridos; let i = index">
-        <!-- <pre>
-                {{registro.registros[i].valor | json }}
-            </pre> -->
         <div *ngIf="item.elementoRUP" class="col-{{ item.style.columns }} mr-{{ item.style?.offset ? item.style.offset : '0' }}">
             <rup [elementoRUP]="item.elementoRUP" [paciente]="paciente" [params]="item.params" [prestacion]="prestacion"
                 [registro]="registro.registros[i]" [soloValores]="soloValores" (change)="emitChange($event)"
@@ -14,5 +9,10 @@
             </rup>
         </div>
     </ng-container>
-    <!-- </div> -->
+</ng-container>
+
+<!-- accordion lo pasamos por param -->
+<ng-container *ngIf="elementoRUP.params && elementoRUP.params['accordion']">
+    <rup-seccionesAccordion [elementoRUP]="elementoRUP" [registro]="registro.registros" [prestacion]="prestacion"
+        [soloValores]="soloValores"></rup-seccionesAccordion>
 </ng-container>
