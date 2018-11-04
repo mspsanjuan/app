@@ -15,7 +15,7 @@ import { AgendaService } from './../../../../services/turnos/agenda.service';
 import { ConceptObserverService } from './../../services/conceptObserver.service';
 import { IPaciente } from './../../../../interfaces/IPaciente';
 import { SnomedService } from '../../../../services/term/snomed.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { RUPComponent } from '../core/rup.component';
 
 @Component({
@@ -644,8 +644,6 @@ export class PrestacionEjecucionComponent implements OnInit {
                             }
                         }
                     });
-
-
             } else {
                 resultado = this.cargarNuevoRegistro(snomedConcept);
                 if (registroDestino && (!this.elementoRUP.reglas || !this.elementoRUP.reglas.requeridos || !this.elementoRUP.reglas.requeridos.relacionesMultiples)) {
@@ -667,7 +665,6 @@ export class PrestacionEjecucionComponent implements OnInit {
                 }
 
             }
-
         }
     }
 

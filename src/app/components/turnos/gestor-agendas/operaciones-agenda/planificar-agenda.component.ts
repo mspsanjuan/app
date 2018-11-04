@@ -1,6 +1,6 @@
 import { OrganizacionService } from './../../../../services/organizacion.service';
 import { Component, EventEmitter, Output, OnInit, Input, HostBinding, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
 import * as moment from 'moment';
@@ -220,13 +220,6 @@ export class PlanificarAgendaComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
-    // cambiarNominalizada(cambio) {
-    //     this.modelo.nominalizada = !this.noNominalizada;
-    //     if (this.noNominalizada) {
-    //         this.dinamica = false;
-    //     }
-    // }
 
     seleccionarDinamica() {
         if (this.dinamica) {
@@ -848,9 +841,11 @@ export class PlanificarAgendaComponent implements OnInit, AfterViewInit {
                         }
                     }
                 }
-                bloque.tipoPrestaciones = bloque.tipoPrestaciones.filter(function (el) {
-                    return el.activo === true && delete el.$order;
-                });
+                if (!this.dinamica) {
+                    bloque.tipoPrestaciones = bloque.tipoPrestaciones.filter(function (el) {
+                        return el.activo === true;
+                    });
+                }
             });
             espOperation = this.serviceAgenda.save(this.modelo);
             espOperation.subscribe(resultado => {

@@ -136,9 +136,8 @@
 
         <div class="row">
             <div class="col">
-                <plex-button label="Punto de Inicio" (click)="volver()" type="info"></plex-button>
-                <!-- <plex-button label="Guardar {{prestacion?.solicitud?.tipoPrestacion?.term}}" (click)="guardarPrestacion()" type="success" -->
-                <!-- class="float-right"></plex-button> -->
+                <plex-button *ngIf="mostrarPI" label="Punto de Inicio" (click)="volver()" type="info"></plex-button>
+                <plex-button *ngIf="mostrarCambiaPaciente" label="Cambiar paciente" (click)="evtCambiaPaciente()" type="info"></plex-button>
             </div>
         </div>
 
