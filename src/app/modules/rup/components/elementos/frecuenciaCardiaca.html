@@ -1,4 +1,5 @@
-<plex-int *ngIf="!soloValores" placeholder="Ingrese un valor entre 30 y 100" [(ngModel)]="registro.valor" name="frecuenciaCardiaca" label="Frecuencia cardíaca" suffix="PPM" min="30" max="100" required="true" (change)="emitChange()">
+<plex-int *ngIf="!soloValores" placeholder="Ingrese un valor entre 10 y 300" [(ngModel)]="registro.valor" name="frecuenciaCardiaca"
+    label="Frecuencia cardíaca" suffix="PPM" min="10" max="300" required="true" (change)="emitChange()">
 </plex-int>
 
 <p *ngIf="soloValores" class="readonly">
@@ -7,6 +8,6 @@
 
 <p *ngIf="mensaje.texto">
     <span class="badge-{{mensaje.class}}">
-    {{mensaje.texto}}
+        {{mensaje.texto}}
     </span>
 </p>

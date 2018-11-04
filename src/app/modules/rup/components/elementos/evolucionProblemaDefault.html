@@ -170,13 +170,16 @@
                     <ng-container *ngFor="let evolucion of registro.evoluciones">
                         <div class="row ml-1">
                             <div class="col-6">
-                                <b>Evolución: </b>
+                                <b>Evolución </b>
                                 <span [innerHTML]="evolucion.evolucion"></span>
                             </div>
-                            <div class="col-6">
-                                <b>Fecha de Carga: </b> {{ evolucion.fechaCarga | fecha }}
-                                <br>
-                                <b>Profesional: </b> {{evolucion.profesional }}
+                            <div class="col-3">
+                                <label>Fecha de Carga </label>
+                                <span> {{ evolucion.fechaCarga | fecha }}</span>
+                            </div>
+                            <div class="col-3">
+                                <label>Profesional </label>
+                                <span> {{evolucion.profesional }}</span>
                             </div>
                         </div>
                         <div class="row ml-1">
