@@ -105,7 +105,7 @@ export class PacienteDetalleComponent implements OnInit {
                             this.renaperNotification.emit(true);
                             this.loading = false;
                         } else {
-                            this.plex.info('danger', '', 'Intento de validación fallida. Se volverá a intentar.', 5000);
+                            this.plex.toast('info', 'Reintentando Validación', 'Información');
                             this.getSisa(patient);
                         }
                         this.paciente.direccion[0].valor = datos.calle + ' ' + datos.numero;
@@ -124,6 +124,8 @@ export class PacienteDetalleComponent implements OnInit {
                 } else {
                     // TODO ver el tema de mostrar algún error si no trae nada
                     // this.plex.toast('danger', resultado.datos.descripcionError + ', REVISAR LOS DATOS INGRESADOS');
+                    this.plex.toast('info', 'Reintentando Validación', 'Información');
+
                     this.deshabilitarValidar = false;
                     this.getSisa(patient);
                 }
@@ -149,14 +151,15 @@ export class PacienteDetalleComponent implements OnInit {
                 } else {
                     this.renaperNotification.emit(false);
                     this.loading = false;
-                    this.plex.toast('danger', 'Algunos campos contienen caracteres ilegibles.', 'Información', 5000);
+                    this.plex.toast('danger', 'VALIDACIÓN FALLIDA');
+
                 }
             } else {
-                this.plex.toast('danger', 'NO SE ENCONTRO INFORMACION, REVISAR LOS DATOS INGRESADOS');
+                this.plex.toast('danger', 'VALIDACIÓN FALLIDA');
                 this.loading = false;
             }
         }, err => {
-            this.plex.toast('danger', 'NO SE ENCONTRO INFORMACION, REVISAR LOS DATOS INGRESADOS');
+            this.plex.toast('danger', 'VALIDACIÓN FALLIDA');
             this.loading = false;
 
         });
