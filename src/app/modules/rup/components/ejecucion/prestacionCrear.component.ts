@@ -12,6 +12,7 @@ import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
 import { IAgenda } from '../../../../interfaces/turnos/IAgenda';
 import { ITipoPrestacion } from '../../../../interfaces/ITipoPrestacion';
+import { ObraSocialService } from '../../../../services/obraSocial.service';
 
 @Component({
     templateUrl: 'prestacionCrear.html'
@@ -44,6 +45,7 @@ export class PrestacionCrearComponent implements OnInit {
      * Indica si muestra el calendario para dar turno autocitado
      */
     public showDarTurnos = false;
+    public pacienteOraSocial;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -51,7 +53,7 @@ export class PrestacionCrearComponent implements OnInit {
         public servicioAgenda: AgendaService,
         public servicioPrestacion: PrestacionesService,
         public servicioTipoPrestacion: TipoPrestacionService,
-        private location: Location) { }
+        private location: Location, private obraSocialService: ObraSocialService) { }
 
     ngOnInit() {
         // Carga tipos de prestaciones permitidas para el usuario
@@ -67,8 +69,11 @@ export class PrestacionCrearComponent implements OnInit {
 
     onPacienteSelected(paciente: IPaciente) {
         if (paciente.id) {
-            this.paciente = paciente;
-            this.buscandoPaciente = false;
+            this.obraSocialService.get({ dni: paciente.documento }).subscribe(resultado => {
+                this.paciente = paciente;
+                this.pacienteOraSocial = resultado[0];
+                this.buscandoPaciente = false;
+            });
         } else {
             this.plex.alert('El paciente debe ser registrado en MPI');
         }
@@ -122,7 +127,8 @@ export class PrestacionCrearComponent implements OnInit {
                     apellido: this.paciente.apellido,
                     documento: this.paciente.documento,
                     sexo: this.paciente.sexo,
-                    fechaNacimiento: this.paciente.fechaNacimiento
+                    fechaNacimiento: this.paciente.fechaNacimiento,
+                    obraSocial : this.pacienteOraSocial
                 };
             }
             let conceptoSnomed = this.tipoPrestacionSeleccionada;
