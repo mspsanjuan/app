@@ -71,7 +71,9 @@ export class PrestacionCrearComponent implements OnInit {
         if (paciente.id) {
             this.obraSocialService.get({ dni: paciente.documento }).subscribe(resultado => {
                 this.paciente = paciente;
-                this.pacienteOraSocial = resultado[0];
+                if (resultado.length > 0) {
+                    this.pacienteOraSocial = resultado[0];
+                }
                 this.buscandoPaciente = false;
             });
         } else {
@@ -128,7 +130,7 @@ export class PrestacionCrearComponent implements OnInit {
                     documento: this.paciente.documento,
                     sexo: this.paciente.sexo,
                     fechaNacimiento: this.paciente.fechaNacimiento,
-                    obraSocial : this.pacienteOraSocial
+                    obraSocial: this.pacienteOraSocial
                 };
             }
             let conceptoSnomed = this.tipoPrestacionSeleccionada;
