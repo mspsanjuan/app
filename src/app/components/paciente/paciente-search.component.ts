@@ -7,7 +7,6 @@ import { IPaciente } from './../../interfaces/IPaciente';
 import { DocumentoEscaneado, DocumentoEscaneados } from './documento-escaneado.const';
 import { Auth } from '@andes/auth';
 import { LogService } from './../../services/log.service';
-import { ISubscription } from 'rxjs/Subscription';
 @Component({
     selector: 'pacientesSearch',
     templateUrl: 'paciente-search.html',
@@ -33,12 +32,6 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
     public showCreateUpdate = false;
     public mostrarNuevo = false;
     public autoFocus = 0;
-
-    // ultima request de profesionales que se almacena con el subscribe
-    private lastRequestScan: ISubscription;
-    private lastRequest: ISubscription;
-
-
     /**
      * Indica si muestra el botón Cancelar/Volver en el footer
      */
@@ -87,10 +80,6 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         clearInterval(this.intervalHandle);
-
-        if (this.lastRequest) {
-            this.lastRequest.unsubscribe();
-        }
     }
 
     /**
@@ -210,7 +199,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
             let index = this.textoLibre.indexOf('"');
             if (index >= 0 && index < 20 && this.textoLibre.length > 5) {
                 /* Agregamos el control que la longitud sea mayor a 5 para incrementar la tolerancia de comillas en el input */
-                this.plex.info('warning', 'El lector de código de barras no está configurado. Comuníquese con la Mesa de Ayuda de TICS');
+                this.plex.alert('El lector de código de barras no está configurado. Comuníquese con la Mesa de Ayuda de TICS');
                 this.textoLibre = null;
                 return false;
             }
@@ -229,15 +218,6 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
         // Cancela la búsqueda anterior
         if (this.timeoutHandle) {
             window.clearTimeout(this.timeoutHandle);
-        }
-
-        // cancelamos ultimo request
-        if (this.lastRequest) {
-            this.lastRequest.unsubscribe();
-        }
-        if (this.lastRequestScan) {
-            this.lastRequestScan.unsubscribe();
-            this.textoLibre = '';
         }
 
         // Limpia los resultados de la búsqueda anterior
@@ -260,7 +240,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
                     this.loading = true;
                     let pacienteEscaneado = this.parseDocumentoEscaneado(documentoEscaneado);
                     // Consulta API
-                    this.lastRequestScan = this.pacienteService.get({
+                    this.pacienteService.get({
                         type: 'simplequery',
                         apellido: pacienteEscaneado.apellido.toString(),
                         nombre: pacienteEscaneado.nombre.toString(),
@@ -277,7 +257,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
                             this.showCreateUpdate = true;
                         } else {
                             // Realizamos una busqueda por Suggest
-                            this.lastRequestScan = this.pacienteService.get({
+                            this.pacienteService.get({
                                 type: 'suggest',
                                 claveBlocking: 'documento',
                                 percentage: true,
@@ -345,7 +325,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
 
                 } else {
                     // Si no es un documento escaneado, hace una búsqueda multimatch
-                    this.lastRequest = this.pacienteService.get({
+                    this.pacienteService.get({
                         type: 'multimatch',
                         cadenaInput: this.textoLibre
                     }).subscribe(resultado => {
