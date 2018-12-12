@@ -12,9 +12,13 @@ import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
 import { IAgenda } from '../../../../interfaces/turnos/IAgenda';
 import { ITipoPrestacion } from '../../../../interfaces/ITipoPrestacion';
+import { PacienteBuscarResultado } from '../../../mpi/interfaces/PacienteBuscarResultado.inteface';
 
 @Component({
-    templateUrl: 'prestacionCrear.html'
+    templateUrl: 'prestacionCrear.html',
+    styleUrls: [
+        '../core/rup.scss'
+    ]
 })
 export class PrestacionCrearComponent implements OnInit {
     prestacionAutocitar: any;
@@ -44,6 +48,7 @@ export class PrestacionCrearComponent implements OnInit {
      * Indica si muestra el calendario para dar turno autocitado
      */
     public showDarTurnos = false;
+    listado: any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -63,6 +68,21 @@ export class PrestacionCrearComponent implements OnInit {
             this.opcion = params['opcion'];
         });
 
+    }
+
+    /* Funcionalidades del buscador de MPI
+     */
+    searchStart() {
+        this.listado = null;
+        this.paciente = null;
+    }
+
+    searchEnd(resultado: PacienteBuscarResultado) {
+        if (resultado.err) {
+            this.plex.info('danger', resultado.err);
+        } else {
+            this.listado = resultado.pacientes;
+        }
     }
 
     onPacienteSelected(paciente: IPaciente) {

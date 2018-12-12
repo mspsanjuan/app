@@ -426,7 +426,124 @@ $color in $rup_colors {
     }
 }
 
-// Debería ser global (Plex)
-// .bg-inverse {
-//     background-color: #002738 !important;
-// }
+// Estaría bueno analizar si se pueden mover estos estilos a MPI
+
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    &.table-grid-head {
+        font-weight: 800;
+    }
+    &.recepcion {
+        grid-template-columns: repeat(10, 1fr);
+    }
+    &.puntoInicio {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    &.paciente {
+        grid-template-columns: 120px repeat(4, 1fr);
+        &>span {
+            justify-items: left;
+        }
+
+    }
+
+    &> span {
+        min-height: 55px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        padding: .15rem .25rem;
+    }
+
+    &:nth-child(even) {
+        background: #ddd;
+    }
+
+}
+
+.table-grid-head {
+    &.paciente {
+        color: white;
+        background: #002738 !important;
+    }
+}
+
+.paciente-seleccionado {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    grid-gap: 1px;
+    img {
+        width: 120px;
+    }
+    div {
+        display: grid;
+        grid-template-rows: repeat(4, 30px);
+        padding: 10px 15px 0;
+        font-weight: 600;
+    }
+
+    &.edicion {
+        
+    }
+}
+
+
+header {
+    nav {
+        display: flex;
+        justify-content: flex-end;
+    }       
+}
+
+.filtros-container {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(100px, 1fr));
+    &> span {
+        >:first-child {
+            width: 100%;
+        }
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: .15rem .25rem;
+    }
+    &> div {
+        width: auto;
+        display: flex;
+        align-self: flex-end;
+        justify-content: space-evenly;
+        padding: .15rem .25rem;
+    }
+    &.carga,
+    &.validacion {
+        grid-template-columns: repeat(7, minmax(100px, 1fr));
+        &> div {
+            width: auto;
+            align-self: flex-end;
+            padding: .15rem .25rem;
+        }
+    }
+}
+
+.tabs {
+    height: 70px !important;
+}
+
+.bg-inverse {
+    background-color: #002738 !important;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+    box-sizing: border-box;
+    grid-gap: 20px;
+    padding: 20px;
+
+    &* {
+        display: flex;
+    }
+}

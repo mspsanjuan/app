@@ -3,50 +3,98 @@
         <plex-box>
             <header>
                 <div class="page-title">Registrar una prestación</div>
+                <nav>
+                    <div>
+                        <plex-button type="danger" label="CANCELAR" (click)="cancelar()">
+                        </plex-button>
+                    </div>
+                    <div *ngIf="opcion === 'fueraAgenda' && paciente?.id">
+                        <plex-button *ngIf="form.valid" label="INICIAR PRESTACIÓN" validateForm="true" type="success"
+                            (click)="iniciarPrestacion()">
+                        </plex-button>
+                    </div>
+                    <div *ngIf="opcion === 'autocitar'">
+                        <plex-button *ngIf="form.valid" label="DAR TURNO AUTOCITADO" validateForm="true" type="success"
+                            (click)="darTurnoAutocitado()">
+                        </plex-button>
+                    </div>
+                </nav>
             </header>
             <div class="row">
                 <div class="col-6">
                     <fieldset>
-                        <legend>Datos principales</legend>
+                        <legend>Prestación</legend>
                         <plex-datetime type="datetime" [(ngModel)]="fecha" [required]="true" name="fecha" label="Fecha y hora de la prestación">
                         </plex-datetime>
-                        <plex-select [(ngModel)]="tipoPrestacionSeleccionada" name="nombrePrestacion" label="Seleccione el tipo de prestación" labelField="term"
-                            [data]="tiposPrestacion" [required]="true" (change)="seleccionarTipoPrestacion()">
+                        <plex-select [(ngModel)]="tipoPrestacionSeleccionada" name="nombrePrestacion" label="Seleccione el tipo de prestación"
+                            labelField="term" [data]="tiposPrestacion" [required]="true" (change)="seleccionarTipoPrestacion()">
                         </plex-select>
                     </fieldset>
                 </div>
                 <div *ngIf="mostrarPaciente" class="col-6">
                     <fieldset>
-                        <legend>Datos del paciente</legend>
-                        <paciente-detalle *ngIf="paciente" [paciente]="paciente"></paciente-detalle>
-                        <plex-button label="SELECCIONAR PACIENTE" type="primary" (click)="buscandoPaciente = true"></plex-button>
+                        <legend>Paciente</legend>
+                        <paciente-buscar *ngIf="!showCreateUpdate" (searchStart)="searchStart()" (searchEnd)="searchEnd($event)"
+                            (searchClear)="searchStart()"></paciente-buscar>
+
+                        <div class="paciente-seleccionado" *ngIf="paciente?.id">
+                            <img *ngIf="paciente.foto" src="{{ paciente.foto }}" alt="">
+                            <img *ngIf="!paciente.foto" src='data:image/svg+xml;charset=utf-8,<svg%20version%3D"1.1"%20id%3D"Layer_4"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20xmlns%3Axlink%3D"http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink"%20x%3D"0px"%20y%3D"0px"%0D%0A%09%20width%3D"480px"%20height%3D"535px"%20viewBox%3D"0%200%20480%20535"%20enable-background%3D"new%200%200%20480%20535"%20xml%3Aspace%3D"preserve">%0D%0A<g%20id%3D"Layer_3">%0D%0A%09<linearGradient%20id%3D"SVGID_1_"%20gradientUnits%3D"userSpaceOnUse"%20x1%3D"240"%20y1%3D"535"%20x2%3D"240"%20y2%3D"4.882812e-04">%0D%0A%09%09<stop%20%20offset%3D"0"%20style%3D"stop-color%3A%23C5C5C5"%2F>%0D%0A%09%09<stop%20%20offset%3D"1"%20style%3D"stop-color%3A%239A9A9A"%2F>%0D%0A%09<%2FlinearGradient>%0D%0A%09<rect%20fill%3D"url%28%23SVGID_1_%29"%20width%3D"480"%20height%3D"535"%2F>%0D%0A<%2Fg>%0D%0A<g%20id%3D"Layer_2">%0D%0A%09<path%20fill%3D"%23FFFFFF"%20d%3D"M347.5%2C250c0%2C59.375-48.125%2C107.5-107.5%2C107.5c-59.375%2C0-107.5-48.125-107.5-107.5%0D%0A%09%09c0-59.375%2C48.125-107.5%2C107.5-107.5C299.375%2C142.5%2C347.5%2C190.625%2C347.5%2C250z"%2F>%0D%0A%09<path%20fill%3D"%23FFFFFF"%20d%3D"M421.194%2C535C413.917%2C424.125%2C335.575%2C336.834%2C240%2C336.834c-95.576%2C0-173.917%2C87.291-181.194%2C198.166%0D%0A%09%09H421.194z"%2F>%0D%0A<%2Fg>%0D%0A<%2Fsvg>'>
+                            <div [ngClass]="{'bg-inverse text-white': paciente.id === paciente?.id}">
+                                <span>{{ paciente | paciente }}</span>
+                                <span>{{ paciente?.documento ? 'Documento: ' + paciente.documento : 'Sin documento'
+                                    }}</span>
+                                <span *ngIf="paciente.fechaNacimiento === null">
+                                    Fecha de nacimiento no registrada
+                                </span>
+                                <span *ngIf="paciente.fechaNacimiento !== null">
+                                    Fecha de nacimiento: {{ paciente.fechaNacimiento | fecha }}
+                                </span>
+                                <span *ngIf="paciente.fechaNacimiento !== null">
+                                    Sexo: {{ paciente | sexo }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Tabla / listado de pacientes -->
+                        <ng-container *ngIf="!paciente?.id && listado && listado.length">
+                            <div class="table-grid table-grid-head paciente">
+                                <span></span>
+                                <span>Apellidos y Nombres</span>
+                                <span>Documento</span>
+                                <span>F. Nacimiento</span>
+                                <span>Sexo</span>
+                            </div>
+                            <ng-container *ngFor="let pac of listado">
+                                <div *ngIf="!paciente?.id" class="table-grid paciente hover" (click)="onPacienteSelected(pac)">
+                                    <img *ngIf="pac.foto" class="img-thumbnail" class="w-50" src="{{ pac.foto }}">
+                                    <img *ngIf="!pac.foto" class="img-thumbnail" class="w-50" src='data:image/svg+xml;charset=utf-8,<svg%20version%3D"1.1"%20id%3D"Layer_4"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20xmlns%3Axlink%3D"http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink"%20x%3D"0px"%20y%3D"0px"%0D%0A%09%20width%3D"480px"%20height%3D"535px"%20viewBox%3D"0%200%20480%20535"%20enable-background%3D"new%200%200%20480%20535"%20xml%3Aspace%3D"preserve">%0D%0A<g%20id%3D"Layer_3">%0D%0A%09<linearGradient%20id%3D"SVGID_1_"%20gradientUnits%3D"userSpaceOnUse"%20x1%3D"240"%20y1%3D"535"%20x2%3D"240"%20y2%3D"4.882812e-04">%0D%0A%09%09<stop%20%20offset%3D"0"%20style%3D"stop-color%3A%23C5C5C5"%2F>%0D%0A%09%09<stop%20%20offset%3D"1"%20style%3D"stop-color%3A%239A9A9A"%2F>%0D%0A%09<%2FlinearGradient>%0D%0A%09<rect%20fill%3D"url%28%23SVGID_1_%29"%20width%3D"480"%20height%3D"535"%2F>%0D%0A<%2Fg>%0D%0A<g%20id%3D"Layer_2">%0D%0A%09<path%20fill%3D"%23FFFFFF"%20d%3D"M347.5%2C250c0%2C59.375-48.125%2C107.5-107.5%2C107.5c-59.375%2C0-107.5-48.125-107.5-107.5%0D%0A%09%09c0-59.375%2C48.125-107.5%2C107.5-107.5C299.375%2C142.5%2C347.5%2C190.625%2C347.5%2C250z"%2F>%0D%0A%09<path%20fill%3D"%23FFFFFF"%20d%3D"M421.194%2C535C413.917%2C424.125%2C335.575%2C336.834%2C240%2C336.834c-95.576%2C0-173.917%2C87.291-181.194%2C198.166%0D%0A%09%09H421.194z"%2F>%0D%0A<%2Fg>%0D%0A<%2Fsvg>'>
+                                    <span>{{ pac | paciente }}</span>
+                                    <span>{{ pac?.documento ? pac.documento : 'Sin documento' }}</span>
+                                    <span *ngIf="pac.fechaNacimiento === null">
+                                        No registrada
+                                    </span>
+                                    <span *ngIf="pac.fechaNacimiento !== null">
+                                        {{ pac.fechaNacimiento | fecha }}
+                                    </span>
+                                    <span *ngIf="pac.fechaNacimiento !== null">
+                                        {{ pac | sexo }}
+                                    </span>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
                     </fieldset>
                 </div>
             </div>
         </plex-box>
     </section>
-
-    <!--Footer-->
-    <footer *ngIf="!buscandoPaciente">
-        <div class="float-left">
-            <plex-button type="danger" label="CANCELAR" (click)="cancelar()">
-            </plex-button>
-        </div>
-        <div *ngIf="opcion === 'fueraAgenda'" class="float-right">
-            <plex-button *ngIf="form.valid" label="INICIAR PRESTACIÓN" validateForm="true" type="success" (click)="iniciarPrestacion()">
-            </plex-button>
-        </div>
-        <div *ngIf="opcion === 'autocitar'" class="float-right">
-            <plex-button *ngIf="form.valid" label="DAR TURNO AUTOCITADO" validateForm="true" type="success" (click)="darTurnoAutocitado()">
-            </plex-button>
-        </div>
-    </footer>
 </form>
 
 <!-- Búsqueda de pacientes -->
-<pacientesSearch *ngIf="buscandoPaciente" (selected)="onPacienteSelected($event)" (cancel)="onPacienteCancel()" [mostrarCancelar]="true"
-    [modoCompleto]="true" [bloquearCreate]="true"></pacientesSearch>
+<!-- <pacientesSearch *ngIf="buscandoPaciente" (selected)="onPacienteSelected($event)" (cancel)="onPacienteCancel()"
+    [mostrarCancelar]="true" [modoCompleto]="true" [bloquearCreate]="true"></pacientesSearch> -->
 
 <!-- Lista de Agendas para dar turnos autocitados -->
-<autocitar-turno *ngIf="showAutocitar && paciente" (cancelarEmitter)="cancelarAutocitar()" [paciente]="paciente" [agendasAutocitar]="agendasAutocitar"
-    [prestacionAutocitar]="prestacionAutocitar"></autocitar-turno>
+<autocitar-turno *ngIf="showAutocitar && paciente" (cancelarEmitter)="cancelarAutocitar()" [paciente]="paciente"
+    [agendasAutocitar]="agendasAutocitar" [prestacionAutocitar]="prestacionAutocitar"></autocitar-turno>
