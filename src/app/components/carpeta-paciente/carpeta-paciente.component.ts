@@ -17,6 +17,14 @@ export class CarpetaPacienteComponent implements OnInit {
     @Output() guardarCarpetaEmit = new EventEmitter<any>();
     @Output() cancelarCarpetaEmit = new EventEmitter<boolean>();
 
+    /**
+     * Muestra la lista con números de carpeta de otros efectores
+     *
+     * @type {Boolean}
+     * @memberof CarpetaPacienteComponent
+     */
+    @Input() mostrarListaEfectores: Boolean;
+
     idOrganizacion = this.auth.organizacion.id;
     indiceCarpeta = -1;
     carpetaEfectores = [];
