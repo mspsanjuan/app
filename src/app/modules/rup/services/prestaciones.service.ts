@@ -1,8 +1,8 @@
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { TipoPrestacionService } from './../../../services/tipoPrestacion.service';
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { Auth } from '@andes/auth';
 import { Server } from '@andes/shared';
 import { IPrestacion } from '../interfaces/prestacion.interface';
@@ -73,6 +73,20 @@ export class PrestacionesService {
         this.datosRefSet.next(null);
     }
 
+
+    /**
+     * Access HUDS visualizacion
+     */
+
+    private _HUDSAccess = new BehaviorSubject<any>(true);
+
+    get HUDSAccess$ () {
+        return this._HUDSAccess.asObservable();
+    }
+
+    set HUDSAccess (value) {
+        this._HUDSAccess.next(value);
+    }
 
     public refsetsIds = {
         cronico: '1641000013105',
@@ -164,6 +178,7 @@ export class PrestacionesService {
      * @param {String} idPaciente
      */
     getByPaciente(idPaciente: any, recargarCache: boolean = false): Observable<any[]> {
+        this.HUDSAccess = true;
         if (this.cache[idPaciente] && !recargarCache) {
             return new Observable(resultado => resultado.next(this.cache[idPaciente]));
         } else {
@@ -174,18 +189,18 @@ export class PrestacionesService {
                     'ordenFecha': true,
                     'sinEstado': 'modificada'
                 },
-                options: {
-                    showError: true
-                }
+                showError: false
             };
             return this.server.get(this.prestacionesUrl, opt).pipe(map(data => {
                 this.cache[idPaciente] = data;
                 // Limpiamos la cache de registros por si hubo modificaciones en las prestaciones
                 this.cacheRegistros[idPaciente] = null;
                 return this.cache[idPaciente];
+            }), catchError((err) => {
+                this.HUDSAccess = false;
+                return of([]);
             }));
         }
-
     }
 
     findValues(obj, key) { // funcion para buscar una key y recupera un array con sus valores.
@@ -628,12 +643,12 @@ export class PrestacionesService {
                 'expresion': expresion,
                 'deadLine': deadLine
             },
-            options: {
-                showError: true
-            }
+            showError: false
         };
 
-        return this.server.get(this.prestacionesUrl + '/huds/' + idPaciente, opt);
+        return this.server.get(this.prestacionesUrl + '/huds/' + idPaciente, opt).catch((err) => {
+            return of([]);
+        });
     }
 
 

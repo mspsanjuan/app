@@ -111,3 +111,13 @@
         width: 32.5%;
     }
 }
+
+.huds-denied {
+    font-size: 22px;
+    plex-badge {
+        font-size: 1em;
+        .badge {
+            white-space: normal;
+        }
+    }
+}

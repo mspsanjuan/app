@@ -4,6 +4,7 @@ import { IPaciente } from '../../../../../interfaces/IPaciente';
 import { ISnomedConcept } from '../../../interfaces/snomed-concept.interface';
 import { ElementosRUPService } from '../../../services/elementosRUP.service';
 import { IPrestacion } from '../../../interfaces/prestacion.interface';
+import { PrestacionesService } from '../../../services/prestaciones.service';
 
 @Component({
     selector: 'rup-resumenPaciente-dinamico',
@@ -38,6 +39,7 @@ export class ResumenPacienteDinamicoComponent implements OnInit {
 
     constructor(
         public elementosRUPService: ElementosRUPService,
+        private prestacionesService: PrestacionesService,
         public auth: Auth
     ) { }
 

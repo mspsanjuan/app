@@ -98,7 +98,13 @@ export class VistaHudsComponent implements OnInit {
                 }
             }).subscribe(() => { return true; });
         }
+
+        // this.servicioPrestacion.HUDSAccess$.subscribe(value => {
+        //     this.HUDSAccess = value;
+        // });
     }
+
+    // public HUDSAccess = true;
 
     redirect(pagina: string) {
         this.router.navigate(['./' + pagina]);

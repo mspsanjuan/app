@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Server } from '@andes/shared';
 import { Observable } from 'rxjs/Rx';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class ResumenPacienteDinamicoService {
@@ -31,6 +32,6 @@ export class ResumenPacienteDinamicoService {
      */
     get(idPaciente: String): Observable<any[]> {
         let params = { consultaPrincipal: this.consultaPrincipal, conceptos: JSON.stringify(this.conceptosBuscados) };
-        return this.server.get(this.resumenURL + '/resumenPaciente/' + idPaciente, { params: params, showError: true });
+        return this.server.get(this.resumenURL + '/resumenPaciente/' + idPaciente, { params: params, showError: true }).catch(() => of([]));
     }
 }
