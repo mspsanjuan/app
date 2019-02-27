@@ -1,0 +1,50 @@
+<plex-layout [main]="paciente ? 9 : 12">
+    <plex-layout-main>
+        <header>
+            <div class="row">
+                <div class="col">
+                    <paciente-buscar (searchStart)="borrarResultadosBusqueda($event)" (searchEnd)="searchEnd($event)"
+                        (searchClear)="borrarResultadosBusqueda($event)"></paciente-buscar>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col">
+                <paciente-listado *ngIf="!paciente" [pacientes]="pacientes" (selected)="seleccionPaciente($event)"></paciente-listado>
+
+                <table *ngIf="paciente" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha y hora</th>
+                            <th>Operación</th>
+                            <th title="Documento, Apellido, Nombre y Organización">Usuario</th>
+                            <th title="Datos del dispositivo desde donde se accedió">Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover" *ngFor="let log of logs">
+                            <td>{{log.fecha | fecha}}, {{log.fecha | hora}}</td>
+                            <td>{{log.operacion}}</td>
+                            <td>{{log.usuario.documento}} {{log.usuario.apellido}} {{log.usuario.nombre}}
+                                {{log.organizacion.nombre}}</td>
+                            <td><i class="mdi mdi-cellphone" title="IP: {{log.cliente.ip}}
+                                    {{log.cliente?.userAgent?.isMobile ? '<br>Vía aplicación móvil' : ''}}"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </plex-layout-main>
+
+
+    <plex-layout-sidebar *ngIf="paciente">
+        <fieldset>
+            <legend>Datos del paciente</legend>
+        </fieldset>
+        <paciente-panel [paciente]="paciente" [permitirseleccionarRelacion]="false"></paciente-panel>
+    </plex-layout-sidebar>
+
+
+</plex-layout>

@@ -386,6 +386,10 @@ import { CampaniaSaludComponent } from './apps/campaniaSalud/components/campania
 import { CampaniaVisualizacionComponent } from './apps/campaniaSalud/components/campaniaVisualizacion.component';
 import { CampaniaFormComponent } from './apps/campaniaSalud/components/campania-create-update.component';
 
+// Log
+import { LogVisualizacionHudsComponent } from './core/huds/components/logVisualizacionHuds.component';
+import { LogHudsService } from './core/huds/services/logHuds.service';
+
 let RUPComponentsArray = [
     SelectPorRefsetComponent,
     AutocitadoComponent,
@@ -596,7 +600,10 @@ registerLocaleData(localeEs, 'es');
         // Campañas Salud
         CampaniaSaludComponent,
         CampaniaVisualizacionComponent,
-        CampaniaFormComponent
+        CampaniaFormComponent,
+
+        // Logs
+        LogVisualizacionHudsComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
@@ -676,7 +683,8 @@ registerLocaleData(localeEs, 'es');
         SeleccionBinariaComponent,
         CampaniaSaludService,
         SeleccionBinariaComponent,
-        PacienteCreateUpdateComponent
+        PacienteCreateUpdateComponent,
+        LogHudsService
     ]
 })
 

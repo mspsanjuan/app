@@ -96,6 +96,9 @@ import { VincularPacientesComponent } from './components/auditoria/vincular-paci
 // Campañas salud
 import { CampaniaSaludComponent } from './apps/campaniaSalud/components/campaniaSalud.component';
 
+// Logs
+import { LogVisualizacionHudsComponent } from './core/huds/components/logVisualizacionHuds.component';
+
 const appRoutes: Routes = [
   // Tablas maestras
   { path: 'tm/organizacion', component: OrganizacionComponent, canActivate: [RoutingNavBar, RoutingGuard] },
@@ -184,6 +187,8 @@ const appRoutes: Routes = [
   // Campañas Salud
   { path: 'campaniasSalud', component: CampaniaSaludComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
+  // Logs
+  { path: 'auditoria/visualizacionHuds', component: LogVisualizacionHudsComponent, canActivate: [RoutingNavBar, RoutingGuard] },
   // dejar siempre al último porque no encuentra las url después de esta
   { path: '**', redirectTo: 'inicio' }
 ];

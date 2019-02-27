@@ -67,6 +67,9 @@ export class AppComponent {
         if (this.auth.getPermissions('huds:?').length > 0) {
             accessList.push({ label: 'HUDS: Visualizar por paciente', icon: 'file-tree', route: '/rup/buscaHuds' });
         }
+        if (this.auth.check('huds:access')) {
+            accessList.push({ label: 'HUDS - Bitácora de Acceso', icon: 'mdi mdi-user-search-outline', route: '/auditoria/visualizacionHuds' });
+        }
 
         if (this.auth.getPermissions('reportes:?').length > 0) {
             accessList.push({ label: 'Reportes', icon: 'file-chart', route: '/reportes' });
@@ -82,6 +85,7 @@ export class AppComponent {
         }
         this.menuList.push({ label: 'Página principal', icon: 'home', route: '/inicio' });
         this.menuList.push({ label: 'Padrones', icon: 'magnify', route: '/puco' });
+
 
         accessList.forEach((permiso) => {
             this.menuList.push(permiso);
