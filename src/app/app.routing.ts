@@ -188,7 +188,7 @@ const appRoutes: Routes = [
   { path: 'campaniasSalud', component: CampaniaSaludComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
   // Logs
-  { path: 'auditoria/visualizacionHuds', component: LogVisualizacionHudsComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+  { path: 'core/log', component: LogVisualizacionHudsComponent, canActivate: [RoutingNavBar, RoutingGuard] },
   // dejar siempre al último porque no encuentra las url después de esta
   { path: '**', redirectTo: 'inicio' }
 ];

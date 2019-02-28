@@ -67,8 +67,8 @@ export class AppComponent {
         if (this.auth.getPermissions('huds:?').length > 0) {
             accessList.push({ label: 'HUDS: Visualizar por paciente', icon: 'file-tree', route: '/rup/buscaHuds' });
         }
-        if (this.auth.check('huds:access')) {
-            accessList.push({ label: 'HUDS - Bitácora de Acceso', icon: 'mdi mdi-user-search-outline', route: '/auditoria/visualizacionHuds' });
+        if (this.auth.check('huds:log')) {
+            accessList.push({ label: 'HUDS - Bitácora de Acceso', icon: 'account-search', route: '/core/log' });
         }
 
         if (this.auth.getPermissions('reportes:?').length > 0) {

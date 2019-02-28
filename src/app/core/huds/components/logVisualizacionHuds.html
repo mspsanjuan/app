@@ -1,40 +1,49 @@
 <plex-layout [main]="paciente ? 9 : 12">
     <plex-layout-main>
+        <plex-scroll (change)="nextPage()" distancia="3"></plex-scroll>
         <header>
             <div class="row">
                 <div class="col">
                     <paciente-buscar (searchStart)="borrarResultadosBusqueda($event)" (searchEnd)="searchEnd($event)"
                         (searchClear)="borrarResultadosBusqueda($event)"></paciente-buscar>
                 </div>
-
             </div>
         </header>
-
         <div class="row">
             <div class="col">
                 <paciente-listado *ngIf="!paciente" [pacientes]="pacientes" (selected)="seleccionPaciente($event)"></paciente-listado>
 
-                <table *ngIf="paciente" class="table table-striped">
+                <table *ngIf="paciente && logs && logs.length" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Fecha y hora</th>
-                            <th>Operación</th>
-                            <th title="Documento, Apellido, Nombre y Organización">Usuario</th>
+                            <!-- <th>Operación</th> -->
+                            <th>Usuario</th>
+                            <th>Organización</th>
                             <th title="Datos del dispositivo desde donde se accedió">Cliente</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="hover" *ngFor="let log of logs">
-                            <td>{{log.fecha | fecha}}, {{log.fecha | hora}}</td>
-                            <td>{{log.operacion}}</td>
-                            <td>{{log.usuario.documento}} {{log.usuario.apellido}} {{log.usuario.nombre}}
-                                {{log.organizacion.nombre}}</td>
+                            <td>{{log.fecha | fecha}}<br>{{log.fecha | hora}}</td>
+                            <!-- <td>{{log.operacion}}</td> -->
+                            <td>{{log.usuario.apellido}}, {{log.usuario.nombre}}
+                                <br>Documento: {{log.usuario.documento}}
+                            </td>
+                            <td> {{log.organizacion.nombre}}</td>
                             <td><i class="mdi mdi-cellphone" title="IP: {{log.cliente.ip}}
                                     {{log.cliente?.userAgent?.isMobile ? '<br>Vía aplicación móvil' : ''}}"></i></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <plex-loader *ngIf="loader"></plex-loader>
+            <div *ngIf="finScroll" class="alert alert-warning">
+                <p style="text-align: center;"> No se encontraron más resultados </p>
+            </div>
+        </div>
+        <div *ngIf="paciente && (!logs || !logs.length)">
+            <i class="mdi mdi-emoticon-sad"></i> No existen registros de acceso a la información del paciente.
         </div>
     </plex-layout-main>
 
@@ -45,6 +54,4 @@
         </fieldset>
         <paciente-panel [paciente]="paciente" [permitirseleccionarRelacion]="false"></paciente-panel>
     </plex-layout-sidebar>
-
-
 </plex-layout>
