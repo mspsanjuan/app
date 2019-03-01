@@ -32,6 +32,8 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
     public showCreateUpdate = false;
     public mostrarNuevo = false;
     public autoFocus = 0;
+
+
     /**
      * Indica si muestra el botón Cancelar/Volver en el footer
      */
@@ -199,7 +201,7 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
             let index = this.textoLibre.indexOf('"');
             if (index >= 0 && index < 20 && this.textoLibre.length > 5) {
                 /* Agregamos el control que la longitud sea mayor a 5 para incrementar la tolerancia de comillas en el input */
-                this.plex.alert('El lector de código de barras no está configurado. Comuníquese con la Mesa de Ayuda de TICS');
+                this.plex.info('warning', 'El lector de código de barras no está configurado. Comuníquese con la Mesa de Ayuda de TICS');
                 this.textoLibre = null;
                 return false;
             }
@@ -329,8 +331,8 @@ export class PacienteSearchComponent implements OnInit, OnDestroy {
                         type: 'multimatch',
                         cadenaInput: this.textoLibre
                     }).subscribe(resultado => {
-                        this.loading = false;
                         this.resultado = resultado;
+                        this.loading = false;
                         this.esEscaneado = false;
                         this.mostrarNuevo = this.auth.check('mpi:nuevoPaciente');
                     }, (err) => {

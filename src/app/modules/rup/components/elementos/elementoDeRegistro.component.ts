@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RUPComponent } from './../core/rup.component';
 import { IPrestacionRegistro } from './../../interfaces/prestacion.registro.interface';
 import { Subscription } from 'rxjs/Subscription';
+import { RupElement } from '.';
 @Component({
     selector: 'rup-ElementoDeRegistroComponent',
     templateUrl: 'elementoDeRegistro.html',
     styleUrls: ['elementoDeRegistro.scss']
 })
-
+@RupElement('ElementoDeRegistroComponent')
 export class ElementoDeRegistroComponent extends RUPComponent implements OnInit {
 
 
@@ -23,7 +24,7 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
     // el concepto que seleccionamos para eliminar lo guradamos aca.
     public conceptoAEliminar: any;
 
-    public scopeEliminar: any;
+    public scopeEliminar: String;
 
     public conceptosPermitidos: any[] = [];
 

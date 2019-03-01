@@ -87,6 +87,9 @@ export class PrestacionesService {
     public elementosRegistros = {
         odontograma: '3561000013109'
     };
+    public conceptosSnomed = {
+        InformeEncuentro: '371531000'
+    };
 
     // Ids de conceptos que refieren que un paciente no concurrió a la consulta
     // Se usan para hacer un PATCH en el turno, quedando turno.asistencia = 'noAsistio'
@@ -120,15 +123,10 @@ export class PrestacionesService {
      *
      * @memberof PrestacionesService
      */
-    getSolicitudes(params: any, options: any = {}): Observable<IPrestacion[]> {
-        if (typeof options.showError === 'undefined') {
-            options.showError = true;
-        }
-
-        let opt = { params: params, options };
-
-        return this.server.get(this.prestacionesUrl + '/solicitudes', opt);
+    getSolicitudes(params: any): Observable<IPrestacion[]> {
+        return this.server.get(this.prestacionesUrl + '/solicitudes', { params: params, showError: true });
     }
+
     /**
      * Método get. Trae lista de objetos prestacion.
      *
@@ -279,7 +277,7 @@ export class PrestacionesService {
                 if (prestacion.ejecucion) {
                     let agregar = prestacion.ejecucion.registros
                         .filter(registro =>
-                            registro.concepto.semanticTag === 'hallazgo' || registro.concepto.semanticTag === 'trastorno')
+                            registro.concepto.semanticTag === 'hallazgo' || registro.concepto.semanticTag === 'trastorno' || registro.concepto.semanticTag === 'evento')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
                     // COnceptId del informe requerido en en todas las prestaciones ambulatorias
                     if (agregar.length > 0) {
@@ -306,9 +304,11 @@ export class PrestacionesService {
                 });
                 if (!registroEncontrado && registro.valor) {
                     let dato = {
+                        idPrestacion: registro.idPrestacion,
                         concepto: registro.concepto,
                         prestaciones: [registro.idPrestacion],
                         evoluciones: [{
+                            idPrestacion: registro.idPrestacion,
                             idRegistro: registro.id,
                             fechaCarga: registro.createdAt,
                             profesional: registro.createdBy.nombreCompleto,
@@ -319,13 +319,15 @@ export class PrestacionesService {
                             idRegistroTransformado: registro.valor.idRegistroTransformado ? registro.valor.idRegistroTransformado : null,
                             origen: registro.valor.origen ? registro.valor.origen : null,
                             idRegistroGenerado: registro.valor.idRegistroGenerado ? registro.valor.idRegistroGenerado : null,
-                            informeRequerido: registro.informeRequerido ? registro.informeRequerido : null
+                            informeRequerido: registro.informeRequerido ? registro.informeRequerido : null,
+                            relacionadoCon: registro.relacionadoCon ? registro.relacionadoCon : []
                         }]
                     };
                     registroSalida.push(dato);
                 } else {
                     let ultimaEvolucion = registroEncontrado.evoluciones[registroEncontrado.evoluciones.length - 1];
                     let nuevaEvolucion = {
+                        idPrestacion: registro.idPrestacion,
                         fechaCarga: registro.createdAt,
                         idRegistro: registro.id,
                         profesional: registro.createdBy.nombreCompleto,
@@ -336,7 +338,8 @@ export class PrestacionesService {
                         idRegistroTransformado: registro.valor.idRegistroTransformado ? registro.valor.idRegistroTransformado : ultimaEvolucion.idRegistroTransformado,
                         origen: registro.valor.origen ? registro.valor.origen : ultimaEvolucion.origen,
                         idRegistroGenerado: registro.valor.idRegistroGenerado ? registro.valor.idRegistroGenerado : ultimaEvolucion.idRegistroGenerado,
-                        informeRequerido: registro.informeRequerido ? registro.informeRequerido : null
+                        informeRequerido: registro.informeRequerido ? registro.informeRequerido : null,
+                        relacionadoCon: registro.relacionadoCon ? registro.relacionadoCon : []
                     };
                     registroEncontrado.prestaciones.push(registro.idPrestacion);
                     registroEncontrado.evoluciones.push(nuevaEvolucion);
@@ -442,7 +445,9 @@ export class PrestacionesService {
                 if (prestacion.ejecucion) {
                     let agregar = prestacion.ejecucion.registros
                         .filter(registro =>
-                            registro.concepto.semanticTag === 'producto')
+                            registro.concepto.semanticTag === 'producto' ||
+                            registro.concepto.semanticTag === 'objeto físico' ||
+                            registro.concepto.semanticTag === 'medicamento clínico')
                         .map(registro => { registro['idPrestacion'] = prestacion.id; return registro; });
                     registros = [...registros, ...agregar];
 
@@ -613,14 +618,15 @@ export class PrestacionesService {
      * Buscar en la HUDS de un paciente los registros que coincidan con los conceptIds
      *
      * @param {string} idPaciente Paciente a buscar
-     * @param {any[]} conceptIds Array de conceptId de SNOMED que deseo buscar
+     * @param {any[]} expresion expresion SNOMED que obtiene los conceptos que deseo buscar
      * @returns {any[]} Prestaciones del paciente que coincidan con los conceptIds
      * @memberof PrestacionesService
      */
-    getRegistrosHuds(idPaciente: string, expresion) {
+    getRegistrosHuds(idPaciente: string, expresion, deadLine = null) {
         let opt = {
             params: {
-                'expresion': expresion
+                'expresion': expresion,
+                'deadLine': deadLine
             },
             options: {
                 showError: true
@@ -727,9 +733,9 @@ export class PrestacionesService {
             if (_profesional) {
                 profesional = {
                     id: _profesional.id,
-                    nombre: this.auth.usuario.nombre,
-                    apellido: this.auth.usuario.apellido,
-                    documento: this.auth.usuario.documento
+                    nombre: _profesional.nombre,
+                    apellido: _profesional.apellido,
+                    documento: _profesional.documento
                 };
             } else {
                 profesional = {
@@ -744,8 +750,8 @@ export class PrestacionesService {
                 // profesional logueado
                 profesional:
                 {
-                    id: this.auth.profesional.id, nombre: this.auth.usuario.nombre,
-                    apellido: this.auth.usuario.apellido, documento: this.auth.usuario.documento
+                    id: profesional.id, nombre: profesional.nombre,
+                    apellido: profesional.apellido, documento: profesional.documento
                 },
                 // organizacion desde la que se solicita la prestacion
                 organizacion: { id: this.auth.organizacion.id, nombre: this.auth.organizacion.nombre },
@@ -959,6 +965,10 @@ export class PrestacionesService {
             clase = 'regimen';
         } else if (conceptoSNOMED.semanticTag === 'elemento de registro') {
             clase = 'elementoderegistro';
+        } else if (conceptoSNOMED.semanticTag === 'evento') {
+            clase = 'hallazgo';
+        } else if (conceptoSNOMED.semanticTag === 'objeto físico' || conceptoSNOMED.semanticTag === 'medicamento clínico') {
+            clase = 'producto';
         }
 
         return clase;
@@ -980,6 +990,9 @@ export class PrestacionesService {
         } else {
             switch (conceptoSNOMED.semanticTag) {
                 case 'hallazgo':
+                case 'evento':
+                    icon = 'hallazgo';
+                    break;
                 case 'situación':
                     icon = 'hallazgo';
                     break;
@@ -999,6 +1012,12 @@ export class PrestacionesService {
                 case 'producto':
                     icon = 'producto';
                     break;
+                case 'objeto físico':
+                    icon = 'producto';
+                    break;
+                case 'medicamento clínico':
+                    icon = 'producto';
+                    break;
 
                 case 'elemento de registro':
                     icon = 'elementoderegistro';
@@ -1008,6 +1027,33 @@ export class PrestacionesService {
 
         return icon;
     }
+
+
+    /**
+        * Devuelve el texto del informe del encuentro asociado al registro
+        *
+        * @param {any} paciente un paciente
+        * @param {any} registro un registro de una prestación
+        * @returns  {string} Informe del encuentro relacionado al registro de entrada
+        * @memberof PrestacionesService
+        */
+    mostrarInformeRelacionado(paciente, registro, concepto) {
+        let salida = '';
+        if (registro.idPrestacion && concepto.conceptId !== this.conceptosSnomed.InformeEncuentro) {
+            if (this.cache[paciente.id]) {
+                let unaPrestacion = this.cache[paciente.id].find(p => p.id === registro.idPrestacion);
+                if (unaPrestacion) {
+                    // vamos a buscar si en la prestación esta registrado un informe del encuentro
+                    let registroEncontrado = unaPrestacion.ejecucion.registros.find(r => r.concepto.conceptId === this.conceptosSnomed.InformeEncuentro);
+                    if (registroEncontrado) {
+                        salida = registroEncontrado.valor ? '<label>Informe del encuentro</label>' + registroEncontrado.valor : null;
+                    }
+                }
+            }
+        }
+        return salida;
+    }
+
 
     /*******
      * INTERNACION
@@ -1025,6 +1071,17 @@ export class PrestacionesService {
     public internacionesXPaciente(paciente, estado, organizacion) {
         let opt = { params: { estado: estado, ambitoOrigen: 'internacion', organizacion: organizacion }, options: {} };
         return this.server.get('/modules/rup/internaciones/ultima/' + (paciente.id ? paciente.id : paciente._id), opt);
+    }
+
+    /**
+* Devuelve el listado de internacion por organizacion
+*
+
+* @returns  {array} Listado Organizacion
+* @memberof PrestacionesService
+*/
+    public listadoInternacion(filtros?) {
+        return this.server.get('/modules/rup/internaciones/listadoInternacion/', { params: filtros, showError: true });
     }
 
 
@@ -1048,7 +1105,8 @@ export class PrestacionesService {
      *
      * @memberof PrestacionesService
      */
-    getInternacionesPendientes(options: any = {}): Observable<IPrestacion[]> {
-        return this.server.get(this.prestacionesUrl + '/sincama', options);
+    getInternacionesPendientes(params: any = {}): Observable<IPrestacion[]> {
+        return this.server.get(this.prestacionesUrl + '/sincama', { params: params, showError: true });
     }
+
 }
