@@ -78,10 +78,16 @@ export class PasesListadoInternacionComponent implements OnInit {
             this.elegirDesocupar = true;
             this.organizacionService.getById(this.auth.organizacion.id).subscribe(organizacion => {
                 this.organizacion = organizacion;
-                this.listaUnidadesOrganizativas = this.organizacion.unidadesOrganizativas;
-                if (this.listaUnidadesOrganizativas && this.listaUnidadesOrganizativas.length > 0) {
-                    this.opcionesDesocupar.push({ id: 'pase', label: 'Cambiar de unidad organizativa' });
-                }
+                const fechaMovimiento = this.internacionService.combinarFechas(this.fecha, this.hora);
+                this.prestacionesService.getPasesInternacion(this.prestacion.id).subscribe(lista => {
+                    let listaFiltrada = lista.filter(c => c.estados.fecha < fechaMovimiento);
+                    this.camasService.getCama(listaFiltrada[listaFiltrada.length - 1]._id).subscribe(cama => {
+                        this.listaUnidadesOrganizativas = this.organizacion.unidadesOrganizativas ? this.organizacion.unidadesOrganizativas.filter(o => o.conceptId !== cama.ultimoEstado.unidadOrganizativa.conceptId) : [];
+                        if (this.listaUnidadesOrganizativas && this.listaUnidadesOrganizativas.length > 0) {
+                            this.opcionesDesocupar.push({ id: 'pase', label: 'Cambiar de unidad organizativa' });
+                        }
+                    });
+                });
             });
         } else {
 
@@ -129,13 +135,14 @@ export class PasesListadoInternacionComponent implements OnInit {
                     this.plex.info('danger', 'Debe seleccionar una cama disponible', 'Error');
                     return false;
                 }
-                let paciente = this.cama.ultimoEstado.paciente;
-                let idInternacion = this.cama.ultimoEstado.idInternacion;
+
+                let paciente = this.prestacion.paciente;
+                let idInternacion = this.prestacion.id;
                 if (this.opcionDesocupar === 'movimiento' || this.opcionDesocupar === 'pase') {
                     let nuevoEstado = this.internacionService.usaWorkflowCompleto(this.auth.organizacion._id) ? 'desocupada' : 'disponible';
                     // Primero desocupamos la cama donde esta el paciente actualmente
                     this.camasService.cambioEstadoMovimiento(this.cama, nuevoEstado, this.internacionService.combinarFechas(this.fecha, this.hora), null, null, this.PaseAunidadOrganizativa).subscribe(camaActualizada => {
-                        this.cama = camaActualizada;
+                        // this.cama = camaActualizada;
                         if (this.camaSeleccionPase) {
                             // Si hay que hacer un movimiento o pase de cama cambiamos el estado de la cama seleccionada a ocupada
                             this.camasService.cambioEstadoMovimiento(this.camaSeleccionPase, 'ocupada', this.internacionService.combinarFechas(this.fecha, this.hora), paciente, idInternacion,

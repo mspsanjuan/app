@@ -238,7 +238,8 @@
             <div class="col">
                 <label>Origen</label>
                 <p> {{informeIngreso.origen}} {{informeIngreso.organizacionOrigen ? '| ' +
-                    informeIngreso.organizacionOrigen.nombre : null}}</p>
+                    (informeIngreso.organizacionOrigen.nombre ? informeIngreso.organizacionOrigen.nombre :
+                    informeIngreso.organizacionOrigen) : null}}</p>
             </div>
         </div>
         <div class="row">
