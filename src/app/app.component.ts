@@ -76,6 +76,10 @@ export class AppComponent {
             accessList.push({ label: 'Solicitudes', icon: 'mdi mdi-open-in-app', route: '/solicitudes' });
         }
 
+        if (this.auth.getPermissions('internacion:?').length > 0) {
+            accessList.push({ label: 'Internación - Mapa de cama', icon: 'mdi mdi-open-in-app', route: '/internacion/camas' });
+        }
+
         // faltan permisos
         if (this.auth.getPermissions('formularioTerapeutico:?').length > 0) {
             accessList.push({ label: 'Formulario Terapeutico', icon: 'mdi mdi-needle', route: '/formularioTerapeutico' });
