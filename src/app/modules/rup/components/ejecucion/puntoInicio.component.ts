@@ -17,6 +17,7 @@ import { IPaciente } from '../../../../interfaces/IPaciente';
 import { TurnoService } from '../../../../services/turnos/turno.service';
 import { SnomedService } from '../../../../services/term/snomed.service';
 import { SubscriptionLike as ISubscription } from 'rxjs';
+import { WebSocketService } from '../../../../services/websocket.service';
 
 
 @Component({
