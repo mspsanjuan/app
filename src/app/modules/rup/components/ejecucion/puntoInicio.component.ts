@@ -60,10 +60,13 @@ export class PuntoInicioComponent implements OnInit {
         public servicioPrestacion: PrestacionesService,
         public servicePaciente: PacienteService,
         public serviceTurno: TurnoService,
+        public ws: WebSocketService,
         public snomed: SnomedService,
         public servicioTipoPrestacion: TipoPrestacionService) { }
 
     ngOnInit() {
+        this.ws.connect();
+
         // Verificamos permisos globales para rup, si no posee realiza redirect al home
         if (this.auth.getPermissions('rup:?').length <= 0) {
             this.redirect('inicio');
