@@ -28,9 +28,9 @@ export class WebSocketService {
 
 
         this.socket.on('connect', () => {
-            if (this.token) {
-                this.emitAuth();
-            }
+            this.rooms.forEach((room) => {
+                this.socket.emit('room', { name: 'agendaToRup' });
+            });
         });
 
         this.socket.on('disconnect', () => {
@@ -40,9 +40,7 @@ export class WebSocketService {
         this.socket.on('auth', (data) => {
             if (data.status !== 'error') {
                 this.autheticated = true;
-                this.rooms.forEach((room) => {
-                    this.socket.emit('room', { name: room });
-                });
+
             }
         });
     }
@@ -65,11 +63,12 @@ export class WebSocketService {
     }
 
     join (room) {
+        console.log('rooooooooooom');
         const index = this.rooms.findIndex(name => name === room);
         if (index < 0) {
             this.rooms.push(room);
             if (this.autheticated) {
-                this.socket.emit('room', { name: room });
+                this.socket.emit('room',  room );
             }
         }
     }

@@ -29,6 +29,8 @@ import { TurnoService } from './../../../services/turnos/turno.service';
 import { HeaderPacienteComponent } from '../../paciente/headerPaciente.component';
 import { IFinanciador } from '../../../interfaces/IFinanciador';
 import { ObraSocialCacheService } from '../../../services/obraSocialCache.service';
+import { WsAgendaService } from '../../../services/wsAgenda.service';
+import { WebSocketService } from '../../../services/websocket.service';
 
 @Component({
     selector: 'dar-turnos',
@@ -157,9 +159,13 @@ export class DarTurnosComponent implements OnInit {
         public plex: Plex,
         public auth: Auth,
         private router: Router,
-        private osService: ObraSocialCacheService) { }
+        private osService: ObraSocialCacheService,
+        public servicioWsAgenda: WsAgendaService,
+        public ws: WebSocketService) { }
 
     ngOnInit() {
+        this.ws.connect();
+        this.ws.join('agendaToRup');
         this.hoy = new Date();
         this.autorizado = this.auth.getPermissions('turnos:darTurnos:?').length > 0;
         this.opciones.fecha = moment().toDate();
@@ -880,7 +886,10 @@ export class DarTurnosComponent implements OnInit {
                 motivoConsulta: this.motivoConsulta
             };
             this.serviceTurno.save(datosTurno, { showError: false }).subscribe(resultado => {
+                console.log(resultado);
+                this.servicioWsAgenda.agregarTurnosWS((this.agenda as any)._id);
                 this.afterSaveTurno(pacienteSave);
+
             }, (err) => {
                 this.hideDarTurno = false;
                 // Si el turno no pudo ser otorgado, se verifica si el bloque permite citar por segmento
@@ -916,6 +925,7 @@ export class DarTurnosComponent implements OnInit {
         let agendaid = this.agenda.id;
         this.agenda = null;
         this.actualizar('');
+        console.log(agendaReturn);
         this.plex.toast('info', 'El turno se asignó correctamente');
         this.hideDarTurno = false;
         this.plex.clearNavbar();
@@ -938,6 +948,7 @@ export class DarTurnosComponent implements OnInit {
                 };
                 // Patchea el turno doble
                 this.serviceAgenda.patch(agendaid, patch).subscribe((agendaActualizada) => {
+                    console.log(agendaActualizada);
                     if (agendaActualizada) {
                         this.volverAlGestor.emit(agendaReturn); // devuelve la agenda al gestor, para que éste la refresque
                         this.plex.toast('info', 'Se asignó un turno doble');
@@ -956,6 +967,7 @@ export class DarTurnosComponent implements OnInit {
             this.buscarPaciente();
         }
         this.turnoTipoPrestacion = undefined; // blanquea el select de tipoPrestacion
+
     }
 
     enviarSMS(paciente: any) {

@@ -492,6 +492,8 @@ import { PasesListadoInternacionComponent } from './apps/rup/internacion/compone
 
 import { SnomedBuscarService } from './components/snomed/snomed-buscar.service';
 import { HUDSService } from './modules/rup/services/huds.service';
+import { WsAgendaService } from './services/wsAgenda.service';
+import { WebSocketService } from './services/websocket.service';
 
 
 
@@ -716,7 +718,9 @@ registerLocaleData(localeEs, 'es');
         PacienteCreateUpdateComponent,
         SnomedBuscarService,
         HUDSService,
-        TurnosPrestacionesService
+        TurnosPrestacionesService,
+        WsAgendaService,
+        WebSocketService
     ]
 })
 

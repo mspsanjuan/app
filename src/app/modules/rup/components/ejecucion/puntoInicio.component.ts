@@ -18,6 +18,7 @@ import { TurnoService } from '../../../../services/turnos/turno.service';
 import { SnomedService } from '../../../../services/term/snomed.service';
 import { SubscriptionLike as ISubscription } from 'rxjs';
 import { WebSocketService } from '../../../../services/websocket.service';
+import { WsAgendaService } from '../../../../services/wsAgenda.service';
 
 
 @Component({
@@ -61,13 +62,40 @@ export class PuntoInicioComponent implements OnInit {
         public servicioPrestacion: PrestacionesService,
         public servicePaciente: PacienteService,
         public serviceTurno: TurnoService,
+        public servicioWsAgenda: WsAgendaService,
         public ws: WebSocketService,
         public snomed: SnomedService,
         public servicioTipoPrestacion: TipoPrestacionService) { }
 
     ngOnInit() {
+        let token = window.sessionStorage.getItem('jwt');
         this.ws.connect();
+        this.ws.setToken(token);
+        this.ws.emitAuth();
+        this.ws.join('agendaToRup');
 
+        this.ws.events.subscribe((packet) => {
+            switch (packet.event) {
+                case 'accionesSobreTurnos':
+                    console.log(packet);
+                    if (packet.data.agenda) {
+                        let agendaEntrante = packet.data.agenda;
+                        console.log(agendaEntrante);
+                        let a = this.agendas.findIndex((x: any) => x._id === agendaEntrante._id);
+                        console.log(a);
+                        if (a > -1) {
+                            this.agendas[a].bloques = agendaEntrante.bloques;
+                            console.log(this.agendas[a]);
+                            this.cargarTurnos(this.agendas[a]);
+                        }
+                    }
+                    console.log('llgue wachooooooooooo');
+                    break;
+                case 'accionesSobreAgendas':
+                    this.actualizar();
+                    break;
+            }
+        });
         // Verificamos permisos globales para rup, si no posee realiza redirect al home
         if (this.auth.getPermissions('rup:?').length <= 0) {
             this.redirect('inicio');
@@ -96,6 +124,10 @@ export class PuntoInicioComponent implements OnInit {
             }
         }
 
+    }
+
+    ngOnDestroy() {
+        this.ws.close();
     }
 
     redirect(pagina: string) {
@@ -461,6 +493,7 @@ export class PuntoInicioComponent implements OnInit {
 
     cargarTurnos(agenda) {
         this.agendaSeleccionada = agenda ? agenda : 'fueraAgenda';
+        console.log(this.agendaSeleccionada);
     }
 
     routeTo(action, id) {

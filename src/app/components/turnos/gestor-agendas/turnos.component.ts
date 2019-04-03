@@ -9,6 +9,8 @@ import { AgendaService } from '../../../services/turnos/agenda.service';
 import { ListaEsperaService } from '../../../services/turnos/listaEspera.service';
 import { EstadosAgenda } from './../enums';
 import * as moment from 'moment';
+import { WsAgendaService } from '../../../services/wsAgenda.service';
+import { WebSocketService } from '../../../services/websocket.service';
 
 @Component({
     selector: 'turnos',
@@ -84,9 +86,12 @@ export class TurnosComponent implements OnInit {
     public arrayDelDia = [];
 
     // Inicialización
-    constructor(public plex: Plex, public smsService: SmsService, public serviceAgenda: AgendaService, public listaEsperaService: ListaEsperaService, public servicePaciente: PacienteService, public auth: Auth) { }
+    constructor(public plex: Plex, public smsService: SmsService, public serviceAgenda: AgendaService, public listaEsperaService: ListaEsperaService, public servicePaciente: PacienteService, public auth: Auth,  public servicioWsAgenda: WsAgendaService,
+        public ws: WebSocketService) { }
 
     ngOnInit() {
+        this.ws.connect();
+        this.ws.join('agendaToRup');
         this.turnosSeleccionados = [];
         let agendaActualizar = this.agenda;
         // this.agenda = this.actualizarCarpetaPaciente(agendaActualizar);
@@ -326,6 +331,8 @@ export class TurnosComponent implements OnInit {
         // Patchea los turnosSeleccionados (1 o más turnos)
         this.serviceAgenda.patch(this.agenda.id, patch).subscribe(resultado => {
             this.agenda = resultado;
+console.log(resultado);
+            this.servicioWsAgenda.actualizarTurnosWS(resultado);
         });
 
         // Reset botones y turnos seleccionados
@@ -335,6 +342,7 @@ export class TurnosComponent implements OnInit {
             turno.checked = false;
         });
         this.todos = false;
+
     }
 
     reasignarTurno(paciente: any, idTurno: any, idAgenda: any) {
@@ -453,6 +461,8 @@ export class TurnosComponent implements OnInit {
 
     saveLiberarTurno(agenda: any) {
         this.serviceAgenda.getById(agenda.id).subscribe(ag => {
+            console.log(ag);
+            this.servicioWsAgenda.actualizarTurnosWS(ag);
             this.agenda = ag;
             this.showTurnos = true;
             this.showLiberarTurno = false;
@@ -463,6 +473,7 @@ export class TurnosComponent implements OnInit {
         this.serviceAgenda.getById(this.agenda.id).subscribe(ag => {
             this.agenda = ag;
             this.showTurnos = true;
+            this.servicioWsAgenda.actualizarTurnosWS(ag);
             this.showSuspenderTurno = false;
             this.recargarAgendas.emit(true);
             this.recargarBotones.emit(true);
@@ -473,6 +484,7 @@ export class TurnosComponent implements OnInit {
         this.serviceAgenda.getById(this.agenda.id).subscribe(ag => {
             this.agenda = ag;
             this.turnosSeleccionados = [];
+            this.servicioWsAgenda.actualizarTurnosWS(this.agenda);
 
             this.showTurnos = true;
             this.showAgregarNotaTurno = false;

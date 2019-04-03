@@ -13,6 +13,8 @@ import * as moment from 'moment';
 import { enumToArray } from '../../../utils/enums';
 import { ITurno } from '../../../interfaces/turnos/ITurno';
 import { ISubscription } from 'rxjs/Subscription';
+import { WebSocketService } from '../../../services/websocket.service';
+import { WsAgendaService } from '../../../services/wsAgenda.service';
 
 @Component({
     selector: 'gestor-agendas',
@@ -87,7 +89,9 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     constructor(public plex: Plex, private formBuilder: FormBuilder, public servicioPrestacion: TipoPrestacionService,
         public serviceProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
         public serviceAgenda: AgendaService, private router: Router,
-        public auth: Auth) { }
+        public auth: Auth,
+        public servicioWsAgenda: WsAgendaService,
+        public ws: WebSocketService, ) { }
 
     /* limpiamos la request que se haya ejecutado */
     ngOnDestroy() {
@@ -97,6 +101,8 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
+
         this.permisos = this.auth.getPermissions('turnos:agenda:?').length > 0;
         this.autorizado = this.auth.getPermissions('turnos:agenda:?').length > 0;
         this.prestacionesPermisos = this.auth.getPermissions('turnos:planificarAgenda:prestacion:?');
@@ -515,6 +521,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     }
 
     actualizarEstadoEmit(estado) {
+        console.log('aca si acho');
         // Se suspende una agenda completa
         if (estado === 'suspendida') {
             this.showTurnos = false;
@@ -556,6 +563,8 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
                 this.showTurnos = true;
             }
         }
+        this.servicioWsAgenda.actualizarAgendasWS()
+
     }
 
     reasignarTurnos() {
