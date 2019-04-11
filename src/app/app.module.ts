@@ -298,6 +298,7 @@ import { ResumenHistoriaClinicaComponent } from './modules/rup/components/elemen
 import { CalculoDeBostonComponent } from './modules/rup/components/elementos/calculoDeBoston.component';
 import { SeleccionBinariaComponent } from './modules/rup/components/elementos/seleccionBinaria.component';
 import { ValorNumericoComponent } from './modules/rup/components/elementos/valorNumerico.component';
+import { ValorFechaComponent } from './modules/rup/components/elementos/valorFecha.component';
 import { MoleculaBaseComponent } from './modules/rup/components/elementos/moleculaBase.component';
 import { ProcedimientoDeEnfermeriaComponent } from './modules/rup/components/elementos/procedimientoDeEnfermeria.component';
 
@@ -466,6 +467,7 @@ let RUPComponentsArray = [
     CalculoDeBostonComponent,
     SeleccionBinariaComponent,
     ValorNumericoComponent,
+    ValorFechaComponent,
     MoleculaBaseComponent,
     HeaderPacienteComponent,
     VistaRegistroComponent,
