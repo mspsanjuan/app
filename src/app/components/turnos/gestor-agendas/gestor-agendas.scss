@@ -13,7 +13,10 @@ td:not(:first) {
         font-size: 0.9rem;
     }
 }
-
+.scrollInfinite {
+    overflow-y: scroll;
+    max-height: 100%;
+}
 span.badge,
 span.badge-default {
     font-size: 0.6rem;

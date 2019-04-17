@@ -1,5 +1,6 @@
 <form class="plex-layout" #form="ngForm">
     <section *ngIf="showGestorAgendas">
+        
         <div class="row">
             <!--Panel de Agendas-->
             <div class="col">
@@ -66,12 +67,16 @@
                             </div>
                         </div>
                     </header>
-
                     <!--Resultados-->
                     <div *ngIf="!agendas?.length" class="alert alert-default">
                         <i class="mdi mdi-emoticon-sad"></i> No hay agendas que coincidan con los filtros de búsqueda
                     </div>
-
+                    <div class="scrollInfinite"
+                    infiniteScroll
+                    [scrollWindow]="false"
+                    [infiniteScrollDistance]="distanciaScroll"
+                    [infiniteScrollThrottle]="throttleScroll"
+                    (scrolled)="onScroll()"> 
                     <table *ngIf="agendas?.length" class="table table-striped table-sm">
                         <thead>
                             <th></th>
@@ -136,6 +141,7 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
                 </plex-box>
             </div>
 

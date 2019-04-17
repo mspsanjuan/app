@@ -35,6 +35,7 @@ import { PermisosComponent } from './utils/permisos/permisos.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { DocumentosService } from './services/documentos.service';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Pipes
 import { EdadPipe } from './pipes/edad.pipe';
@@ -511,6 +512,7 @@ registerLocaleData(localeEs, 'es');
         NgDragDropModule.forRoot(),
         ChartsModule,
         routing,
+        InfiniteScrollModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAJuFVuMmVwV8gtP_1m3Ll1VzHagAI_X9I'
         }),

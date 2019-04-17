@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TipoPrestacionService } from './../../../services/tipoPrestacion.service';
 import { ProfesionalService } from './../../../services/profesional.service';
 import { EspacioFisicoService } from './../../../services/turnos/espacio-fisico.service';
@@ -70,6 +71,10 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     public btnCrearAgendas = false;
     public permisos: any;
     public prestacionesPermisos = [];
+    private limit = 20;
+    private forward = 20;
+    public distanciaScroll = 2;
+    public throttleScroll = 100;
 
     // ultima request de profesionales que se almacena con el subscribe
     private lastRequest: ISubscription;
@@ -81,12 +86,11 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     // vistaAgenda: IAgenda;
     reasignar: IAgenda;
     editaAgenda: IAgenda;
-
     items: any[];
 
     constructor(public plex: Plex, private formBuilder: FormBuilder, public servicioPrestacion: TipoPrestacionService,
         public serviceProfesional: ProfesionalService, public servicioEspacioFisico: EspacioFisicoService,
-        public serviceAgenda: AgendaService, private router: Router,
+        public serviceAgenda: AgendaService, private router: Router, infiniteScrollModule: InfiniteScrollModule,
         public auth: Auth) { }
 
     /* limpiamos la request que se haya ejecutado */
@@ -143,9 +147,21 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     }
 
-
+    onScroll() {
+        // avanzamos en el limit por cada scroll
+        this.limit = this.limit + this.forward;
+        if (this.parametros) {
+            this.parametros['limit'] = this.limit;
+            this.getAgendas(this.parametros);
+        } else {
+            this.loadAgendas();
+        }
+    }
 
     refreshSelection(value, tipo) {
+        // reinicializamos el limit ya que se aplicaron nuevos filtros
+        this.limit = this.forward;
+        this.parametros['limit'] = this.limit;
         if (this.prestacionesPermisos.length > 0 && this.prestacionesPermisos[0] !== '*' && this.prestaciones.length === 0) {
             this.parametros['tipoPrestaciones'] = this.prestacionesPermisos;
         }
@@ -227,7 +243,6 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     loadAgendas() {
         let fecha = moment().format();
-
         if (this.hoy) {
             this.fechaDesde = fecha;
             this.fechaHasta = fecha;
@@ -241,7 +256,8 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
             organizacion: this.auth.organizacion._id,
             idTipoPrestacion: '',
             idProfesional: '',
-            idEspacioFisico: ''
+            idEspacioFisico: '',
+            limit: this.limit
         };
         if (this.prestacionesPermisos.length > 0 && this.prestacionesPermisos[0] !== '*') {
             params['tipoPrestaciones'] = this.prestacionesPermisos;
@@ -402,7 +418,6 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     }
 
     loadEspacios(event) {
-
         let listaEspaciosFisicos = [];
         if (event.query) {
             let query = {
