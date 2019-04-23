@@ -28,8 +28,9 @@ export class WebSocketService {
 
 
         this.socket.on('connect', () => {
+            console.log(this.rooms);
             this.rooms.forEach((room) => {
-                this.socket.emit('room', { name: 'agendaToRup' });
+                this.socket.emit('room', { name: room });
             });
         });
 
@@ -63,7 +64,7 @@ export class WebSocketService {
     }
 
     join (room) {
-        console.log('rooooooooooom');
+        console.log('rooooooooooom', room);
         const index = this.rooms.findIndex(name => name === room);
         if (index < 0) {
             this.rooms.push(room);

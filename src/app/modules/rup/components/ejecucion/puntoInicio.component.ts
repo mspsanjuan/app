@@ -68,34 +68,11 @@ export class PuntoInicioComponent implements OnInit {
         public servicioTipoPrestacion: TipoPrestacionService) { }
 
     ngOnInit() {
-        let token = window.sessionStorage.getItem('jwt');
-        this.ws.connect();
-        this.ws.setToken(token);
-        this.ws.emitAuth();
-        this.ws.join('agendaToRup');
 
-        this.ws.events.subscribe((packet) => {
-            switch (packet.event) {
-                case 'accionesSobreTurnos':
-                    console.log(packet);
-                    if (packet.data.agenda) {
-                        let agendaEntrante = packet.data.agenda;
-                        console.log(agendaEntrante);
-                        let a = this.agendas.findIndex((x: any) => x._id === agendaEntrante._id);
-                        console.log(a);
-                        if (a > -1) {
-                            this.agendas[a].bloques = agendaEntrante.bloques;
-                            console.log(this.agendas[a]);
-                            this.cargarTurnos(this.agendas[a]);
-                        }
-                    }
-                    console.log('llgue wachooooooooooo');
-                    break;
-                case 'accionesSobreAgendas':
-                    this.actualizar();
-                    break;
-            }
-        });
+        console.log(this.auth);
+
+
+
         // Verificamos permisos globales para rup, si no posee realiza redirect al home
         if (this.auth.getPermissions('rup:?').length <= 0) {
             this.redirect('inicio');
@@ -120,6 +97,8 @@ export class PuntoInicioComponent implements OnInit {
                     this.tiposPrestacion = data;
                     localStorage.removeItem('idAgenda');
                     this.actualizar();
+
+
                 });
             }
         }
@@ -176,6 +155,41 @@ export class PuntoInicioComponent implements OnInit {
         ).subscribe(data => {
             this.agendas = data[0];
             this.prestaciones = data[1];
+            console.log(this.agendas);
+            let token = window.sessionStorage.getItem('jwt');
+
+            this.ws.connect();
+            this.ws.setToken(token);
+            this.ws.emitAuth();
+            // this.ws.join('agendaToRup5ca737275348d71369eae597');
+
+            this.agendas.forEach(element => {
+                this.ws.join('agendaToRup' + element.id);
+            });
+
+            this.ws.events.subscribe((packet) => {
+                console.log('ñassds');
+                switch (packet.event) {
+                    case 'accionesSobreTurnos':
+                        console.log(packet);
+                        if (packet.data.agenda) {
+                            let agendaEntrante = packet.data.agenda;
+                            console.log(agendaEntrante);
+                            let a = this.agendas.findIndex((x: any) => x._id === agendaEntrante._id);
+                            console.log(a);
+                            if (a > -1) {
+                                this.agendas[a].bloques = agendaEntrante.bloques;
+                                console.log(this.agendas[a]);
+                                this.cargarTurnos(this.agendas[a]);
+                            }
+                        }
+                        console.log('llgue wachooooooooooo');
+                        break;
+                    case 'accionesSobreAgendas':
+                        // this.actualizar();
+                        break;
+                }
+            });
             if (data[2]) {
                 this.prestaciones = [...this.prestaciones, ...data[2]];
             }
@@ -259,7 +273,7 @@ export class PuntoInicioComponent implements OnInit {
     filtrar() {
         // filtrar solo por las prestaciones que el profesional tenga disponibles
         this.agendaSeleccionada = null;
-        this.agendas = JSON.parse(JSON.stringify(this.agendasOriginales));
+        // this.agendas = JSON.parse(JSON.stringify(this.agendasOriginales));
         // this.agendas = this.agendasOriginales;
         this.fueraDeAgenda = this.prestacionesOriginales;
 

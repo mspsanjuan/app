@@ -86,12 +86,13 @@ export class TurnosComponent implements OnInit {
     public arrayDelDia = [];
 
     // Inicialización
-    constructor(public plex: Plex, public smsService: SmsService, public serviceAgenda: AgendaService, public listaEsperaService: ListaEsperaService, public servicePaciente: PacienteService, public auth: Auth,  public servicioWsAgenda: WsAgendaService,
+    constructor(public plex: Plex, public smsService: SmsService, public serviceAgenda: AgendaService, public listaEsperaService: ListaEsperaService, public servicePaciente: PacienteService, public auth: Auth, public servicioWsAgenda: WsAgendaService,
         public ws: WebSocketService) { }
 
     ngOnInit() {
-        this.ws.connect();
-        this.ws.join('agendaToRup');
+        console.log(this.agenda);
+
+
         this.turnosSeleccionados = [];
         let agendaActualizar = this.agenda;
         // this.agenda = this.actualizarCarpetaPaciente(agendaActualizar);
@@ -331,8 +332,13 @@ export class TurnosComponent implements OnInit {
         // Patchea los turnosSeleccionados (1 o más turnos)
         this.serviceAgenda.patch(this.agenda.id, patch).subscribe(resultado => {
             this.agenda = resultado;
-console.log(resultado);
+            console.log(resultado);
+            this.ws.join('agendaToRup' + this.agenda.id);
+            this.ws.connect();
             this.servicioWsAgenda.actualizarTurnosWS(resultado);
+            // this.ws.join('agendaToRup');
+            // this.servicioWsAgenda.actualizarTurnosWS(resultado);
+
         });
 
         // Reset botones y turnos seleccionados
