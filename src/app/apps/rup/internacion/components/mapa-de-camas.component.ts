@@ -117,7 +117,7 @@ export class MapaDeCamasComponent implements OnInit {
 
     ngOnInit() {
         if (!this.auth.check('internacion:mapaDeCamas')) {
-            this.router.navigate(['./inicio' ]);
+            this.router.navigate(['./inicio']);
         }
 
         this.refresh();
@@ -779,5 +779,10 @@ export class MapaDeCamasComponent implements OnInit {
         this.showIngreso = true;
         this.editarIngreso = false;
         this.prestacionPorInternacion = null; // BORRAR
+    }
+
+    verPrescripcion() {
+        console.log(this.camaSeleccionada;
+        this.router.navigate(['rup/internacion/prescripcion', this.camaSeleccionada.ultimoEstado.paciente._id]);
     }
 }

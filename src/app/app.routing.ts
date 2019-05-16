@@ -102,6 +102,8 @@ import { VincularPacientesComponent } from './components/auditoria/vincular-paci
 import { CampaniaSaludComponent } from './apps/campaniaSalud/components/campaniaSalud.component';
 // Buscador de turnos y prestaciones
 import { TurnosPrestacionesComponent } from './components/buscadorTurnosPrestaciones/turnos-prestaciones.component';
+import { DescripcionComponent } from './modules/rup/components/elementos/descripcion.component';
+import { PrescripcionComponent } from './apps/rup/internacion/components/prescripcion.component';
 
 const appRoutes: Routes = [
   // Tablas maestras
@@ -150,6 +152,7 @@ const appRoutes: Routes = [
   { path: 'rup/internacion/censo', component: CensoDiarioComponent, canActivate: [RoutingNavBar, RoutingGuard] },
   { path: 'rup/internacion/censo/mensual', component: CensoMensualComponent, canActivate: [RoutingNavBar, RoutingGuard] },
   { path: 'rup/internacion/listado', component: ListadoInternacionComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+  { path: 'rup/internacion/prescripcion/:idPaciente', component: PrescripcionComponent, canActivate: [RoutingNavBar] },
 
   // configuracion prestacion
   { path: 'configuracionPrestacion', component: ConfiguracionPrestacionVisualizarComponent, canActivate: [RoutingNavBar, RoutingGuard] },

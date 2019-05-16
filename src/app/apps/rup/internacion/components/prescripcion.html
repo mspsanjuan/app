@@ -1,0 +1,63 @@
+<plex-layout main="12">
+    <plex-layout-main>
+            <header>
+                    <div class="page-title">Preinscripcion</div>
+                </header>
+        <ng-container *ngFor='let unRegistro of registroCompleto; let i = index'>
+            <div class='row'>
+                <ng-container *ngFor='let unaPrescripcion of unRegistro.registro.registros'>
+                    <div class='col-2' *ngIf='unaPrescripcion.concepto.conceptId === "440545006"'>
+                        <label>Descripcion</label>
+                        {{unaPrescripcion.valor}}
+                    </div>
+                    <div class='col-2' *ngIf='unaPrescripcion.concepto.conceptId !== "440545006" && unaPrescripcion.concepto.conceptId !== "263490005"'>
+                        <ng-container>
+                            <label> {{unaPrescripcion.nombre}}</label>
+                            {{unaPrescripcion.valor.nombre}}
+                        </ng-container>
+                    </div>
+
+                </ng-container>
+                <div class='col-6'>
+                    <thead>
+                        <tr>
+                            <ng-container *ngFor='let unHorario of unRegistro.horarios; let j = index'>
+
+                                <th>{{unHorario.hora}}</th>
+
+                            </ng-container>
+                        </tr>
+
+                        <td *ngFor='let otroHorario of unRegistro.horarios;let h = index'>
+                            <plex-bool label="" [(ngModel)]='otroHorario.utilizado' (change)='llenarFrecuencia()' name="horario{{i}}{{h}}"></plex-bool>
+                        </td>
+
+                    </thead>
+                </div>
+            </div>
+        </ng-container>
+    </plex-layout-main>
+    <!-- <plex-layout-sidebar id="panel-lateral" class="sideBar" *ngIf='internacionSelected'>
+
+        <header *ngIf='!mostrarPases'>
+            <div class="page-title float-left">Datos de la internación</div>
+
+        </header>
+        <ng-container *ngIf='!mostrarPases'>
+            <internacion-resumen *ngIf='internacionSelected' [editarEgreso]="showEgreso" [paciente]="internacionSelected.paciente"
+                [prestacion]="internacionSelected" [desdeListadoInternacion]='true' [soloValores]="soloValores"
+                (refreshCamas)="actualizarListado($event)" (mostrarPase)="mostrarPases = true"></internacion-resumen>
+
+        </ng-container>
+        <ng-container *ngIf='mostrarPases'>
+            <app-pases-listado-internacion [cama]="null" [workflowC]="false" [prestacion]="internacionSelected"
+                (verInternacionEmit)="mostrarPases = false" (cancelarPases)='mostrarPases = false'></app-pases-listado-internacion>
+        </ng-container>
+    </plex-layout-sidebar> -->
+    <plex-layout-footer>
+        <plex-button position="left" label="Volver" type="danger" (click)='volver()'></plex-button>
+        <plex-button position="right" label="Guardar" type="success" (click)='nuevaPrestacion()'></plex-button>
+
+    </plex-layout-footer>
+    
+</plex-layout>

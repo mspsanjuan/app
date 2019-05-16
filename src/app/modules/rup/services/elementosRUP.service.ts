@@ -188,8 +188,13 @@ export class ElementosRUPService {
     getConceptoPrescripcion() {
         let conceptoPreincripcion =  this.cache['432678004'] ? this.cache['432678004'].conceptos[0] : null;
 
-
         return conceptoPreincripcion;
+    }
+
+    getConceptoFrecuenciaPrescripcion() {
+        let conceptoFrecuencia =  this.cache['11553003'] ? this.cache['11553003'].conceptos[0] : null;
+
+        return conceptoFrecuencia;
     }
 
 

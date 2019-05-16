@@ -311,6 +311,8 @@
                                         label="Ver internación" (click)="verIngreso(true, camaSeleccionada.ultimoEstado.idInternacion)"></plex-button> -->
                                     <plex-button class="btn btn-block btn-success btn-sm" type="success" *ngIf="this.auth.profesional && camaSeleccionada.ultimoEstado?.idInternacion"
                                         label="Ver Epicrisis" (click)="generaEpicrisis() "></plex-button>
+                                    <plex-button class="btn btn-block btn-success btn-sm" type="success" *ngIf="this.auth.profesional && camaSeleccionada.ultimoEstado?.idInternacion"
+                                        label="Ver Prescripcion" (click)="verPrescripcion() "></plex-button>
                                 </div>
                             </footer>
                         </plex-tab>

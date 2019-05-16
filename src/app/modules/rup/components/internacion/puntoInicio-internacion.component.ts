@@ -113,7 +113,7 @@ export class PuntoInicioInternacionComponent implements OnInit {
     }
 
     nuevaPrescripcion(paciente) {
-        console.log(this.conceptoPrescripcion);
+        console.log(this.conceptoPrescripcion, paciente);
         let nuevaPrestacion = this.servicioPrestacion.inicializarPrestacion(paciente, this.conceptoPrescripcion, 'ejecucion', 'internacion');
         // nuevaPrestacion.solicitud.prestacionOrigen = nuevaInternacion.id;
         this.servicioPrestacion.post(nuevaPrestacion).subscribe(prestacion => {
@@ -142,6 +142,7 @@ export class PuntoInicioInternacionComponent implements OnInit {
     }
 
     newPrestacionConVerificacion(paciente, concepto) {
+        console.log(paciente);
         this.servicioPrestacion.newPrestacion(paciente, concepto).subscribe(nuevaPrestacion => {
             this.servicioPrestacion.post(nuevaPrestacion).subscribe(prestacion => {
                 this.router.navigate(['/rup/ejecucion', prestacion.id]);

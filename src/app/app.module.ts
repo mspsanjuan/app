@@ -507,6 +507,7 @@ import { PasesListadoInternacionComponent } from './apps/rup/internacion/compone
 
 import { SnomedBuscarService } from './components/snomed/snomed-buscar.service';
 import { HUDSService } from './modules/rup/services/huds.service';
+import { PrescripcionComponent } from './apps/rup/internacion/components/prescripcion.component';
 
 
 
@@ -606,7 +607,7 @@ registerLocaleData(localeEs, 'es');
         VistaProcedimientoComponent,
         VistaPrestacionComponent,
         VistaContextoPrestacionComponent,
-
+        PrescripcionComponent,
         // Solicitudes
         SolicitudesComponent,
         DetalleSolicitudComponent,

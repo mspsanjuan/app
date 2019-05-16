@@ -50,6 +50,10 @@ export class InternacionService {
         return this.server.get(this.url + '/censo/disponibilidad', { params: params });
     }
 
+    getUltimaPrescripcion(idPaciente: any): Observable<any[]> {
+        return this.server.get(this.url + '/ultimaPrescripcion/' + idPaciente);
+    }
+
     /**
     * Devuelve si la cama se encuentra disponible para ser ocupada en una fechaHora solicitada
     * Si paso como parámetro el servicioHospitalario, filtrará las camas que pertenezcan a ese servicio.
