@@ -782,7 +782,7 @@ export class MapaDeCamasComponent implements OnInit {
     }
 
     verPrescripcion() {
-        console.log(this.camaSeleccionada;
+        console.log(this.camaSeleccionada);
         this.router.navigate(['rup/internacion/prescripcion', this.camaSeleccionada.ultimoEstado.paciente._id]);
     }
 }
