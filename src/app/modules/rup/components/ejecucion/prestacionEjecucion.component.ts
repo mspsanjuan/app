@@ -112,6 +112,8 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
     public scopePrivacy = [];
     public registrosHUDS = [];
 
+    verMasRelaciones = [];
+
     constructor(
         private obraSocialService: ObraSocialService,
         public servicioPrestacion: PrestacionesService,
@@ -1276,6 +1278,9 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
     activarPrivacidad(registro) {
         let scopeCruzado = { 'public': 'private', 'private': 'public' };
         registro.privacy.scope = scopeCruzado[registro.privacy.scope];
+    }
+    toggleVerMasRelaciones(item) {
+        this.verMasRelaciones[item] = !this.verMasRelaciones[item];
     }
 
 }
