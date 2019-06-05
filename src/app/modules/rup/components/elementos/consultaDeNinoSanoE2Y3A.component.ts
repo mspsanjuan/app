@@ -39,8 +39,19 @@ export class ConsultaDeNinoSanoE2Y3AComponent extends RUPComponent implements On
             // Se busca en la HUDS si hay prestaciones con valores ya cargados
             this.prestacionesService.get(params).subscribe(consultasPaciente => {
 
+                // filtrar consultas de niño sano
+                let listaConsultas = consultasPaciente.filter(prestacion => {
+                    let registroNS = prestacion.ejecucion.registros.find(x =>
+                        x.concepto.conceptId === this.registro.concepto.conceptId);
+                    if (registroNS) {
+                        return prestacion;
+                    } else {
+                        return null;
+                    }
+                });
+
                 // Se da vuelta el array, para que quede el último registro en la última posición del array (length - 1)
-                this.ninoSanoHUDS = consultasPaciente.reverse();
+                this.ninoSanoHUDS = listaConsultas.reverse();
 
                 // Hay registros anteriores en la HUDS?
                 if (this.ninoSanoHUDS && this.ninoSanoHUDS.length > 0) {

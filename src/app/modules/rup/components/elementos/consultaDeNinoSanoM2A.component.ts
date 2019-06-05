@@ -36,18 +36,24 @@ export class ConsultaDeNinoSanoM2AComponent extends RUPComponent implements OnIn
         if (!this.validacion && !this.soloValores) {
             // Se busca en la HUDS si hay prestaciones con valores ya cargados
             this.prestacionesService.get(params).subscribe(consultasPaciente => {
-
+                // filtrar consultas de niño sano
+                let listaConsultas = consultasPaciente.filter(prestacion => {
+                    let registroNS = prestacion.ejecucion.registros.find(x =>
+                        x.concepto.conceptId === this.registro.concepto.conceptId);
+                    if (registroNS) {
+                        return prestacion;
+                    } else {
+                        return null;
+                    }
+                });
                 // Se da vuelta el array, para que quede el último registro en la última posición del array (length - 1)
-                this.ninoSanoHUDS = consultasPaciente.reverse();
+                this.ninoSanoHUDS = listaConsultas.reverse();
 
                 // Hay registros anteriores en la HUDS?
                 if (this.ninoSanoHUDS && this.ninoSanoHUDS.length > 0) {
 
                     // Index de las consultas, para poder navegarse (sin uno ahora)
                     this.ultimaConsultaIndex = this.ninoSanoHUDS.length - 1;
-
-                    // Se busca el elemento RUP para armar el árbol de conceptos, etc
-                    const elementoRUP = this.elementosRUPService.buscarElemento(this.registro.concepto, false);
 
                     // Se arma el árbol de conceptos y valores
                     this.ultimaConsulta = this.ninoSanoHUDS[this.ultimaConsultaIndex].ejecucion.registros.find(x =>
