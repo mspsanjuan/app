@@ -224,17 +224,17 @@ export class PuntoInicioTurnosComponent implements OnInit {
     }
 
     cancelarSolicitudVentanilla() {
+        // this.showArancelamiento = false;
+        // this.showDarTurnos = false;
         // this.showDashboard = true;
-        // this.showMostrarEstadisticasAgendas = false;
         // this.showMostrarEstadisticasPacientes = true;
         // this.showIngresarSolicitud = false;
         // this.showMostrarTurnosPaciente = false;
-        this.showArancelamiento = false;
-        this.showDarTurnos = false;
-        this.showDashboard = false;
+
+        this.showMostrarEstadisticasAgendas = true;
         this.showMostrarEstadisticasPacientes = false;
-        this.showIngresarSolicitud = false;
         this.showMostrarTurnosPaciente = false;
+        this.showIngresarSolicitud = false;
     }
 
     verificarCodificarAgendas() {
