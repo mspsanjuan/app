@@ -87,10 +87,14 @@
             </estadisticas-pacientes>
         </div>
         <div *ngIf="showIngresarSolicitud" type="info">
-            <solicitud-turno-ventanilla [paciente]="paciente"
+            <!-- <solicitud-turno-ventanilla [paciente]="paciente"
                                         (cancelarSolicitudVentanilla)="cancelarSolicitudVentanilla($event)"
                                         (mostrarDarTurnoSolicitud)="darTurnoSolicitud($event)">
-            </solicitud-turno-ventanilla>
+            </solicitud-turno-ventanilla> -->
+            <lista-solicitud-turno-ventanilla [paciente]="paciente"
+                                              (volverAPuntoInicio)="cancelarSolicitudVentanilla($event)"
+                                              (solicitudPrestacionEmit)="darTurnoSolicitud($event)">
+            </lista-solicitud-turno-ventanilla>
         </div>
         <div *ngIf="showActivarApp" type="info">
             <activar-app [paciente]="paciente"></activar-app>

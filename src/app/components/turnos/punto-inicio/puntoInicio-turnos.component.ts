@@ -224,9 +224,15 @@ export class PuntoInicioTurnosComponent implements OnInit {
     }
 
     cancelarSolicitudVentanilla() {
-        this.showDashboard = true;
-        this.showMostrarEstadisticasAgendas = false;
-        this.showMostrarEstadisticasPacientes = true;
+        // this.showDashboard = true;
+        // this.showMostrarEstadisticasAgendas = false;
+        // this.showMostrarEstadisticasPacientes = true;
+        // this.showIngresarSolicitud = false;
+        // this.showMostrarTurnosPaciente = false;
+        this.showArancelamiento = false;
+        this.showDarTurnos = false;
+        this.showDashboard = false;
+        this.showMostrarEstadisticasPacientes = false;
         this.showIngresarSolicitud = false;
         this.showMostrarTurnosPaciente = false;
     }

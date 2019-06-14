@@ -20,14 +20,20 @@ export class ListaSolicitudTurnoVentanillaComponent implements OnInit {
 
     @Input('paciente')
     set paciente(value: any) {
-        this._paciente = value;
-        this.cargarSolicitudes();
+        if (value) {
+            this._paciente = value;
+            this.cargarSolicitudes();
+        } else {
+            this.cancelar();
+        }
+
     }
     get paciente(): any {
         return this._paciente;
     }
 
     @Output() solicitudPrestacionEmit = new EventEmitter<any>();
+    @Output() volverAPuntoInicio = new EventEmitter<any>();
 
     public autorizado = false;
     public solicitudesPrestaciones = [];
@@ -91,6 +97,12 @@ export class ListaSolicitudTurnoVentanillaComponent implements OnInit {
     cerrarSolicitudVentanilla(event) {
         this.showCargarSolicitud = false;
     }
+
+    cancelar() {
+        this.volverAPuntoInicio.emit();
+    }
+
+
     redirect(pagina: string) {
         this.router.navigate(['./' + pagina]);
         return false;
