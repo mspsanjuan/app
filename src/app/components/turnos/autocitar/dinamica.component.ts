@@ -1,9 +1,8 @@
 import { IFinanciador } from '../../../interfaces/IFinanciador';
-
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Plex } from '@andes/plex';
 import { IPacienteMatch } from '../../../modules/mpi/interfaces/IPacienteMatch.inteface';
-import { IPaciente } from '../../../interfaces/IPaciente';
+import { IPaciente } from '../../../core/mpi/interfaces/IPaciente';
 import { IAgenda } from './../../../interfaces/turnos/IAgenda';
 import { PacienteBuscarResultado } from '../../../modules/mpi/interfaces/PacienteBuscarResultado.inteface';
 import { TurnoService } from '../../../services/turnos/turno.service';
@@ -61,7 +60,7 @@ export class DinamicaFormComponent implements OnInit {
         this.pacientes = null;
         if (paciente.id) {
             this.obraSocialPaciente = null;
-            this.obraSocialService.getPaciente({ dni: paciente.documento, sexo: paciente.sexo }).subscribe((resultado: IFinanciador[]) => {
+            this.obraSocialService.getObrasSociales({ dni: paciente.documento, sexo: paciente.sexo }).subscribe((resultado: IFinanciador[]) => {
                 if (resultado.length > 0) {
                     this.obraSocialPaciente = resultado[0];
                 }
