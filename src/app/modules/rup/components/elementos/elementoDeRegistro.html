@@ -6,9 +6,16 @@
         <label class="text-capitalize">{{registro.concepto.term}}</label>
     </ng-template>
     <div class="row">
-        <div [ngClass]="{'col-5': !soloValores, 'col-12': soloValores}">
+        <div [ngClass]="{'col-5': !soloValores}" *ngIf="!soloValores && params?.seleccionarOpcion && conceptosSeleccionar">
+            <ng-container *ngFor="let concepto of conceptosSeleccionar; let i = index">
+                <plex-bool *ngIf="!soloValores" [(ngModel)]="concepto.checked" (change)="seleccionarOpcion(concepto)"
+                           label="{{concepto.term}}" name="concepto-{{concepto.conceptId}}"></plex-bool>
+            </ng-container>
+
+        </div>
+        <div [ngClass]="{'col-5': !soloValores, 'col-12': soloValores}" *ngIf="!params?.seleccionarOpcion">
             <textarea *ngIf="!soloValores" class="form-control" [ngClass]="{'svgTextarea': !registro?.valor }"
-                [(ngModel)]="registro.valor" rows="6" id="descripcion" name="descripcion" [required]="params.required"></textarea>
+                      [(ngModel)]="registro.valor" rows="6" id="descripcion" name="descripcion" [required]="params.required"></textarea>
             <p *ngIf="soloValores" class="readonly mb-5">
                 {{registro.valor}}
 
@@ -16,7 +23,7 @@
         </div>
         <!-- Area droppable del elemento -->
         <div [ngClass]="{'col-7': !soloValores, 'col-12': soloValores}" droppable [dropScope]="'registros-rup'"
-            [dragOverClass]="'drag-target-border'" (onDrop)="onConceptoDrop($event)">
+             [dragOverClass]="'drag-target-border'" (onDrop)="onConceptoDrop($event)">
             <div *ngIf="soloValores && registro?.registros?.length === 0" class="add mt-4">
                 No hay registros vinculados
             </div>
@@ -30,12 +37,12 @@
             <div *ngIf="registro?.registros?.length">
                 <ng-container *ngFor="let registro of registro.registros, let i = index">
                     <div droppable [dropScope]="'vincular-registros-rup'" (onDrop)="vincularRegistros($event, registro)"
-                        [dragOverClass]="'drag-target-border'" [ngClass]="{'relacionado': registro?.relacionadoCon}">
+                         [dragOverClass]="'drag-target-border'" [ngClass]="{'relacionado': registro?.relacionadoCon}">
                         <div class="branch"></div>
                         <div class="rup-card {{ (registro.esSolicitud) ? 'solicitud' : prestacionesService.getCssClass(registro.concepto) }}">
                             <div class="rup-header">
                                 <div class="icon-rup drag-handle" draggable [dragScope]="['orden-registros-rup', 'vincular-registros-rup', 'borrar-registros-rup']"
-                                    [dragClass]="'drag-target-border'" [dragData]="registro">
+                                     [dragClass]="'drag-target-border'" [dragData]="registro">
                                     <i class="icon icon-rup-semantic-{{(registro.esSolicitud) ? prestacionesService.getIcon(registro.concepto, 'planes') : prestacionesService.getIcon(registro.concepto)}}"></i>
                                 </div>
                                 <div class="title">
@@ -47,8 +54,8 @@
                                             {{registro.relacionadoCon[0].concepto.term }}
                                         </span>
                                         <a href="javascript:void(0);" (click)="desvincular(registro, registro.relacionadoCon[0])"
-                                            class="desvincular" *ngIf="registro.relacionadoCon && registro.relacionadoCon.length > 0 && !confirmarDesvincular[i] && !confirmarEliminar && !registro.valor?.origen"
-                                            title="Desvincular" class="btn btn-sm btn-primary">
+                                           class="desvincular" *ngIf="registro.relacionadoCon && registro.relacionadoCon.length > 0 && !confirmarDesvincular[i] && !confirmarEliminar && !registro.valor?.origen"
+                                           title="Desvincular" class="btn btn-sm btn-primary">
                                             <i class="mdi mdi-link-variant-off"></i>
                                         </a>
 
@@ -59,12 +66,12 @@
                                         {{!registro.esSolicitud ? registro.concepto.semanticTag : 'solicitud'}}
                                     </span>
                                     <a *ngIf="!soloValores" href="javascript:void(0);" title="Quitar de la consulta"
-                                        (click)="confirmarEliminarRegistro(registro, 'card')" class="btn btn-sm btn-danger eliminar">
+                                       (click)="confirmarEliminarRegistro(registro, 'card')" class="btn btn-sm btn-danger eliminar">
                                         <i class="mdi mdi-delete"></i>
                                         <i class="mdi mdi-delete-empty"></i>
                                     </a>
                                     <a *ngIf="!soloValores" href="javascript:void(0);" (click)="cambiaValorCollapse(registro.id)"
-                                        class="btn btn-sm btn-primary collapse-card">
+                                       class="btn btn-sm btn-primary collapse-card">
                                         <i class="mdi mdi-chevron-down" [ngClass]="{'spin-in' : !itemsRegistros[registro.id]?.collapse, 'spin-out' : itemsRegistros[registro.id]?.collapse}"></i>
                                     </a>
                                 </div>
@@ -78,8 +85,8 @@
                                         </span>
                                     </div> -->
                                     <rup [elementoRUP]="elementosRUPService.buscarElemento(registro.concepto, registro.esSolicitud)"
-                                        [prestacion]="prestacion" [paciente]="paciente" [registro]="registro"
-                                        [soloValores]="soloValores" [params]="elementosRUPService.selectPorRefsetId(registro.concepto)"></rup>
+                                         [prestacion]="prestacion" [paciente]="paciente" [registro]="registro"
+                                         [soloValores]="soloValores" [params]="elementosRUPService.selectPorRefsetId(registro.concepto)"></rup>
                                 </div>
                             </div>
                             <!-- ... Footer -->
@@ -90,9 +97,9 @@
                                         <b>{{registro.relacionadoCon[0].concepto.term}}</b>?
                                         <div class="buttons">
                                             <plex-button (click)="cancelarDesvincular(registro.id)" label="Cancelar"
-                                                type="default"></plex-button>
+                                                         type="default"></plex-button>
                                             <plex-button (click)="confirmarDesvinculacion(registro.id, i)" label="Desvincular"
-                                                type="success"></plex-button>
+                                                         type="success"></plex-button>
                                         </div>
                                     </div>
                                 </div>
@@ -101,9 +108,10 @@
                                         <div>¿Quitar de esta consulta?</div>
                                         <div class="buttons">
                                             <plex-button type="danger" label="Cancelar" (click)="confirmarEliminar = false;"
-                                                class="hover"></plex-button>
+                                                         class="hover">
+                                            </plex-button>
                                             <plex-button type="success" label="Confirmar" (click)="eliminarRegistro()"
-                                                class="confirm hover"></plex-button>
+                                                         class="confirm hover"></plex-button>
                                         </div>
                                     </div>
                                 </div>

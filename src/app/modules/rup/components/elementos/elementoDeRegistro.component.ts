@@ -27,6 +27,8 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
     public scopeEliminar: String;
 
     public conceptosPermitidos: any[] = [];
+    public conceptosSeleccionar: any[] = [];
+    public conceptoElegido: any = null;
 
     public itemsRegistros = {};
     // boleean para verificar si estan todos los conceptos colapsados
@@ -50,6 +52,13 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
                 this.conceptosPermitidos = resultado;
             });
         }
+
+        if (this.params.query) {
+            this.snomedService.getQuery({ expression: this.params.query }).subscribe(resultado => {
+                this.conceptosSeleccionar = resultado.map(r => { r['checked'] = false; return r; });
+            });
+        }
+
         this.servicioTipoPrestacion.get({}).subscribe(conceptosTurneables => {
             this.conceptosTurneables = conceptosTurneables;
         });
@@ -71,6 +80,22 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
     }
 
 
+    seleccionarOpcion(data) {
+        if (data.checked) {
+            // quitamos los conceptos de la selección
+            this.conceptosSeleccionar.forEach(unConcepto => {
+                unConcepto.checked = false;
+            });
+            this.registro.registros = [];
+            // cargamos el nuevo concepto seleccionado
+            data.checked = true;
+            this.ejecutarConceptoInside(data);
+        } else {
+            let indexEncontrado = this.registro.registros.findIndex(r => (data.conceptId === r.concepto.conceptId));
+            this.registro.registros.splice(indexEncontrado, 1);
+        }
+
+    }
 
     onConceptoDrop(e: any) {
 
