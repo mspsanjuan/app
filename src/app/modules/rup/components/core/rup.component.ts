@@ -60,7 +60,6 @@ export class RUPComponent implements OnInit, AfterViewInit {
      * @memberof RUPComponent
      */
     private loadComponent() {
-
         // Cargamos el componente
         const component = ElementosRUPRegister.get(this.elementoRUP.componente).component;
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component as any);

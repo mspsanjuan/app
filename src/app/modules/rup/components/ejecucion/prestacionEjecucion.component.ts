@@ -1262,4 +1262,10 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
         return results;
     }
 
+    programar(registro) {
+        this.servicioPrestacion.programar(this.prestacion, registro.concepto).subscribe((resp) => {
+            console.log(resp);
+        });
+    }
+
 }
