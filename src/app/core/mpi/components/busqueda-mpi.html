@@ -1,15 +1,11 @@
 <plex-layout main="8">
     <plex-layout-main>
         <fieldset>
-            <div class="row">
-                <div class="col-9 pr-0">
-                    <paciente-buscar (searchStart)="onSearchStart()"
-                        (searchEnd)="onSearchEnd($event.pacientes,$event.escaneado, $event.busqueda)"
-                        (searchClear)="onSearchClear()"></paciente-buscar>
-                </div>
-                <div class="col-3">
-                    <mpi-botones-registro [disabled]="disableNuevoPaciente"></mpi-botones-registro>
-                </div>
+            <div class="input-btn-100">
+                <paciente-buscar (searchStart)="onSearchStart()"
+                    (searchEnd)="onSearchEnd($event.pacientes,$event.escaneado, $event.busqueda)"
+                    (searchClear)="onSearchClear()"></paciente-buscar>
+                <mpi-botones-registro [disabled]="disableNuevoPaciente"></mpi-botones-registro>
             </div>
 
             <plex-loader *ngIf="loading" type="ball-pulse"></plex-loader>
