@@ -4,12 +4,16 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Http, Response, ResponseContentType, RequestMethod } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
+import { saveAs } from 'file-saver';
+import { Slug } from 'ng2-slugify';
 
 @Injectable()
 export class DocumentosService {
 
     // URL to web api
     private pdfURL = environment.API + '/modules/descargas';
+    // Usa el keymap 'default'
+    private slug = new Slug('default');
 
     constructor(private http: Http) { }
 
@@ -38,6 +42,27 @@ export class DocumentosService {
         return this.http.post(this.pdfURL + '/pdf', data, options)
             .map(this.extractData)
             .catch(this.handleError);
+
+    }
+
+    descargarArchivo(informe, nombreArchivo: string, headers: any): void {
+
+        this.descargarV2(informe).subscribe(data => {
+
+            let blob = new Blob([data], headers);
+            saveAs(blob, this.slug.slugify(`${nombreArchivo} - ${moment().format('DD-MM-YYYY-hmmss')}.pdf`));
+
+            // if (data) {
+            //     // Generar descarga como PDF
+            //     this.descargarArchivo(data, { type: 'application/pdf' });
+            //     this.descargando = false;
+            // } else {
+            //     // Fallback a impresión normal desde el navegador
+            //     window.print();
+            // }
+        }):
+
+
     }
 
     private handleError(error: any) {
