@@ -208,6 +208,12 @@
                                         </span>
                                     </span>
                                 </ng-container>
+                                <ng-container *ngIf="elemento.concepto.semanticTag === 'procedimiento'">
+                                    <plex-button type="info" size="sm mdi-14px" icon="download"
+                                        (click)="descargarRegistro(elemento.id, elemento.concepto.term)">
+                                        <plex-badge type="info" size="sm">PDF</plex-badge>
+                                    </plex-button>
+                                </ng-container>
                             </div>
                         </div>
 
