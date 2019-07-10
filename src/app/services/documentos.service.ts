@@ -45,24 +45,23 @@ export class DocumentosService {
 
     }
 
-    descargarArchivo(informe, nombreArchivo: string, headers: any): void {
+    descargarArchivo(informe, nombreArchivo: string, headers: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.descargarV2(informe).subscribe(data => {
 
-        this.descargarV2(informe).subscribe(data => {
+                if (data) {
+                    // Generar descarga como PDF
+                    let blob = new Blob([data], headers);
+                    saveAs(blob, this.slug.slugify(`${nombreArchivo} - ${moment().format('DD-MM-YYYY-hmmss')}.pdf`));
+                    return resolve(true);
 
-            let blob = new Blob([data], headers);
-            saveAs(blob, this.slug.slugify(`${nombreArchivo} - ${moment().format('DD-MM-YYYY-hmmss')}.pdf`));
-
-            // if (data) {
-            //     // Generar descarga como PDF
-            //     this.descargarArchivo(data, { type: 'application/pdf' });
-            //     this.descargando = false;
-            // } else {
-            //     // Fallback a impresión normal desde el navegador
-            //     window.print();
-            // }
-        }):
-
-
+                } else {
+                    // Fallback a impresión normal desde el navegador
+                    window.print();
+                    return resolve(true);
+                }
+            });
+        });
     }
 
     private handleError(error: any) {
