@@ -1,6 +1,6 @@
 import * as https from 'https';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Server } from '@andes/shared';
 
 

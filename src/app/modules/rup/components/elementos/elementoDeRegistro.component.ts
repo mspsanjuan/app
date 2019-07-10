@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RUPComponent } from './../core/rup.component';
 import { IPrestacionRegistro } from './../../interfaces/prestacion.registro.interface';
-import { Subscription } from 'rxjs/Subscription';
 import { RupElement } from '.';
 @Component({
     selector: 'rup-ElementoDeRegistroComponent',

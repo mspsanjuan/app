@@ -7,7 +7,6 @@ import { Auth } from '@andes/auth';
 import { Server } from '@andes/shared';
 import { IPrestacion } from '../interfaces/prestacion.interface';
 import { IPrestacionGetParams } from '../interfaces/prestacionGetParams.interface';
-import { IPrestacionRegistro } from '../interfaces/prestacion.registro.interface';
 import { SnomedService } from '../../../services/term/snomed.service';
 
 
@@ -454,7 +453,7 @@ export class PrestacionesService {
         * @param conceptId
         */
     getPrestacionesXtipo(idPaciente: any, conceptId: any): Observable<any[]> {
-        return this.getByPaciente(idPaciente).map(prestaciones => {
+        return this.getByPaciente(idPaciente).pipe(map(prestaciones => {
             let prestacionesXtipo = [];
             prestaciones.forEach(prestacion => {
                 if (prestacion.solicitud.tipoPrestacion.conceptId === conceptId) {
@@ -462,7 +461,7 @@ export class PrestacionesService {
                 }
             });
             return prestacionesXtipo;
-        });
+        }));
     }
 
 

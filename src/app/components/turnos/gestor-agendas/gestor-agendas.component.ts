@@ -13,7 +13,7 @@ import * as enumerado from './../enums';
 import * as moment from 'moment';
 import { enumToArray } from '../../../utils/enums';
 import { ITurno } from '../../../interfaces/turnos/ITurno';
-import { ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'gestor-agendas',
@@ -74,10 +74,10 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     public puedeCrearAgenda: Boolean;
 
     // ultima request de profesionales que se almacena con el subscribe
-    private lastRequestProf: ISubscription;
+    private lastRequestProf: Subscription;
 
     // ultima request de filtro fecha que se almacena con el subscribe
-    private lastRequestFecha: ISubscription;
+    private lastRequestFecha: Subscription;
 
     // Contador de turnos suspendidos por agenda, para mostrar notificaciones
     turnosSuspendidos: any[] = [];

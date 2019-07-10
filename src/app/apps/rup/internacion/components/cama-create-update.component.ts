@@ -9,6 +9,7 @@ import { OrganizacionService } from '../../../../services/organizacion.service';
 import { CamasService } from '../services/camas.service';
 import { SnomedService } from '../../../../services/term/snomed.service';
 import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'cama-create-update',
@@ -62,11 +63,9 @@ export class CamaCreateUpdateComponent implements OnInit {
     ) {
 
 
-        this.checkNombre
-            .debounceTime(1000)
-            .subscribe(val => {
-                this.validarNombre();
-            });
+        this.checkNombre.pipe(debounceTime(1000)).subscribe(val => {
+            this.validarNombre();
+        });
 
     }
 

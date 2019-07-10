@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, RequestMethod, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 // Import RxJs required methods
 
 

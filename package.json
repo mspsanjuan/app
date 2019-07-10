@@ -25,11 +25,11 @@
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
-    "@andes/auth": "^3.0.1",
+    "@andes/auth": "^4.0.0",
     "@andes/icons": "^0.6.1",
     "@andes/match": "^1.1.12",
     "@andes/plex": "^4.3.6",
-    "@andes/shared": "^3.1.0",
+    "@andes/shared": "^4.1.0",
     "@angular/animations": "7.0.0",
     "@angular/cdk": "^7.0.1",
     "@angular/common": "7.0.0",
@@ -51,8 +51,8 @@
     "ng-drag-drop": "^5.0.0",
     "ng2-charts": "^1.6.0",
     "ng2-slugify": "^0.1.0",
-    "rxjs": "^6.3.3",
-    "rxjs-compat": "^6.3.3",
+    "rxjs": "^6.5.2",
+    "rxjs-compat": "^6.5.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

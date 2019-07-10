@@ -1,5 +1,5 @@
 import { PacienteService } from '../../../../core/mpi/services/paciente.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ITipoPrestacion } from './../../../../interfaces/ITipoPrestacion';
 import { Component, Input, EventEmitter, Output, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
