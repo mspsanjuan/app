@@ -475,6 +475,16 @@ export class PrestacionesService {
         return this.server.post(this.prestacionesUrl, prestacion);
     }
 
+
+    /**
+     * Método post. Inserta un objeto nuevo.
+     * @param {any} prestacion Recibe solicitud RUP con paciente
+     */
+
+    postRegistro(prestacion: any, registro): Observable<any> {
+        return this.server.post(`${this.prestacionesUrl}/${prestacion.id}/registros`, registro);
+    }
+
     /**
      * Método put. Actualiza un objeto prestacionPaciente.
      * @param {IPrestacionPaciente} problema Recibe IPrestacionPaciente

@@ -1,0 +1,14 @@
+<div class="page-title d-flex justify-content-between">
+    <span>Nueva Indicación</span>
+    <div>
+        <plex-button type="success" size="sm" (click)="save()" title="Grabar">
+            <plex-icon name="zip-disk"></plex-icon>
+        </plex-button>
+        <plex-button type="success" size="sm" (click)="close()" title="Cancelar">
+            <plex-icon name="close"></plex-icon>
+        </plex-button>
+    </div>
+</div>
+
+<rup [paciente]="paciente" [elementoRUP]="elemento" [prestacion]="pi.prestacionIndicacion" [registro]="registro"
+     [params]="elemento.params" *ngIf="registro && elemento"></rup>

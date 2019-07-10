@@ -509,6 +509,10 @@ import { PasesListadoInternacionComponent } from './apps/rup/internacion/compone
 import { SnomedBuscarService } from './components/snomed/snomed-buscar.service';
 import { HUDSService } from './modules/rup/services/huds.service';
 import { PreviousUrlService } from './services/previous-url.service';
+import { PlanIndicacionComponent } from './apps/rup/internacion/views/plan-indicacion/plan-indicacion.component';
+import { PlanIndicaionService } from './apps/rup/internacion/views/plan-indicacion/plan-indicacion.service';
+import { NuevaIndicacionComponent } from './apps/rup/internacion/views/plan-indicacion/components/nueva-indicacion.component';
+import { EvolucionarIndicacionComponent } from './apps/rup/internacion/views/plan-indicacion/components/evolucionar-indicacion.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -658,6 +662,10 @@ registerLocaleData(localeEs, 'es');
 
         // Buscador de turnos y prestaciones
         TurnosPrestacionesComponent,
+
+        PlanIndicacionComponent,
+        NuevaIndicacionComponent,
+        EvolucionarIndicacionComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
@@ -744,7 +752,8 @@ registerLocaleData(localeEs, 'es');
         SnomedBuscarService,
         HUDSService,
         TurnosPrestacionesService,
-        PreviousUrlService
+        PreviousUrlService,
+        PlanIndicaionService
     ]
 })
 

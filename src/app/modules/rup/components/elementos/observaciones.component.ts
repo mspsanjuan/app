@@ -18,6 +18,9 @@ export class ObservacionesComponent extends RUPComponent implements OnInit {
         if (!this.params) {
             this.params = {};
         }
+        if (this.params.html === undefined) {
+            this.params.html = true;
+        }
         this.params.required = this.params && this.params.required ? this.params.required : false;
         this.registro.valido = true;
         // Observa cuando cambia la propiedad 'Sistolica' en otro elemento RUP

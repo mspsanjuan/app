@@ -1,0 +1,48 @@
+<plex-layout [main]="sidebar?.nextSibling ? 8 : 12">
+    <plex-layout-main>
+        <header>
+            <div class="page-title d-flex justify-content-between">
+                <span>Plan de indicacion</span>
+                <div>
+                    <plex-button type="success" size="sm" (click)="onAdd()"> Nuevo </plex-button>
+                </div>
+            </div>
+        </header>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="8"> Mañana </th>
+                    <th colspan="8"> Tarde </th>
+                    <th colspan="8"> Noche </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th *ngFor="let hora of horarios"> {{ hora }} </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let indicacion of pi.indicaciones$ | async">
+                    <tr>
+                        <td> {{ indicacion.title }} <br> <span> {{ indicacion.subtitle }} </span> </td>
+                        <ng-container *ngFor="let hora of horarios">
+                            <ng-container *ngIf="(pi.evolucion(indicacion.id, hora) | async) as evolucion; else vacio">
+                                <td>
+                                    {{ evolucion.done }}
+                                </td>
+                            </ng-container>
+                            <ng-template #vacio>
+                                <td (click)="onClickEvolucionar(indicacion, hora)">
+                                    &nbsp;
+                                </td>
+                            </ng-template>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </plex-layout-main>
+    <plex-layout-sidebar type="invert" #sidebar>
+        <router-outlet #sidebar></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

@@ -1,0 +1,15 @@
+<div class="page-title d-flex justify-content-between">
+    <span>Evolucionar Indicación</span>
+    <div>
+        <plex-button type="success" size="sm" (click)="save()" title="Grabar">
+            <plex-icon name="zip-disk"></plex-icon>
+        </plex-button>
+        <plex-button type="success" size="sm" (click)="close()" title="Cancelar">
+            <plex-icon name="close"></plex-icon>
+        </plex-button>
+    </div>
+</div>
+
+<div *ngIf="registro">
+    <h5> {{ registro.title }} </h5>
+</div>

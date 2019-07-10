@@ -348,6 +348,9 @@
                                     <plex-button class="btn btn-block btn-success btn-sm" type="success"
                                                  *ngIf="this.auth.profesional && camaSeleccionada.ultimoEstado?.idInternacion"
                                                  label="Ver Epicrisis" (click)="generaEpicrisis() "></plex-button>
+                                    <plex-button type="success" size="block"
+                                                 *ngIf="this.auth.profesional && camaSeleccionada.ultimoEstado?.idInternacion"
+                                                 label="Indicaciones" (click)="generarIndicacion() "></plex-button>
                                 </div>
                             </footer>
                         </plex-tab>

@@ -116,7 +116,7 @@ export class MapaDeCamasComponent implements OnInit {
 
     ngOnInit() {
         if (!this.auth.check('internacion:mapaDeCamas')) {
-            this.router.navigate(['./inicio' ]);
+            this.router.navigate(['./inicio']);
         }
 
         this.refresh();
@@ -713,6 +713,10 @@ export class MapaDeCamasComponent implements OnInit {
                 this.router.navigate(['rup/ejecucion', prestacionExiste[0].id]);
             }
         });
+    }
+
+    generarIndicacion() {
+        this.router.navigate(['rup/internacion', this.prestacionPorInternacion.paciente.id, 'indicaciones']);
     }
 
 
