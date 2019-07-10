@@ -18,9 +18,8 @@
                                 *ngIf="prestacion.estados[prestacion.estados.length - 1].tipo === 'validada' && !prestacion.solicitud.tipoPrestacion.noNominalizada">
                                 <plex-button type="warning" icon="download mdi-14px" class="float-right ml-1"
                                     title="Descargar Resúmen PDF" titlePosition="top" (click)="descargarResumen()"
-                                    [disabled]="descargando">
+                                    [disabled]="!descargaCerrada">
                                 </plex-button>
-                                <plex-loader type="linear" *ngIf="descargando"></plex-loader>
                             </ng-container>
                         </div>
                     </div>
