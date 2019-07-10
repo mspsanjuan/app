@@ -31,6 +31,7 @@ export class PrestacionValidacionComponent implements OnInit {
 
     // Tiene permisos para descargar?
     public puedeDescargarPDF = false;
+    descargaCerrada: any = true;
 
     // Id de la Agenda desde localStorage (revisar si aun hace falta)
     public idAgenda: any;
@@ -99,7 +100,6 @@ export class PrestacionValidacionComponent implements OnInit {
     ];
     public btnVolver;
     public rutaVolver;
-    descargando = false;
 
     constructor(public servicioPrestacion: PrestacionesService,
         public elementosRUPService: ElementosRUPService,
@@ -614,26 +614,31 @@ export class PrestacionValidacionComponent implements OnInit {
 
     descargarResumen() {
 
-        this.descargando = true;
+        this.descargaCerrada = false;
 
         this.prestacion.ejecucion.registros.forEach(x => {
             x.icon = 'down';
         });
-        setTimeout(() => {
+        setTimeout(async () => {
             let informe = {
                 idPrestacion: this.prestacion.id
             };
 
-            this.servicioDocumentos.descargarArchivo(informe, this.prestacion.solicitud.tipoPrestacion.term, { type: 'application/pdf' });
+            this.descargaCerrada = await this.servicioDocumentos.descargarArchivo(informe, this.prestacion.solicitud.tipoPrestacion.term, { type: 'application/pdf' });
+
         });
     }
 
-    descargarRegistro(idRegistro, term) {
+    async descargarRegistro(idRegistro, term) {
+
+        this.descargaCerrada = false;
+
         let informe = {
             idPrestacion: this.prestacion.id,
             idRegistro
         };
-        this.servicioDocumentos.descargarArchivo(informe, term, { type: 'application/pdf' });
+        this.descargaCerrada = await this.servicioDocumentos.descargarArchivo(informe, term, { type: 'application/pdf' });
+
     }
 
     /**
