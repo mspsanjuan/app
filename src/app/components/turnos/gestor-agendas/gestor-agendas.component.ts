@@ -27,7 +27,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     @HostBinding('class.plex-layout') layout = true; // Permite el uso de flex-box en el componente
 
     private guardarAgendaPanel: ViewContainerRef;
-    @ViewChild('guardarAgendaPanel') set setGuardarAgendaPanel(theElementRef: ViewContainerRef) {
+    @ViewChild('guardarAgendaPanel', { static: true }) set setGuardarAgendaPanel(theElementRef: ViewContainerRef) {
         this.guardarAgendaPanel = theElementRef;
     }
 

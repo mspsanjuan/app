@@ -204,8 +204,8 @@ const appRoutes: Routes = [
   { path: 'selectOrganizacion', component: SelectOrganizacionComponent, canActivate: [RoutingNavBar, RoutingGuard] },
   { path: 'login', component: LoginComponent, canActivate: [RoutingNavBar] },
 
-  { path: 'estadisticas', loadChildren: './modules/estadisticas/estadistica.module#EstadisticaModule', canActivate: [RoutingNavBar, RoutingGuard] },
-  { path: 'dashboard', loadChildren: './modules/estadisticas/estadistica.module#EstadisticaModule', canActivate: [RoutingNavBar, RoutingGuard] },
+  { path: 'estadisticas', loadChildren: () => import('./modules/estadisticas/estadistica.module').then(m => m.EstadisticaModule), canActivate: [RoutingNavBar, RoutingGuard] },
+  { path: 'dashboard', loadChildren: () => import('./modules/estadisticas/estadistica.module').then(m => m.EstadisticaModule), canActivate: [RoutingNavBar, RoutingGuard] },
   // Campañas Salud
   { path: 'campaniasSalud', component: CampaniaSaludComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 

@@ -25,7 +25,7 @@ export class ArbolPermisosComponent implements OnInit, OnChanges, AfterViewInit 
     @Input() parentPermission: String = '';
     @Input() userPermissions: String[] = [];
 
-    @ViewChild('panel') accordions: PlexPanelComponent;
+    @ViewChild('panel', { static: true }) accordions: PlexPanelComponent;
     @ViewChildren(ArbolPermisosComponent) childsComponents: QueryList<ArbolPermisosComponent>;
 
     ngAfterViewInit() {
