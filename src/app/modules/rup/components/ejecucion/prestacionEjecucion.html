@@ -176,12 +176,12 @@
                                                         Debe completar los datos
                                                     </span>
                                                 </div>
-                                                <rup [elementoRUP]="elementosRUPService.buscarElemento(registro.concepto, registro.esSolicitud)"
+                                                <!-- RUP Loader -->
+                                                <rup [elementoRUP]="elementosRUPService.elementoRegistro(registro)"
                                                      [prestacion]="prestacion" [paciente]="paciente"
                                                      [registro]="registro" [soloValores]="false"
-                                                     (change)="elementosRUPService.selectPorRefsetId(registro.concepto)"
                                                      (ejecutarConcepto)="ejecutarConcepto($event, registro)"
-                                                     [params]="elementosRUPService.coleccionRetsetId[registro.concepto.conceptId]">
+                                                     [params]="elementosRUPService.getParams(registro)">
                                                 </rup>
                                             </div>
                                         </div>

@@ -230,9 +230,9 @@
                                     <div class="col-12"
                                          *ngIf="paciente || prestacion.solicitud.tipoPrestacion?.noNominalizada">
                                         <rup [paciente]="paciente"
-                                             [elementoRUP]="elementosRUPService.buscarElemento(elemento.concepto, elemento.esSolicitud)"
+                                             [elementoRUP]="elementosRUPService.elementoRegistro(elemento)"
                                              [prestacion]="prestacion" [registro]="elemento" [soloValores]="true"
-                                             [params]="elementosRUPService.selectPorRefsetId(elemento.concepto, elemento.esSolicitud)">
+                                             [params]="elementosRUPService.getParams(elemento)">
                                         </rup>
                                     </div>
                                 </div>

@@ -271,6 +271,7 @@ export class PrestacionesService {
                                 concepto: registro.concepto,
                                 prestaciones: [registro.idPrestacion],
                                 esSolicitud: registro.esSolicitud,
+                                elementoRUP: registro.elementoRUP,
                                 evoluciones: [{
                                     idPrestacion: registro.idPrestacion,
                                     idRegistro: registro.id,
@@ -680,7 +681,6 @@ export class PrestacionesService {
                 });
             }
         });
-
         let dto: any = {
             op: 'estadoPush',
             estado: { tipo: 'validada' },

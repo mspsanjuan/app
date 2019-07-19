@@ -56,9 +56,6 @@ export class PrestacionValidacionComponent implements OnInit {
     // Array de elementos RUP que se pueden ejecutar
     public elementosRUP: any[];
 
-    // elementoRUP de la Prestación actual
-    public elementoRUPprestacion: any;
-
     // Indica si muestra el calendario para dar turno autocitado
     public showDarTurnos = false;
 
@@ -182,7 +179,7 @@ export class PrestacionValidacionComponent implements OnInit {
             this.prestacion.ejecucion.registros.sort((a: any, b: any) => a.updatedAt - b.updatedAt);
 
             // Busca el elementoRUP que implementa esta prestación
-            this.elementoRUPprestacion = this.elementosRUPService.buscarElemento(prestacion.solicitud.tipoPrestacion, false);
+            this.elementoRUP = this.elementosRUPService.buscarElemento(prestacion.solicitud.tipoPrestacion, false);
 
             // Una vez que esta la prestacion llamamos a la funcion cargaPlan que muestra para cargar turnos si tienen permisos
             if (prestacion.estados[prestacion.estados.length - 1].tipo === 'validada') {
@@ -196,8 +193,6 @@ export class PrestacionValidacionComponent implements OnInit {
                 }
             }
 
-            // Trae el elementoRUP que implementa esta Prestación
-            this.elementoRUP = this.elementosRUPService.buscarElemento(prestacion.solicitud.tipoPrestacion, false);
             if (this.elementoRUP.requeridos.length > 0) {
                 for (let elementoRequerido of this.elementoRUP.requeridos) {
                     this.elementosRUPService.coleccionRetsetId[String(elementoRequerido.concepto.conceptId)] = elementoRequerido.params;
@@ -764,7 +759,7 @@ export class PrestacionValidacionComponent implements OnInit {
      */
 
     showMotivo(elemento) {
-        if (this.elementoRUPprestacion.motivoConsultaOpcional) {
+        if (this.elementoRUP.motivoConsultaOpcional) {
             return false;
         }
         let last = this.prestacion.estados.length - 1;
