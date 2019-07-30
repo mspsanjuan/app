@@ -4,6 +4,7 @@ import { RUPComponent } from './../core/rup.component';
 import { IPrestacionGetParams } from '../../interfaces/prestacionGetParams.interface';
 import { IPrestacionRegistro } from '../../interfaces/prestacion.registro.interface';
 import { RupElement } from '.';
+import swal from 'sweetalert2';
 
 @Component({
     selector: 'rup-OdontogramaRefset',
@@ -72,7 +73,6 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
     public cargandoUltimoOdontograma = true;
 
     ngOnInit() {
-
         // Traer EL odontograma, los dientes
         this.snomedService.getQuery({
             expression: `^${this.params.refsetId}`,
@@ -112,13 +112,6 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
             this.odontograma.cuadranteInferiorDerechoTemporal.sort((a, b) => Number(b.concepto.term) - Number(a.concepto.term));
             this.odontograma.cuadranteInferiorIzquierdoTemporal.sort((a, b) => Number(a.concepto.term) - Number(b.concepto.term));
 
-            // Trae los hallazgos, procedimientos, etc...
-            if (this.params) {
-                this.snomedService.getQuery({ expression: `^${this.params.refsetId}` }).subscribe(resultado => {
-                    this.conceptos = resultado;
-                });
-            }
-
             let params: IPrestacionGetParams = {
                 idPaciente: this.paciente.id,
                 conceptId: this.prestacion.solicitud.tipoPrestacion.conceptId,
@@ -134,26 +127,36 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
                         }
                     }
                 });
-                // this.odontogramasHUDS = odontogramasPaciente;
+
+                let fechaConsulta = new Date();
                 if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
                     this.ultimoOdontograma = this.odontogramasHUDS[this.odontogramasHUDS.length - 1].ejecucion.registros.filter(x => x.concepto.conceptId === this.conceptoOdontograma)[0];
                     this.ultimoOdontogramaIndex = this.odontogramasHUDS.length - 1;
+                    fechaConsulta = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.fecha;
                 }
                 this.cargandoUltimoOdontograma = false;
-                this.armarRelaciones();
+
+                this.armarRelaciones(fechaConsulta);
             });
         });
 
     }
 
-    armarRelaciones() {
+    armarRelaciones(fecha: Date) {
 
         // Último Odontograma (si existe)
         if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
-
+            // hacemos una copia de la lista de odontogramas
+            let listaConceptosOdonto = this.odontogramasHUDS.slice();
             // Quito el odontograma porque se necesitan sólo los registros y sus relaciones
-            this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros.shift();
-            this.relaciones = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros;
+            this.relaciones = [];
+            // filtramos las consultas según la navegacion
+            listaConceptosOdonto = listaConceptosOdonto.filter(c => c.ejecucion.fecha <= fecha);
+            listaConceptosOdonto.forEach(unaConsulta => {
+                const registros = unaConsulta.ejecucion.registros.filter(c => c.concepto.conceptId !== this.conceptoOdontograma);
+                this.relaciones = [...this.relaciones, ...registros];
+            });
+
             this.relacionesActuales = this.registro.registros;
 
             // Se arma el último odontograma, con sus relaciones
@@ -186,29 +189,17 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
 
     odontogramaAnterior() {
         this.showUltimoOdontograma = false;
-        let params: IPrestacionGetParams = {
-            idPaciente: this.paciente.id,
-            conceptId: this.prestacion.solicitud.tipoPrestacion.conceptId,
-            estado: 'validada'
-        };
-        this.prestacionesService.get(params).subscribe(odontogramasPaciente => {
-            this.odontogramasHUDS = odontogramasPaciente.filter(unaPrestacion => {
-                let odonto = null;
-                if (odonto = unaPrestacion.ejecucion.registros.find(x => x.concepto.conceptId === this.conceptoOdontograma)) {
-                    if (odonto.valor) {
-                        return unaPrestacion;
-                    }
+        if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
+            if (this.ultimoOdontogramaIndex > 0) {
+                this.ultimoOdontogramaIndex--;
+                this.ultimoOdontograma = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros.filter(x => x.concepto.conceptId === this.conceptoOdontograma)[0];
+                if (this.ultimoOdontograma) {
+                    let fechaConsulta = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.fecha;
+                    this.armarRelaciones(fechaConsulta);
                 }
-            });
-            if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
-                if (this.ultimoOdontogramaIndex > 0) {
-                    this.ultimoOdontogramaIndex--;
-                    this.ultimoOdontograma = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros.filter(x => x.concepto.conceptId === this.conceptoOdontograma)[0];
-                    this.armarRelaciones();
-                    this.showUltimoOdontograma = true;
-                }
+                this.showUltimoOdontograma = true;
             }
-        });
+        }
 
     }
 
@@ -219,24 +210,16 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
             conceptId: this.prestacion.solicitud.tipoPrestacion.conceptId,
             estado: 'validada'
         };
-        this.prestacionesService.get(params).subscribe(odontogramasPaciente => {
-            this.odontogramasHUDS = odontogramasPaciente.filter(unaPrestacion => {
-                let odonto = null;
-                if (odonto = unaPrestacion.ejecucion.registros.find(x => x.concepto.conceptId === this.conceptoOdontograma)) {
-                    if (odonto.valor) {
-                        return unaPrestacion;
-                    }
-                }
-            });
-            if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
-                if (this.ultimoOdontogramaIndex < this.odontogramasHUDS.length - 1) {
-                    this.ultimoOdontogramaIndex++;
-                    this.ultimoOdontograma = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros.filter(x => x.concepto.conceptId === this.conceptoOdontograma)[0];
-                    this.armarRelaciones();
-                    this.showUltimoOdontograma = true;
-                }
+
+        if (this.odontogramasHUDS && this.odontogramasHUDS.length > 0) {
+            if (this.ultimoOdontogramaIndex < this.odontogramasHUDS.length - 1) {
+                this.ultimoOdontogramaIndex++;
+                this.ultimoOdontograma = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.registros.filter(x => x.concepto.conceptId === this.conceptoOdontograma)[0];
+                let fechaConsulta = this.odontogramasHUDS[this.ultimoOdontogramaIndex].ejecucion.fecha;
+                this.armarRelaciones(fechaConsulta);
+                this.showUltimoOdontograma = true;
             }
-        });
+        }
     }
 
     getRelacion(cuadrante, diente, cara) {
@@ -255,7 +238,9 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
     }
 
     // (mouseenter)
-    showTooltip(diente, cara, huds = false, index = -1) {
+    showTooltip(diente, cara, huds = false, index = -1, nuevoRegistro = false) {
+
+
         this.popOverText = {};
 
         if (cara !== 'pieza') {
@@ -269,16 +254,40 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         if (cara !== 'anulada') {
             let rel = !huds ? this.getRegistrosRel(diente, cara) : this.getRegistrosRelAnterior(diente, cara);
             if (rel.length) {
-                this.popOverText.relacion = rel[index];
+                this.popOverText.relacion = rel;
             } else {
                 this.popOverText.relacion = {};
                 // Sólo para piezas
             }
         }
         if (diente.piezaCompleta) {
-            this.popOverText['relacion'] = !huds ? this.getRegistrosRel(diente, 'pieza')[index] : this.getRegistrosRelAnterior(diente, 'pieza')[index];
+            this.popOverText['relacion'] = !huds ? this.getRegistrosRel(diente, 'pieza') : this.getRegistrosRelAnterior(diente, 'pieza');
         }
 
+
+        let titulo = `<strong>Diente ${this.popOverText.concepto.term}</strong>`;
+        titulo += this.popOverText.cara && this.popOverText.cara !== 'pieza' && this.popOverText.cara !== 'anulada' ? ` (cara ${this.popOverText.cara})` : '';
+
+
+        let texto = '';
+        if (this.popOverText.relacion && this.popOverText.relacion.length > 0) {
+            this.popOverText.relacion.forEach(relacion => {
+                texto += `<div>${moment(relacion.createdAt).format('DD/MM/YYYY')}: (${relacion.concepto.semanticTag}) ${relacion.concepto.term} </div>`;
+            });
+        }
+        if (!nuevoRegistro) {
+            this.plex.info('info', texto, titulo);
+        }
+
+
+        // swal({
+        //     title: titulo,
+        //     type: 'info',
+        //     html: texto,
+        //     showCloseButton: true,
+        //     showCancelButton: false,
+        //     focusConfirm: false
+        // }).catch(swal.noop);
 
         this.popOverText.cara = cara;
         this.showPopOver = true;
@@ -498,5 +507,10 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
 
     esCuadranteInferior(cuadrante) {
         return cuadrante.indexOf('Inferior') === -1;
+    }
+
+    seleccionarUnaPieza(diente, cuadrante) {
+        this.jumpToId(this.getClassRegistro(diente, (this.esCuadranteIzquierdo(cuadrante) ? 'distal' : 'mesial')).concepto.conceptId);
+        this.showTooltip(diente, (this.esCuadranteIzquierdo(cuadrante) ? 'distal' : 'mesial'), false, 0);
     }
 }
