@@ -79,6 +79,9 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
     public cargandoUltimoOdontograma = true;
 
     ngOnInit() {
+
+        console.log(typeof this.params);
+
         // Traer EL odontograma, los dientes
         this.snomedService.getQuery({
             expression: `^${this.params.refsetId}`,
@@ -228,11 +231,6 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         }
     }
 
-    getRelacion(cuadrante, diente, cara) {
-        return this.ultimoOdontograma.valor.odontograma[String(cuadrante)].find(z => z.cara === cara);
-
-    }
-
     classRelacion(diente, cara) {
         return this.relaciones.find(x => {
             if (x.relacionadoCon) {
@@ -243,9 +241,8 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         });
     }
 
-    // (mouseenter)
-    showTooltip(diente, cara, huds = false, index = -1, nuevoRegistro = false) {
-
+    // (click)
+    showDetail(diente, cara, huds = false, index = -1, nuevoRegistro = false) {
 
         this.popOverText = {};
 
@@ -269,7 +266,6 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         if (diente.piezaCompleta) {
             this.popOverText['relacion'] = !huds ? this.getRegistrosRel(diente, 'pieza') : this.getRegistrosRelAnterior(diente, 'pieza');
         }
-
 
         let titulo = `<strong>Diente ${this.popOverText.concepto.term}</strong>`;
         titulo += this.popOverText.cara && this.popOverText.cara !== 'pieza' && this.popOverText.cara !== 'anulada' ? ` (cara ${this.popOverText.cara})` : '';
@@ -299,6 +295,32 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         this.showPopOver = true;
         this.showRelacion = true;
 
+    }
+
+    // (mouseenter)
+    showTooltip(diente, cara, huds = false, index = -1) {
+        this.popOverText = {};
+
+        if (cara !== 'pieza') {
+            diente.piezaCompleta = false;
+        } else {
+            diente.piezaCompleta = true;
+        }
+
+        this.popOverText = diente;
+
+        if (cara !== 'anulada') {
+            let rel = !huds ? this.getRegistrosRel(diente, cara) : this.getRegistrosRelAnterior(diente, cara);
+            if (rel.length) {
+                this.popOverText.relacion = rel[index];
+            } else {
+                this.popOverText.relacion = {};
+                // Sólo para piezas
+            }
+        }
+        if (diente.piezaCompleta) {
+            this.popOverText['relacion'] = !huds ? this.getRegistrosRel(diente, 'pieza')[index] : this.getRegistrosRelAnterior(diente, 'pieza')[index];
+        }
     }
 
     // (mouseleave)
