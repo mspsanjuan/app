@@ -43,7 +43,13 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
         'cuadranteInferiorDerecho',
         'cuadranteInferiorIzquierdo',
     ];
-    public cuadrantesTemporales = ['cuadranteSuperiorDerechoTemporal', 'cuadranteSuperiorIzquierdoTemporal', 'cuadranteInferiorDerechoTemporal', 'cuadranteInferiorIzquierdoTemporal'];
+
+    public cuadrantesTemporales = [
+        'cuadranteSuperiorDerechoTemporal',
+        'cuadranteSuperiorIzquierdoTemporal',
+        'cuadranteInferiorDerechoTemporal',
+        'cuadranteInferiorIzquierdoTemporal'
+    ];
 
     showPopOver = false;
     popOverText: any = '';
