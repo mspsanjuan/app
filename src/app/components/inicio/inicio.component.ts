@@ -2,6 +2,7 @@ import { Plex } from '@andes/plex';
 import { Component, AfterViewInit, HostBinding } from '@angular/core';
 import { Auth } from '@andes/auth';
 import { AppComponent } from './../../app.component';
+import { LABELS } from '../../styles/properties';
 
 @Component({
     templateUrl: 'inicio.html',
@@ -19,6 +20,8 @@ export class InicioComponent implements AfterViewInit {
     public dashboard = false;
     public denied = false;
     public accessList: any = [];
+    public provincia = LABELS.provincia;
+
 
     constructor(public auth: Auth, public appComponent: AppComponent, private plex: Plex) { }
 

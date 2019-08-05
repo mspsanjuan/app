@@ -513,6 +513,8 @@ import { HUDSService } from './modules/rup/services/huds.service';
 /** Configuraciones de entorno */
 import { environment } from '../environments/environment';
 import { LugarDeNacimientoComponent } from './modules/rup/components/elementos/lugarDeNacimiento.component';
+import { LogoSvgComponent } from './styles/logo.svg';
+import { AcronimoSvgComponent } from './styles/acronimo.svg';
 
 registerLocaleData(localeEs, 'es');
 
@@ -661,6 +663,9 @@ registerLocaleData(localeEs, 'es');
 
         // Buscador de turnos y prestaciones
         TurnosPrestacionesComponent,
+
+        LogoSvgComponent,
+        AcronimoSvgComponent
     ],
     entryComponents: RUPComponentsArray,
     bootstrap: [AppComponent],
