@@ -38,6 +38,7 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
     conceptoSeleccionado: any;
 
     ngOnInit() {
+        this.registro.isSection = true;
         if (this.registro && this.registro.registros) {
             this.registro.registros.forEach((registro: any) => {
                 this.itemsRegistros[registro.id] = { collapse: true, items: null };
@@ -50,6 +51,11 @@ export class ElementoDeRegistroComponent extends RUPComponent implements OnInit 
                 this.conceptosPermitidos = resultado;
             });
         }
+
+        if (this.params.noIndex) {
+            this.registro.noIndex = this.params.noIndex;
+        }
+
         this.servicioTipoPrestacion.get({}).subscribe(conceptosTurneables => {
             this.conceptosTurneables = conceptosTurneables;
         });
