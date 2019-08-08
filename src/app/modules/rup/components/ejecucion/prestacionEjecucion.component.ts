@@ -112,6 +112,9 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
     public scopePrivacy = [];
     public registrosHUDS = [];
 
+    // Historial HUDS de registros relacionados a un concepto
+    detalleConceptoHUDS: any;
+    detalleRegistrosHUDS: any;
     constructor(
         private obraSocialService: ObraSocialService,
         public servicioPrestacion: PrestacionesService,
@@ -259,6 +262,11 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
 
     public onCloseTab(index) {
         this.huds.remove(index - 2);
+        if (this.detalleRegistrosHUDS && this.detalleConceptoHUDS) {
+            this.detalleRegistrosHUDS = null;
+            this.detalleConceptoHUDS = null;
+            this.activeIndex = 0;
+    }
     }
 
     /**
