@@ -181,6 +181,7 @@
                                                      [registro]="registro" [soloValores]="false"
                                                      (change)="elementosRUPService.selectPorRefsetId(registro.concepto)"
                                                      (ejecutarConcepto)="ejecutarConcepto($event, registro)"
+                                                    (ejecutarAccion)="recibirAccion($event, 'tab')"
                                                      [params]="elementosRUPService.coleccionRetsetId[registro.concepto.conceptId]">
                                                 </rup>
                                             </div>

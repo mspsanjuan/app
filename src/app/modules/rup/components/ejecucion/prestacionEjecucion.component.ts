@@ -1028,18 +1028,14 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
     }
 
     // Búsqueda que filtra según concepto
-    ejecutarAccion(data) {
-        // this.tipoBusqueda = [];
-        // if (data && data.conceptos) {
-        //     // tipoBusqueda
-        //     this.tipoBusqueda = data;
-        //     // this.registrosHuds = [...this.registrosHuds, data];
-        // } else {
-        //     this.tipoBusqueda = null;
-        //     this.filtroRefset = null;
-
-        // }
-
+    recibirAccion(datosRecibidos, destino = 'tab') {
+        if (destino === 'tab') {
+            this.detalleConceptoHUDS = datosRecibidos.evento.datos[0];
+            this.detalleConceptoHUDS['caraCuadrante'] = datosRecibidos.evento.datos[1];
+            this.detalleRegistrosHUDS = datosRecibidos.evento.datos[2];
+            this.activeIndex = this.activeIndex + 2;
+        }
+        datosRecibidos = null;
     }
 
     cargaItems(registroActual, indice) {
