@@ -268,19 +268,6 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
                 texto += `<div>${moment(relacion.createdAt).format('DD/MM/YYYY')}: (${relacion.concepto.semanticTag}) ${relacion.concepto.term} </div>`;
             });
         }
-        // if (!nuevoRegistro) {
-        //     this.plex.info('info', texto, titulo);
-        // }
-
-
-        // swal({
-        //     title: titulo,
-        //     type: 'info',
-        //     html: texto,
-        //     showCloseButton: true,
-        //     showCancelButton: false,
-        //     focusConfirm: false
-        // }).catch(swal.noop);
 
         this.popOverText.cara = cara;
         this.showPopOver = true;
