@@ -161,7 +161,7 @@ export class OdontogramaRefsetComponent extends RUPComponent implements OnInit {
             // Quito el odontograma porque se necesitan sólo los registros y sus relaciones
             this.relaciones = [];
             // filtramos las consultas según la navegacion
-            // listaConceptosOdonto = listaConceptosOdonto.filter(c => c.ejecucion.fecha <= fecha);
+            listaConceptosOdonto = listaConceptosOdonto.filter(c => c.ejecucion.fecha <= fecha);
             listaConceptosOdonto.forEach(unaConsulta => {
                 const registros = unaConsulta.ejecucion.registros.filter(c => c.concepto.conceptId !== this.conceptoOdontograma);
                 this.relaciones = [...this.relaciones, ...registros];
