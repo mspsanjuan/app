@@ -266,7 +266,7 @@ export class PrestacionEjecucionComponent implements OnInit, OnDestroy {
             this.detalleRegistrosHUDS = null;
             this.detalleConceptoHUDS = null;
             this.activeIndex = 0;
-    }
+        }
     }
 
     /**
