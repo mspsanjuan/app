@@ -92,6 +92,10 @@ svg#cuadrante-sup-der {
     &:hover {
         fill: #4776d3;
     }
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .diente-procedimiento,
