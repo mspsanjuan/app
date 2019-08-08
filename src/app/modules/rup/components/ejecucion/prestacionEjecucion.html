@@ -129,15 +129,13 @@
                                                 <ng-container
                                                               *ngIf="prestacion?.ejecucion?.registros !== null && prestacion?.ejecucion?.registros?.length > 1">
                                                     <plex-dropdown type="primary" class="dropdown-inline" [right]="true"
-                                                                   icon="link-variant"
-                                                                   (onOpen)="cargaItems(registro, i)"
+                                                        icon="link-variant" (onOpen)="cargaItems(registro, i)"
                                                                    [items]="itemsRegistros[registro.id]?.items">
                                                     </plex-dropdown>
                                                 </ng-container>
 
                                                 <plex-button *ngIf="!existe(registro.concepto);" size="sm" type="danger"
-                                                             icon="delete"
-                                                             (click)="confirmarEliminarRegistro(registro, 'card')">
+                                                    icon="delete" (click)="confirmarEliminarRegistro(registro, 'card')">
                                                 </plex-button>
                                             </div>
                                         </div>
@@ -163,7 +161,8 @@
                                                 <ng-container *ngIf="matchBusquedaGuiada(registro.concepto)">
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <span *ngFor="let rf of matchBusquedaGuiada(registro.concepto)"
+                                                            <span
+                                                                *ngFor="let rf of matchBusquedaGuiada(registro.concepto)"
                                                                   class="badge badge-danger">
                                                                 {{ rf.nombre }}
                                                             </span>
@@ -240,10 +239,10 @@
 
                                 <!-- Drop area -->
                                 <div droppable [dropScope]="'orden-registros-rup'"
-                                     (onDrop)="moverRegistro(registros.length, $event)"
+                                    (onDrop)="moverRegistro(prestacion.ejecucion.registros.length, $event)"
                                      [dragOverClass]="'drop-posicion-hover'" [hidden]="!isDraggingRegistro"
                                      class="drop-posicion"
-                                     *ngIf="registros && registros.length && registros.length !== posicionOnDrag">
+                                    *ngIf="prestacion.ejecucion.registros && prestacion.ejecucion.registros.length && prestacion.ejecucion.registros.length !== posicionOnDrag">
                                     Mover a esta posición
                                 </div>
                             </div>
@@ -290,11 +289,13 @@
                                       [class]="registro.data.class" [color]="registro.data.class"
                                       *ngIf="registro.tipo === 'concepto'">
 
-                                <vista-registro *ngIf="registro.data.class === 'hallazgo' || registro.data.class === 'trastorno'"
+                                <vista-registro
+                                    *ngIf="registro.data.class === 'hallazgo' || registro.data.class === 'trastorno'"
                                                 [registro]="registro.data" [paciente]="paciente">
                                 </vista-registro>
 
-                                <vista-procedimiento *ngIf="registro.data.class === 'plan' || registro.data.class === 'procedimiento' || registro.data.class === 'elementoderegistro' || registro.data.class === 'producto'"
+                                <vista-procedimiento
+                                    *ngIf="registro.data.class === 'plan' || registro.data.class === 'procedimiento' || registro.data.class === 'elementoderegistro' || registro.data.class === 'producto'"
                                                      [registro]="registro.data" [paciente]="paciente">
                                 </vista-procedimiento>
 
@@ -320,19 +321,16 @@
                                size="full">
                         <plex-tab label="Buscador" (click)="panelIndex = 0">
                             <rup-buscador [prestacion]="prestacion" [frecuentesTipoPrestacion]="masFrecuentes"
-                                          [conceptoFrecuente]="conceptoFrecuente"
-                                          [showFrecuentesTipoPrestacion]="tengoResultado"
+                                [conceptoFrecuente]="conceptoFrecuente" [showFrecuentesTipoPrestacion]="tengoResultado"
                                           (tagBusqueda)="getTipoBusqueda($event)"
                                           (tengoResultado)="recibeSitengoResultado($event)"
                                           (evtData)="ejecutarConcepto($event, tipoBusqueda)"
-                                          (_onDragStart)="arrastrandoConcepto(true)"
-                                          (_onDragEnd)="arrastrandoConcepto(false)">
+                                (_onDragStart)="arrastrandoConcepto(true)" (_onDragEnd)="arrastrandoConcepto(false)">
                             </rup-buscador>
                         </plex-tab>
                         <plex-tab label="Historia de Salud" (click)="panelIndex = 1">
                             <rup-hudsBusqueda [paciente]="prestacion?.paciente" [_dragScope]="'registros-rup'"
-                                              (evtData)="ejecutarConceptoHuds($event)"
-                                              (_onDragStart)="arrastrandoConcepto(true)"
+                                (evtData)="ejecutarConceptoHuds($event)" (_onDragStart)="arrastrandoConcepto(true)"
                                               (_onDragEnd)="arrastrandoConcepto(false)"></rup-hudsBusqueda>
                         </plex-tab>
                     </plex-tabs>
