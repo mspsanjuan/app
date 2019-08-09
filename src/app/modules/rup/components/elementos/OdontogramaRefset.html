@@ -99,7 +99,7 @@
                                                 (mouseenter)="showTooltip(diente, (esCuadranteInferior(cuadrante) ? 'vestibular' : 'lingual'), true, v)"
                                                 [ngClass]="{'registrada': caraValor(diente, (esCuadranteInferior(cuadrante) ? 'vestibular' : 'lingual')) !== -1}"
                                                 d="M26,19.542c2.197,0,4.187,0.891,5.627,2.331l9.34-9.339c-3.831-3.831-9.122-6.2-14.967-6.2c-5.845,0-11.137,2.369-14.967,6.2l9.339,9.339C21.813,20.433,23.802,19.542,26,19.542z"
-                                                class="diente vestibular {{ 'diente-' + relvestibular.concepto.semanticTag }}  diente-offset-{{v}}"
+                                                class="diente vestibular {{ 'diente-' + relvestibular.concepto.semanticTag }}"
                                                 title="(esCuadranteInferior(cuadrante) ? 'vestibular' : 'lingual')" />
                                             <text fill="#FFFFFF" x="21" y="17"
                                                 font-size="14">{{ getRegistrosRelAnterior(diente, (esCuadranteInferior(cuadrante) ? 'vestibular' : 'lingual')).length }}</text>
