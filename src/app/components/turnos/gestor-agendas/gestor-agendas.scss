@@ -18,3 +18,23 @@ span.badge,
 span.badge-default {
     font-size: 0.6rem;
 }
+table{
+    height:90%; 
+}
+tbody {
+  display: block;
+  height: 100%;
+  overflow: scroll;
+}
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.small{
+    width: 5%;
+}
+.medium{
+    width: 20%;
+}

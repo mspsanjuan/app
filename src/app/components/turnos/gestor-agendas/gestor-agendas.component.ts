@@ -1,4 +1,3 @@
-import { BotonesAgendaComponent } from './operaciones-agenda/botones-agenda.component';
 import { Component, OnInit, OnDestroy, HostBinding, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -72,6 +71,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
     public permisos: any;
     public prestacionesPermisos = [];
     public puedeCrearAgenda: Boolean;
+    private scrollEnd = false;
 
     // ultima request de profesionales que se almacena con el subscribe
     private lastRequestProf: ISubscription;
@@ -125,7 +125,9 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
             idTipoPrestacion: '',
             idProfesional: '',
             espacioFisico: '',
-            estado: ''
+            estado: '',
+            skip: 0,
+            limit: 15
         };
         if (this.prestacionesPermisos.length > 0 && this.prestacionesPermisos[0] !== '*') {
             this.parametros['tipoPrestaciones'] = this.prestacionesPermisos;
@@ -134,22 +136,14 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         // Por defecto cargar/mostrar agendas de hoy
         this.hoy = true;
         this.loadAgendas();
-
-        this.fechaDesde = new Date();
-        this.fechaHasta = new Date();
-        this.fechaDesde = moment(this.fechaDesde).startOf('day');
-        this.fechaHasta = moment(this.fechaHasta).endOf('day');
-
-        // Iniciamos la búsqueda
-        this.parametros = {
-            fechaDesde: this.fechaDesde,
-            fechaHasta: this.fechaHasta,
-            organizacion: this.auth.organizacion._id
-        };
-
     }
 
-
+    // evento que ocurre al scrollear en una lista de agendas
+    onScroll() {
+        if (!this.scrollEnd) {
+            this.getAgendas();
+        }
+    }
 
     refreshSelection(value, tipo) {
         if (this.prestacionesPermisos.length > 0 && this.prestacionesPermisos[0] !== '*' && this.prestaciones.length === 0) {
@@ -158,7 +152,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         if (tipo === 'fechaDesde') {
             let fechaDesde = moment(this.fechaDesde).startOf('day');
             if (fechaDesde.isValid()) {
-                this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
+                this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde : moment().format();
                 this.parametros['organizacion'] = this.auth.organizacion._id;
                 this.fechaHasta = moment(this.fechaHasta).startOf('day');
             }
@@ -166,7 +160,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         if (tipo === 'fechaHasta') {
             let fechaHasta = moment(this.fechaHasta).endOf('day');
             if (fechaHasta.isValid()) {
-                this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
+                this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta : moment().format();
                 this.parametros['organizacion'] = this.auth.organizacion._id;
                 this.fechaDesde = moment(this.fechaDesde).startOf('day');
             }
@@ -200,17 +194,23 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
                 this.parametros['estado'] = '';
             }
         }
-
-        // Completo params con la info que ya tengo
-        this.getAgendas(this.parametros);
+        // cada vez que se modifican los filtros seteamos el skip en 0
+        this.parametros.skip = 0;
+        this.scrollEnd = false;
+        this.getAgendas();
     }
 
-    getAgendas(params: any) {
+    getAgendas() {
         if (this.lastRequestFecha) {
             this.lastRequestFecha.unsubscribe();
         }
-        this.lastRequestFecha = this.serviceAgenda.get(params).subscribe(agendas => {
+        // si es una nueva busqueda ...
+        if (this.parametros.skip === 0) {
+            this.agendas = [];
             this.turnosSuspendidos = [];
+        }
+
+        this.lastRequestFecha = this.serviceAgenda.get(this.parametros).subscribe((agendas: any) => {
             agendas.forEach(agenda => {
                 let count = 0;
                 agenda.bloques.forEach(bloque => {
@@ -225,10 +225,17 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
                 this.turnosSuspendidos = [...this.turnosSuspendidos, {
                     count: count
                 }];
+                this.agendas.push(agenda);
             });
 
+
             this.hoy = false;
-            this.agendas = agendas;
+            this.parametros.skip = this.agendas.length;
+
+            // si vienen menos agendas que la cantidad límite significa que ya se cargaron todas
+            if (!agendas.length || agendas.length < this.parametros.limit) {
+                this.scrollEnd = true;
+            }
 
         }, err => {
             if (err) {
@@ -243,21 +250,17 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
             this.fechaDesde = fecha;
             this.fechaHasta = fecha;
         }
-        this.fechaDesde = moment(this.fechaDesde).startOf('day').toDate();
-        this.fechaHasta = moment(this.fechaHasta).endOf('day').toDate();
+        this.fechaDesde = moment(this.fechaDesde).startOf('day');
+        this.fechaHasta = moment(this.fechaHasta).endOf('day');
+        this.parametros.fechaDesde = this.fechaDesde;
+        this.parametros.fechaHasta = this.fechaHasta;
+        this.parametros.organizacion = this.auth.organizacion._id;
+        this.parametros.skip = 0;
 
-        const params = {
-            fechaDesde: this.fechaDesde,
-            fechaHasta: this.fechaHasta,
-            organizacion: this.auth.organizacion._id,
-            idTipoPrestacion: '',
-            idProfesional: '',
-            idEspacioFisico: ''
-        };
         if (this.prestacionesPermisos.length > 0 && this.prestacionesPermisos[0] !== '*') {
-            params['tipoPrestaciones'] = this.prestacionesPermisos;
+            this.parametros['tipoPrestaciones'] = this.prestacionesPermisos;
         }
-        this.getAgendas(params);
+        this.getAgendas();
 
     }
 
@@ -287,7 +290,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
 
     saveAgregarNotaAgenda() {
         if (this.parametros) {
-            this.getAgendas(this.parametros);
+            this.getAgendas();
         } else {
             this.loadAgendas();
         }
@@ -322,7 +325,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         this.showListadoTurnos = false;
         this.showCarpetas = false;
         if (this.parametros) {
-            this.getAgendas(this.parametros);
+            this.getAgendas();
         } else {
             this.loadAgendas();
         }
@@ -556,7 +559,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         }
 
         if (this.parametros) {
-            this.getAgendas(this.parametros);
+            this.getAgendas();
         } else {
             this.loadAgendas();
         }
@@ -616,7 +619,7 @@ export class GestorAgendasComponent implements OnInit, OnDestroy {
         this.showListadoTurnos = false;
         this.showAgregarNotaAgenda = false;
         if (agenda) {
-            this.getAgendas(this.parametros);
+            this.getAgendas();
         }
     }
 
