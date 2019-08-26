@@ -136,23 +136,25 @@ export class RevisionAgendaComponent implements OnInit {
     }
 
     seleccionarTurno(turno, bloque) {
-        this.existeCodificacionProfesional = false;
-        this.diagnosticos = [];
-        this.paciente = null;
-        this.bloqueSeleccionado = bloque;
-        this.showReparo = false;
-        if (this.bloqueSeleccionado && this.bloqueSeleccionado !== -1) {
-            this.turnoTipoPrestacion = this.bloqueSeleccionado.tipoPrestaciones.length === 1 ? this.bloqueSeleccionado.tipoPrestaciones[0] : null;
-        } else { // para el caso de sobreturno, que no tiene bloques.
-            this.turnoTipoPrestacion = turno.tipoPrestacion;
-        }
-        if (this.turnoSeleccionado === turno) {
-            this.turnoSeleccionado = null;
-        } else {
-            this.turnoSeleccionado = turno;
-            this.pacientesSearch = false;
-            if (turno.diagnostico.codificaciones && turno.diagnostico.codificaciones.length) {
-                this.diagnosticos = this.diagnosticos.concat(turno.diagnostico.codificaciones);
+        if (turno.estado === 'asignado') {
+            this.existeCodificacionProfesional = false;
+            this.diagnosticos = [];
+            this.paciente = null;
+            this.bloqueSeleccionado = bloque;
+            this.showReparo = false;
+            if (this.bloqueSeleccionado && this.bloqueSeleccionado !== -1) {
+                this.turnoTipoPrestacion = this.bloqueSeleccionado.tipoPrestaciones.length === 1 ? this.bloqueSeleccionado.tipoPrestaciones[0] : null;
+            } else { // para el caso de sobreturno, que no tiene bloques.
+                this.turnoTipoPrestacion = turno.tipoPrestacion;
+            }
+            if (this.turnoSeleccionado === turno) {
+                this.turnoSeleccionado = null;
+            } else {
+                this.turnoSeleccionado = turno;
+                this.pacientesSearch = false;
+                if (turno.diagnostico.codificaciones && turno.diagnostico.codificaciones.length) {
+                    this.diagnosticos = this.diagnosticos.concat(turno.diagnostico.codificaciones);
+                }
             }
         }
     }
@@ -241,7 +243,7 @@ export class RevisionAgendaComponent implements OnInit {
             return (
                 t && t.paciente && t.paciente.id &&
                 ((t.asistencia === 'asistio' && !t.diagnostico.codificaciones[0] || (t.diagnostico.codificaciones[0] && !t.diagnostico.codificaciones[0].codificacionAuditoria
-                    && !t.diagnostico.ilegible && t.asistencia === 'asistio')) || !t.asistencia)
+                    && !t.diagnostico.ilegible && t.asistencia === 'asistio')))
             );
         });
 
