@@ -442,14 +442,20 @@ export class PuntoInicioComponent implements OnInit {
         return total;
     }
 
-    tienePermisos(tipoPrestacion, prestacion) {
-        let permisos = this.auth.getPermissions('rup:tipoPrestacion:?');
-        let existe = permisos.find(permiso => (permiso === tipoPrestacion._id));
-        // vamos a comprobar si el turno tiene una prestacion asociada y si ya esta en ejecucion
-        // por otro profesional. En ese caso no debería poder entrar a ejecutar o validar la prestacion
-        if (prestacion) {
-            if (prestacion.estados[prestacion.estados.length - 1].tipo !== 'pendiente' && prestacion.estados[prestacion.estados.length - 1].createdBy.username !== this.auth.usuario.username) {
-                return null;
+    /**
+     * Comprueba si el turno tiene una prestacion asociada y si ya esta en ejecucion
+     * por otro profesional. En ese caso no debería poder entrar a ejecutar o validar la prestacion
+     *
+     * @param {*} turno
+     * @returns
+     * @memberof PuntoInicioComponent
+     */
+    tienePermisos(turno) {
+        let existe = this.auth.getPermissions('rup:tipoPrestacion:?').find(permiso => (permiso === turno.tipoPrestacion._id));
+        if (turno.prestacion) {
+            const estado = turno.prestacion.estados[turno.prestacion.estados.length - 1];
+            if (estado.tipo !== 'pendiente' && estado.createdBy.username !== this.auth.usuario.username) {
+                return false;
             }
         }
         return existe;
@@ -590,7 +596,7 @@ export class PuntoInicioComponent implements OnInit {
 
         return (this.esFutura(agenda) && turno.paciente && turno.estado !== 'suspendido' && turno.prestacion &&
             turno.prestacion.estados[turno.prestacion.estados.length - 1].tipo === 'pendiente' &&
-            this.tienePermisos(turno.tipoPrestacion, turno.prestacion) && condAsistencia);
+            this.tienePermisos(turno) && condAsistencia);
     }
 
 
@@ -611,7 +617,7 @@ export class PuntoInicioComponent implements OnInit {
         }
 
         return (!this.esFutura(agenda) && turno.paciente && turno.estado !== 'suspendido' &&
-            this.tienePermisos(turno.tipoPrestacion, turno.prestacion) && condAsistencia);
+            this.tienePermisos(turno) && condAsistencia);
     }
 
     /**
@@ -629,5 +635,4 @@ export class PuntoInicioComponent implements OnInit {
             turno.estado !== 'suspendido' && (!turno.asistencia || (turno.asistencia && turno.asistencia === 'asistio')) &&
             turno.paciente && turno.diagnostico.codificaciones.length === 0;
     }
-
 }
