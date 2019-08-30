@@ -22,6 +22,8 @@ export class TurnosPrestacionesComponent implements OnInit, OnDestroy {
     private hoy;
     public fechaDesde: any;
     public fechaHasta: any;
+    public fechaDesdeTope: any;
+    public fechaHastaTope: any;
     private sumar;
     private sinOS;
     public showPrestacion;
@@ -33,6 +35,9 @@ export class TurnosPrestacionesComponent implements OnInit, OnDestroy {
     prestacion: any;
     router: any;
     public prestaciones: any;
+
+    public botonGuardarDisabled: Boolean = true;
+
     constructor(
         private auth: Auth, private plex: Plex,
         private turnosPrestacionesService: TurnosPrestacionesService, public servicioPrestacion: TipoPrestacionService, public serviceProfesional: ProfesionalService,
@@ -123,18 +128,37 @@ export class TurnosPrestacionesComponent implements OnInit, OnDestroy {
             this.loading = false;
         });
     }
+
     refreshSelection(value, tipo) {
+
+        if (this.lastRequest) {
+            this.lastRequest.unsubscribe();
+        }
+
         let fechaDesde = this.fechaDesde ? moment(this.fechaDesde).startOf('day') : null;
         let fechaHasta = this.fechaHasta ? moment(this.fechaHasta).endOf('day') : null;
+
+        this.botonGuardarDisabled =  (!this.documento || this.documento === '') && (!this.prestaciones || this.prestaciones.length === 0);
+
         if (fechaDesde && fechaDesde.isValid() && fechaHasta && fechaHasta.isValid()) {
             if (tipo === 'fechaDesde') {
                 if (fechaDesde.isValid()) {
+
+                    if (fechaDesde.month() < fechaHasta.month()) {
+                        this.fechaHasta = fechaHasta.subtract('months', 1).endOf('month').toDate();
+                    }
+
                     this.parametros['fechaDesde'] = fechaDesde.isValid() ? fechaDesde.toDate() : moment().format();
                     this.parametros['organizacion'] = this.auth.organizacion._id;
                 }
             }
             if (tipo === 'fechaHasta') {
                 if (fechaHasta.isValid()) {
+
+                    if (fechaDesde.month() < fechaHasta.month()) {
+                        this.fechaDesde = fechaDesde.add('months', 1).startOf('month').toDate();
+                    }
+
                     this.parametros['fechaHasta'] = fechaHasta.isValid() ? fechaHasta.toDate() : moment().format();
                     this.parametros['organizacion'] = this.auth.organizacion._id;
                 }
